@@ -6,18 +6,14 @@
 
     <title>StatsMaps</title>
 
-    <!-- MapLibre -->
     <link
-        href="https://unpkg.com/maplibre-gl@5.6.1/dist/maplibre-gl.css"
+        href="https://unpkg.com/maplibre-gl@6.6.0/dist/maplibre-gl.css"
         rel="stylesheet"
-    />
+    >
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        html, body {
+        html,
+        body {
             margin: 0;
             padding: 0;
             width: 100%;
@@ -35,18 +31,37 @@
 
     <div id="map"></div>
 
-    <!-- MapLibre -->
-    <script src="https://unpkg.com/maplibre-gl@5.6.1/dist/maplibre-gl.js"></script>
+    <script src="https://unpkg.com/maplibre-gl@6.6.0/dist/maplibre-gl.js"></script>
 
     <script>
         const map = new maplibregl.Map({
             container: 'map',
 
-            style: 'https://demotiles.maplibre.org/style.json',
+            style: {
+                version: 8,
+
+                sources: {
+                    osm: {
+                        type: 'raster',
+                        tiles: [
+                            'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+                        ],
+                        tileSize: 256,
+                        attribution: '© OpenStreetMap contributors'
+                    }
+                },
+
+                layers: [
+                    {
+                        id: 'osm',
+                        type: 'raster',
+                        source: 'osm'
+                    }
+                ]
+            },
 
             center: [2.35, 48.85],
-
-            zoom: 4
+            zoom: 5
         });
 
         map.addControl(
