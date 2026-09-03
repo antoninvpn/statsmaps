@@ -58,6 +58,18 @@ NOMS_COURTS = {
     "VAT": ("Vatican", "Vatican"),
 }
 
+# --- La Crimée -----------------------------------------------------------
+# Natural Earth rattache la Crimée à la Russie : c'est leur vue « de fait »,
+# celle du contrôle militaire sur le terrain.
+# StatsMaps suit le droit international : la résolution 68/262 de l'Assemblée
+# générale de l'ONU (mars 2014) reconnaît la Crimée comme territoire ukrainien.
+# On la déplace donc du côté ukrainien.
+#
+# Dans le fichier source, la Crimée est un morceau séparé de la géométrie
+# russe. On le reconnaît à sa position : cette « boîte » l'entoure et ne
+# contient aucun autre morceau de la Russie.
+CRIMEE_BOITE = (32.0, 44.0, 37.0, 46.5)  # lon min, lat min, lon max, lat max
+
 RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FICHIER_SORTIE = os.path.join(RACINE, "data", "pays.geojson")
 
@@ -104,6 +116,54 @@ def anneaux_valides(geometrie):
         return {"type": "MultiPolygon", "coordinates": polygones} if polygones else None
 
     return geometrie
+
+
+def liste_des_polygones(geometrie):
+    """Renvoie toujours une liste de polygones, que la géométrie soit un
+    Polygon (un seul morceau) ou un MultiPolygon (plusieurs morceaux)."""
+    if geometrie["type"] == "Polygon":
+        return [geometrie["coordinates"]]
+    return list(geometrie["coordinates"])
+
+
+def rattacher_crimee_a_ukraine(pays):
+    """Déplace le morceau « Crimée » de la Russie vers l'Ukraine.
+    Renvoie True si le déplacement a bien eu lieu."""
+    russie = ukraine = None
+    for element in pays:
+        code = element["properties"]["iso"]
+        if code == "RUS":
+            russie = element
+        elif code == "UKR":
+            ukraine = element
+    if russie is None or ukraine is None:
+        return False
+
+    lon_min, lat_min, lon_max, lat_max = CRIMEE_BOITE
+
+    def est_la_crimee(polygone):
+        contour = polygone[0]
+        lons = [point[0] for point in contour]
+        lats = [point[1] for point in contour]
+        return (lon_min <= min(lons) and max(lons) <= lon_max
+                and lat_min <= min(lats) and max(lats) <= lat_max)
+
+    morceaux_russie = liste_des_polygones(russie["geometry"])
+    crimee = [m for m in morceaux_russie if est_la_crimee(m)]
+    if len(crimee) != 1:
+        # Le fichier source a changé : on préfère ne rien faire plutôt que
+        # de déplacer le mauvais morceau, et on le signale.
+        print("  ATTENTION : %d morceau(x) trouvé(s) dans la zone de la Crimée,"
+              " déplacement annulé." % len(crimee))
+        return False
+
+    restants = [m for m in morceaux_russie if not est_la_crimee(m)]
+    russie["geometry"] = {"type": "MultiPolygon", "coordinates": restants}
+    ukraine["geometry"] = {
+        "type": "MultiPolygon",
+        "coordinates": liste_des_polygones(ukraine["geometry"]) + crimee,
+    }
+    return True
 
 
 # --- Programme principal --------------------------------------------------
@@ -156,6 +216,9 @@ def main():
             },
             "geometry": geometrie,
         })
+
+    if rattacher_crimee_a_ukraine(pays_sortants):
+        print("  Crimée rattachée à l'Ukraine (résolution ONU 68/262).")
 
     resultat = {"type": "FeatureCollection", "features": pays_sortants}
 
