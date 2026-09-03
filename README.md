@@ -107,11 +107,23 @@ publique…). Pour en ajouter un :
 - **Données économiques** : [FMI — World Economic Outlook](https://www.imf.org/external/datamapper/datasets/WEO)
 - **Frontières** : [Natural Earth](https://www.naturalearthdata.com/), échelle 1:50 m (domaine public)
 
-  Deux écarts assumés par rapport au fichier d'origine, appliqués par
-  `scripts/build_geojson.py` :
-  - la **Crimée** est rattachée à l'Ukraine (résolution 68/262 de l'ONU),
-    alors que Natural Earth la place côté russe dans sa vue « de fait » ;
-  - l'**Antarctique** est retiré (aucune donnée, aucun pays).
+  Natural Earth dessine le monde « tel qu'il est contrôlé sur le terrain ».
+  StatsMaps suit la **reconnaissance internationale**. Les écarts assumés,
+  tous appliqués par `scripts/build_geojson.py` :
+
+  | Écart | Pourquoi |
+  |---|---|
+  | La **Crimée** est ukrainienne | Résolution 68/262 de l'Assemblée générale de l'ONU (2014) |
+  | **Chypre du Nord** est fondue dans Chypre | Reconnue par la seule Turquie |
+  | Le **Somaliland** est fondu dans la Somalie | Reconnu par aucun État |
+  | L'**Antarctique** est retiré | Ce n'est pas un pays et il n'a aucune donnée |
+
+  Les territoires fusionnés sont **soudés** au pays qui les absorbe : aucun
+  trait de frontière ne subsiste à l'intérieur. La soudure est contrôlée par
+  un calcul de surface, et annulée si le résultat n'est pas cohérent.
+
+  Pour en ajouter ou en retirer : la liste `FUSIONS`, en haut de
+  `scripts/build_geojson.py`.
 - **Carte** : [MapLibre GL JS](https://maplibre.org/) (licence BSD-3)
 
 Le site est **statique** : pas de base de données, pas de serveur, pas de

@@ -33,6 +33,18 @@ SOURCE_URL = (
 # grande tache grise en bas de la carte. On ne le garde pas.
 PAYS_EXCLUS = {"ATA"}
 
+# --- Territoires fusionnés -----------------------------------------------
+# Natural Earth dessine certains territoires comme des pays à part entière,
+# parce qu'ils sont administrés séparément « dans les faits ». StatsMaps suit
+# la reconnaissance internationale : ces territoires sont fondus dans le pays
+# dont ils font officiellement partie, sans laisser de trait entre les deux.
+#
+# Format : (code du territoire absorbé, code du pays qui l'absorbe, explication)
+FUSIONS = [
+    ("CYN", "CYP", "Chypre du Nord, reconnue par la seule Turquie, fondue dans Chypre"),
+    ("SOL", "SOM", "le Somaliland, reconnu par aucun État, fondu dans la Somalie"),
+]
+
 # Précision des coordonnées, en nombre de décimales.
 # 2 décimales ≈ 1 km de précision : largement suffisant pour une carte du monde,
 # et ça divise le poids du fichier par 5.
@@ -214,6 +226,44 @@ def souder(contour_a, contour_b):
     return fusion
 
 
+def fusionner(pays, code_absorbe, code_hote, explication):
+    """Fond un territoire dans un autre pays : les contours qui se touchent
+    sont soudés, les îles détachées sont simplement rattachées.
+    Le territoire absorbé disparaît de la liste."""
+    absorbe = hote = None
+    for element in pays:
+        code = element["properties"]["iso"]
+        if code == code_absorbe:
+            absorbe = element
+        elif code == code_hote:
+            hote = element
+    if absorbe is None or hote is None:
+        return False
+
+    morceaux = liste_des_polygones(hote["geometry"])
+    soudures = 0
+
+    for morceau in liste_des_polygones(absorbe["geometry"]):
+        for indice, cible in enumerate(morceaux):
+            fusion = souder(cible[0], morceau[0])
+            if fusion is not None:
+                # [contour extérieur soudé] + les éventuels trous des deux côtés
+                morceaux[indice] = [fusion] + cible[1:] + morceau[1:]
+                soudures += 1
+                break
+        else:
+            morceaux.append(morceau)  # île séparée : rien à souder
+
+    if len(morceaux) == 1:
+        hote["geometry"] = {"type": "Polygon", "coordinates": morceaux[0]}
+    else:
+        hote["geometry"] = {"type": "MultiPolygon", "coordinates": morceaux}
+
+    pays.remove(absorbe)
+    print("  Fusion : %s (%d soudure(s))." % (explication, soudures))
+    return True
+
+
 def rattacher_crimee_a_ukraine(pays):
     """Déplace le morceau « Crimée » de la Russie vers l'Ukraine,
     puis le soude au continent pour qu'aucun trait ne les sépare.
@@ -330,6 +380,10 @@ def main():
 
     if rattacher_crimee_a_ukraine(pays_sortants):
         print("  Crimée rattachée à l'Ukraine (résolution ONU 68/262).")
+
+    for code_absorbe, code_hote, explication in FUSIONS:
+        if not fusionner(pays_sortants, code_absorbe, code_hote, explication):
+            print("  ATTENTION : fusion %s -> %s impossible." % (code_absorbe, code_hote))
 
     resultat = {"type": "FeatureCollection", "features": pays_sortants}
 
