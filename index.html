@@ -1,256 +1,63 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StatsMaps</title>
-    <!-- MapLibre -->
-    <link
-        href="https://unpkg.com/maplibre-gl@5.6.1/dist/maplibre-gl.css"
-        rel="stylesheet"
-    />
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-        }
-        #map {
-            width: 100%;
-            height: 100%;
-        }
-        .maplibregl-popup-content {
-            font-family: sans-serif;
-            font-size: 14px;
-        }
-
-        /* Panneau "Classement PIB nominal" */
-        #gdp-panel {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 300px;
-            max-height: calc(100% - 20px);
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.25);
-            font-family: sans-serif;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            z-index: 1;
-        }
-        #gdp-panel h2 {
-            margin: 0;
-            padding: 12px 14px 8px;
-            font-size: 15px;
-        }
-        #gdp-panel .gdp-source {
-            padding: 0 14px 10px;
-            font-size: 11px;
-            color: #777;
-        }
-        #gdp-list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            overflow-y: auto;
-        }
-        #gdp-list li {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 7px 14px;
-            border-top: 1px solid #eee;
-            font-size: 13px;
-            cursor: pointer;
-        }
-        #gdp-list li:hover {
-            background: #f5f5f5;
-        }
-        #gdp-list .rank {
-            width: 20px;
-            color: #999;
-            font-weight: bold;
-        }
-        #gdp-list .name {
-            flex: 1;
-        }
-        #gdp-list .value {
-            color: #555;
-            font-variant-numeric: tabular-nums;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StatsMaps — cartes et statistiques mondiales</title>
+  <meta name="description" content="Cartes interactives des statistiques mondiales : PIB nominal, PIB par habitant et croissance de 167 pays, de 1980 à 2031, à partir des données officielles du FMI.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://statsmaps.com/">
+  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/">
+  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/">
+  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="StatsMaps — cartes et statistiques mondiales">
+  <meta property="og:description" content="Cartes interactives des statistiques mondiales : PIB nominal, PIB par habitant et croissance de 167 pays, de 1980 à 2031, à partir des données officielles du FMI.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://statsmaps.com/">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <script src="./assets/js/theme.js"></script>
 </head>
 <body>
-    <div id="map"></div>
 
-    <!-- Compartiment : classement des pays par PIB nominal -->
-    <div id="gdp-panel">
-        <h2>🌍 PIB nominal par pays</h2>
-        <div class="gdp-source">Source : FMI, World Economic Outlook</div>
-        <ul id="gdp-list">
-            <li>Chargement…</li>
-        </ul>
+  <header class="barre">
+    <a class="barre__logo" href="./">Stats<span>Maps</span></a>
+    <nav class="barre__nav" aria-label="Cartes">
+        <a class="barre__lien" href="./pib-nominal/"><span class="long">PIB nominal</span><span class="court">PIB</span></a>
+        <a class="barre__lien" href="./pib-par-habitant/"><span class="long">PIB par habitant</span><span class="court">PIB/hab.</span></a>
+        <a class="barre__lien" href="./croissance/"><span class="long">Croissance</span><span class="court">Croissance</span></a>
+    </nav>
+    <div class="barre__droite">
+      <a class="bouton-icone" href="en/" hreflang="en" title="Switch to English">EN</a>
+      <button class="bouton-icone" id="bouton-theme" type="button" aria-label="Changer de thème">☾</button>
+    </div>
+  </header>
+
+  <main class="accueil">
+    <h1 class="accueil__titre">Les statistiques du monde, en cartes.</h1>
+    <p class="accueil__intro">StatsMaps met en carte les grands indicateurs mondiaux à partir de sources officielles. Aujourd’hui l’économie, à partir des données du Fonds monétaire international : 167 pays, de 1980 à 2031.</p>
+
+    <div class="vignettes">
+      <a class="vignette" href="pib-nominal/">
+        <div class="vignette__pastille">💰</div>
+        <div class="vignette__titre">PIB nominal</div>
+        <p class="vignette__texte">La taille de chaque économie, en milliards de dollars courants.</p>
+      </a>
+      <a class="vignette" href="pib-par-habitant/">
+        <div class="vignette__pastille">👤</div>
+        <div class="vignette__titre">PIB par habitant</div>
+        <p class="vignette__texte">La richesse produite par personne, en dollars courants.</p>
+      </a>
+      <a class="vignette" href="croissance/">
+        <div class="vignette__pastille">📈</div>
+        <div class="vignette__titre">Croissance du PIB</div>
+        <p class="vignette__texte">L’évolution du PIB réel d’une année sur l’autre, en pourcentage.</p>
+      </a>
     </div>
 
-    <!-- MapLibre -->
-    <script src="https://unpkg.com/maplibre-gl@5.6.1/dist/maplibre-gl.js"></script>
-    <script>
-        const map = new maplibregl.Map({
-            container: 'map',
-            style: 'https://demotiles.maplibre.org/style.json',
-            center: [2.35, 48.85],
-            zoom: 2
-        });
-        map.addControl(
-            new maplibregl.NavigationControl(),
-            'top-right'
-        );
+    <p class="accueil__bientot">Bientôt : démographie, infrastructures, énergie, éducation et santé.</p>
+  </main>
 
-        // On attend que le style de base soit chargé avant d'ajouter nos données
-        map.on('load', () => {
-
-            // 1. Source : un GeoJSON public des frontières des pays
-            //    (contient déjà une estimation de population : POP_EST)
-            map.addSource('countries', {
-                type: 'geojson',
-                data: 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson'
-            });
-
-            // 2. Couche de remplissage : couleur selon la population
-            //    "interpolate" crée un dégradé continu entre les paliers
-            map.addLayer({
-                id: 'countries-fill',
-                type: 'fill',
-                source: 'countries',
-                paint: {
-                    'fill-color': [
-                        'interpolate',
-                        ['linear'],
-                        ['get', 'POP_EST'],
-                        0, '#fff5eb',
-                        1000000, '#fdd0a2',
-                        20000000, '#fd8d3c',
-                        100000000, '#e6550d',
-                        1000000000, '#7f2704'
-                    ],
-                    'fill-opacity': 0.75
-                }
-            });
-
-            // 3. Contour des pays, pour bien les distinguer
-            map.addLayer({
-                id: 'countries-outline',
-                type: 'line',
-                source: 'countries',
-                paint: {
-                    'line-color': '#ffffff',
-                    'line-width': 0.5
-                }
-            });
-
-            // 4. Popup au clic : affiche le nom et la population du pays
-            map.on('click', 'countries-fill', (e) => {
-                const props = e.features[0].properties;
-                const pop = Number(props.POP_EST).toLocaleString('fr-FR');
-                new maplibregl.Popup()
-                    .setLngLat(e.lngLat)
-                    .setHTML(`<strong>${props.NAME}</strong><br>Population : ${pop}`)
-                    .addTo(map);
-            });
-
-            // Curseur "main" au survol pour indiquer que c'est cliquable
-            map.on('mouseenter', 'countries-fill', () => {
-                map.getCanvas().style.cursor = 'pointer';
-            });
-            map.on('mouseleave', 'countries-fill', () => {
-                map.getCanvas().style.cursor = '';
-            });
-        });
-
-        // -----------------------------------------------------------
-        // Compartiment "Classement PIB nominal" — données FMI (IMF DataMapper)
-        // -----------------------------------------------------------
-        const GDP_YEAR = '2025'; // année utilisée pour le classement
-
-        async function loadGdpRanking() {
-            try {
-                // NGDPD = PIB, prix courants (en milliards de USD)
-                const [gdpRes, namesRes] = await Promise.all([
-                    fetch('https://www.imf.org/external/datamapper/api/v1/NGDPD'),
-                    fetch('https://www.imf.org/external/datamapper/api/v1/countries')
-                ]);
-                const gdpJson = await gdpRes.json();
-                const namesJson = await namesRes.json();
-
-                const gdpByCountry = gdpJson.values.NGDPD;   // { ISO3: { annee: valeur, ... } }
-                const countryNames = namesJson.countries;    // { ISO3: { label: "France", ... } }
-
-                const ranking = Object.entries(gdpByCountry)
-                    .map(([iso3, years]) => ({ iso3, value: years[GDP_YEAR] }))
-                    .filter(row => typeof row.value === 'number')
-                    .sort((a, b) => b.value - a.value)
-                    .slice(0, 30); // top 30 — ajuste ce chiffre si besoin
-
-                renderGdpRanking(ranking, countryNames);
-            } catch (err) {
-                document.getElementById('gdp-list').innerHTML =
-                    '<li>Erreur de chargement des données du FMI.</li>';
-                console.error(err);
-            }
-        }
-
-        function renderGdpRanking(ranking, countryNames) {
-            const list = document.getElementById('gdp-list');
-            list.innerHTML = '';
-            ranking.forEach((row, index) => {
-                const label = (countryNames[row.iso3] && countryNames[row.iso3].label) || row.iso3;
-                const formattedValue = row.value.toLocaleString('fr-FR', { maximumFractionDigits: 0 });
-
-                const li = document.createElement('li');
-                li.innerHTML = `
-                    <span class="rank">${index + 1}</span>
-                    <span class="name">${label}</span>
-                    <span class="value">${formattedValue} Md$</span>
-                `;
-                li.addEventListener('click', () => flyToCountry(row.iso3));
-                list.appendChild(li);
-            });
-        }
-
-        // Zoome sur le pays cliqué dans le classement, en utilisant
-        // les géométries déjà chargées dans la source "countries"
-        function flyToCountry(iso3) {
-            if (!map.getSource('countries')) return;
-            const features = map.querySourceFeatures('countries', {
-                filter: ['==', ['get', 'ADM0_A3'], iso3]
-            });
-            if (!features.length) return;
-
-            const bounds = new maplibregl.LngLatBounds();
-            features.forEach(f => extendBoundsWithGeometry(bounds, f.geometry));
-            map.fitBounds(bounds, { padding: 40, maxZoom: 6 });
-        }
-
-        // Petit utilitaire : parcourt une géométrie GeoJSON (Polygon ou
-        // MultiPolygon) pour agrandir une LngLatBounds à chaque point trouvé
-        function extendBoundsWithGeometry(bounds, geometry) {
-            const walk = (coords) => {
-                if (typeof coords[0] === 'number') {
-                    bounds.extend(coords);
-                } else {
-                    coords.forEach(walk);
-                }
-            };
-            walk(geometry.coordinates);
-        }
-
-        loadGdpRanking();
-    </script>
+  <footer class="pied">Données : FMI (World Economic Outlook) · Fonds de carte : Natural Earth · Site sans publicité ni traceur.</footer>
 </body>
 </html>

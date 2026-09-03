@@ -1,0 +1,50 @@
+# ============================================================================
+# Mise à jour automatique des données du FMI.
+#
+# Ce fichier dit à GitHub : « chaque lundi matin, relance le script Python qui
+# va chercher les chiffres chez le FMI, et si les chiffres ont changé,
+# enregistre-les. » Le site se met alors à jour tout seul.
+#
+# On peut aussi le déclencher à la main : onglet "Actions" du dépôt GitHub,
+# puis le bouton "Run workflow".
+# ============================================================================
+
+name: Mise à jour des données FMI
+
+on:
+  schedule:
+    # Tous les lundis à 6h00 UTC (7h ou 8h en France selon la saison).
+    - cron: "0 6 * * 1"
+  workflow_dispatch: # le bouton manuel
+
+permissions:
+  contents: write # autorise le robot à enregistrer les nouveaux chiffres
+
+jobs:
+  mettre-a-jour:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le site
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Aller chercher les chiffres chez le FMI
+        run: python3 scripts/build_donnees.py
+
+      - name: Enregistrer si quelque chose a changé
+        run: |
+          if git diff --quiet -- data/; then
+            echo "Aucun changement : le FMI n'a rien publié de nouveau."
+            exit 0
+          fi
+          git config user.name "StatsMaps (robot)"
+          git config user.email "actions@github.com"
+          git add data/
+          git commit -m "Données FMI mises à jour ($(date +%d/%m/%Y))"
+          git push
+          echo "Nouveaux chiffres enregistrés."

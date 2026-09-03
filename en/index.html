@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StatsMaps — world statistics on interactive maps</title>
+  <meta name="description" content="Interactive maps of world statistics: nominal GDP, GDP per capita and growth for 167 countries, from 1980 to 2031, based on official IMF data.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://statsmaps.com/en/">
+  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/">
+  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/">
+  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="StatsMaps — world statistics on interactive maps">
+  <meta property="og:description" content="Interactive maps of world statistics: nominal GDP, GDP per capita and growth for 167 countries, from 1980 to 2031, based on official IMF data.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://statsmaps.com/en/">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/theme.js"></script>
+</head>
+<body>
+
+  <header class="barre">
+    <a class="barre__logo" href="./">Stats<span>Maps</span></a>
+    <nav class="barre__nav" aria-label="Maps">
+        <a class="barre__lien" href="./gdp/"><span class="long">Nominal GDP</span><span class="court">GDP</span></a>
+        <a class="barre__lien" href="./gdp-per-capita/"><span class="long">GDP per capita</span><span class="court">GDP/cap.</span></a>
+        <a class="barre__lien" href="./growth/"><span class="long">Growth</span><span class="court">Growth</span></a>
+    </nav>
+    <div class="barre__droite">
+      <a class="bouton-icone" href="../" hreflang="fr" title="Passer en français">FR</a>
+      <button class="bouton-icone" id="bouton-theme" type="button" aria-label="Changer de thème">☾</button>
+    </div>
+  </header>
+
+  <main class="accueil">
+    <h1 class="accueil__titre">The world’s statistics, mapped.</h1>
+    <p class="accueil__intro">StatsMaps turns major global indicators into interactive maps, using official sources. Starting with the economy, based on International Monetary Fund data: 167 countries, from 1980 to 2031.</p>
+
+    <div class="vignettes">
+      <a class="vignette" href="gdp/">
+        <div class="vignette__pastille">💰</div>
+        <div class="vignette__titre">Nominal GDP</div>
+        <p class="vignette__texte">The size of each economy, in billions of current US dollars.</p>
+      </a>
+      <a class="vignette" href="gdp-per-capita/">
+        <div class="vignette__pastille">👤</div>
+        <div class="vignette__titre">GDP per capita</div>
+        <p class="vignette__texte">Wealth produced per person, in current US dollars.</p>
+      </a>
+      <a class="vignette" href="growth/">
+        <div class="vignette__pastille">📈</div>
+        <div class="vignette__titre">GDP growth</div>
+        <p class="vignette__texte">Year-on-year change in real GDP, as a percentage.</p>
+      </a>
+    </div>
+
+    <p class="accueil__bientot">Coming soon: demographics, infrastructure, energy, education and health.</p>
+  </main>
+
+  <footer class="pied">Data: IMF (World Economic Outlook) · Basemap: Natural Earth · No ads, no trackers.</footer>
+</body>
+</html>

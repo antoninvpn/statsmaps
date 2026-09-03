@@ -1,0 +1,587 @@
+/* ==========================================================================
+   StatsMaps — feuille de style unique
+   Organisation :
+     1. Couleurs (thème clair et thème sombre)
+     2. Base
+     3. Barre de navigation
+     4. Page d'accueil
+     5. Pages de carte
+     6. Téléphones et petits écrans
+   ========================================================================== */
+
+/* --- 1. Couleurs ---------------------------------------------------------
+   Toutes les couleurs du site sont définies ici, une seule fois.
+   Changer une valeur ici change le site entier.                           */
+
+:root {
+  --fond: #ffffff;
+  --fond-doux: #f5f7fa;
+  --fond-carte: #e9edf1;          /* la mer */
+  --panneau: #ffffff;
+  --panneau-flou: rgba(255, 255, 255, 0.94);
+  --texte: #16191d;
+  --texte-doux: #5b636d;
+  --texte-tres-doux: #8b939d;
+  --bordure: #e2e6eb;
+  --bordure-forte: #cbd2da;
+  --accent: #1d4ed8;
+  --accent-doux: #eff4ff;
+  --pays-sans-donnee: #c8ced5;
+  --contour-pays: #aab5c0;
+  --ombre: 0 1px 3px rgba(16, 24, 40, 0.08), 0 6px 20px rgba(16, 24, 40, 0.08);
+  --rayon: 12px;
+}
+
+/* Thème sombre : soit choisi par le bouton, soit réglé sur le téléphone. */
+[data-theme="dark"] {
+  --fond: #0e1116;
+  --fond-doux: #161b22;
+  --fond-carte: #0b0f14;
+  --panneau: #161b22;
+  --panneau-flou: rgba(22, 27, 34, 0.94);
+  --texte: #e6edf3;
+  --texte-doux: #9aa5b1;
+  --texte-tres-doux: #6e7681;
+  --bordure: #262c36;
+  --bordure-forte: #363d47;
+  --accent: #58a6ff;
+  --accent-doux: #12253f;
+  --pays-sans-donnee: #2b323b;
+  --contour-pays: #0e1116;
+  --ombre: 0 1px 3px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --fond: #0e1116;
+    --fond-doux: #161b22;
+    --fond-carte: #0b0f14;
+    --panneau: #161b22;
+    --panneau-flou: rgba(22, 27, 34, 0.94);
+    --texte: #e6edf3;
+    --texte-doux: #9aa5b1;
+    --texte-tres-doux: #6e7681;
+    --bordure: #262c36;
+    --bordure-forte: #363d47;
+    --accent: #58a6ff;
+    --accent-doux: #12253f;
+    --pays-sans-donnee: #2b323b;
+    --contour-pays: #0e1116;
+    --ombre: 0 1px 3px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* --- 2. Base ------------------------------------------------------------ */
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--texte);
+  background: var(--fond);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Évite le clignotement blanc au chargement en thème sombre. */
+html { background: var(--fond); }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+h1, h2, h3 { line-height: 1.25; margin: 0 0 0.5em; letter-spacing: -0.015em; }
+
+/* Nombres alignés en colonne (indispensable pour un classement). */
+.nombre { font-variant-numeric: tabular-nums; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* --- 3. Barre de navigation --------------------------------------------- */
+
+.barre {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 56px;
+  padding: 0 16px;
+  background: var(--panneau);
+  border-bottom: 1px solid var(--bordure);
+  position: relative;
+  z-index: 20;
+}
+
+.barre__logo {
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+  color: var(--texte);
+  white-space: nowrap;
+}
+.barre__logo:hover { text-decoration: none; }
+.barre__logo span { color: var(--accent); }
+
+.barre__nav {
+  display: flex;
+  gap: 2px;
+  margin-left: 18px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.barre__nav::-webkit-scrollbar { display: none; }
+
+.barre__lien {
+  padding: 6px 12px;
+  border-radius: 8px;
+  color: var(--texte-doux);
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.barre__lien:hover {
+  background: var(--fond-doux);
+  color: var(--texte);
+  text-decoration: none;
+}
+.barre__lien[aria-current="page"] {
+  background: var(--accent-doux);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Chaque lien existe en version longue et courte : sur un petit écran,
+   « PIB par habitant » devient « PIB/hab. » pour que tout tienne. */
+.barre__lien .court { display: none; }
+
+.barre__droite {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bouton-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 9px;
+  border: 1px solid var(--bordure);
+  border-radius: 8px;
+  background: var(--fond);
+  color: var(--texte-doux);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+.bouton-icone:hover {
+  background: var(--fond-doux);
+  color: var(--texte);
+  border-color: var(--bordure-forte);
+  text-decoration: none;
+}
+
+/* --- 4. Page d'accueil --------------------------------------------------- */
+
+.accueil {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 56px 20px 80px;
+}
+
+.accueil__titre {
+  font-size: clamp(30px, 5.5vw, 46px);
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+
+.accueil__intro {
+  font-size: 17px;
+  color: var(--texte-doux);
+  max-width: 62ch;
+  margin-bottom: 42px;
+}
+
+.vignettes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.vignette {
+  display: block;
+  padding: 22px;
+  background: var(--panneau);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  color: var(--texte);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.vignette:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--ombre);
+  border-color: var(--accent);
+  text-decoration: none;
+}
+
+.vignette__pastille {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 14px;
+  background: var(--accent-doux);
+}
+
+.vignette__titre { font-size: 17px; font-weight: 700; margin-bottom: 5px; }
+.vignette__texte { font-size: 14px; color: var(--texte-doux); margin: 0; }
+
+.accueil__bientot {
+  margin-top: 46px;
+  padding-top: 26px;
+  border-top: 1px solid var(--bordure);
+  font-size: 14px;
+  color: var(--texte-tres-doux);
+}
+
+.pied {
+  border-top: 1px solid var(--bordure);
+  padding: 22px 20px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--texte-tres-doux);
+}
+
+/* --- 5. Pages de carte --------------------------------------------------- */
+
+body.page-carte {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.zone-carte {
+  flex: 1;
+  position: relative;
+  min-height: 0;
+  background: var(--fond-carte);
+}
+
+#carte { position: absolute; inset: 0; }
+
+/* Panneau de classement, à gauche */
+.panneau {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  width: 310px;
+  max-height: calc(100% - 28px);
+  display: flex;
+  flex-direction: column;
+  background: var(--panneau-flou);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre);
+  overflow: hidden;
+  z-index: 10;
+}
+
+.panneau__entete { padding: 14px 15px 11px; border-bottom: 1px solid var(--bordure); }
+.panneau__titre { font-size: 15px; font-weight: 700; margin: 0 0 2px; }
+.panneau__soustitre { font-size: 12px; color: var(--texte-tres-doux); }
+
+.panneau__recherche {
+  width: 100%;
+  margin-top: 11px;
+  padding: 7px 11px;
+  border: 1px solid var(--bordure);
+  border-radius: 8px;
+  background: var(--fond);
+  color: var(--texte);
+  font-size: 13px;
+  font-family: inherit;
+}
+.panneau__recherche::placeholder { color: var(--texte-tres-doux); }
+
+.classement { list-style: none; margin: 0; padding: 0; overflow-y: auto; }
+
+.classement li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 15px;
+  border-bottom: 1px solid var(--bordure);
+  font-size: 13px;
+  cursor: pointer;
+}
+.classement li:last-child { border-bottom: none; }
+.classement li:hover { background: var(--fond-doux); }
+.classement li.est-actif { background: var(--accent-doux); }
+
+.classement .rang {
+  width: 24px;
+  flex-shrink: 0;
+  color: var(--texte-tres-doux);
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.classement .puce {
+  width: 9px; height: 9px;
+  flex-shrink: 0;
+  border-radius: 2px;
+}
+.classement .nom {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.classement .valeur {
+  color: var(--texte-doux);
+  font-variant-numeric: tabular-nums;
+  font-size: 12.5px;
+  white-space: nowrap;
+}
+.classement .vide { padding: 16px 15px; color: var(--texte-tres-doux); cursor: default; }
+.classement .vide:hover { background: none; }
+
+/* Légende, en bas à droite */
+.legende {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  padding: 12px 14px;
+  background: var(--panneau-flou);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre);
+  z-index: 10;
+  max-width: 260px;
+}
+.legende__titre {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--texte-tres-doux);
+  margin-bottom: 9px;
+}
+.legende__barre { display: flex; border-radius: 4px; overflow: hidden; height: 12px; }
+.legende__case { flex: 1; }
+.legende__valeurs {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-size: 10.5px;
+  color: var(--texte-doux);
+  font-variant-numeric: tabular-nums;
+}
+.legende__nd {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 10px;
+  font-size: 11.5px;
+  color: var(--texte-tres-doux);
+}
+.legende__nd i {
+  width: 12px; height: 12px;
+  border-radius: 3px;
+  background: var(--pays-sans-donnee);
+  display: inline-block;
+}
+
+/* Curseur d'années, en bas au centre */
+.annees {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  width: min(460px, calc(100% - 360px));
+  padding: 11px 18px 13px;
+  background: var(--panneau-flou);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre);
+  z-index: 10;
+}
+.annees__haut {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 7px;
+}
+.annees__valeur { font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.annees__etiquette { font-size: 11.5px; color: var(--texte-tres-doux); }
+.annees__projection { color: #d97706; font-weight: 600; }
+[data-theme="dark"] .annees__projection { color: #f0b429; }
+
+.annees input[type="range"] {
+  width: 100%;
+  margin: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.annees__bornes {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10.5px;
+  color: var(--texte-tres-doux);
+  margin-top: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Ligne "Source : FMI…", collée en bas du panneau de classement */
+.panneau__pied {
+  flex-shrink: 0;
+  padding: 9px 15px;
+  border-top: 1px solid var(--bordure);
+  background: var(--panneau-flou);
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--texte-tres-doux);
+}
+.panneau__pied a { color: var(--texte-doux); }
+
+/* Infobulle MapLibre */
+.maplibregl-popup-content {
+  font-family: inherit;
+  font-size: 13px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  background: var(--panneau);
+  color: var(--texte);
+  box-shadow: var(--ombre);
+  border: 1px solid var(--bordure);
+}
+.maplibregl-popup-tip { display: none; }
+.maplibregl-popup-close-button { color: var(--texte-tres-doux); font-size: 17px; }
+.popup__nom { font-weight: 700; font-size: 14px; margin-bottom: 3px; }
+.popup__valeur { font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.popup__detail { font-size: 11.5px; color: var(--texte-tres-doux); margin-top: 2px; }
+
+.maplibregl-ctrl-group {
+  background: var(--panneau) !important;
+  border: 1px solid var(--bordure) !important;
+  box-shadow: var(--ombre) !important;
+}
+.maplibregl-ctrl-group button + button { border-top: 1px solid var(--bordure) !important; }
+[data-theme="dark"] .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(0.85); }
+
+/* Écran de chargement */
+.chargement {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fond);
+  color: var(--texte-doux);
+  font-size: 14px;
+  z-index: 30;
+  transition: opacity 0.3s ease;
+}
+.chargement[hidden] { display: none; }
+.chargement.est-fini { opacity: 0; pointer-events: none; }
+
+/* --- 6. Téléphones et petits écrans -------------------------------------- */
+
+/* Bouton qui ouvre/ferme le classement sur mobile (caché sur ordinateur) */
+.bouton-panneau { display: none; }
+
+@media (max-width: 860px) {
+  .barre { padding: 0 12px; height: 52px; }
+  .barre__nav { margin-left: 10px; }
+  .barre__lien { padding: 5px 9px; font-size: 13px; }
+
+  .bouton-panneau {
+    display: inline-flex;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 12;
+    background: var(--panneau);
+    box-shadow: var(--ombre);
+  }
+
+  .panneau {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    max-height: 58%;
+    border-radius: var(--rayon) var(--rayon) 0 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    transform: translateY(101%);
+    transition: transform 0.25s ease;
+  }
+  .panneau.est-ouvert { transform: translateY(0); }
+
+  .annees {
+    width: calc(100% - 24px);
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    transform: none;
+  }
+
+  /* Sur téléphone, la légende monte en haut à droite : c'est le seul endroit
+     vraiment libre, et elle ne peut donc plus chevaucher le curseur. */
+  .legende {
+    top: 12px;
+    bottom: auto;
+    right: 12px;
+    max-width: 178px;
+    padding: 9px 11px;
+  }
+  .legende__titre { font-size: 10px; margin-bottom: 7px; }
+  .legende__valeurs { font-size: 9.5px; }
+  .legende__nd { font-size: 10.5px; margin-top: 8px; }
+
+  /* Sur téléphone, on zoome en pinçant avec deux doigts : les boutons +/-
+     sont inutiles et se retrouveraient cachés derrière la légende. */
+  .maplibregl-ctrl-top-right { display: none; }
+}
+
+/* En dessous de 560 px, on bascule sur les libellés courts. */
+@media (max-width: 560px) {
+  .barre__lien .long { display: none; }
+  .barre__lien .court { display: inline; }
+}
+
+@media (max-width: 420px) {
+  .barre__logo { font-size: 15px; }
+  .barre__lien { padding: 5px 7px; font-size: 12px; }
+  .barre__nav { margin-left: 6px; }
+}
+
+/* Respecte le réglage « réduire les animations » du système. */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
