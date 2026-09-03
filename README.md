@@ -4,7 +4,7 @@ Cartes interactives des statistiques mondiales, à partir de sources officielles
 En ligne : **https://statsmaps.com**
 
 Aujourd'hui : l'économie, avec les données du **FMI** (World Economic Outlook) —
-167 pays, de 1980 à 2031.
+197 pays, de 1980 à 2031.
 
 ---
 
@@ -105,7 +105,13 @@ publique…). Pour en ajouter un :
 ## 🧾 Sources et licences
 
 - **Données économiques** : [FMI — World Economic Outlook](https://www.imf.org/external/datamapper/datasets/WEO)
-- **Frontières** : [Natural Earth](https://www.naturalearthdata.com/) (domaine public)
+- **Frontières** : [Natural Earth](https://www.naturalearthdata.com/), échelle 1:50 m (domaine public)
+
+  Deux écarts assumés par rapport au fichier d'origine, appliqués par
+  `scripts/build_geojson.py` :
+  - la **Crimée** est rattachée à l'Ukraine (résolution 68/262 de l'ONU),
+    alors que Natural Earth la place côté russe dans sa vue « de fait » ;
+  - l'**Antarctique** est retiré (aucune donnée, aucun pays).
 - **Carte** : [MapLibre GL JS](https://maplibre.org/) (licence BSD-3)
 
 Le site est **statique** : pas de base de données, pas de serveur, pas de

@@ -495,7 +495,9 @@
       else coordonnees.forEach(parcourir);
     })(pays.geometry.coordinates);
 
-    carte.fitBounds(limites, { padding: 60, maxZoom: 5, duration: 700 });
+    /* maxZoom assez élevé pour que les tout petits pays (Singapour, Malte,
+       Nauru...) remplissent quand même l'écran quand on clique dessus. */
+    carte.fitBounds(limites, { padding: 60, maxZoom: 6.5, duration: 700 });
     ouvrirInfobulle(iso, limites.getCenter());
   }
 
@@ -626,7 +628,7 @@
     if (ecran) ecran.textContent = t("chargement");
 
     Promise.all([
-      charger("data/pays.geojson"),
+      charger("data/pays.json"),
       charger("data/" + idCarte + ".json"),
       charger("data/meta.json"),
     ])
