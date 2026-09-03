@@ -3,42 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Nominal GDP by country — interactive world map | StatsMaps</title>
-  <meta name="description" content="Interactive map of nominal GDP for 197 countries, from 1980 to 2031. Official IMF data (World Economic Outlook), world ranking and year-by-year evolution.">
+  <title>When GDP per capita peaked, by country — interactive world map | StatsMaps</title>
+  <meta name="description" content="Interactive map showing the year each country’s GDP per capita peaked, from 1980 to 2031, including IMF projections. Green for countries at their peak today, red for those that never recovered. Official IMF data.">
   <meta name="theme-color" content="#ffffff">
-  <link rel="canonical" href="https://statsmaps.com/en/gdp/">
-  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-nominal/">
-  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp/">
-  <link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp/">
-  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-nominal/">
+  <link rel="canonical" href="https://statsmaps.com/en/when-gdp-per-capita-peaked/">
+  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib-par-habitant/">
+  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-per-capita-peaked/">
+  <link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp-na-osobu/">
+  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib-par-habitant/">
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="Nominal GDP by country — interactive world map">
-  <meta property="og:description" content="Interactive map of nominal GDP for 197 countries, from 1980 to 2031. Official IMF data (World Economic Outlook), world ranking and year-by-year evolution.">
+  <meta property="og:title" content="When GDP per capita peaked, by country — interactive world map">
+  <meta property="og:description" content="Interactive map showing the year each country’s GDP per capita peaked, from 1980 to 2031, including IMF projections. Green for countries at their peak today, red for those that never recovered. Official IMF data.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://statsmaps.com/en/gdp/">
+  <meta property="og:url" content="https://statsmaps.com/en/when-gdp-per-capita-peaked/">
   <link rel="preload" href="../../data/pays.json" as="fetch" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.1/maplibre-gl.css">
   <link rel="stylesheet" href="../../assets/css/style.css">
   <script src="../../assets/js/theme.js"></script>
 </head>
-<body class="page-carte" data-indicateur="pib-nominal" data-langue="en" data-base="../../">
+<body class="page-carte" data-indicateur="annee-record-pib-par-habitant" data-langue="en" data-base="../../">
 
   <header class="barre">
     <a class="barre__logo" href="../">Stats<span>Maps</span></a>
     <nav class="barre__nav" aria-label="Maps">
-        <a class="barre__lien" href="../gdp/" aria-current="page"><span class="long">Nominal GDP</span><span class="court">GDP</span></a>
+        <a class="barre__lien" href="../gdp/"><span class="long">Nominal GDP</span><span class="court">GDP</span></a>
         <a class="barre__lien" href="../gdp-per-capita/"><span class="long">GDP per capita</span><span class="court">GDP/cap.</span></a>
         <a class="barre__lien" href="../growth/"><span class="long">Growth</span><span class="court">Growth</span></a>
         <a class="barre__lien" href="../when-gdp-peaked/"><span class="long">When GDP peaked</span><span class="court">GDP peak</span></a>
-        <a class="barre__lien" href="../when-gdp-per-capita-peaked/"><span class="long">When GDP per capita peaked</span><span class="court">GDP/cap. peak</span></a>
+        <a class="barre__lien" href="../when-gdp-per-capita-peaked/" aria-current="page"><span class="long">When GDP per capita peaked</span><span class="court">GDP/cap. peak</span></a>
     </nav>
     <div class="barre__droite">
       <details class="langues">
         <summary class="bouton-icone" title="Language" aria-label="Language">🇬🇧</summary>
         <div class="langues__menu">
-          <a href="/pib-nominal/" hreflang="fr" lang="fr"><span class="drapeau" aria-hidden="true">🇫🇷</span>Français</a>
-          <a href="/en/gdp/" hreflang="en" lang="en" aria-current="true"><span class="drapeau" aria-hidden="true">🇬🇧</span>English</a>
-          <a href="/ua/vvp/" hreflang="uk" lang="uk"><span class="drapeau" aria-hidden="true">🇺🇦</span>Українська</a>
+          <a href="/annee-record-pib-par-habitant/" hreflang="fr" lang="fr"><span class="drapeau" aria-hidden="true">🇫🇷</span>Français</a>
+          <a href="/en/when-gdp-per-capita-peaked/" hreflang="en" lang="en" aria-current="true"><span class="drapeau" aria-hidden="true">🇬🇧</span>English</a>
+          <a href="/ua/rekordnyi-rik-vvp-na-osobu/" hreflang="uk" lang="uk"><span class="drapeau" aria-hidden="true">🇺🇦</span>Українська</a>
         </div>
       </details>
       <button class="bouton-icone" id="bouton-theme" type="button"
@@ -55,7 +55,7 @@
 
     <aside class="panneau" id="panneau">
       <div class="panneau__entete">
-        <h1 class="panneau__titre" id="titre-panneau">Nominal GDP</h1>
+        <h1 class="panneau__titre" id="titre-panneau">When GDP per capita peaked</h1>
         <div class="panneau__soustitre" id="compteur-pays"></div>
         <input class="panneau__recherche" id="recherche" type="search" autocomplete="off" spellcheck="false">
       </div>

@@ -194,6 +194,54 @@ h1, h2, h3 { line-height: 1.25; margin: 0 0 0.5em; letter-spacing: -0.015em; }
   text-decoration: none;
 }
 
+/* Menu des langues : un bouton drapeau qui déroule les trois langues.
+   C'est une balise <details> : le navigateur l'ouvre et la ferme tout seul,
+   même sans JavaScript. barre.js n'ajoute que la fermeture au clic extérieur. */
+.langues { position: relative; }
+
+/* Un <summary> affiche par défaut un petit triangle : on l'enlève. */
+.langues > summary { list-style: none; font-size: 15px; line-height: 1; }
+.langues > summary::-webkit-details-marker { display: none; }
+.langues > summary::marker { content: ""; }
+.langues[open] > summary {
+  border-color: var(--bordure-forte);
+  background: var(--fond-doux);
+}
+
+.langues__menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 172px;
+  padding: 5px;
+  background: var(--panneau-flou);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--bordure);
+  border-radius: 10px;
+  box-shadow: var(--ombre);
+  z-index: 40;
+}
+
+.langues__menu a {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 10px;
+  border-radius: 7px;
+  color: var(--texte);
+  font-size: 13.5px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.langues__menu a:hover { background: var(--fond-doux); text-decoration: none; }
+.langues__menu a[aria-current="true"] {
+  background: var(--accent-doux);
+  color: var(--accent);
+  font-weight: 600;
+}
+.langues__menu .drapeau { font-size: 15px; line-height: 1; }
+
 /* --- 4. Page d'accueil --------------------------------------------------- */
 
 .accueil {
@@ -326,15 +374,27 @@ body.page-carte {
 .classement li {
   display: flex;
   align-items: center;
-  gap: 9px;
-  padding: 7px 15px;
+  gap: 8px;
+  padding: 7px 15px 7px 11px;
   border-bottom: 1px solid var(--bordure);
+  /* Le liseré coloré à gauche remplace l'ancienne pastille carrée : il donne
+     la couleur du pays sur la carte sans prendre la place du drapeau.
+     La couleur elle-même est posée ligne par ligne par carte.js. */
+  border-left: 4px solid var(--couleur-pays, transparent);
   font-size: 13px;
   cursor: pointer;
 }
 .classement li:last-child { border-bottom: none; }
 .classement li:hover { background: var(--fond-doux); }
 .classement li.est-actif { background: var(--accent-doux); }
+
+/* Le pays sur lequel on vient de cliquer sur la carte. Plus marqué que le
+   simple survol, pour qu'on le retrouve d'un coup d'œil dans la liste. */
+.classement li.est-choisi {
+  background: var(--accent-doux);
+  box-shadow: inset 0 0 0 1.5px var(--accent);
+}
+.classement li.est-choisi .nom { font-weight: 600; color: var(--texte); }
 
 .classement .rang {
   width: 24px;
@@ -344,11 +404,43 @@ body.page-carte {
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
-.classement .puce {
-  width: 9px; height: 9px;
-  flex-shrink: 0;
-  border-radius: 2px;
+/* Le drapeau du pays. Attention : Windows ne sait pas dessiner les drapeaux
+   emoji et affiche à la place les deux lettres du pays (« FR »). C'est moins
+   joli mais reste lisible, et il n'y a pas d'autre solution sans images. */
+.classement .drapeau {
+  flex: 0 0 20px;
+  font-size: 14px;
+  line-height: 1;
+  text-align: center;
+  overflow: hidden;
 }
+/* Les pays sans chiffre pour l'année affichée sont regroupés à la fin de la
+   liste, sous une ligne de séparation qui porte la phrase complète. */
+.classement .separation {
+  display: block;
+  padding: 12px 15px 7px 11px;
+  border-bottom: 1px solid var(--bordure);
+  border-left: 4px solid transparent;
+  background: var(--fond-doux);
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--texte-tres-doux);
+  cursor: default;
+}
+.classement .separation:hover { background: var(--fond-doux); }
+
+.classement li.sans-chiffre .nom,
+.classement li.sans-chiffre .valeur { color: var(--texte-tres-doux); }
+
+/* Les quatre territoires (Hong Kong, Macao, Puerto Rico, Aruba) portent deux
+   drapeaux : celui de l'État dont ils dépendent, puis le leur. Ils n'ont pas
+   de numéro de rang — ce ne sont pas des pays — et c'est justement la place
+   libérée qui accueille le second drapeau. Les noms restent alignés avec
+   ceux des autres lignes : 24 px de rang + 8 px d'écart + 20 px de drapeau. */
+.classement li.territoire .rang { display: none; }
+.classement li.territoire .drapeau { flex: 0 0 52px; text-align: right; }
+
 .classement .nom {
   flex: 1;
   overflow: hidden;
@@ -480,6 +572,8 @@ body.page-carte {
 .maplibregl-popup-tip { display: none; }
 .maplibregl-popup-close-button { color: var(--texte-tres-doux); font-size: 17px; }
 .popup__nom { font-weight: 700; font-size: 14px; margin-bottom: 3px; }
+/* Le drapeau devant le nom du pays, comme dans le classement. */
+.popup__nom .drapeau { margin-right: 7px; }
 .popup__valeur { font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; }
 .popup__detail { font-size: 11.5px; color: var(--texte-tres-doux); margin-top: 2px; }
 
@@ -514,8 +608,17 @@ body.page-carte {
 
 @media (max-width: 860px) {
   .barre { padding: 0 12px; height: 52px; }
-  .barre__nav { margin-left: 10px; }
   .barre__lien { padding: 5px 9px; font-size: 13px; }
+
+  /* Avec cinq cartes, le menu ne tient plus sur un téléphone : il défile
+     horizontalement. Sans repère visuel, on ne devine pas qu'il continue.
+     Ce dégradé fait disparaître le dernier onglet en fondu sur le bord droit,
+     ce qui se lit tout de suite comme « ça continue par là ». */
+  .barre__nav {
+    margin-left: 10px;
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
+  }
 
   .bouton-panneau {
     display: inline-flex;
@@ -579,6 +682,11 @@ body.page-carte {
   .barre__logo { font-size: 15px; }
   .barre__lien { padding: 5px 7px; font-size: 12px; }
   .barre__nav { margin-left: 6px; }
+  /* Avec cinq cartes, le menu déborde : il défile déjà horizontalement
+     (overflow-x: auto plus haut). On lui laisse juste un peu d'air à droite
+     pour qu'on devine qu'il continue. */
+  .barre__nav { padding-right: 4px; }
+  .langues__menu { min-width: 158px; }
 }
 
 /* Respecte le réglage « réduire les animations » du système. */

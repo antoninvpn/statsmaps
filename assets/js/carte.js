@@ -1,7 +1,7 @@
 /* ==========================================================================
    carte.js — le moteur des cartes de StatsMaps.
 
-   Ce SEUL fichier fait fonctionner les 6 pages de carte (3 cartes × 2 langues).
+   Ce SEUL fichier fait fonctionner les 15 pages de carte (5 cartes × 3 langues).
    Chaque page lui dit quoi faire grâce à 3 informations posées sur la balise
    <body> :
        data-indicateur="pib-nominal"   → quelle carte afficher
@@ -24,38 +24,113 @@
 
   /* --- 1. Réglages des cartes -------------------------------------------
 
-     Pour chaque carte : les "tranches" (les seuils qui séparent les couleurs)
-     et les couleurs, en thème clair et en thème sombre.
+     LA PALETTE DU SITE, écrite une seule fois pour les cinq cartes.
+
+     Sept couleurs, du rouge sombre au vert sombre en passant par l'orange et
+     le jaune : la famille de couleurs des cartes économiques de Wikipédia.
+
+     Le sens de lecture est TOUJOURS le même sur tout le site :
+         le VERT est le côté favorable (pays riche, forte croissance,
+         record tout récent) et le ROUGE le côté défavorable.
+
+     Comme les cartes ne se lisent pas toutes dans le même sens, la palette est
+     écrite ici une fois du rouge vers le vert, et les cartes qui en ont besoin
+     la retournent avec inverser().
+
+     Pour changer les couleurs du site entier, c'est ici et nulle part ailleurs. */
+
+  var PALETTE_CLAIR = [
+    "#8c1119", // rouge sombre
+    "#d9603c", // rouge orangé
+    "#f2a25c", // orange
+    "#f3dd6a", // jaune
+    "#9ed468", // vert clair
+    "#54a848", // vert
+    "#1a7a35", // vert sombre
+  ];
+
+  /* La même palette, éclaircie pour rester lisible sur fond noir. */
+  var PALETTE_SOMBRE = [
+    "#a02a2a", "#cf5e3a", "#e39a4a", "#e8cf5c", "#a8d96a", "#67c25c", "#2ea45a",
+  ];
+
+  /* Retourne une liste de couleurs (le premier devient le dernier). */
+  function inverser(couleurs) {
+    return couleurs.slice().reverse();
+  }
+
+  /* Pour chaque carte : les "tranches" (les seuils qui séparent les couleurs)
+     et le sens de lecture de la palette.
      Il y a toujours 1 couleur de plus que de tranches.
 
      Ces tranches sont FIXES : elles ne changent pas d'une année à l'autre.
      C'est volontaire : ainsi, quand on fait défiler les années, on voit
-     vraiment les pays changer de couleur en s'enrichissant.                */
+     vraiment les pays changer de couleur en s'enrichissant.
+
+     À savoir : le rouge et le vert sont les deux couleurs que confondent les
+     daltoniens (environ 8 % des hommes). Le passage par l'orange et le jaune,
+     et l'écart de clarté d'une tranche à l'autre, font qu'ils distinguent
+     quand même « clair » de « sombre ». C'est un choix assumé.             */
 
   var CARTES = {
+    /* Plus l'économie est grosse, plus c'est vert. */
     "pib-nominal": {
       tranches: [10, 50, 200, 1000, 3000, 10000],
-      clair: ["#dceaf7", "#c0d9ed", "#9bc2e0", "#6ba3cf", "#4181b8", "#22609a", "#0d3f75"],
-      sombre: ["#10243c", "#17395e", "#1f5285", "#2b71aa", "#4093ca", "#67b6e2", "#9ad8f5"],
+      clair: PALETTE_CLAIR,
+      sombre: PALETTE_SOMBRE,
     },
+
+    /* Plus le pays est riche par habitant, plus c'est vert. C'est exactement
+       la lecture de la carte de Wikipédia sur le PIB par habitant. */
     "pib-par-habitant": {
       tranches: [1500, 5000, 15000, 30000, 50000, 70000],
-      clair: ["#eadff5", "#d5c0e5", "#c0a2d6", "#a37cc2", "#8459a8", "#653c88", "#452363"],
-      sombre: ["#241536", "#3a2154", "#523175", "#6d4796", "#8d64b5", "#b089d2", "#d3b5ea"],
+      clair: PALETTE_CLAIR,
+      sombre: PALETTE_SOMBRE,
     },
+
+    /* Échelle "divergente" : rouge quand l'économie recule, vert quand elle
+       avance. Point important : le ZÉRO est une frontière entre deux couleurs,
+       et non le milieu d'une tranche. Ainsi un pays à -0,5 % tombe forcément
+       du côté chaud (orange) et un pays à +0,5 % du côté clair (jaune).
+       L'intensité augmente en s'éloignant de zéro : plus c'est vif, plus le
+       mouvement est fort, dans un sens comme dans l'autre.                 */
     croissance: {
-      /* Échelle "divergente" : rouge quand l'économie recule, bleu quand elle
-         avance. Le rouge/bleu est le duo le plus lisible pour les daltoniens.
-
-         Point important : le ZÉRO est une frontière entre le rouge et le bleu,
-         et non le milieu d'une tranche. Ainsi un pays à +0,5 % est forcément
-         bleu (il a grandi) et un pays à -0,5 % forcément rouge (il a reculé).
-
-         L'intensité augmente en s'éloignant de zéro : plus c'est vif, plus le
-         mouvement est fort, dans un sens comme dans l'autre.                */
       tranches: [-4, -1.5, 0, 1.5, 4, 7],
-      clair: ["#8f1220", "#cc4436", "#f0a08e", "#c3ddf0", "#7fb4da", "#3d81bd", "#0f4c86"],
-      sombre: ["#e05a4a", "#b83a30", "#7d2822", "#1f4a6b", "#2f77a8", "#4aa3d4", "#7fd4f7"],
+      clair: PALETTE_CLAIR,
+      sombre: PALETTE_SOMBRE,
+    },
+
+    /* Les deux cartes « année record » fonctionnent différemment des trois
+       autres : le chiffre affiché est une ANNÉE (« 2008 »), mais la couleur
+       ne dépend pas de cette année — elle dépend du TEMPS ÉCOULÉ depuis.
+       Vu depuis 2025, un record de 2008 date de 17 ans : il sera rouge.
+       Vu depuis 2010, le même record date de 2 ans : il sera vert.
+       C'est le rôle du réglage "ecart_annees" ci-dessous.
+
+       Les tranches se lisent donc en années écoulées :
+         0 = record battu cette année même (le pays va bien) ... vert sombre
+         26 et plus = le pays n'a jamais retrouvé son niveau .. rouge sombre
+
+       Ici « petit » veut dire « bon » : la palette est donc retournée, pour
+       que le vert reste du côté favorable comme sur toutes les autres cartes. */
+    "annee-record-pib": {
+      ecart_annees: true,
+      /* Ici le classement se lit à l'envers des autres cartes : on met en
+         premier les pays dont le record est le PLUS ANCIEN, c'est-à-dire ceux
+         qui reculent depuis le plus longtemps. C'est là qu'est l'information ;
+         à l'endroit, il faudrait faire défiler 150 pays « 2025 » avant de
+         trouver quoi que ce soit d'intéressant. */
+      classement_croissant: true,
+      tranches: [1, 3, 6, 11, 16, 26],
+      clair: inverser(PALETTE_CLAIR),
+      sombre: inverser(PALETTE_SOMBRE),
+    },
+    "annee-record-pib-par-habitant": {
+      ecart_annees: true,
+      classement_croissant: true,
+      tranches: [1, 3, 6, 11, 16, 26],
+      clair: inverser(PALETTE_CLAIR),
+      sombre: inverser(PALETTE_SOMBRE),
     },
   };
 
@@ -66,7 +141,7 @@
   var langue = corps.getAttribute("data-langue") || "fr";
   var base = corps.getAttribute("data-base") || "./";
   var t = window.StatsMapsT(langue);
-  var locale = langue === "fr" ? "fr-FR" : "en-US";
+  var locale = { fr: "fr-FR", en: "en-US", uk: "uk-UA" }[langue] || "fr-FR";
   var reglages = CARTES[idCarte];
 
   /* Écrit un nombre proprement : 3 368 au lieu de 3368.925 */
@@ -87,6 +162,21 @@
     return formater(valeur, abs > 0 && abs < 10 && valeur % 1 !== 0 ? 1 : 0);
   }
 
+  /* « il y a 17 ans », mais « il y a 1 an » — et en ukrainien « 1 рік »,
+     « 3 роки », « 5 років ». Plutôt que d'écrire ces règles à la main, on
+     demande au navigateur quelle forme employer : il connaît les règles de
+     toutes les langues (c'est le rôle de Intl.PluralRules).                */
+  var reglePluriel =
+    window.Intl && Intl.PluralRules ? new Intl.PluralRules(locale) : null;
+
+  function texteEcart(nombre) {
+    var forme = reglePluriel ? reglePluriel.select(nombre) : "other";
+    var modele = t("ecart_" + forme);
+    /* Si la langue n'a pas cette forme-là, on retombe sur la forme générale. */
+    if (modele === "ecart_" + forme) modele = t("ecart_other");
+    return modele.replace("{n}", nombre);
+  }
+
   /* Enlève les accents d'un texte : "Viêt Nam" devient "viet nam".
      Sans ça, chercher "vietnam" ou "coree" ne trouverait rien.            */
   function sansAccents(texte) {
@@ -96,8 +186,11 @@
       .toLowerCase();
   }
 
-  /* La valeur affichée partout (classement, infobulle) avec son unité. */
+  /* La valeur affichée partout (classement, infobulle) avec son unité.
+     Cas particulier : sur les cartes « année record », la valeur EST une année.
+     On l'écrit telle quelle, sinon l'ordinateur afficherait « 2 008 ».      */
   function valeurLisible(valeur, donnees) {
+    if (donnees.format === "annee") return String(valeur);
     var unite = donnees.unite[langue] || donnees.unite.fr;
     var texte = formater(valeur, donnees.decimales);
     if (idCarte === "croissance" && valeur > 0) texte = "+" + texte;
@@ -117,12 +210,21 @@
       .trim();
   }
 
-  /* La couleur d'un pays, utilisée pour la petite pastille du classement. */
+  /* Ce qui décide de la couleur d'un pays.
+     Sur presque toutes les cartes, c'est la valeur elle-même. Sur les cartes
+     « année record », c'est le nombre d'années écoulées depuis ce record :
+     un record de 2008 vaut 17 quand on regarde depuis 2025.                */
+  function valeurDeCouleur(valeur) {
+    return reglages.ecart_annees ? anneeAffichee - valeur : valeur;
+  }
+
+  /* La couleur d'un pays, utilisée pour le liseré coloré du classement. */
   function couleurDeLaValeur(valeur) {
     var couleurs = couleursActuelles();
+    var pour_couleur = valeurDeCouleur(valeur);
     var index = 0;
     for (var i = 0; i < reglages.tranches.length; i++) {
-      if (valeur >= reglages.tranches[i]) index = i + 1;
+      if (pour_couleur >= reglages.tranches[i]) index = i + 1;
     }
     return couleurs[index];
   }
@@ -143,10 +245,13 @@
   var donnees = null;
   var meta = null;
   var anneeAffichee = null;
-  var classementActuel = []; // [{iso, nom, valeur, rang}, ...]
+  var classementActuel = []; // [{iso, nom, valeur, rang}, ...] — les 197 pays
+  var nbClasses = 0;         // parmi eux, ceux qui ont un chiffre cette année
   var nomsParIso = {};
   var nomsCherchablesParIso = {}; // les mêmes noms, sans accents
-  var isoSurvole = null;
+  var drapeauxParIso = {};        // 🇫🇷, 🇺🇦 ... préparés par le script Python
+  var isoSurvole = null;  // le pays sous la souris
+  var isoChoisi = null;   // le pays sur lequel on a cliqué
   var infobulle = null;
 
   /* --- 4. Fabrication de la carte ----------------------------------------- */
@@ -324,24 +429,34 @@
       if (classementActuel[i].iso === iso) { ligne = classementActuel[i]; break; }
     }
     var nom = nomsParIso[iso] || iso;
-    var contenu = '<div class="popup__nom">' + echapper(nom) + "</div>";
+    var emoji = drapeauxParIso[iso] || "";
+    var contenu =
+      '<div class="popup__nom">' +
+      (emoji ? '<span class="drapeau" aria-hidden="true">' + echapper(emoji) + "</span>" : "") +
+      echapper(nom) +
+      "</div>";
 
-    if (ligne) {
+    if (ligne && ligne.valeur !== null) {
+      /* Sur les cartes « année record », le rang n'apprendrait rien : plus de
+         cent pays sont à égalité. On dit plutôt depuis combien de temps le
+         record tient. */
+      var detail;
+      if (reglages.ecart_annees) {
+        var ecart = anneeAffichee - ligne.valeur;
+        detail = ecart === 0 ? t("ecart_zero") : texteEcart(ecart);
+      } else if (ligne.territoire) {
+        detail = String(anneeAffichee); // un territoire n'a pas de rang
+      } else {
+        detail =
+          anneeAffichee + " · " + t("rang") + " " + ligne.rang +
+          " " + t("sur") + " " + nbClasses;
+      }
+      if (ligne.territoire) detail += " · " + t("territoire");
       contenu +=
         '<div class="popup__valeur nombre">' +
         echapper(valeurLisible(ligne.valeur, donnees)) +
         "</div>" +
-        '<div class="popup__detail">' +
-        anneeAffichee +
-        " · " +
-        t("rang") +
-        " " +
-        ligne.rang +
-        " " +
-        t("sur") +
-        " " +
-        classementActuel.length +
-        "</div>";
+        '<div class="popup__detail">' + echapper(detail) + "</div>";
     } else {
       contenu += '<div class="popup__detail">' + t("pas_de_donnee") + "</div>";
     }
@@ -351,6 +466,51 @@
       .setLngLat(position)
       .setHTML(contenu)
       .addTo(carte);
+
+    /* Quand on ferme l'infobulle, le pays n'est plus « choisi ». */
+    infobulle.on("close", function () {
+      if (isoChoisi === iso) {
+        isoChoisi = null;
+        montrerDansClassement(null);
+      }
+    });
+
+    isoChoisi = iso;
+    montrerDansClassement(iso);
+  }
+
+  /* Fait apparaître dans le classement le pays sur lequel on vient de cliquer.
+     Sans ça, cliquer sur le Japon sur la carte ne montrait rien : la liste
+     restait sur les dix premiers pays. */
+  function montrerDansClassement(iso) {
+    var liste = document.getElementById("classement");
+    if (!liste) return;
+
+    var ancien = liste.querySelector("li.est-choisi");
+    if (ancien) ancien.classList.remove("est-choisi");
+    if (!iso) return;
+
+    /* Si une recherche en cours masque ce pays, on efface la recherche :
+       le visiteur vient de demander à le voir. */
+    if (
+      champRecherche &&
+      champRecherche.value.trim() &&
+      !liste.querySelector('li[data-iso="' + iso + '"]')
+    ) {
+      champRecherche.value = "";
+      dessinerClassement();
+    }
+
+    var ligne = liste.querySelector('li[data-iso="' + iso + '"]');
+    if (!ligne) return;
+    ligne.classList.add("est-choisi");
+
+    /* On centre la ligne dans le panneau. Le calcul est fait à la main plutôt
+       qu'avec scrollIntoView, qui ferait aussi bouger le reste de la page. */
+    var cadreListe = liste.getBoundingClientRect();
+    var cadreLigne = ligne.getBoundingClientRect();
+    liste.scrollTop +=
+      cadreLigne.top - cadreListe.top - (cadreListe.height - cadreLigne.height) / 2;
   }
 
   function echapper(texte) {
@@ -369,10 +529,13 @@
 
     var avecDonnee = {};
     classementActuel.forEach(function (element) {
+      /* Un pays sans chiffre cette année-là reste gris sur la carte, même
+         s'il figure quand même dans le classement. */
+      if (element.valeur === null) return;
       avecDonnee[element.iso] = true;
       carte.setFeatureState(
         { source: "pays", id: element.iso },
-        { valeur: element.valeur, aDonnee: 1 }
+        { valeur: valeurDeCouleur(element.valeur), aDonnee: 1 }
       );
     });
     geo.features.forEach(function (pays) {
@@ -388,18 +551,72 @@
     var clef = String(annee);
     var valeurs = donnees.valeurs;
 
-    /* On prépare le classement des pays qui existent sur la carte. */
-    var liste = [];
+    /* Le classement contient TOUS les pays — 197 — et pas seulement ceux qui
+       ont un chiffre cette année-là. On les range en deux groupes : ceux qui
+       ont un chiffre, numérotés ; puis ceux qui n'en ont pas, à la suite, par
+       ordre alphabétique.
+
+       Qui a le droit d'y figurer ?
+         - les pays suivis par le FMI ;
+         - les quatre pays souverains que le FMI ne suit pas, marqués "p" par
+           le script Python : Cuba, Corée du Nord, Monaco, Vatican ;
+         - les quatre territoires suivis par le FMI, marqués "t" : Hong Kong,
+           Macao, Puerto Rico et Aruba. Ils sont montrés à titre indicatif,
+           mais ne prennent pas de numéro et ne sont pas comptés : ce ne sont
+           pas des États souverains.
+       Tout le reste du fond de carte — Groenland, Nouvelle-Calédonie, îles
+       Caïmans, glacier de Siachen... — n'a rien à faire dans un classement
+       de pays et reste simplement dessiné sur la carte.                    */
+    var avecChiffre = [];
+    var sansChiffre = [];
     geo.features.forEach(function (pays) {
       var iso = pays.properties.iso;
       var parAnnee = valeurs[iso];
+      if (!parAnnee && pays.properties.p !== 1) return;
+
+      var element = {
+        iso: iso,
+        nom: nomsParIso[iso],
+        valeur: null,
+        rang: 0,
+        territoire: pays.properties.t === 1,
+      };
       if (parAnnee && typeof parAnnee[clef] === "number") {
-        liste.push({ iso: iso, nom: nomsParIso[iso], valeur: parAnnee[clef] });
+        element.valeur = parAnnee[clef];
+        avecChiffre.push(element);
+      } else {
+        sansChiffre.push(element);
       }
     });
-    liste.sort(function (a, b) { return b.valeur - a.valeur; });
-    liste.forEach(function (element, index) { element.rang = index + 1; });
-    classementActuel = liste;
+
+    /* Du plus grand au plus petit — sauf sur les cartes « année record », qui
+       demandent l'inverse (voir classement_croissant tout en haut du fichier).
+       En cas d'égalité — fréquent sur ces cartes-là, où plus de cent pays
+       battent leur record la même année — on départage par ordre alphabétique,
+       sinon l'ordre serait au hasard. */
+    avecChiffre.sort(function (a, b) {
+      if (b.valeur !== a.valeur) {
+        return reglages.classement_croissant
+          ? a.valeur - b.valeur
+          : b.valeur - a.valeur;
+      }
+      return a.nom.localeCompare(b.nom, locale);
+    });
+    /* Les territoires gardent leur place dans la liste, à leur valeur, mais
+       sautent la numérotation : le classement compte les pays. */
+    var rang = 0;
+    avecChiffre.forEach(function (element) {
+      if (!element.territoire) {
+        rang += 1;
+        element.rang = rang;
+      }
+    });
+    sansChiffre.sort(function (a, b) {
+      return a.nom.localeCompare(b.nom, locale);
+    });
+
+    nbClasses = rang;
+    classementActuel = avecChiffre.concat(sansChiffre);
 
     /* On envoie sa valeur à chaque pays de la carte (si elle est prête). */
     appliquerEtatsCarte();
@@ -407,6 +624,7 @@
     dessinerClassement();
     majEtiquetteAnnee();
     if (infobulle) { infobulle.remove(); infobulle = null; }
+    isoChoisi = null;
   }
 
   /* --- 5. Le classement à gauche ------------------------------------------ */
@@ -429,21 +647,60 @@
       return;
     }
 
-    var morceaux = affiches.map(function (element) {
-      return (
-        '<li data-iso="' + element.iso + '">' +
-        '<span class="rang">' + element.rang + "</span>" +
-        '<span class="puce" style="background:' + couleurDeLaValeur(element.valeur) + '"></span>' +
+    /* La couleur du pays devient un fin liseré sur le bord gauche de la ligne
+       (voir .classement li dans le fichier de style). Ça laisse la place au
+       drapeau sans rogner les noms longs.
+
+       Les pays sans chiffre pour l'année affichée sont toujours à la fin de la
+       liste. On les annonce par une ligne de séparation, une seule fois : la
+       phrase complète ne tiendrait pas dans la colonne de droite, qui fait
+       60 pixels, et l'écrire sur chaque ligne écraserait les noms de pays. */
+    var separationPosee = false;
+    var morceaux = [];
+
+    affiches.forEach(function (element) {
+      var sansChiffre = element.valeur === null;
+
+      if (sansChiffre && !separationPosee) {
+        morceaux.push('<li class="separation">' + t("pas_de_donnee") + "</li>");
+        separationPosee = true;
+      }
+
+      var classes = [];
+      if (sansChiffre) classes.push("sans-chiffre");
+      if (element.territoire) classes.push("territoire");
+      if (element.iso === isoChoisi) classes.push("est-choisi");
+
+      morceaux.push(
+        '<li data-iso="' + element.iso + '"' +
+        (classes.length ? ' class="' + classes.join(" ") + '"' : "") +
+        ' style="--couleur-pays:' +
+        (sansChiffre ? couleurCSS("--pays-sans-donnee") : couleurDeLaValeur(element.valeur)) +
+        '">' +
+        '<span class="rang">' + (element.rang || "") + "</span>" +
+        '<span class="drapeau" aria-hidden="true">' +
+        echapper(drapeauxParIso[element.iso] || "") + "</span>" +
         '<span class="nom">' + echapper(element.nom) + "</span>" +
-        '<span class="valeur">' + echapper(valeurLisible(element.valeur, donnees)) + "</span>" +
+        '<span class="valeur">' +
+        (sansChiffre ? "—" : echapper(valeurLisible(element.valeur, donnees))) +
+        "</span>" +
         "</li>"
       );
     });
     liste.innerHTML = morceaux.join("");
 
+    /* Sous le titre : « 193 pays classés · 4 sans donnée ». On ne montre la
+       seconde moitié que s'il y a effectivement des pays sans chiffre. */
     var compteur = document.getElementById("compteur-pays");
     if (compteur) {
-      compteur.textContent = classementActuel.length + " " + t("pays_classes");
+      /* On ne compte que les pays : les quatre territoires sont hors sujet. */
+      var sansDonnee = 0;
+      classementActuel.forEach(function (element) {
+        if (element.valeur === null && !element.territoire) sansDonnee += 1;
+      });
+      compteur.textContent =
+        nbClasses + " " + t("pays_classes") +
+        (sansDonnee ? " · " + sansDonnee + " " + t("sans_donnee_compte") : "");
     }
   }
 
@@ -481,6 +738,31 @@
     }
   }
 
+  /* Le cadrage utilisé quand on clique sur un pays.
+
+     La zone à afficher est calculée une fois pour toutes par le script Python
+     et rangée dans la propriété "c" de chaque pays. Elle exclut volontairement
+     les territoires lointains : cliquer sur le Danemark montre le Danemark et
+     non le Groenland, cliquer sur la France montre la France et non Tahiti.
+     Voir cadrage_du_pays() dans scripts/build_geojson.py.                   */
+  function limitesDuPays(pays) {
+    var limites = new maplibregl.LngLatBounds();
+    var cadre = pays.properties.c;
+
+    if (cadre) {
+      limites.extend([cadre[0], cadre[1]]);
+      limites.extend([cadre[2], cadre[3]]);
+      return limites;
+    }
+
+    /* Secours, si le fond de carte est plus ancien que ce fichier. */
+    (function parcourir(coordonnees) {
+      if (typeof coordonnees[0] === "number") limites.extend(coordonnees);
+      else coordonnees.forEach(parcourir);
+    })(pays.geometry.coordinates);
+    return limites;
+  }
+
   /* Zoome sur un pays et ouvre son infobulle. */
   function volerVers(iso) {
     var pays = null;
@@ -489,11 +771,7 @@
     }
     if (!pays || !carte) return;
 
-    var limites = new maplibregl.LngLatBounds();
-    (function parcourir(coordonnees) {
-      if (typeof coordonnees[0] === "number") limites.extend(coordonnees);
-      else coordonnees.forEach(parcourir);
-    })(pays.geometry.coordinates);
+    var limites = limitesDuPays(pays);
 
     /* maxZoom assez élevé pour que les tout petits pays (Singapour, Malte,
        Nauru...) remplissent quand même l'écran quand on clique dessus. */
@@ -508,7 +786,12 @@
     if (!boite) return;
 
     var couleurs = couleursActuelles();
-    var unite = donnees.unite[langue] || donnees.unite.fr;
+    /* Ce qu'on écrit entre parenthèses sous le titre. Sur les cartes « année
+       record » ce n'est pas l'unité de la valeur (une année n'en a pas) mais
+       ce que mesurent les tranches : « années écoulées depuis le record ». */
+    var unite = donnees.legende_unite
+      ? donnees.legende_unite[langue] || donnees.legende_unite.fr
+      : donnees.unite[langue] || donnees.unite.fr;
 
     var cases = couleurs
       .map(function (couleur) {
@@ -641,10 +924,13 @@
           var iso = pays.properties.iso;
           var nom = pays.properties[langue] || pays.properties.fr || iso;
           nomsParIso[iso] = nom;
+          drapeauxParIso[iso] = pays.properties.d || "";
           /* On garde aussi le nom dans l'autre langue : ainsi un visiteur
              francophone retrouve "Germany" et l'inverse.                  */
           nomsCherchablesParIso[iso] =
-            sansAccents(nom) + " " + sansAccents(pays.properties.en || "") + " " + iso.toLowerCase();
+            sansAccents(nom) + " " +
+            sansAccents(pays.properties.fr || "") + " " +
+            sansAccents(pays.properties.en || "") + " " + iso.toLowerCase();
         });
 
         /* Année de départ : la dernière année réellement constatée. */
@@ -658,13 +944,29 @@
         var source = document.getElementById("source");
         if (source) {
           var nomSource = meta.source[langue] || meta.source.fr;
-          var date = new Date(meta.mis_a_jour_le).toLocaleDateString(locale, {
-            day: "numeric", month: "long", year: "numeric",
-          });
+
+          /* Le FMI publie ce rapport deux fois par an, en avril et en octobre.
+             On affiche l'ÉDITION d'où viennent les chiffres plutôt que la date
+             à laquelle le site est allé les chercher : c'est l'édition qui date
+             vraiment les projections. La date de récupération reste accessible
+             en survolant la ligne. */
+          var edition = "";
+          if (meta.edition) {
+            edition =
+              " (" +
+              t(meta.edition.mois === 4 ? "weo_avril" : "weo_octobre") +
+              " " + meta.edition.annee + ")";
+          }
+
           source.innerHTML =
             t("source") + t("deux_points") +
             '<a href="' + meta.source_url + '" target="_blank" rel="noopener">' +
-            echapper(nomSource) + "</a> — " + t("mis_a_jour") + " " + date;
+            echapper(nomSource + edition) + "</a>";
+          source.title =
+            t("mis_a_jour") + " " +
+            new Date(meta.mis_a_jour_le).toLocaleDateString(locale, {
+              day: "numeric", month: "long", year: "numeric",
+            });
         }
 
         brancherClassement();

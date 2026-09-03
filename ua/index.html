@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StatsMaps — світова статистика на інтерактивних картах</title>
+  <meta name="description" content="Інтерактивні карти світової статистики: номінальний ВВП, ВВП на душу населення, зростання та рекордні роки для 197 країн, від 1980 до 2031 року, за офіційними даними МВФ.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://statsmaps.com/ua/">
+  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/">
+  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/">
+  <link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/">
+  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="StatsMaps — світова статистика на інтерактивних картах">
+  <meta property="og:description" content="Інтерактивні карти світової статистики: номінальний ВВП, ВВП на душу населення, зростання та рекордні роки для 197 країн, від 1980 до 2031 року, за офіційними даними МВФ.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://statsmaps.com/ua/">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/theme.js"></script>
+</head>
+<body>
+
+  <header class="barre">
+    <a class="barre__logo" href="./">Stats<span>Maps</span></a>
+    <nav class="barre__nav" aria-label="Карти">
+        <a class="barre__lien" href="vvp/"><span class="long">Номінальний ВВП</span><span class="court">ВВП</span></a>
+        <a class="barre__lien" href="vvp-na-osobu/"><span class="long">ВВП на душу населення</span><span class="court">ВВП/особу</span></a>
+        <a class="barre__lien" href="zrostannia/"><span class="long">Зростання</span><span class="court">Зростання</span></a>
+        <a class="barre__lien" href="rekordnyi-rik-vvp/"><span class="long">Рекордний рік ВВП</span><span class="court">Рекорд ВВП</span></a>
+        <a class="barre__lien" href="rekordnyi-rik-vvp-na-osobu/"><span class="long">Рекордний рік ВВП на особу</span><span class="court">Рекорд ВВП/особу</span></a>
+    </nav>
+    <div class="barre__droite">
+      <details class="langues">
+        <summary class="bouton-icone" title="Мова" aria-label="Мова">🇺🇦</summary>
+        <div class="langues__menu">
+          <a href="/" hreflang="fr" lang="fr"><span class="drapeau" aria-hidden="true">🇫🇷</span>Français</a>
+          <a href="/en/" hreflang="en" lang="en"><span class="drapeau" aria-hidden="true">🇬🇧</span>English</a>
+          <a href="/ua/" hreflang="uk" lang="uk" aria-current="true"><span class="drapeau" aria-hidden="true">🇺🇦</span>Українська</a>
+        </div>
+      </details>
+      <button class="bouton-icone" id="bouton-theme" type="button"
+              aria-label="Змінити тему"
+              data-vers-clair="Перемкнути на світлу тему"
+              data-vers-sombre="Перемкнути на темну тему">☾</button>
+    </div>
+  </header>
+
+  <main class="accueil">
+    <h1 class="accueil__titre">Статистика світу — на картах.</h1>
+    <p class="accueil__intro">StatsMaps перетворює головні світові показники на інтерактивні карти, спираючись на офіційні джерела. Починаємо з економіки, за даними Міжнародного валютного фонду: 197 країн, від 1980 до 2031 року.</p>
+
+    <div class="vignettes">
+      <a class="vignette" href="vvp/">
+        <div class="vignette__pastille">💰</div>
+        <div class="vignette__titre">Номінальний ВВП</div>
+        <p class="vignette__texte">Розмір кожної економіки, у мільярдах доларів у поточних цінах.</p>
+      </a>
+      <a class="vignette" href="vvp-na-osobu/">
+        <div class="vignette__pastille">👤</div>
+        <div class="vignette__titre">ВВП на душу населення</div>
+        <p class="vignette__texte">Багатство, вироблене на одну особу, у доларах у поточних цінах.</p>
+      </a>
+      <a class="vignette" href="zrostannia/">
+        <div class="vignette__pastille">📈</div>
+        <div class="vignette__titre">Зростання ВВП</div>
+        <p class="vignette__texte">Зміна реального ВВП рік до року, у відсотках.</p>
+      </a>
+      <a class="vignette" href="rekordnyi-rik-vvp/">
+        <div class="vignette__pastille">🏔️</div>
+        <div class="vignette__titre">Рекордний рік ВВП</div>
+        <p class="vignette__texte">Рік, коли кожна країна досягла свого максимуму — і ті, що туди так і не повернулися.</p>
+      </a>
+      <a class="vignette" href="rekordnyi-rik-vvp-na-osobu/">
+        <div class="vignette__pastille">⛰️</div>
+        <div class="vignette__titre">Рекордний рік ВВП на особу</div>
+        <p class="vignette__texte">Рік, коли мешканці кожної країни були найбагатшими в середньому.</p>
+      </a>
+    </div>
+
+    <p class="accueil__bientot">Незабаром: демографія, інфраструктура, енергетика, освіта та охорона здоров’я.</p>
+  </main>
+
+  <footer class="pied">Дані: МВФ (World Economic Outlook) · Основа карти: Natural Earth · Без реклами та стеження.</footer>
+
+  <script src="../assets/js/barre.js"></script>
+</body>
+</html>

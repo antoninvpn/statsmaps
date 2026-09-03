@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Рекордний рік ВВП за країнами — інтерактивна карта світу | StatsMaps</title>
+  <meta name="description" content="Інтерактивна карта року, коли ВВП кожної країни був найвищим, від 1980 до 2031 року, включно з прогнозами МВФ. Зеленим — країни на піку сьогодні, червоним — ті, що так і не повернулися до рекорду. Офіційні дані МВФ.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://statsmaps.com/ua/rekordnyi-rik-vvp/">
+  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib/">
+  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-peaked/">
+  <link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp/">
+  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib/">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="Рекордний рік ВВП за країнами — інтерактивна карта світу">
+  <meta property="og:description" content="Інтерактивна карта року, коли ВВП кожної країни був найвищим, від 1980 до 2031 року, включно з прогнозами МВФ. Зеленим — країни на піку сьогодні, червоним — ті, що так і не повернулися до рекорду. Офіційні дані МВФ.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://statsmaps.com/ua/rekordnyi-rik-vvp/">
+  <link rel="preload" href="../../data/pays.json" as="fetch" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.1/maplibre-gl.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <script src="../../assets/js/theme.js"></script>
+</head>
+<body class="page-carte" data-indicateur="annee-record-pib" data-langue="uk" data-base="../../">
+
+  <header class="barre">
+    <a class="barre__logo" href="../">Stats<span>Maps</span></a>
+    <nav class="barre__nav" aria-label="Карти">
+        <a class="barre__lien" href="../vvp/"><span class="long">Номінальний ВВП</span><span class="court">ВВП</span></a>
+        <a class="barre__lien" href="../vvp-na-osobu/"><span class="long">ВВП на душу населення</span><span class="court">ВВП/особу</span></a>
+        <a class="barre__lien" href="../zrostannia/"><span class="long">Зростання</span><span class="court">Зростання</span></a>
+        <a class="barre__lien" href="../rekordnyi-rik-vvp/" aria-current="page"><span class="long">Рекордний рік ВВП</span><span class="court">Рекорд ВВП</span></a>
+        <a class="barre__lien" href="../rekordnyi-rik-vvp-na-osobu/"><span class="long">Рекордний рік ВВП на особу</span><span class="court">Рекорд ВВП/особу</span></a>
+    </nav>
+    <div class="barre__droite">
+      <details class="langues">
+        <summary class="bouton-icone" title="Мова" aria-label="Мова">🇺🇦</summary>
+        <div class="langues__menu">
+          <a href="/annee-record-pib/" hreflang="fr" lang="fr"><span class="drapeau" aria-hidden="true">🇫🇷</span>Français</a>
+          <a href="/en/when-gdp-peaked/" hreflang="en" lang="en"><span class="drapeau" aria-hidden="true">🇬🇧</span>English</a>
+          <a href="/ua/rekordnyi-rik-vvp/" hreflang="uk" lang="uk" aria-current="true"><span class="drapeau" aria-hidden="true">🇺🇦</span>Українська</a>
+        </div>
+      </details>
+      <button class="bouton-icone" id="bouton-theme" type="button"
+              aria-label="Змінити тему"
+              data-vers-clair="Перемкнути на світлу тему"
+              data-vers-sombre="Перемкнути на темну тему">☾</button>
+    </div>
+  </header>
+
+  <div class="zone-carte">
+    <div id="carte"></div>
+
+    <button class="bouton-icone bouton-panneau" id="bouton-panneau" type="button" aria-expanded="false" aria-controls="panneau"></button>
+
+    <aside class="panneau" id="panneau">
+      <div class="panneau__entete">
+        <h1 class="panneau__titre" id="titre-panneau">Рекордний рік ВВП</h1>
+        <div class="panneau__soustitre" id="compteur-pays"></div>
+        <input class="panneau__recherche" id="recherche" type="search" autocomplete="off" spellcheck="false">
+      </div>
+      <ul class="classement" id="classement"></ul>
+      <div class="panneau__pied" id="source"></div>
+    </aside>
+
+    <div class="legende" id="legende"></div>
+
+    <div class="annees">
+      <div class="annees__haut">
+        <span class="annees__valeur nombre" id="annee-valeur">—</span>
+        <span class="annees__etiquette" id="annee-etiquette"></span>
+      </div>
+      <input type="range" id="curseur-annee" min="1980" max="2031" step="1" value="2025">
+      <div class="annees__bornes"><span id="annee-min"></span><span id="annee-max"></span></div>
+    </div>
+
+    <div class="chargement" id="chargement">…</div>
+  </div>
+
+  <script src="../../assets/js/i18n.js"></script>
+  <script src="../../assets/js/barre.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.1/maplibre-gl.js"></script>
+  <script src="../../assets/js/carte.js"></script>
+</body>
+</html>

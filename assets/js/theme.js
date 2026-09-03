@@ -51,14 +51,18 @@
     var bouton = document.getElementById("bouton-theme");
     if (!bouton) return;
 
+    /* Le texte du bouton change avec la langue de la page. Comme ce fichier
+       est chargé avant les traductions, chaque page écrit elle-même les deux
+       phrases dans les attributs data-vers-clair et data-vers-sombre du
+       bouton. Si elles manquent, on retombe sur le français.              */
     function rafraichirBouton() {
       var sombre = themeActuel() === "dark";
       bouton.textContent = sombre ? "☀︎" : "☾";
-      bouton.setAttribute(
-        "aria-label",
-        sombre ? "Passer en thème clair" : "Passer en thème sombre"
-      );
-      bouton.setAttribute("title", bouton.getAttribute("aria-label"));
+      var etiquette = sombre
+        ? bouton.getAttribute("data-vers-clair") || "Passer en thème clair"
+        : bouton.getAttribute("data-vers-sombre") || "Passer en thème sombre";
+      bouton.setAttribute("aria-label", etiquette);
+      bouton.setAttribute("title", etiquette);
     }
 
     bouton.addEventListener("click", function () {

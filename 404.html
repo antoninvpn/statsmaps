@@ -22,8 +22,9 @@
     .code { font-size:64px; font-weight:800; letter-spacing:-0.03em; color:var(--accent); }
     h1 { font-size:22px; margin:0 0 4px; }
     p { color:var(--doux); margin:0 0 22px; max-width:44ch; }
+    div { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
     a {
-      display:inline-block; margin:0 5px; padding:9px 17px; border-radius:9px;
+      display:inline-block; padding:9px 17px; border-radius:9px;
       border:1px solid var(--bordure); color:var(--accent);
       text-decoration:none; font-weight:600; font-size:14px;
     }
@@ -35,11 +36,13 @@
   <h1>Page introuvable</h1>
   <p>
     Cette adresse n’existe pas, ou plus.<br>
-    <span lang="en">This page does not exist, or no longer exists.</span>
+    <span lang="en">This page does not exist, or no longer exists.</span><br>
+    <span lang="uk">Ця сторінка не існує або більше не існує.</span>
   </p>
   <div>
-    <a href="/">Accueil</a>
-    <a href="/en/" hreflang="en" lang="en">Home (EN)</a>
+    <a href="/">🇫🇷 Accueil</a>
+    <a href="/en/" hreflang="en" lang="en">🇬🇧 Home</a>
+    <a href="/ua/" hreflang="uk" lang="uk">🇺🇦 Головна</a>
   </div>
 </body>
 </html>
