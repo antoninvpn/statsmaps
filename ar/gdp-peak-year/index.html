@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>سنة ذروة الناتج المحلي حسب البلد — خريطة عالمية تفاعلية | StatsMaps</title>
+  <meta name="description" content="خريطة تفاعلية للسنة التي بلغ فيها الناتج المحلي الإجمالي لكل بلد أعلى مستوياته، من 1980 إلى 2031، بما في ذلك توقعات صندوق النقد الدولي. بالأخضر البلدان في ذروتها اليوم، وبالأحمر تلك التي لم تستعدها قط. بيانات رسمية من صندوق النقد الدولي.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://statsmaps.com/ar/gdp-peak-year/">
+  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib/">
+  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-peaked/">
+  <link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp/">
+  <link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-hoechststand/">
+  <link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib/">
+  <link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil/">
+  <link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib/">
+  <link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb/">
+  <link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-peak-year/">
+  <link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-peak-year/">
+  <link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-zirve-yili/">
+  <link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-peak-year/">
+  <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-peak-year/">
+  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib/">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="سنة ذروة الناتج المحلي حسب البلد — خريطة عالمية تفاعلية">
+  <meta property="og:description" content="خريطة تفاعلية للسنة التي بلغ فيها الناتج المحلي الإجمالي لكل بلد أعلى مستوياته، من 1980 إلى 2031، بما في ذلك توقعات صندوق النقد الدولي. بالأخضر البلدان في ذروتها اليوم، وبالأحمر تلك التي لم تستعدها قط. بيانات رسمية من صندوق النقد الدولي.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://statsmaps.com/ar/gdp-peak-year/">
+  <link rel="preload" href="../../data/pays.json" as="fetch" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.1/maplibre-gl.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <script src="../../assets/js/theme.js"></script>
+</head>
+<body class="page-carte" data-indicateur="annee-record-pib" data-langue="ar" data-base="../../">
+
+  <header class="barre">
+    <a class="barre__logo" href="../">Stats<span>Maps</span></a>
+    <nav class="barre__nav" aria-label="الخرائط">
+        <a class="barre__lien" href="../nominal-gdp/"><span class="long">الناتج المحلي الإجمالي</span><span class="court">الناتج</span></a>
+        <a class="barre__lien" href="../gdp-per-capita/"><span class="long">نصيب الفرد من الناتج</span><span class="court">نصيب الفرد</span></a>
+        <a class="barre__lien" href="../gdp-growth/"><span class="long">النمو</span><span class="court">النمو</span></a>
+        <a class="barre__lien" href="../gdp-peak-year/" aria-current="page"><span class="long">سنة ذروة الناتج</span><span class="court">ذروة الناتج</span></a>
+        <a class="barre__lien" href="../gdp-per-capita-peak-year/"><span class="long">سنة ذروة نصيب الفرد</span><span class="court">ذروة نصيب الفرد</span></a>
+    </nav>
+    <div class="barre__droite">
+      <details class="langues">
+        <summary class="bouton-icone" title="اللغة" aria-label="اللغة">🇸🇦</summary>
+        <div class="langues__menu">
+          <a href="/annee-record-pib/" hreflang="fr" lang="fr"><span class="drapeau" aria-hidden="true">🇫🇷</span>Français</a>
+          <a href="/en/when-gdp-peaked/" hreflang="en" lang="en"><span class="drapeau" aria-hidden="true">🇬🇧</span>English</a>
+          <a href="/ua/rekordnyi-rik-vvp/" hreflang="uk" lang="uk"><span class="drapeau" aria-hidden="true">🇺🇦</span>Українська</a>
+          <a href="/de/bip-hoechststand/" hreflang="de" lang="de"><span class="drapeau" aria-hidden="true">🇩🇪</span>Deutsch</a>
+          <a href="/es/ano-record-pib/" hreflang="es" lang="es"><span class="drapeau" aria-hidden="true">🇪🇸</span>Español</a>
+          <a href="/it/anno-record-pil/" hreflang="it" lang="it"><span class="drapeau" aria-hidden="true">🇮🇹</span>Italiano</a>
+          <a href="/pt/ano-recorde-pib/" hreflang="pt" lang="pt"><span class="drapeau" aria-hidden="true">🇵🇹</span>Português</a>
+          <a href="/pl/rekordowy-rok-pkb/" hreflang="pl" lang="pl"><span class="drapeau" aria-hidden="true">🇵🇱</span>Polski</a>
+          <a href="/ja/gdp-peak-year/" hreflang="ja" lang="ja"><span class="drapeau" aria-hidden="true">🇯🇵</span>日本語</a>
+          <a href="/ko/gdp-peak-year/" hreflang="ko" lang="ko"><span class="drapeau" aria-hidden="true">🇰🇷</span>한국어</a>
+          <a href="/tr/gsyih-zirve-yili/" hreflang="tr" lang="tr"><span class="drapeau" aria-hidden="true">🇹🇷</span>Türkçe</a>
+          <a href="/hi/gdp-peak-year/" hreflang="hi" lang="hi"><span class="drapeau" aria-hidden="true">🇮🇳</span>हिन्दी</a>
+          <a href="/ar/gdp-peak-year/" hreflang="ar" lang="ar" aria-current="true"><span class="drapeau" aria-hidden="true">🇸🇦</span>العربية</a>
+        </div>
+      </details>
+      <button class="bouton-icone" id="bouton-theme" type="button"
+              aria-label="تغيير المظهر"
+              data-vers-clair="التبديل إلى المظهر الفاتح"
+              data-vers-sombre="التبديل إلى المظهر الداكن">☾</button>
+    </div>
+  </header>
+
+  <div class="zone-carte">
+    <div id="carte"></div>
+
+    <button class="bouton-icone bouton-panneau" id="bouton-panneau" type="button" aria-expanded="false" aria-controls="panneau"></button>
+
+    <aside class="panneau" id="panneau">
+      <div class="panneau__entete">
+        <h1 class="panneau__titre" id="titre-panneau">سنة ذروة الناتج</h1>
+        <div class="panneau__soustitre" id="compteur-pays"></div>
+        <input class="panneau__recherche" id="recherche" type="search" autocomplete="off" spellcheck="false">
+      </div>
+      <ul class="classement" id="classement"></ul>
+      <div class="panneau__pied" id="source"></div>
+    </aside>
+
+    <div class="legende" id="legende"></div>
+
+    <div class="annees">
+      <div class="annees__haut">
+        <span class="annees__valeur nombre" id="annee-valeur">—</span>
+        <span class="annees__etiquette" id="annee-etiquette"></span>
+      </div>
+      <input type="range" id="curseur-annee" min="1980" max="2031" step="1" value="2025">
+      <div class="annees__bornes"><span id="annee-min"></span><span id="annee-max"></span></div>
+    </div>
+
+    <div class="chargement" id="chargement">…</div>
+  </div>
+
+  <script src="../../assets/js/i18n.js"></script>
+  <script src="../../assets/js/barre.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.1/maplibre-gl.js"></script>
+  <script src="../../assets/js/comparateur.js"></script>
+  <script src="../../assets/js/carte.js"></script>
+</body>
+</html>

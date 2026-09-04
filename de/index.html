@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StatsMaps — Weltstatistiken auf interaktiven Karten</title>
+  <meta name="description" content="Interaktive Karten der Weltwirtschaft: nominales BIP, BIP pro Kopf, Wachstum und Höchststände von 197 Ländern, von 1980 bis 2031, auf Grundlage offizieller IWF-Daten.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://statsmaps.com/de/">
+  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/">
+  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/">
+  <link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/">
+  <link rel="alternate" hreflang="de" href="https://statsmaps.com/de/">
+  <link rel="alternate" hreflang="es" href="https://statsmaps.com/es/">
+  <link rel="alternate" hreflang="it" href="https://statsmaps.com/it/">
+  <link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/">
+  <link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/">
+  <link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/">
+  <link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/">
+  <link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/">
+  <link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/">
+  <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/">
+  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="StatsMaps — Weltstatistiken auf interaktiven Karten">
+  <meta property="og:description" content="Interaktive Karten der Weltwirtschaft: nominales BIP, BIP pro Kopf, Wachstum und Höchststände von 197 Ländern, von 1980 bis 2031, auf Grundlage offizieller IWF-Daten.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://statsmaps.com/de/">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/theme.js"></script>
+</head>
+<body>
+
+  <header class="barre">
+    <a class="barre__logo" href="./">Stats<span>Maps</span></a>
+    <nav class="barre__nav" aria-label="Karten">
+        <a class="barre__lien" href="nominales-bip/"><span class="long">Nominales BIP</span><span class="court">BIP</span></a>
+        <a class="barre__lien" href="bip-pro-kopf/"><span class="long">BIP pro Kopf</span><span class="court">BIP/Kopf</span></a>
+        <a class="barre__lien" href="bip-wachstum/"><span class="long">Wachstum</span><span class="court">Wachstum</span></a>
+        <a class="barre__lien" href="bip-hoechststand/"><span class="long">BIP-Höchststand</span><span class="court">BIP-Höchst.</span></a>
+        <a class="barre__lien" href="bip-pro-kopf-hoechststand/"><span class="long">Höchststand BIP pro Kopf</span><span class="court">BIP/Kopf-Höchst.</span></a>
+    </nav>
+    <div class="barre__droite">
+      <details class="langues">
+        <summary class="bouton-icone" title="Sprache" aria-label="Sprache">🇩🇪</summary>
+        <div class="langues__menu">
+          <a href="/" hreflang="fr" lang="fr"><span class="drapeau" aria-hidden="true">🇫🇷</span>Français</a>
+          <a href="/en/" hreflang="en" lang="en"><span class="drapeau" aria-hidden="true">🇬🇧</span>English</a>
+          <a href="/ua/" hreflang="uk" lang="uk"><span class="drapeau" aria-hidden="true">🇺🇦</span>Українська</a>
+          <a href="/de/" hreflang="de" lang="de" aria-current="true"><span class="drapeau" aria-hidden="true">🇩🇪</span>Deutsch</a>
+          <a href="/es/" hreflang="es" lang="es"><span class="drapeau" aria-hidden="true">🇪🇸</span>Español</a>
+          <a href="/it/" hreflang="it" lang="it"><span class="drapeau" aria-hidden="true">🇮🇹</span>Italiano</a>
+          <a href="/pt/" hreflang="pt" lang="pt"><span class="drapeau" aria-hidden="true">🇵🇹</span>Português</a>
+          <a href="/pl/" hreflang="pl" lang="pl"><span class="drapeau" aria-hidden="true">🇵🇱</span>Polski</a>
+          <a href="/ja/" hreflang="ja" lang="ja"><span class="drapeau" aria-hidden="true">🇯🇵</span>日本語</a>
+          <a href="/ko/" hreflang="ko" lang="ko"><span class="drapeau" aria-hidden="true">🇰🇷</span>한국어</a>
+          <a href="/tr/" hreflang="tr" lang="tr"><span class="drapeau" aria-hidden="true">🇹🇷</span>Türkçe</a>
+          <a href="/hi/" hreflang="hi" lang="hi"><span class="drapeau" aria-hidden="true">🇮🇳</span>हिन्दी</a>
+          <a href="/ar/" hreflang="ar" lang="ar"><span class="drapeau" aria-hidden="true">🇸🇦</span>العربية</a>
+        </div>
+      </details>
+      <button class="bouton-icone" id="bouton-theme" type="button"
+              aria-label="Design wechseln"
+              data-vers-clair="Zum hellen Design wechseln"
+              data-vers-sombre="Zum dunklen Design wechseln">☾</button>
+    </div>
+  </header>
+
+  <main class="accueil">
+    <h1 class="accueil__titre">Die Statistiken der Welt, als Karte.</h1>
+    <p class="accueil__intro">StatsMaps bringt die großen weltweiten Kennzahlen auf interaktive Karten, aus offiziellen Quellen. Den Anfang macht die Wirtschaft, mit Daten des Internationalen Währungsfonds: 197 Länder, von 1980 bis 2031.</p>
+
+    <div class="vignettes">
+      <a class="vignette" href="nominales-bip/">
+        <div class="vignette__pastille">💰</div>
+        <div class="vignette__titre">Nominales BIP</div>
+        <p class="vignette__texte">Die Größe jeder Volkswirtschaft, in Milliarden US-Dollar zu jeweiligen Preisen.</p>
+      </a>
+      <a class="vignette" href="bip-pro-kopf/">
+        <div class="vignette__pastille">👤</div>
+        <div class="vignette__titre">BIP pro Kopf</div>
+        <p class="vignette__texte">Die je Person erwirtschaftete Leistung, in US-Dollar zu jeweiligen Preisen.</p>
+      </a>
+      <a class="vignette" href="bip-wachstum/">
+        <div class="vignette__pastille">📈</div>
+        <div class="vignette__titre">BIP-Wachstum</div>
+        <p class="vignette__texte">Die Veränderung des realen BIP von Jahr zu Jahr, in Prozent.</p>
+      </a>
+      <a class="vignette" href="bip-hoechststand/">
+        <div class="vignette__pastille">🏔️</div>
+        <div class="vignette__titre">BIP-Höchststand</div>
+        <p class="vignette__texte">Das Jahr, in dem jedes Land sein Maximum erreichte — und jene, die nie dorthin zurückkehrten.</p>
+      </a>
+      <a class="vignette" href="bip-pro-kopf-hoechststand/">
+        <div class="vignette__pastille">⛰️</div>
+        <div class="vignette__titre">Höchststand BIP pro Kopf</div>
+        <p class="vignette__texte">Das Jahr, in dem die Menschen jedes Landes im Schnitt am wohlhabendsten waren.</p>
+      </a>
+    </div>
+
+    <p class="accueil__bientot">Demnächst: Bevölkerung, Infrastruktur, Energie, Bildung und Gesundheit.</p>
+  </main>
+
+  <footer class="pied">Daten: IWF (World Economic Outlook) · Kartengrundlage: Natural Earth · Ohne Werbung, ohne Tracker.</footer>
+
+  <script src="../assets/js/barre.js"></script>
+</body>
+</html>

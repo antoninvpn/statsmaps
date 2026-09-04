@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ülkelere göre kişi başına GSYİH — etkileşimli dünya haritası | StatsMaps</title>
+  <meta name="description" content="197 ülkenin kişi başına GSYİH’sini gösteren etkileşimli harita, 1980’den 2031’e. IMF’nin resmî verileri, dünya sıralaması ve kişi başına refah düzeyi.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://statsmaps.com/tr/kisi-basi-gsyih/">
+  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-par-habitant/">
+  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-per-capita/">
+  <link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-na-osobu/">
+  <link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf/">
+  <link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-per-capita/">
+  <link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-pro-capite/">
+  <link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-per-capita/">
+  <link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-na-mieszkanca/">
+  <link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita/">
+  <link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita/">
+  <link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih/">
+  <link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita/">
+  <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita/">
+  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant/">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="Ülkelere göre kişi başına GSYİH — etkileşimli dünya haritası">
+  <meta property="og:description" content="197 ülkenin kişi başına GSYİH’sini gösteren etkileşimli harita, 1980’den 2031’e. IMF’nin resmî verileri, dünya sıralaması ve kişi başına refah düzeyi.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://statsmaps.com/tr/kisi-basi-gsyih/">
+  <link rel="preload" href="../../data/pays.json" as="fetch" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.1/maplibre-gl.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <script src="../../assets/js/theme.js"></script>
+</head>
+<body class="page-carte" data-indicateur="pib-par-habitant" data-langue="tr" data-base="../../">
+
+  <header class="barre">
+    <a class="barre__logo" href="../">Stats<span>Maps</span></a>
+    <nav class="barre__nav" aria-label="Haritalar">
+        <a class="barre__lien" href="../nominal-gsyih/"><span class="long">Nominal GSYİH</span><span class="court">GSYİH</span></a>
+        <a class="barre__lien" href="../kisi-basi-gsyih/" aria-current="page"><span class="long">Kişi başına GSYİH</span><span class="court">GSYİH/kişi</span></a>
+        <a class="barre__lien" href="../gsyih-buyumesi/"><span class="long">Büyüme</span><span class="court">Büyüme</span></a>
+        <a class="barre__lien" href="../gsyih-zirve-yili/"><span class="long">GSYİH zirve yılı</span><span class="court">GSYİH zirve</span></a>
+        <a class="barre__lien" href="../kisi-basi-gsyih-zirve-yili/"><span class="long">Kişi başına GSYİH zirve yılı</span><span class="court">GSYİH/kişi zirve</span></a>
+    </nav>
+    <div class="barre__droite">
+      <details class="langues">
+        <summary class="bouton-icone" title="Dil" aria-label="Dil">🇹🇷</summary>
+        <div class="langues__menu">
+          <a href="/pib-par-habitant/" hreflang="fr" lang="fr"><span class="drapeau" aria-hidden="true">🇫🇷</span>Français</a>
+          <a href="/en/gdp-per-capita/" hreflang="en" lang="en"><span class="drapeau" aria-hidden="true">🇬🇧</span>English</a>
+          <a href="/ua/vvp-na-osobu/" hreflang="uk" lang="uk"><span class="drapeau" aria-hidden="true">🇺🇦</span>Українська</a>
+          <a href="/de/bip-pro-kopf/" hreflang="de" lang="de"><span class="drapeau" aria-hidden="true">🇩🇪</span>Deutsch</a>
+          <a href="/es/pib-per-capita/" hreflang="es" lang="es"><span class="drapeau" aria-hidden="true">🇪🇸</span>Español</a>
+          <a href="/it/pil-pro-capite/" hreflang="it" lang="it"><span class="drapeau" aria-hidden="true">🇮🇹</span>Italiano</a>
+          <a href="/pt/pib-per-capita/" hreflang="pt" lang="pt"><span class="drapeau" aria-hidden="true">🇵🇹</span>Português</a>
+          <a href="/pl/pkb-na-mieszkanca/" hreflang="pl" lang="pl"><span class="drapeau" aria-hidden="true">🇵🇱</span>Polski</a>
+          <a href="/ja/gdp-per-capita/" hreflang="ja" lang="ja"><span class="drapeau" aria-hidden="true">🇯🇵</span>日本語</a>
+          <a href="/ko/gdp-per-capita/" hreflang="ko" lang="ko"><span class="drapeau" aria-hidden="true">🇰🇷</span>한국어</a>
+          <a href="/tr/kisi-basi-gsyih/" hreflang="tr" lang="tr" aria-current="true"><span class="drapeau" aria-hidden="true">🇹🇷</span>Türkçe</a>
+          <a href="/hi/gdp-per-capita/" hreflang="hi" lang="hi"><span class="drapeau" aria-hidden="true">🇮🇳</span>हिन्दी</a>
+          <a href="/ar/gdp-per-capita/" hreflang="ar" lang="ar"><span class="drapeau" aria-hidden="true">🇸🇦</span>العربية</a>
+        </div>
+      </details>
+      <button class="bouton-icone" id="bouton-theme" type="button"
+              aria-label="Temayı değiştir"
+              data-vers-clair="Açık temaya geç"
+              data-vers-sombre="Koyu temaya geç">☾</button>
+    </div>
+  </header>
+
+  <div class="zone-carte">
+    <div id="carte"></div>
+
+    <button class="bouton-icone bouton-panneau" id="bouton-panneau" type="button" aria-expanded="false" aria-controls="panneau"></button>
+
+    <aside class="panneau" id="panneau">
+      <div class="panneau__entete">
+        <h1 class="panneau__titre" id="titre-panneau">Kişi başına GSYİH</h1>
+        <div class="panneau__soustitre" id="compteur-pays"></div>
+        <input class="panneau__recherche" id="recherche" type="search" autocomplete="off" spellcheck="false">
+      </div>
+      <ul class="classement" id="classement"></ul>
+      <div class="panneau__pied" id="source"></div>
+    </aside>
+
+    <div class="legende" id="legende"></div>
+
+    <div class="annees">
+      <div class="annees__haut">
+        <span class="annees__valeur nombre" id="annee-valeur">—</span>
+        <span class="annees__etiquette" id="annee-etiquette"></span>
+      </div>
+      <input type="range" id="curseur-annee" min="1980" max="2031" step="1" value="2025">
+      <div class="annees__bornes"><span id="annee-min"></span><span id="annee-max"></span></div>
+    </div>
+
+    <div class="chargement" id="chargement">…</div>
+  </div>
+
+  <script src="../../assets/js/i18n.js"></script>
+  <script src="../../assets/js/barre.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.1/maplibre-gl.js"></script>
+  <script src="../../assets/js/comparateur.js"></script>
+  <script src="../../assets/js/carte.js"></script>
+</body>
+</html>

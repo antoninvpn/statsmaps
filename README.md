@@ -10,18 +10,47 @@ Aujourd'hui : l'économie, avec les données du **FMI** (World Economic Outlook)
 
 ## 🗺️ Les pages du site
 
-Le site existe en **trois langues** : français à la racine, anglais dans `/en/`,
-ukrainien dans `/ua/`. (Le dossier s'appelle `ua` parce que c'est ce qu'écrivent
-les Ukrainiens ; le code de langue déclaré à Google reste `uk`, l'officiel.)
+Le site existe en **treize langues**, soit **78 pages** : l'accueil et les cinq
+cartes, dans chacune. Le français est à la racine, les autres langues dans leur
+dossier.
 
-| Français | Anglais | Ukrainien | Contenu |
+| | Langue | Dossier | Exemple d'adresse |
 |---|---|---|---|
-| `/` | `/en/` | `/ua/` | Accueil |
-| `/pib-nominal/` | `/en/gdp/` | `/ua/vvp/` | PIB nominal |
-| `/pib-par-habitant/` | `/en/gdp-per-capita/` | `/ua/vvp-na-osobu/` | PIB par habitant |
-| `/croissance/` | `/en/growth/` | `/ua/zrostannia/` | Croissance du PIB réel |
-| `/annee-record-pib/` | `/en/when-gdp-peaked/` | `/ua/rekordnyi-rik-vvp/` | Année record du PIB |
-| `/annee-record-pib-par-habitant/` | `/en/when-gdp-per-capita-peaked/` | `/ua/rekordnyi-rik-vvp-na-osobu/` | Année record du PIB par habitant |
+| 🇫🇷 | Français | *(racine)* | `/pib-par-habitant/` |
+| 🇬🇧 | English | `/en/` | `/en/gdp-per-capita/` |
+| 🇺🇦 | Українська | `/ua/` | `/ua/vvp-na-osobu/` |
+| 🇩🇪 | Deutsch | `/de/` | `/de/bip-pro-kopf/` |
+| 🇪🇸 | Español | `/es/` | `/es/pib-per-capita/` |
+| 🇮🇹 | Italiano | `/it/` | `/it/pil-pro-capite/` |
+| 🇵🇹 | Português | `/pt/` | `/pt/pib-per-capita/` |
+| 🇵🇱 | Polski | `/pl/` | `/pl/pkb-na-mieszkanca/` |
+| 🇯🇵 | 日本語 | `/ja/` | `/ja/gdp-per-capita/` |
+| 🇰🇷 | 한국어 | `/ko/` | `/ko/gdp-per-capita/` |
+| 🇹🇷 | Türkçe | `/tr/` | `/tr/kisi-basi-gsyih/` |
+| 🇮🇳 | हिन्दी | `/hi/` | `/hi/gdp-per-capita/` |
+| 🇸🇦 | العربية | `/ar/` | `/ar/gdp-per-capita/` |
+
+Deux détails d'apparence bizarre, tous deux volontaires :
+
+- le dossier ukrainien s'appelle `ua` parce que c'est ce qu'écrivent les
+  Ukrainiens, mais le code de langue déclaré à Google reste `uk`, l'officiel ;
+- les adresses sont **traduites** quand la langue s'écrit en alphabet latin
+  (`/de/bip-pro-kopf/`), mais restent en anglais pour le japonais, le coréen,
+  l'hindi et l'arabe. Une adresse en écriture native y deviendrait illisible
+  une fois encodée par le navigateur (`/ja/%E4%B8%80%E4%BA%BA...`), et « GDP »
+  est de toute façon la forme employée couramment dans ces langues.
+
+L'arabe s'écrit de droite à gauche : sur ces six pages, **toute l'interface est
+inversée** — le classement passe à droite, la légende à gauche. Seules trois
+choses gardent leur sens de lecture : la barre de couleurs de la légende,
+le curseur des années et le graphique du comparateur. Une échelle de valeurs et
+un axe du temps se lisent dans le même sens dans toutes les langues ; les
+retourner ferait dire à la légende l'inverse de ce que montre la carte.
+
+Les 78 pages ne s'écrivent pas à la main : elles sortent toutes d'un seul
+modèle, dans `scripts/build_pages.py`. Et les noms des 197 pays ne se
+traduisent pas non plus — Natural Earth les fournit déjà dans les treize
+langues.
 
 ### Les 197 pays du classement
 
@@ -86,28 +115,88 @@ habitant (RD Congo 1980, Ghana 1982, Koweït 2008, Qatar 2012…).
 Ces deux cartes ne sont pas téléchargées mais **calculées** à partir du PIB et
 du PIB par habitant, par la fonction `annees_record()` de `build_donnees.py`.
 
+### Comparer deux pays
+
+Deux outils différents, qui partent tous les deux du **pays sur lequel on
+clique**. Ce pays reste sélectionné quand on fait glisser le curseur des
+années : ses chiffres défilent sous les yeux, dans la bulle qui reste ouverte.
+
+**1. Le mode comparaison, sur la carte.** Une fois un pays choisi, le bouton
+« Comparer à ce pays » de la légende repeint toute la carte : chaque pays prend
+alors la couleur de son **écart** avec celui-là. Rouge = fait moins bien,
+vert = fait mieux, jaune = à peu près au même niveau. Le pays de référence est
+cerclé de bleu, et une croix dans la légende fait revenir à la carte normale.
+
+L'écart ne se mesure pas de la même façon selon la carte — c'est le réglage
+`ECARTS`, en haut de `assets/js/carte.js` :
+
+| Carte | Écart mesuré en | Exemple |
+|---|---|---|
+| PIB nominal, PIB par habitant | **pourcentage** de la référence | l'Allemagne est à `+24 %` de la France |
+| Croissance | **points** de croissance | l'Inde est à `+6,7 pt` de la France |
+| Année record (×2) | **années** entre les deux records | l'Ukraine est à `−34 ans` de la France |
+
+Dans les trois cas le signe dit la même chose : **positif = fait mieux que la
+référence**. C'est pourquoi les cartes « année record », dont la palette est
+retournée d'habitude, la remettent à l'endroit dans ce mode.
+
+**2. Le comparateur, dans le panneau de gauche.** L'onglet « Comparer » met deux
+pays face à face et répond à la question « de combien, et depuis quand ? » :
+
+- l'écart pour l'année affichée, en grand ;
+- un **graphique de cet écart de 1980 à 2031** — c'est là qu'on voit un pays
+  rattraper l'autre, le dépasser, ou décrocher. On peut cliquer dedans pour
+  déplacer le curseur des années ;
+- les années remarquables : l'écart maximal, l'écart minimal, et la dernière
+  fois que les deux pays se sont croisés.
+
+Exemple, sur le PIB par habitant : le Royaume-Uni était **15 % en dessous** de
+la France en 1980, l'a dépassée en 2012, et le FMI le voit **29 % au-dessus**
+en 2031.
+
+Ce comparateur vit dans son propre fichier, `assets/js/comparateur.js`, qui ne
+sait rien du reste du site : `carte.js` lui passe les données et les quelques
+fonctions dont il a besoin. C'est ce qui lui permet de marcher à l'identique
+sur les cinq cartes, alors qu'un écart s'y mesure de trois façons différentes.
+
 ---
 
 ## 📁 Où se trouve quoi ?
 
+> ⚠️ **Les 78 pages HTML et `sitemap.xml` ne se modifient pas à la main** :
+> elles sont fabriquées par `scripts/build_pages.py` et toute retouche
+> directe serait effacée à la prochaine exécution. Le dossier `data/` est
+> dans le même cas, avec les deux autres scripts.
+
 ```
-index.html               La page d'accueil en français
-en/index.html            La page d'accueil en anglais
-ua/index.html            La page d'accueil en ukrainien
-pib-nominal/ ...         Les 15 pages de carte (5 cartes × 3 langues)
+index.html               L'accueil en français ─┐
+en/ ua/ de/ es/ it/ pt/                         ├─ 78 pages FABRIQUÉES par
+pl/ ja/ ko/ tr/ hi/ ar/  Les douze autres       │  scripts/build_pages.py
+pib-nominal/ ...         Les cartes en français ┘
+sitemap.xml              La carte du site pour Google ─┘
 
 assets/css/style.css     TOUTES les couleurs et l'apparence du site
-assets/js/i18n.js        TOUS les textes, en 3 langues
+assets/js/i18n.js        TOUS les textes des boutons, en 13 langues
 assets/js/theme.js       Le bouton soleil / lune
 assets/js/barre.js       Le menu déroulant des langues
-assets/js/carte.js       Le moteur des cartes (partagé par les 15 pages)
+assets/js/carte.js       Le moteur des cartes (partagé par les 65 pages)
+assets/js/comparateur.js L'onglet « Comparer » du panneau de gauche
 
-data/                    Les chiffres. NE PAS MODIFIER À LA MAIN :
-                         ces fichiers sont fabriqués par les scripts.
+data/                    Les chiffres. FABRIQUÉS par les scripts.
 
-scripts/build_geojson.py Prépare le fond de carte (frontières des pays)
+scripts/build_geojson.py Prépare le fond de carte (frontières, noms des pays)
 scripts/build_donnees.py Va chercher les chiffres chez le FMI
+scripts/build_pages.py   Fabrique les 78 pages, le sitemap et la page 404
 ```
+
+Où sont les textes, selon leur nature :
+
+| Texte | Fichier |
+|---|---|
+| les boutons, la légende, les infobulles | `assets/js/i18n.js` |
+| les titres de pages, les descriptions pour Google, les adresses | `scripts/build_pages.py` |
+| les titres des cartes et leurs unités | `scripts/build_donnees.py` |
+| les noms des 197 pays | personne : ils viennent de Natural Earth |
 
 ### Je veux changer…
 
@@ -116,9 +205,10 @@ scripts/build_donnees.py Va chercher les chiffres chez le FMI
 | une couleur du site | `assets/css/style.css`, tout en haut (section « Couleurs ») |
 | les couleurs des cartes | `assets/js/carte.js`, tout en haut : `PALETTE_CLAIR` et `PALETTE_SOMBRE` |
 | les seuils entre deux couleurs | `assets/js/carte.js`, les `tranches` de la carte concernée |
-| un texte (bouton, titre…) | `assets/js/i18n.js` |
+| les seuils du mode comparaison | `assets/js/carte.js`, le bloc `ECARTS` |
+| un texte de bouton | `assets/js/i18n.js` |
 | un drapeau ou un nom de pays | `scripts/build_geojson.py`, puis relancer le script |
-| le titre d'une page dans Google | la balise `<title>` de la page concernée |
+| le titre d'une page dans Google | `scripts/build_pages.py`, puis relancer le script |
 
 ---
 
@@ -157,6 +247,16 @@ Le fond de carte, lui, ne change quasiment jamais. Si besoin :
 python3 scripts/build_geojson.py
 ```
 
+Et pour refabriquer les 78 pages, après avoir touché à un titre, une adresse
+ou la liste des langues :
+
+```bash
+python3 scripts/build_pages.py
+```
+
+Ce dernier ne dépend de rien : on peut le relancer autant de fois qu'on veut,
+il réécrit toujours exactement la même chose.
+
 Aucune installation n'est nécessaire : ces scripts n'utilisent que Python,
 déjà présent sur macOS.
 
@@ -167,18 +267,47 @@ déjà présent sur macOS.
 Le FMI propose **132 indicateurs** (population, inflation, chômage, dette
 publique…). Pour en ajouter un :
 
-1. Dans `scripts/build_donnees.py`, ajouter un bloc dans la liste `INDICATEURS`.
-2. Dans `assets/js/carte.js`, ajouter les tranches et couleurs dans `CARTES`.
-3. Dans `assets/js/i18n.js`, ajouter le nom de la carte dans les trois langues.
-4. Dupliquer un dossier de carte existant (ex. `croissance/`) **une fois par
-   langue** et adapter le `data-indicateur` de la balise `<body>`, le titre,
-   la description et les balises `hreflang`.
-5. Ajouter les liens dans la barre de navigation des 18 pages, la vignette des
-   3 pages d'accueil, et les 3 adresses dans `sitemap.xml`.
+1. Dans `scripts/build_donnees.py`, ajouter un bloc dans la liste `INDICATEURS`
+   (avec son titre et son unité dans les treize langues).
+2. Dans `assets/js/carte.js`, ajouter ses tranches de couleur et sa façon de
+   mesurer un écart dans `CARTES`.
+3. Dans `scripts/build_pages.py`, ajouter la carte à la liste `CARTES`, puis
+   son entrée `"cartes"` dans **chacun** des treize blocs de `LANGUES`.
+4. Relancer :
 
-> C'est la partie la plus fastidieuse du site : chaque nouvelle carte se
-> multiplie par le nombre de langues. Tout le reste (couleurs, classement,
-> légende, curseur) est partagé et n'a pas à être recopié.
+```bash
+python3 scripts/build_donnees.py && python3 scripts/build_pages.py
+```
+
+Les 13 nouvelles pages, les liens du menu sur les 78 pages, les vignettes des
+13 accueils et le sitemap suivent tout seuls.
+
+> Le travail est désormais celui de la **traduction**, pas de la recopie :
+> l'étape 3 demande d'écrire un titre et une description par langue. Le reste
+> (couleurs, classement, légende, curseur, comparateur) est partagé.
+
+---
+
+## 🌍 Ajouter une langue
+
+1. Dans `scripts/build_geojson.py`, une ligne dans le tableau `LANGUES` : le
+   code de la langue et le champ où Natural Earth range les noms de pays
+   (`"sv": "NAME_SV"` pour le suédois, par exemple). Les 197 noms viennent de
+   là — il n'y a rien à traduire à la main.
+2. Dans `assets/js/i18n.js`, un bloc de textes, sur le modèle des treize autres.
+3. Dans `scripts/build_donnees.py`, la langue dans les `titre` et `unite` de
+   chaque indicateur.
+4. Dans `scripts/build_pages.py`, son bloc dans `LANGUES` : les adresses, les
+   titres et les descriptions des six pages.
+5. Relancer les trois scripts.
+
+Si la langue s'écrit de droite à gauche, mettre `"sens": "rtl"` dans son bloc :
+le reste (panneau à droite, légende à gauche) se fait tout seul.
+
+> Une seule chose à ne pas oublier : le navigateur connaît déjà les règles de
+> pluriel de toutes les langues (« 1 an » / « 5 ans », et les quatre formes du
+> polonais). Il suffit de remplir dans `i18n.js` les formes que la langue
+> utilise vraiment ; les manquantes retombent sur `_other`.
 
 ---
 

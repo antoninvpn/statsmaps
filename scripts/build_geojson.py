@@ -143,44 +143,72 @@ CORRECTIONS_CODES = {
     "PSX": "WBG",  # Palestine -> "West Bank and Gaza" chez le FMI
 }
 
+# LES LANGUES DU SITE, et le champ de Natural Earth où trouver le nom des pays.
+#
+# C'est le gros avantage de Natural Earth : il fournit déjà le nom des 197 pays
+# dans une trentaine de langues. Ajouter une langue au site ne demande donc
+# AUCUNE traduction de pays — juste une ligne ici.
+#
+# (Le champ anglais s'appelle "NAME" et non "NAME_EN" : c'est la forme courte,
+# « Dem. Rep. Congo » plutôt que « Democratic Republic of the Congo ».)
+LANGUES = {
+    "fr": "NAME_FR",
+    "en": "NAME",
+    "uk": "NAME_UK",
+    "de": "NAME_DE",
+    "es": "NAME_ES",
+    "it": "NAME_IT",
+    "pt": "NAME_PT",
+    "pl": "NAME_PL",
+    "ja": "NAME_JA",
+    "ko": "NAME_KO",
+    "tr": "NAME_TR",
+    "hi": "NAME_HI",
+    "ar": "NAME_AR",
+}
+
 # Quelques pays ont un nom officiel trop long pour tenir dans le classement.
-# On leur donne ici le nom court d'usage, dans les trois langues du site :
-#                     (français, anglais, ukrainien)
+# On leur donne ici le nom court d'usage.
+#
+# Les langues absentes d'une ligne gardent simplement le nom de Natural Earth,
+# qui est déjà la forme courante dans la plupart des cas. Inutile donc de
+# remplir les treize langues : seules celles où le nom déborde méritent d'être
+# corrigées ici.
 NOMS_COURTS = {
-    "CHN": ("Chine", "China", "Китай"),
-    "USA": ("États-Unis", "United States", "США"),
-    "COD": ("Rép. dém. du Congo", "DR Congo", "ДР Конго"),
-    "CAF": ("Rép. centrafricaine", "Central African Rep.", "ЦАР"),
-    "DOM": ("Rép. dominicaine", "Dominican Rep.", "Домініканська Респ."),
-    "PNG": ("Papouasie-N.-Guinée", "Papua New Guinea", "Папуа-Нова Гвінея"),
-    "SSD": ("Soudan du Sud", "South Sudan", "Південний Судан"),
-    "BIH": ("Bosnie-Herzégovine", "Bosnia & Herzegovina", "Боснія і Герцеговина"),
-    "STP": ("Sao Tomé-et-Principe", "São Tomé & Príncipe", "Сан-Томе і Принсіпі"),
-    "ARE": ("Émirats arabes unis", "United Arab Emirates", "ОАЕ"),
-    "GBR": ("Royaume-Uni", "United Kingdom", "Велика Британія"),
-    "PRK": ("Corée du Nord", "North Korea", "Північна Корея"),
-    "KOR": ("Corée du Sud", "South Korea", "Південна Корея"),
-    "LAO": ("Laos", "Laos", "Лаос"),
-    "SYR": ("Syrie", "Syria", "Сирія"),
-    "VAT": ("Vatican", "Vatican", "Ватикан"),
-    "ZAF": ("Afrique du Sud", "South Africa", "ПАР"),
-    "VCT": ("Saint-Vincent-et-les-Gr.", "St. Vincent & Gren.", "Сент-Вінсент і Гренадини"),
-    "KNA": ("Saint-Kitts-et-Nevis", "St. Kitts & Nevis", "Сент-Кітс і Невіс"),
-    "ATG": ("Antigua-et-Barbuda", "Antigua & Barbuda", "Антигуа і Барбуда"),
-    "TTO": ("Trinité-et-Tobago", "Trinidad & Tobago", "Тринідад і Тобаго"),
-    "MKD": ("Macédoine du Nord", "North Macedonia", "Північна Македонія"),
-    "GNQ": ("Guinée équatoriale", "Equatorial Guinea", "Екваторіальна Гвінея"),
-    "IRN": ("Iran", "Iran", "Іран"),
-    "VEN": ("Venezuela", "Venezuela", "Венесуела"),
-    "TZA": ("Tanzanie", "Tanzania", "Танзанія"),
-    "BOL": ("Bolivie", "Bolivia", "Болівія"),
-    "MDA": ("Moldavie", "Moldova", "Молдова"),
+    "CHN": {"fr": "Chine", "en": "China", "uk": "Китай"},
+    "USA": {"fr": "États-Unis", "en": "United States", "uk": "США"},
+    "COD": {"fr": "Rép. dém. du Congo", "en": "DR Congo", "uk": "ДР Конго"},
+    "CAF": {"fr": "Rép. centrafricaine", "en": "Central African Rep.", "uk": "ЦАР"},
+    "DOM": {"fr": "Rép. dominicaine", "en": "Dominican Rep.", "uk": "Домініканська Респ."},
+    "PNG": {"fr": "Papouasie-N.-Guinée", "en": "Papua New Guinea", "uk": "Папуа-Нова Гвінея"},
+    "SSD": {"fr": "Soudan du Sud", "en": "South Sudan", "uk": "Південний Судан"},
+    "BIH": {"fr": "Bosnie-Herzégovine", "en": "Bosnia & Herzegovina", "uk": "Боснія і Герцеговина"},
+    "STP": {"fr": "Sao Tomé-et-Principe", "en": "São Tomé & Príncipe", "uk": "Сан-Томе і Принсіпі"},
+    "ARE": {"fr": "Émirats arabes unis", "en": "United Arab Emirates", "uk": "ОАЕ"},
+    "GBR": {"fr": "Royaume-Uni", "en": "United Kingdom", "uk": "Велика Британія"},
+    "PRK": {"fr": "Corée du Nord", "en": "North Korea", "uk": "Північна Корея"},
+    "KOR": {"fr": "Corée du Sud", "en": "South Korea", "uk": "Південна Корея"},
+    "LAO": {"fr": "Laos", "en": "Laos", "uk": "Лаос"},
+    "SYR": {"fr": "Syrie", "en": "Syria", "uk": "Сирія"},
+    "VAT": {"fr": "Vatican", "en": "Vatican", "uk": "Ватикан"},
+    "ZAF": {"fr": "Afrique du Sud", "en": "South Africa", "uk": "ПАР"},
+    "VCT": {"fr": "Saint-Vincent-et-les-Gr.", "en": "St. Vincent & Gren.", "uk": "Сент-Вінсент і Гренадини"},
+    "KNA": {"fr": "Saint-Kitts-et-Nevis", "en": "St. Kitts & Nevis", "uk": "Сент-Кітс і Невіс"},
+    "ATG": {"fr": "Antigua-et-Barbuda", "en": "Antigua & Barbuda", "uk": "Антигуа і Барбуда"},
+    "TTO": {"fr": "Trinité-et-Tobago", "en": "Trinidad & Tobago", "uk": "Тринідад і Тобаго"},
+    "MKD": {"fr": "Macédoine du Nord", "en": "North Macedonia", "uk": "Північна Македонія"},
+    "GNQ": {"fr": "Guinée équatoriale", "en": "Equatorial Guinea", "uk": "Екваторіальна Гвінея"},
+    "IRN": {"fr": "Iran", "en": "Iran", "uk": "Іран"},
+    "VEN": {"fr": "Venezuela", "en": "Venezuela", "uk": "Венесуела"},
+    "TZA": {"fr": "Tanzanie", "en": "Tanzania", "uk": "Танзанія"},
+    "BOL": {"fr": "Bolivie", "en": "Bolivia", "uk": "Болівія"},
+    "MDA": {"fr": "Moldavie", "en": "Moldova", "uk": "Молдова"},
     # L'usage français écrit « Porto Rico ». C'est une déformation : le nom du
     # territoire est espagnol et s'écrit Puerto Rico. On garde la forme exacte.
-    "PRI": ("Puerto Rico", "Puerto Rico", "Пуерто-Рико"),
+    "PRI": {"fr": "Puerto Rico", "en": "Puerto Rico", "uk": "Пуерто-Рико"},
     # Natural Earth donne « Аоминь » (transcription du chinois) ; en ukrainien
     # l'usage courant est « Макао ».
-    "MAC": ("Macao", "Macao", "Макао"),
+    "MAC": {"fr": "Macao", "en": "Macao", "uk": "Макао"},
 }
 
 # --- La Crimée -----------------------------------------------------------
@@ -689,11 +717,12 @@ def main():
             ignores.append(props.get("NAME", "?"))
             continue
 
-        nom_fr = props.get("NAME_FR") or props.get("NAME")
-        nom_en = props.get("NAME")
-        nom_uk = props.get("NAME_UK") or nom_en
-        if code in NOMS_COURTS:
-            nom_fr, nom_en, nom_uk = NOMS_COURTS[code]
+        # Le nom du pays dans chacune des langues du site. Natural Earth laisse
+        # parfois un champ vide : on retombe alors sur le nom anglais court.
+        noms = {}
+        for langue, champ in LANGUES.items():
+            noms[langue] = props.get(champ) or props.get("NAME") or code
+        noms.update(NOMS_COURTS.get(code, {}))
 
         # Le code à deux lettres sert uniquement à fabriquer le drapeau.
         # "_EH" est la version corrigée par Natural Earth : elle rattrape les
@@ -704,17 +733,15 @@ def main():
             # Deux drapeaux collés : l'État d'abord, le territoire ensuite.
             emoji = drapeau(TERRITOIRES[code]) + emoji
 
+        proprietes = {"iso": code}
+        proprietes.update(noms)
+        proprietes["d"] = emoji  # "d" comme drapeau
+
         pays_sortants.append({
             "type": "Feature",
             # La propriété "iso" sert d'identifiant à MapLibre (via promoteId)
             # pour colorier un pays au survol et lui attacher sa valeur.
-            "properties": {
-                "iso": code,
-                "fr": nom_fr,
-                "en": nom_en,
-                "uk": nom_uk,
-                "d": emoji,  # "d" comme drapeau
-            },
+            "properties": proprietes,
             "geometry": geometrie,
         })
 

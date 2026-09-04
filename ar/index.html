@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StatsMaps — إحصاءات العالم على خرائط تفاعلية</title>
+  <meta name="description" content="خرائط تفاعلية للاقتصاد العالمي: الناتج المحلي الإجمالي الاسمي، ونصيب الفرد منه، والنمو، وسنوات الذروة، لـ197 بلدًا من 1980 إلى 2031، استنادًا إلى بيانات صندوق النقد الدولي الرسمية.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://statsmaps.com/ar/">
+  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/">
+  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/">
+  <link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/">
+  <link rel="alternate" hreflang="de" href="https://statsmaps.com/de/">
+  <link rel="alternate" hreflang="es" href="https://statsmaps.com/es/">
+  <link rel="alternate" hreflang="it" href="https://statsmaps.com/it/">
+  <link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/">
+  <link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/">
+  <link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/">
+  <link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/">
+  <link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/">
+  <link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/">
+  <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/">
+  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="StatsMaps — إحصاءات العالم على خرائط تفاعلية">
+  <meta property="og:description" content="خرائط تفاعلية للاقتصاد العالمي: الناتج المحلي الإجمالي الاسمي، ونصيب الفرد منه، والنمو، وسنوات الذروة، لـ197 بلدًا من 1980 إلى 2031، استنادًا إلى بيانات صندوق النقد الدولي الرسمية.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://statsmaps.com/ar/">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/theme.js"></script>
+</head>
+<body>
+
+  <header class="barre">
+    <a class="barre__logo" href="./">Stats<span>Maps</span></a>
+    <nav class="barre__nav" aria-label="الخرائط">
+        <a class="barre__lien" href="nominal-gdp/"><span class="long">الناتج المحلي الإجمالي</span><span class="court">الناتج</span></a>
+        <a class="barre__lien" href="gdp-per-capita/"><span class="long">نصيب الفرد من الناتج</span><span class="court">نصيب الفرد</span></a>
+        <a class="barre__lien" href="gdp-growth/"><span class="long">النمو</span><span class="court">النمو</span></a>
+        <a class="barre__lien" href="gdp-peak-year/"><span class="long">سنة ذروة الناتج</span><span class="court">ذروة الناتج</span></a>
+        <a class="barre__lien" href="gdp-per-capita-peak-year/"><span class="long">سنة ذروة نصيب الفرد</span><span class="court">ذروة نصيب الفرد</span></a>
+    </nav>
+    <div class="barre__droite">
+      <details class="langues">
+        <summary class="bouton-icone" title="اللغة" aria-label="اللغة">🇸🇦</summary>
+        <div class="langues__menu">
+          <a href="/" hreflang="fr" lang="fr"><span class="drapeau" aria-hidden="true">🇫🇷</span>Français</a>
+          <a href="/en/" hreflang="en" lang="en"><span class="drapeau" aria-hidden="true">🇬🇧</span>English</a>
+          <a href="/ua/" hreflang="uk" lang="uk"><span class="drapeau" aria-hidden="true">🇺🇦</span>Українська</a>
+          <a href="/de/" hreflang="de" lang="de"><span class="drapeau" aria-hidden="true">🇩🇪</span>Deutsch</a>
+          <a href="/es/" hreflang="es" lang="es"><span class="drapeau" aria-hidden="true">🇪🇸</span>Español</a>
+          <a href="/it/" hreflang="it" lang="it"><span class="drapeau" aria-hidden="true">🇮🇹</span>Italiano</a>
+          <a href="/pt/" hreflang="pt" lang="pt"><span class="drapeau" aria-hidden="true">🇵🇹</span>Português</a>
+          <a href="/pl/" hreflang="pl" lang="pl"><span class="drapeau" aria-hidden="true">🇵🇱</span>Polski</a>
+          <a href="/ja/" hreflang="ja" lang="ja"><span class="drapeau" aria-hidden="true">🇯🇵</span>日本語</a>
+          <a href="/ko/" hreflang="ko" lang="ko"><span class="drapeau" aria-hidden="true">🇰🇷</span>한국어</a>
+          <a href="/tr/" hreflang="tr" lang="tr"><span class="drapeau" aria-hidden="true">🇹🇷</span>Türkçe</a>
+          <a href="/hi/" hreflang="hi" lang="hi"><span class="drapeau" aria-hidden="true">🇮🇳</span>हिन्दी</a>
+          <a href="/ar/" hreflang="ar" lang="ar" aria-current="true"><span class="drapeau" aria-hidden="true">🇸🇦</span>العربية</a>
+        </div>
+      </details>
+      <button class="bouton-icone" id="bouton-theme" type="button"
+              aria-label="تغيير المظهر"
+              data-vers-clair="التبديل إلى المظهر الفاتح"
+              data-vers-sombre="التبديل إلى المظهر الداكن">☾</button>
+    </div>
+  </header>
+
+  <main class="accueil">
+    <h1 class="accueil__titre">إحصاءات العالم، على الخريطة.</h1>
+    <p class="accueil__intro">يحوّل StatsMaps أبرز المؤشرات العالمية إلى خرائط تفاعلية، انطلاقًا من مصادر رسمية. نبدأ بالاقتصاد، ببيانات صندوق النقد الدولي: 197 بلدًا، من 1980 إلى 2031.</p>
+
+    <div class="vignettes">
+      <a class="vignette" href="nominal-gdp/">
+        <div class="vignette__pastille">💰</div>
+        <div class="vignette__titre">الناتج المحلي الإجمالي</div>
+        <p class="vignette__texte">حجم كل اقتصاد، بمليارات الدولارات الجارية.</p>
+      </a>
+      <a class="vignette" href="gdp-per-capita/">
+        <div class="vignette__pastille">👤</div>
+        <div class="vignette__titre">نصيب الفرد من الناتج</div>
+        <p class="vignette__texte">الثروة المنتَجة لكل فرد، بالدولارات الجارية.</p>
+      </a>
+      <a class="vignette" href="gdp-growth/">
+        <div class="vignette__pastille">📈</div>
+        <div class="vignette__titre">نمو الناتج المحلي</div>
+        <p class="vignette__texte">تغيّر الناتج المحلي الحقيقي من سنة إلى أخرى، بالنسبة المئوية.</p>
+      </a>
+      <a class="vignette" href="gdp-peak-year/">
+        <div class="vignette__pastille">🏔️</div>
+        <div class="vignette__titre">سنة ذروة الناتج</div>
+        <p class="vignette__texte">السنة التي بلغ فيها كل بلد أقصاه — والبلدان التي لم تعد إليها أبدًا.</p>
+      </a>
+      <a class="vignette" href="gdp-per-capita-peak-year/">
+        <div class="vignette__pastille">⛰️</div>
+        <div class="vignette__titre">سنة ذروة نصيب الفرد</div>
+        <p class="vignette__texte">السنة التي كان فيها سكان كل بلد الأكثر ثراءً في المتوسط.</p>
+      </a>
+    </div>
+
+    <p class="accueil__bientot">قريبًا: السكان، والبنية التحتية، والطاقة، والتعليم، والصحة.</p>
+  </main>
+
+  <footer class="pied">البيانات: صندوق النقد الدولي (World Economic Outlook) · خلفية الخريطة: Natural Earth · بلا إعلانات ولا تتبّع.</footer>
+
+  <script src="../assets/js/barre.js"></script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 /* ==========================================================================
    carte.js — le moteur des cartes de StatsMaps.
 
-   Ce SEUL fichier fait fonctionner les 15 pages de carte (5 cartes × 3 langues).
+   Ce SEUL fichier fait fonctionner les 65 pages de carte (5 cartes × 13 langues).
    Chaque page lui dit quoi faire grâce à 3 informations posées sur la balise
    <body> :
        data-indicateur="pib-nominal"   → quelle carte afficher
@@ -16,7 +16,8 @@
      5. Le classement à gauche
      6. La légende
      7. Le curseur des années
-     8. Démarrage
+     8. Le mode comparaison (« et par rapport à la France ? »)
+     9. Démarrage
    ========================================================================== */
 
 (function () {
@@ -72,9 +73,35 @@
      et l'écart de clarté d'une tranche à l'autre, font qu'ils distinguent
      quand même « clair » de « sombre ». C'est un choix assumé.             */
 
+  /* LES TROIS FAÇONS DE MESURER UN ÉCART ENTRE DEUX PAYS.
+
+     Quand on choisit un pays de référence (« et par rapport à la France ? »),
+     la carte ne montre plus la valeur de chaque pays mais son ÉCART avec ce
+     pays-là. Cet écart ne se mesure pas de la même façon selon la carte :
+
+       ratio  — de combien de POUR CENT le pays est au-dessus ou en dessous.
+                C'est la bonne lecture pour une richesse : dire que le
+                Luxembourg dépasse la France de 145 % parle ; dire qu'il la
+                dépasse de 71 000 dollars, beaucoup moins.
+       points — la simple soustraction, pour la croissance : deux taux en %
+                se comparent en POINTS, jamais en pourcentage de pourcentage.
+       annees — la simple soustraction aussi, pour les cartes « année record ».
+
+     Dans les trois cas, le signe a toujours le même sens : POSITIF = le pays
+     fait MIEUX que la référence. La palette n'est donc jamais retournée ici,
+     même sur les cartes « année record » : le vert reste du côté favorable.
+     Le milieu (jaune) est la zone « à peu près au même niveau ».            */
+
+  var ECARTS = {
+    ratio:  { tranches: [-60, -30, -10, 10, 30, 60], decimales: 0 },
+    points: { tranches: [-4, -2, -0.5, 0.5, 2, 4],   decimales: 1 },
+    annees: { tranches: [-10, -5, -1, 1, 5, 10],     decimales: 0 },
+  };
+
   var CARTES = {
     /* Plus l'économie est grosse, plus c'est vert. */
     "pib-nominal": {
+      ecart: "ratio",
       tranches: [10, 50, 200, 1000, 3000, 10000],
       clair: PALETTE_CLAIR,
       sombre: PALETTE_SOMBRE,
@@ -83,6 +110,7 @@
     /* Plus le pays est riche par habitant, plus c'est vert. C'est exactement
        la lecture de la carte de Wikipédia sur le PIB par habitant. */
     "pib-par-habitant": {
+      ecart: "ratio",
       tranches: [1500, 5000, 15000, 30000, 50000, 70000],
       clair: PALETTE_CLAIR,
       sombre: PALETTE_SOMBRE,
@@ -95,6 +123,7 @@
        L'intensité augmente en s'éloignant de zéro : plus c'est vif, plus le
        mouvement est fort, dans un sens comme dans l'autre.                 */
     croissance: {
+      ecart: "points",
       tranches: [-4, -1.5, 0, 1.5, 4, 7],
       clair: PALETTE_CLAIR,
       sombre: PALETTE_SOMBRE,
@@ -114,6 +143,7 @@
        Ici « petit » veut dire « bon » : la palette est donc retournée, pour
        que le vert reste du côté favorable comme sur toutes les autres cartes. */
     "annee-record-pib": {
+      ecart: "annees",
       ecart_annees: true,
       /* Ici le classement se lit à l'envers des autres cartes : on met en
          premier les pays dont le record est le PLUS ANCIEN, c'est-à-dire ceux
@@ -126,6 +156,7 @@
       sombre: inverser(PALETTE_SOMBRE),
     },
     "annee-record-pib-par-habitant": {
+      ecart: "annees",
       ecart_annees: true,
       classement_croissant: true,
       tranches: [1, 3, 6, 11, 16, 26],
@@ -141,7 +172,19 @@
   var langue = corps.getAttribute("data-langue") || "fr";
   var base = corps.getAttribute("data-base") || "./";
   var t = window.StatsMapsT(langue);
-  var locale = { fr: "fr-FR", en: "en-US", uk: "uk-UA" }[langue] || "fr-FR";
+  /* La « locale » dit au navigateur comment écrire les nombres : 1 234,5 en
+     français, 1,234.5 en anglais, 12,34,567 en hindi (le groupement indien).
+     Cas particulier de l'arabe : « ar » seul afficherait ١٢٣٤ — les chiffres
+     arabes orientaux. Sur un site de statistiques, où l'on compare des nombres
+     d'un pays à l'autre et d'une langue à l'autre, on garde les chiffres 0-9,
+     c'est le sens de « -u-nu-latn ». Enlever ce suffixe suffirait à revenir
+     aux chiffres orientaux. */
+  var locale = {
+    fr: "fr-FR", en: "en-US", uk: "uk-UA",
+    de: "de-DE", es: "es-ES", it: "it-IT", pt: "pt-PT", pl: "pl-PL",
+    ja: "ja-JP", ko: "ko-KR", tr: "tr-TR", hi: "hi-IN",
+    ar: "ar-u-nu-latn",
+  }[langue] || "fr-FR";
   var reglages = CARTES[idCarte];
 
   /* Écrit un nombre proprement : 3 368 au lieu de 3368.925 */
@@ -229,6 +272,112 @@
     return couleurs[index];
   }
 
+  /* --- Les outils de la comparaison ---------------------------------------
+
+     Tant qu'aucun pays de référence n'est choisi, tout ce qui suit dort et la
+     carte se lit normalement. Dès qu'on en choisit un, la carte bascule : elle
+     ne montre plus « combien », mais « combien de plus ou de moins que lui ». */
+
+  /* Un pays de référence est-il désigné ? C'est ce qui décide de l'affichage
+     du bouton, de la croix de sortie et de la ligne « pays de référence ». */
+  function enComparaison() {
+    return isoReference !== null && !!reglages.ecart;
+  }
+
+  /* La comparaison est-elle CALCULABLE pour l'année affichée ?
+
+     Ce n'est pas la même question. Un pays peut être désigné comme référence
+     et n'avoir aucun chiffre l'année où l'on se trouve — la Syrie après 2011,
+     ou n'importe quel pays si l'on remonte assez loin. Il n'y a alors aucun
+     écart à calculer, et la carte doit revenir à ses valeurs habituelles.
+
+     Sans cette distinction, l'échelle et les valeurs se désaccordaient : la
+     carte peignait des dollars sur une échelle de pourcentages, et le monde
+     entier virait au vert sombre. */
+  function comparaisonPossible() {
+    return enComparaison() && valeurReference() !== null;
+  }
+
+  /* Les réglages de l'écart pour la carte affichée (tranches, décimales). */
+  function reglagesEcart() {
+    return ECARTS[reglages.ecart];
+  }
+
+  /* L'écart entre un pays et la référence, dans l'unité de la carte.
+     Renvoie null quand le calcul n'a pas de sens : pays sans chiffre cette
+     année-là, ou référence à zéro (on ne divise pas par zéro). */
+  function calculerEcart(valeur, reference) {
+    if (valeur === null || reference === null || reference === undefined) return null;
+    if (reglages.ecart === "ratio") {
+      if (!reference) return null;
+      return (valeur / reference - 1) * 100;
+    }
+    /* "points" comme "annees" : une simple soustraction. */
+    return valeur - reference;
+  }
+
+  /* La valeur de la référence pour l'année affichée (null si elle n'en a pas). */
+  function valeurReference() {
+    var ligne = ligneDuClassement(isoReference);
+    return ligne ? ligne.valeur : null;
+  }
+
+  /* La couleur d'un écart, sur la palette rouge → vert non retournée :
+     négatif (le pays fait moins bien) = rouge, positif = vert.             */
+  function couleurDeLEcart(ecart) {
+    var couleurs = couleursActuelles();
+    /* Sur les cartes « année record », la palette du site est retournée pour
+       la lecture habituelle. Ici on la remet à l'endroit : l'écart se lit
+       toujours dans le même sens. */
+    if (reglages.classement_croissant) couleurs = inverser(couleurs);
+    var tranches = reglagesEcart().tranches;
+    var index = 0;
+    for (var i = 0; i < tranches.length; i++) {
+      if (ecart >= tranches[i]) index = i + 1;
+    }
+    return couleurs[index];
+  }
+
+  /* « +24 % », « −1,8 pt », « +3 ans ». Toujours avec son signe : c'est lui
+     qui porte l'information. */
+  function ecartLisible(ecart) {
+    if (ecart === null) return "—";
+    var mesure = reglages.ecart;
+    var texte = formater(Math.abs(ecart), reglagesEcart().decimales);
+    /* Le signe moins typographique (−), et non le trait d'union du clavier. */
+    var signe = ecart > 0 ? "+" : ecart < 0 ? "\u2212" : "";
+
+    if (mesure === "ratio") return signe + texte + " %";
+    if (mesure === "points") return signe + texte + " " + t("unite_points");
+    return signe + motAnnees(Math.abs(ecart));
+  }
+
+  /* « 1 an », « 3 ans » — et les formes propres à chaque langue, comme pour
+     texteEcart() plus haut. */
+  function motAnnees(nombre) {
+    var forme = reglePluriel ? reglePluriel.select(nombre) : "other";
+    var modele = t("an_" + forme);
+    if (modele === "an_" + forme) modele = t("an_other");
+    return modele.replace("{n}", formater(nombre, 0));
+  }
+
+  /* Les deux bouts de l'échelle d'écart : le rouge du côté « fait moins bien »
+     et le vert du côté « fait mieux ». Le comparateur s'en sert pour teinter
+     son graphique des mêmes couleurs que la carte. */
+  function couleursExtremes() {
+    var couleurs = couleursActuelles();
+    if (reglages.classement_croissant) couleurs = inverser(couleurs);
+    return { rouge: couleurs[0], vert: couleurs[couleurs.length - 1] };
+  }
+
+  /* Se placer sur une année, curseur compris. Le comparateur appelle ceci
+     quand on clique dans son graphique. */
+  function allerAAnnee(annee) {
+    var curseur = document.getElementById("curseur-annee");
+    if (curseur) curseur.value = annee;
+    if (annee !== anneeAffichee) appliquerAnnee(annee);
+  }
+
   /* --- 3. Chargement des données ----------------------------------------- */
 
   function charger(chemin) {
@@ -253,6 +402,8 @@
   var isoSurvole = null;  // le pays sous la souris
   var isoChoisi = null;   // le pays sur lequel on a cliqué
   var infobulle = null;
+  var positionInfobulle = null; // l'endroit de la carte où la bulle est posée
+  var isoReference = null;      // le pays auquel on compare tous les autres
 
   /* --- 4. Fabrication de la carte ----------------------------------------- */
 
@@ -276,15 +427,48 @@
      valeur en suivant les tranches ; sinon, colorie-le en gris".           */
   function regleDeCouleur() {
     var couleurs = couleursActuelles();
+    var tranches = reglages.tranches;
+
+    /* En comparaison, la carte change d'échelle : ce ne sont plus les tranches
+       de richesse (ou de croissance) mais celles de l'écart, et la palette est
+       remise à l'endroit sur les cartes « année record ». */
+    if (comparaisonPossible()) {
+      tranches = reglagesEcart().tranches;
+      if (reglages.classement_croissant) couleurs = inverser(couleurs);
+    }
+
     var etapes = ["step", ["to-number", ["feature-state", "valeur"], 0], couleurs[0]];
-    for (var i = 0; i < reglages.tranches.length; i++) {
-      etapes.push(reglages.tranches[i], couleurs[i + 1]);
+    for (var i = 0; i < tranches.length; i++) {
+      etapes.push(tranches[i], couleurs[i + 1]);
     }
     return [
       "case",
       ["==", ["feature-state", "aDonnee"], 1],
       etapes,
       couleurCSS("--pays-sans-donnee"),
+    ];
+  }
+
+  /* La couleur et l'épaisseur du trait de frontière. Trois cas, du plus fort
+     au plus faible : le pays de référence de la comparaison (cerclé de bleu),
+     le pays survolé, et tous les autres.
+     Ces deux règles servent à deux endroits — à la construction de la carte et
+     au changement de thème — d'où le fait qu'elles soient écrites ici. */
+  function regleContourCouleur() {
+    return [
+      "case",
+      ["boolean", ["feature-state", "reference"], false], couleurCSS("--accent"),
+      ["boolean", ["feature-state", "survol"], false], couleurCSS("--texte"),
+      couleurCSS("--contour-pays"),
+    ];
+  }
+
+  function regleContourEpaisseur() {
+    return [
+      "case",
+      ["boolean", ["feature-state", "reference"], false], 2.4,
+      ["boolean", ["feature-state", "survol"], false], 1.6,
+      0.4,
     ];
   }
 
@@ -297,11 +481,15 @@
      ne se retrouve caché derrière eux. */
   function margesDuCadrage() {
     var large = window.innerWidth > 860;
+    var placeDuPanneau = large ? 340 : 24;
+    /* En arabe, le panneau passe à droite : la marge le suit, sinon la carte
+       se cadrerait derrière lui. */
+    var droiteAGauche = document.documentElement.dir === "rtl";
     return {
       top: 24,
-      right: 24,
+      right: droiteAGauche ? placeDuPanneau : 24,
       bottom: large ? 130 : 150,
-      left: large ? 340 : 24,
+      left: droiteAGauche ? 24 : placeDuPanneau,
     };
   }
 
@@ -368,18 +556,8 @@
         type: "line",
         source: "pays",
         paint: {
-          "line-color": [
-            "case",
-            ["boolean", ["feature-state", "survol"], false],
-            couleurCSS("--texte"),
-            couleurCSS("--contour-pays"),
-          ],
-          "line-width": [
-            "case",
-            ["boolean", ["feature-state", "survol"], false],
-            1.6,
-            0.4,
-          ],
+          "line-color": regleContourCouleur(),
+          "line-width": regleContourEpaisseur(),
         },
       });
 
@@ -423,11 +601,23 @@
     }
   }
 
-  function ouvrirInfobulle(iso, position) {
-    var ligne = null;
+  /* Retrouve la ligne d'un pays dans le classement de l'année affichée.
+     Renvoie null si le pays n'y figure pas du tout (un territoire dépendant,
+     par exemple, qui est dessiné sur la carte mais pas classé). */
+  function ligneDuClassement(iso) {
     for (var i = 0; i < classementActuel.length; i++) {
-      if (classementActuel[i].iso === iso) { ligne = classementActuel[i]; break; }
+      if (classementActuel[i].iso === iso) return classementActuel[i];
     }
+    return null;
+  }
+
+  /* Le contenu de la bulle d'un pays, pour l'année affichée.
+
+     Cette fabrication est séparée de l'ouverture de la bulle, parce qu'elle
+     sert deux fois : au clic, et à chaque fois qu'on bouge le curseur des
+     années — la bulle reste alors en place et son texte seul est réécrit. */
+  function contenuInfobulle(iso) {
+    var ligne = ligneDuClassement(iso);
     var nom = nomsParIso[iso] || iso;
     var emoji = drapeauxParIso[iso] || "";
     var contenu =
@@ -461,22 +651,64 @@
       contenu += '<div class="popup__detail">' + t("pas_de_donnee") + "</div>";
     }
 
+    /* En comparaison, c'est l'écart qui intéresse : on l'écrit en clair sous
+       la valeur, plutôt que de laisser deviner la couleur. */
+    if (enComparaison()) {
+      var nomReference = nomsParIso[isoReference] || isoReference;
+      if (iso === isoReference) {
+        contenu +=
+          '<div class="popup__ecart est-reference">' + t("reference_pays") + "</div>";
+      } else {
+        var ecart = ligne ? calculerEcart(ligne.valeur, valeurReference()) : null;
+        if (ecart !== null) {
+          contenu +=
+            '<div class="popup__ecart">' +
+            '<span class="drapeau" aria-hidden="true">' +
+            echapper(drapeauxParIso[isoReference] || "") + "</span>" +
+            echapper(nomReference + t("deux_points")) +
+            "<b>" + echapper(ecartLisible(ecart)) + "</b>" +
+            "</div>";
+        }
+      }
+    }
+    return contenu;
+  }
+
+  function ouvrirInfobulle(iso, position) {
     if (infobulle) infobulle.remove();
+    positionInfobulle = position;
     infobulle = new maplibregl.Popup({ closeButton: true, maxWidth: "240px" })
       .setLngLat(position)
-      .setHTML(contenu)
+      .setHTML(contenuInfobulle(iso))
       .addTo(carte);
 
     /* Quand on ferme l'infobulle, le pays n'est plus « choisi ». */
     infobulle.on("close", function () {
       if (isoChoisi === iso) {
         isoChoisi = null;
+        positionInfobulle = null;
         montrerDansClassement(null);
+        dessinerLegende();
       }
     });
 
     isoChoisi = iso;
     montrerDansClassement(iso);
+    dessinerLegende();
+
+    /* Quand l'onglet « Comparer » est ouvert, un clic sur la carte remplit
+       l'une de ses deux fentes plutôt que de rester sans suite. */
+    if (window.StatsMapsComparateur && window.StatsMapsComparateur.estOuvert()) {
+      window.StatsMapsComparateur.choisirPays(iso);
+    }
+  }
+
+  /* Réécrit le texte de la bulle sans la déplacer ni la refermer.
+     C'est ce qui permet de cliquer sur la France, puis de faire défiler les
+     années en gardant son chiffre sous les yeux. */
+  function rafraichirInfobulle() {
+    if (!infobulle || !isoChoisi) return;
+    infobulle.setHTML(contenuInfobulle(isoChoisi));
   }
 
   /* Fait apparaître dans le classement le pays sur lequel on vient de cliquer.
@@ -504,11 +736,23 @@
     var ligne = liste.querySelector('li[data-iso="' + iso + '"]');
     if (!ligne) return;
     ligne.classList.add("est-choisi");
+    centrerSurLigne(iso);
+  }
 
-    /* On centre la ligne dans le panneau. Le calcul est fait à la main plutôt
-       qu'avec scrollIntoView, qui ferait aussi bouger le reste de la page. */
+  /* Ramène la ligne d'un pays au milieu du panneau — mais seulement si elle
+     est sortie de l'écran. Sinon, faire glisser le curseur des années ferait
+     sautiller la liste à chaque pas, alors que la ligne est déjà sous les yeux.
+     Le calcul est fait à la main plutôt qu'avec scrollIntoView, qui ferait
+     aussi bouger toute la page. */
+  function centrerSurLigne(iso) {
+    var liste = document.getElementById("classement");
+    if (!liste) return;
+    var ligne = liste.querySelector('li[data-iso="' + iso + '"]');
+    if (!ligne) return;
+
     var cadreListe = liste.getBoundingClientRect();
     var cadreLigne = ligne.getBoundingClientRect();
+    if (cadreLigne.top >= cadreListe.top && cadreLigne.bottom <= cadreListe.bottom) return;
     liste.scrollTop +=
       cadreLigne.top - cadreListe.top - (cadreListe.height - cadreLigne.height) / 2;
   }
@@ -527,21 +771,44 @@
   function appliquerEtatsCarte() {
     if (!carte || !carte.getSource("pays")) return;
 
+    var comparaison = comparaisonPossible();
+    var reference = comparaison ? valeurReference() : null;
+
+    /* L'échelle de couleurs et les valeurs envoyées à chaque pays doivent
+       toujours parler de la même chose. On les pose donc au même endroit,
+       plutôt que de laisser deux fonctions décider chacune de son côté. */
+    if (carte.isStyleLoaded()) {
+      carte.setPaintProperty("pays-fond", "fill-color", regleDeCouleur());
+    }
+
     var avecDonnee = {};
     classementActuel.forEach(function (element) {
       /* Un pays sans chiffre cette année-là reste gris sur la carte, même
          s'il figure quand même dans le classement. */
       if (element.valeur === null) return;
+
+      var pourLaCouleur = comparaison
+        ? calculerEcart(element.valeur, reference)
+        : valeurDeCouleur(element.valeur);
+      if (pourLaCouleur === null) return;
+
       avecDonnee[element.iso] = true;
       carte.setFeatureState(
         { source: "pays", id: element.iso },
-        { valeur: valeurDeCouleur(element.valeur), aDonnee: 1 }
+        {
+          valeur: pourLaCouleur,
+          aDonnee: 1,
+          reference: element.iso === isoReference,
+        }
       );
     });
     geo.features.forEach(function (pays) {
       var iso = pays.properties.iso;
       if (!avecDonnee[iso]) {
-        carte.setFeatureState({ source: "pays", id: iso }, { valeur: 0, aDonnee: 0 });
+        carte.setFeatureState(
+          { source: "pays", id: iso },
+          { valeur: 0, aDonnee: 0, reference: iso === isoReference }
+        );
       }
     });
   }
@@ -623,8 +890,14 @@
 
     dessinerClassement();
     majEtiquetteAnnee();
-    if (infobulle) { infobulle.remove(); infobulle = null; }
-    isoChoisi = null;
+
+    /* Le pays choisi, lui, ne change pas quand on bouge le curseur : c'est
+       tout l'intérêt. On garde donc la bulle ouverte, à la même place, et on
+       se contente d'y réécrire les chiffres de la nouvelle année. */
+    rafraichirInfobulle();
+    /* Son rang, lui, a pu bouger : on le suit du regard dans la liste. */
+    if (isoChoisi) centrerSurLigne(isoChoisi);
+    if (window.StatsMapsComparateur) window.StatsMapsComparateur.majAnnee(annee);
   }
 
   /* --- 5. Le classement à gauche ------------------------------------------ */
@@ -658,8 +931,15 @@
     var separationPosee = false;
     var morceaux = [];
 
+    /* En comparaison, la colonne de droite n'affiche plus la valeur du pays
+       mais son écart avec la référence, et le liseré prend la couleur de cet
+       écart. L'ordre des lignes, lui, ne change pas : classer par écart avec
+       un pays donné revient exactement à classer par valeur. */
+    var reference = comparaisonPossible() ? valeurReference() : null;
+
     affiches.forEach(function (element) {
       var sansChiffre = element.valeur === null;
+      var ecart = reference === null ? null : calculerEcart(element.valeur, reference);
 
       if (sansChiffre && !separationPosee) {
         morceaux.push('<li class="separation">' + t("pas_de_donnee") + "</li>");
@@ -670,20 +950,25 @@
       if (sansChiffre) classes.push("sans-chiffre");
       if (element.territoire) classes.push("territoire");
       if (element.iso === isoChoisi) classes.push("est-choisi");
+      if (element.iso === isoReference) classes.push("est-reference");
+
+      var couleur = couleurCSS("--pays-sans-donnee");
+      if (ecart !== null) couleur = couleurDeLEcart(ecart);
+      else if (!sansChiffre) couleur = couleurDeLaValeur(element.valeur);
+
+      var affichage = "—";
+      if (reference !== null) affichage = ecartLisible(ecart);
+      else if (!sansChiffre) affichage = valeurLisible(element.valeur, donnees);
 
       morceaux.push(
         '<li data-iso="' + element.iso + '"' +
         (classes.length ? ' class="' + classes.join(" ") + '"' : "") +
-        ' style="--couleur-pays:' +
-        (sansChiffre ? couleurCSS("--pays-sans-donnee") : couleurDeLaValeur(element.valeur)) +
-        '">' +
+        ' style="--couleur-pays:' + couleur + '">' +
         '<span class="rang">' + (element.rang || "") + "</span>" +
         '<span class="drapeau" aria-hidden="true">' +
         echapper(drapeauxParIso[element.iso] || "") + "</span>" +
         '<span class="nom">' + echapper(element.nom) + "</span>" +
-        '<span class="valeur">' +
-        (sansChiffre ? "—" : echapper(valeurLisible(element.valeur, donnees))) +
-        "</span>" +
+        '<span class="valeur">' + echapper(affichage) + "</span>" +
         "</li>"
       );
     });
@@ -785,13 +1070,41 @@
     var boite = document.getElementById("legende");
     if (!boite) return;
 
+    /* La légende décrit ce que la carte montre VRAIMENT : si la référence n'a
+       pas de chiffre cette année-là, la carte est revenue à ses valeurs, et la
+       légende avec elle. La ligne « pays de référence » et la croix de sortie,
+       elles, restent : le pays reste désigné. */
+    var comparaison = comparaisonPossible();
     var couleurs = couleursActuelles();
-    /* Ce qu'on écrit entre parenthèses sous le titre. Sur les cartes « année
-       record » ce n'est pas l'unité de la valeur (une année n'en a pas) mais
-       ce que mesurent les tranches : « années écoulées depuis le record ». */
-    var unite = donnees.legende_unite
-      ? donnees.legende_unite[langue] || donnees.legende_unite.fr
-      : donnees.unite[langue] || donnees.unite.fr;
+    var titre, unite, etiquettes;
+
+    if (comparaison) {
+      /* La palette est remise à l'endroit sur les cartes « année record »,
+         comme pour le fond de carte : en écart, le vert est toujours du côté
+         du pays qui fait mieux. */
+      if (reglages.classement_croissant) couleurs = inverser(couleurs);
+
+      titre = t("ecart_titre");
+      unite =
+        reglages.ecart === "ratio" ? "%" :
+        reglages.ecart === "points" ? t("unite_points") : t("unite_annees");
+
+      /* Les seuils de l'écart s'écrivent avec leur signe : c'est lui qui dit
+         de quel côté de la référence on se trouve. */
+      etiquettes = reglagesEcart().tranches.map(function (seuil) {
+        var texte = formater(Math.abs(seuil), seuil % 1 === 0 ? 0 : 1);
+        return (seuil > 0 ? "+" : seuil < 0 ? "\u2212" : "") + texte;
+      });
+    } else {
+      titre = donnees.titre[langue] || donnees.titre.fr;
+      /* Ce qu'on écrit entre parenthèses sous le titre. Sur les cartes « année
+         record » ce n'est pas l'unité de la valeur (une année n'en a pas) mais
+         ce que mesurent les tranches : « années écoulées depuis le record ». */
+      unite = donnees.legende_unite
+        ? donnees.legende_unite[langue] || donnees.legende_unite.fr
+        : donnees.unite[langue] || donnees.unite.fr;
+      etiquettes = reglages.tranches.map(formaterCourt);
+    }
 
     var cases = couleurs
       .map(function (couleur) {
@@ -803,7 +1116,6 @@
        courts ; sinon un sur deux, pour éviter qu'ils se chevauchent.
        Pour la croissance, le repère « 0 » est essentiel : c'est lui qui
        sépare les pays qui reculent de ceux qui avancent.                   */
-    var etiquettes = reglages.tranches.map(formaterCourt);
     var toutesCourtes = etiquettes.every(function (texte) {
       return texte.length <= 5;
     });
@@ -819,11 +1131,100 @@
       .join("");
 
     boite.innerHTML =
-      '<div class="legende__titre">' + echapper(donnees.titre[langue] || donnees.titre.fr) +
+      '<div class="legende__titre">' + echapper(titre) +
       " (" + echapper(unite) + ")</div>" +
       '<div class="legende__barre">' + cases + "</div>" +
       '<div class="legende__valeurs nombre"><span></span>' + reperes + "<span></span></div>" +
-      '<div class="legende__nd"><i></i>' + t("non_disponible") + "</div>";
+      ligneDeReference() +
+      '<div class="legende__nd"><i></i>' + t("non_disponible") + "</div>" +
+      boutonComparaison();
+  }
+
+  /* « 🇫🇷 France — pays de référence », sous la barre de la légende.
+     Le nom reste au nominatif : aucune langue n'a à le décliner. */
+  function ligneDeReference() {
+    if (!enComparaison()) return "";
+    return (
+      '<div class="legende__reference">' +
+      '<span class="drapeau" aria-hidden="true">' +
+      echapper(drapeauxParIso[isoReference] || "") + "</span>" +
+      echapper((nomsParIso[isoReference] || isoReference) + " — " + t("reference_pays")) +
+      '<button type="button" class="legende__sortir" id="bouton-sortir-comparaison"' +
+      ' title="' + echapper(t("comparer_stop")) + '"' +
+      ' aria-label="' + echapper(t("comparer_stop")) + '">\u2715</button>' +
+      "</div>" +
+      /* Le pays est bien désigné, mais il n'a pas de chiffre cette année-là :
+         la carte est revenue à ses valeurs. Sans ce mot, le visiteur aurait
+         cliqué sur « Comparer » et rien ne se serait passé. */
+      (comparaisonPossible()
+        ? ""
+        : '<div class="legende__note">' + echapper(t("pas_de_donnee")) + "</div>")
+    );
+  }
+
+  /* --- 8. Le mode comparaison ---------------------------------------------
+
+     Un seul bouton, sous la légende, qui prend le sens de la situation :
+       - aucun pays choisi ............ grisé, avec l'invite « clique un pays » ;
+       - un pays choisi ............... « Comparer à ce pays » ;
+       - comparaison en cours, sur ce
+         pays-là même ................. « Revenir aux valeurs » (on arrête) ;
+       - comparaison en cours, mais un
+         AUTRE pays est choisi ........ « Comparer à ce pays » (on change de
+                                        référence, sans repasser par l'arrêt).
+
+     Les cartes « année record » comparées à un pays donné gardent tout leur
+     sens : l'écart se lit alors en années entre deux records.               */
+
+  function boutonComparaison() {
+    /* Les cartes sans mesure d'écart — il n'y en a pas aujourd'hui, mais une
+       future carte pourrait s'en passer — n'affichent pas le bouton. */
+    if (!reglages.ecart) return "";
+
+    /* Le bouton ne fait qu'une chose : désigner le pays choisi comme
+       référence. En sortir est le rôle de la croix, sur la ligne juste
+       au-dessus. Il est donc inutile quand le pays choisi EST déjà la
+       référence — dans ce cas on le grise, plutôt que de le voir proposer
+       une comparaison du pays avec lui-même. */
+    var utilisable = isoChoisi !== null && isoChoisi !== isoReference;
+    return (
+      '<button type="button" class="legende__comparer" id="bouton-comparer"' +
+      (utilisable ? "" : " disabled") +
+      (isoChoisi ? "" : ' title="' + echapper(t("comparer_invite")) + '"') +
+      ">" + echapper(t("comparer")) + "</button>"
+    );
+  }
+
+  /* Le clic est écouté sur la boîte de légende entière, et non sur le bouton :
+     la légende est réécrite à chaque année, ce qui remplacerait le bouton et
+     emporterait son écouteur avec lui. */
+  function brancherComparaison() {
+    var boite = document.getElementById("legende");
+    if (!boite) return;
+    boite.addEventListener("click", function (evenement) {
+      var cible = evenement.target;
+      if (!cible.closest) return;
+
+      if (cible.closest("#bouton-sortir-comparaison")) {
+        isoReference = null;
+      } else {
+        var bouton = cible.closest("#bouton-comparer");
+        if (!bouton || bouton.disabled || !isoChoisi) return;
+        isoReference = isoChoisi;
+      }
+      majComparaison();
+    });
+  }
+
+  /* Tout ce qu'il faut redessiner quand on entre ou sort de la comparaison :
+     l'échelle de couleurs de la carte, les valeurs envoyées à chaque pays,
+     la légende, le classement et la bulle ouverte. */
+  function majComparaison() {
+    /* appliquerEtatsCarte pose aussi la nouvelle échelle de couleurs. */
+    appliquerEtatsCarte();
+    dessinerLegende();
+    dessinerClassement();
+    rafraichirInfobulle();
   }
 
   /* --- 7. Le curseur des années ------------------------------------------- */
@@ -881,17 +1282,13 @@
     if (!carte || !carte.isStyleLoaded()) return;
     carte.setPaintProperty("mer", "background-color", couleurCSS("--fond-carte"));
     carte.setPaintProperty("pays-fond", "fill-color", regleDeCouleur());
-    carte.setPaintProperty("pays-contour", "line-color", [
-      "case",
-      ["boolean", ["feature-state", "survol"], false],
-      couleurCSS("--texte"),
-      couleurCSS("--contour-pays"),
-    ]);
+    carte.setPaintProperty("pays-contour", "line-color", regleContourCouleur());
     dessinerLegende();
     dessinerClassement();
+    if (window.StatsMapsComparateur) window.StatsMapsComparateur.redessiner();
   });
 
-  /* --- 8. Démarrage -------------------------------------------------------- */
+  /* --- 9. Démarrage -------------------------------------------------------- */
 
   function masquerChargement() {
     var ecran = document.getElementById("chargement");
@@ -971,7 +1368,31 @@
 
         brancherClassement();
         brancherAnnees();
+        brancherComparaison();
         dessinerLegende();
+
+        /* L'onglet « Comparer » du panneau. Il ne sait rien du site : on lui
+           passe ici les données, les noms des pays et les quelques fonctions
+           dont il a besoin. Il fabrique lui-même son HTML. */
+        if (window.StatsMapsComparateur) {
+          window.StatsMapsComparateur.demarrer({
+            donnees: donnees,
+            locale: locale,
+            anneeAffichee: anneeAffichee,
+            pays: { noms: nomsParIso, drapeaux: drapeauxParIso },
+            outils: {
+              t: t,
+              echapper: echapper,
+              couleurCSS: couleurCSS,
+              couleursExtremes: couleursExtremes,
+              calculerEcart: calculerEcart,
+              ecartLisible: ecartLisible,
+              valeurLisible: function (valeur) { return valeurLisible(valeur, donnees); },
+            },
+            paysChoisi: function () { return isoChoisi; },
+            surAnneeChoisie: allerAAnnee,
+          });
+        }
         appliquerAnnee(anneeAffichee);
 
         /* Les données sont là : on retire l'écran de chargement tout de suite.
