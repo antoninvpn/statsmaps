@@ -14,6 +14,7 @@ Trois étages, du général au particulier :
 
 ```
 l'accueil ............ les CATÉGORIES        Économie · Démographie
+                                             Infrastructure · Armée (à venir)
   une catégorie ...... ses CARTES            PIB · PIB/hab. · Croissance · Inflation
     une carte ........ ses VARIANTES         Nominal ⇄ Parité de pouvoir d'achat
 ```
@@ -25,13 +26,37 @@ l'autre en haut du panneau de gauche. Comme les deux cartes du PIB partagent
 la même échelle de couleurs, on voit littéralement les pays changer de couleur
 en basculant : l'Inde, 4ᵉ économie en dollars, est 3ᵉ en pouvoir d'achat.
 
+### Les rubriques annoncées
+
+Deux rubriques figurent sur l'accueil sans être ouvertes : **Infrastructure** et
+**Armée**. Elles apparaissent en pointillés, grisées, avec une pastille
+« Bientôt ».
+
+Ce ne sont **pas des liens**, et elles n'ont ni page, ni entrée de menu, ni ligne
+dans le sitemap : un lien qui ne mène nulle part est la plus sûre façon de faire
+croire à une panne, et une page vide indexée par Google dessert le site.
+
+C'est le fait d'avoir une liste de cartes **vide** qui les marque, dans
+`CATEGORIES` :
+
+```python
+("economie",       "💶", ["pib-nominal", "pib-par-habitant", "croissance", "inflation"]),
+("demographie",    "👥", ["population"]),
+("infrastructure", "🏗️", []),          # annoncée, pas encore ouverte
+("armee",          "🛡️", []),
+```
+
+Le jour où l'une reçoit sa première carte, la vignette devient cliquable, la
+page apparaît, le menu et le sitemap suivent — il faut alors seulement ajouter
+son `slug`, son `h1` et son `intro` dans les treize blocs de `LANGUES`.
+
 ### Le menu du haut ne montre jamais tout le site
 
 Il montre **l'étage où l'on se trouve**, et rien d'autre :
 
 | Où l'on est | Ce que montre le menu |
 |---|---|
-| l'accueil | les catégories — Économie · Démographie |
+| l'accueil | les catégories **ouvertes** — Économie · Démographie |
 | une page de catégorie | les catégories aussi : on est encore à cet étage, et on peut passer à la rubrique voisine |
 | une carte | les cartes de **sa** catégorie, et elles seules |
 
@@ -356,6 +381,7 @@ Où sont les textes, selon leur nature :
 | un texte de bouton ou d'onglet | `assets/js/i18n.js` |
 | le titre d'une carte, son unité | `scripts/build_donnees.py`, puis relancer le script |
 | une catégorie de l'accueil | `scripts/build_pages.py`, `CATEGORIES` et le bloc `"categories"` de chaque langue |
+| le mot « Bientôt » des rubriques à venir | `scripts/build_pages.py`, la clé `bientot` de chaque langue |
 | un drapeau ou un nom de pays | `scripts/build_geojson.py`, puis relancer le script |
 | le titre d'une page dans Google | `scripts/build_pages.py`, puis relancer le script |
 
@@ -466,7 +492,8 @@ chaque langue.
 
 **Pour ajouter une catégorie**, une ligne dans `CATEGORIES` et un bloc
 `"categories"` dans chaque langue. La vignette de l'accueil, sa page et le
-sitemap suivent.
+sitemap suivent. Pour l'annoncer sans l'ouvrir, laisser sa liste de cartes vide
+et n'écrire que son `nom` et son `texte` : elle s'affichera en « Bientôt ».
 
 ---
 

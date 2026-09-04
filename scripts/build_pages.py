@@ -93,9 +93,15 @@ CARTES = [
 # L'accueil montre ces rubriques ; chacune a sa page, qui montre ses cartes.
 # Seules les cartes PRINCIPALES y figurent : on n'affiche pas deux vignettes
 # pour le PIB, on entre dans la carte et on choisit son unité sur place.
+# Une catégorie dont la liste de cartes est VIDE est une rubrique annoncée mais
+# pas encore ouverte : elle apparaît sur l'accueil, grisée et marquée « bientôt »,
+# mais n'a ni page, ni entrée de menu, ni ligne dans le sitemap. Le jour où on
+# lui ajoute une carte, tout cela apparaît tout seul.
 CATEGORIES = [
     ("economie", "💶", ["pib-nominal", "pib-par-habitant", "croissance", "inflation"]),
     ("demographie", "👥", ["population"]),
+    ("infrastructure", "🏗️", []),
+    ("armee", "🛡️", []),
 ]
 
 # Le menu du haut ne montre JAMAIS tout le site à la fois : il montre le niveau
@@ -124,6 +130,10 @@ PASTILLES = {c[0]: c[1] for c in CARTES}
 
 # La famille de chaque carte (None quand elle est seule de son espèce).
 FAMILLE_DE = {c[0]: c[2] for c in CARTES}
+
+# Les rubriques réellement ouvertes : celles qui ont au moins une carte.
+# Ce sont les seules à avoir une page et à figurer dans les menus.
+CATEGORIES_OUVERTES = [c for c in CATEGORIES if c[2]]
 
 # Les cartes de chaque catégorie, retrouvées par l'identifiant de celle-ci.
 CARTES_DE = {identifiant: cartes for identifiant, _, cartes in CATEGORIES}
@@ -173,6 +183,11 @@ MAPLIBRE = "5.6.1"
 #  - nav / nav_court .. les deux libellés du menu du haut (large / téléphone)
 #  - texte ............ la phrase de la vignette, reprise en tête de la
 #                       description que lit Google
+#  - bientot .......... le mot de la pastille des rubriques pas encore ouvertes
+#
+#  Une rubrique annoncée mais vide (infrastructure, armée) n'a ni "slug", ni
+#  "h1", ni "intro" : elle n'a pas de page. Le jour où on lui donne une carte,
+#  il faudra les ajouter.
 # ==========================================================================
 
 LANGUES = []
@@ -193,7 +208,7 @@ LANGUES.append({
         "description": "Cartes interactives des statistiques mondiales : PIB, PIB par habitant, croissance, inflation et population de 197 pays, de 1980 à 2031, à partir des données officielles du FMI.",
         "h1": "Les statistiques du monde, en cartes.",
         "intro": "StatsMaps met en carte les grands indicateurs mondiaux à partir de sources officielles. Choisis une catégorie pour voir les cartes qu’elle contient : aujourd’hui l’économie et la démographie, à partir des données du Fonds monétaire international — 197 pays, de 1980 à 2031.",
-        "bientot": "Bientôt : infrastructures, énergie, éducation et santé.",
+        "bientot": "Bientôt",
         "pied": "Données : FMI (World Economic Outlook) · Fond de carte : Natural Earth · Site sans publicité ni traceur.",
     },
     "variantes": {"nominal": "Nominal", "ppa": "Parité de pouvoir d’achat"},
@@ -211,6 +226,14 @@ LANGUES.append({
             "texte": "Le nombre d’habitants de chaque pays, année par année.",
             "h1": "La démographie mondiale, en cartes.",
             "intro": "Le FMI publie aussi la population de chaque pays : 197 pays, de 1980 à 2031, projections comprises.",
+        },
+        "infrastructure": {
+            "nom": "Infrastructure",
+            "texte": "Routes, ports, électricité et réseaux.",
+        },
+        "armee": {
+            "nom": "Armée",
+            "texte": "Effectifs, budgets et matériels militaires.",
         },
     },
     "cartes": {
@@ -276,7 +299,7 @@ LANGUES.append({
         "description": "Interactive maps of world statistics: GDP, GDP per capita, growth, inflation and population for 197 countries, from 1980 to 2031, from official IMF data.",
         "h1": "The world’s statistics, mapped.",
         "intro": "StatsMaps turns major global indicators into interactive maps, using official sources. Pick a category to see the maps inside it: for now the economy and demographics, based on International Monetary Fund data — 197 countries, from 1980 to 2031.",
-        "bientot": "Coming soon: infrastructure, energy, education and health.",
+        "bientot": "Coming soon",
         "pied": "Data: IMF (World Economic Outlook) · Basemap: Natural Earth · No ads, no trackers.",
     },
     "variantes": {"nominal": "Nominal", "ppa": "Purchasing power parity"},
@@ -294,6 +317,14 @@ LANGUES.append({
             "texte": "How many people live in each country, year by year.",
             "h1": "World demographics, mapped.",
             "intro": "The IMF also publishes each country’s population: 197 countries, from 1980 to 2031, projections included.",
+        },
+        "infrastructure": {
+            "nom": "Infrastructure",
+            "texte": "Roads, ports, electricity and networks.",
+        },
+        "armee": {
+            "nom": "Military",
+            "texte": "Troop numbers, budgets and equipment.",
         },
     },
     "cartes": {
@@ -359,7 +390,7 @@ LANGUES.append({
         "description": "Інтерактивні карти світової статистики: ВВП, ВВП на душу населення, зростання, інфляція та населення 197 країн, від 1980 до 2031 року, за офіційними даними МВФ.",
         "h1": "Статистика світу — на картах.",
         "intro": "StatsMaps перетворює головні світові показники на інтерактивні карти, спираючись на офіційні джерела. Оберіть категорію, щоб побачити її карти: сьогодні це економіка та демографія, за даними Міжнародного валютного фонду — 197 країн, від 1980 до 2031 року.",
-        "bientot": "Незабаром: інфраструктура, енергетика, освіта та охорона здоров’я.",
+        "bientot": "Незабаром",
         "pied": "Дані: МВФ (World Economic Outlook) · Основа карти: Natural Earth · Без реклами та стеження.",
     },
     "variantes": {"nominal": "Номінальний", "ppa": "Паритет купівельної спроможності"},
@@ -377,6 +408,14 @@ LANGUES.append({
             "texte": "Скільки людей живе в кожній країні, рік за роком.",
             "h1": "Світова демографія на картах.",
             "intro": "МВФ публікує також населення кожної країни: 197 країн, від 1980 до 2031 року, разом із прогнозами.",
+        },
+        "infrastructure": {
+            "nom": "Інфраструктура",
+            "texte": "Дороги, порти, електроенергія та мережі.",
+        },
+        "armee": {
+            "nom": "Армія",
+            "texte": "Чисельність, бюджети та військова техніка.",
         },
     },
     "cartes": {
@@ -442,7 +481,7 @@ LANGUES.append({
         "description": "Interaktive Karten der Weltstatistik: BIP, BIP pro Kopf, Wachstum, Inflation und Bevölkerung von 197 Ländern, von 1980 bis 2031, nach offiziellen IWF-Daten.",
         "h1": "Die Statistiken der Welt, als Karte.",
         "intro": "StatsMaps bringt die großen weltweiten Kennzahlen auf interaktive Karten, aus offiziellen Quellen. Wähle eine Rubrik, um ihre Karten zu sehen: heute die Wirtschaft und die Bevölkerung, nach Daten des Internationalen Währungsfonds — 197 Länder, von 1980 bis 2031.",
-        "bientot": "Demnächst: Infrastruktur, Energie, Bildung und Gesundheit.",
+        "bientot": "Demnächst",
         "pied": "Daten: IWF (World Economic Outlook) · Kartengrundlage: Natural Earth · Ohne Werbung, ohne Tracker.",
     },
     "variantes": {"nominal": "Nominal", "ppa": "Kaufkraftparität"},
@@ -460,6 +499,14 @@ LANGUES.append({
             "texte": "Wie viele Menschen in jedem Land leben, Jahr für Jahr.",
             "h1": "Die Bevölkerung der Welt, als Karte.",
             "intro": "Der IWF veröffentlicht auch die Bevölkerung jedes Landes: 197 Länder, von 1980 bis 2031, Prognosen inbegriffen.",
+        },
+        "infrastructure": {
+            "nom": "Infrastruktur",
+            "texte": "Straßen, Häfen, Strom und Netze.",
+        },
+        "armee": {
+            "nom": "Militär",
+            "texte": "Truppenstärke, Budgets und Ausrüstung.",
         },
     },
     "cartes": {
@@ -525,7 +572,7 @@ LANGUES.append({
         "description": "Mapas interactivos de las estadísticas mundiales: PIB, PIB per cápita, crecimiento, inflación y población de 197 países, de 1980 a 2031, con datos oficiales del FMI.",
         "h1": "Las estadísticas del mundo, en mapas.",
         "intro": "StatsMaps lleva los grandes indicadores mundiales a mapas interactivos, a partir de fuentes oficiales. Elige una categoría para ver sus mapas: hoy la economía y la demografía, con datos del Fondo Monetario Internacional — 197 países, de 1980 a 2031.",
-        "bientot": "Próximamente: infraestructuras, energía, educación y salud.",
+        "bientot": "Próximamente",
         "pied": "Datos: FMI (World Economic Outlook) · Mapa base: Natural Earth · Sin publicidad ni rastreadores.",
     },
     "variantes": {"nominal": "Nominal", "ppa": "Paridad de poder adquisitivo"},
@@ -543,6 +590,14 @@ LANGUES.append({
             "texte": "Cuántas personas viven en cada país, año a año.",
             "h1": "La demografía mundial, en mapas.",
             "intro": "El FMI también publica la población de cada país: 197 países, de 1980 a 2031, proyecciones incluidas.",
+        },
+        "infrastructure": {
+            "nom": "Infraestructura",
+            "texte": "Carreteras, puertos, electricidad y redes.",
+        },
+        "armee": {
+            "nom": "Ejército",
+            "texte": "Efectivos, presupuestos y material militar.",
         },
     },
     "cartes": {
@@ -608,7 +663,7 @@ LANGUES.append({
         "description": "Mappe interattive delle statistiche mondiali: PIL, PIL pro capite, crescita, inflazione e popolazione di 197 paesi, dal 1980 al 2031, con i dati ufficiali del FMI.",
         "h1": "Le statistiche del mondo, in mappa.",
         "intro": "StatsMaps trasforma i grandi indicatori mondiali in mappe interattive, a partire da fonti ufficiali. Scegli una categoria per vedere le sue mappe: oggi l’economia e la demografia, con i dati del Fondo monetario internazionale — 197 paesi, dal 1980 al 2031.",
-        "bientot": "Prossimamente: infrastrutture, energia, istruzione e sanità.",
+        "bientot": "Prossimamente",
         "pied": "Dati: FMI (World Economic Outlook) · Mappa di base: Natural Earth · Senza pubblicità né tracciamento.",
     },
     "variantes": {"nominal": "Nominale", "ppa": "Parità di potere d’acquisto"},
@@ -626,6 +681,14 @@ LANGUES.append({
             "texte": "Quante persone vivono in ogni paese, anno per anno.",
             "h1": "La demografia mondiale, in mappa.",
             "intro": "Il FMI pubblica anche la popolazione di ogni paese: 197 paesi, dal 1980 al 2031, proiezioni comprese.",
+        },
+        "infrastructure": {
+            "nom": "Infrastrutture",
+            "texte": "Strade, porti, elettricità e reti.",
+        },
+        "armee": {
+            "nom": "Esercito",
+            "texte": "Effettivi, bilanci e mezzi militari.",
         },
     },
     "cartes": {
@@ -691,7 +754,7 @@ LANGUES.append({
         "description": "Mapas interativos das estatísticas mundiais: PIB, PIB per capita, crescimento, inflação e população de 197 países, de 1980 a 2031, com dados oficiais do FMI.",
         "h1": "As estatísticas do mundo, em mapas.",
         "intro": "O StatsMaps transforma os grandes indicadores mundiais em mapas interativos, a partir de fontes oficiais. Escolhe uma categoria para ver os seus mapas: hoje a economia e a demografia, com dados do Fundo Monetário Internacional — 197 países, de 1980 a 2031.",
-        "bientot": "Em breve: infraestruturas, energia, educação e saúde.",
+        "bientot": "Em breve",
         "pied": "Dados: FMI (World Economic Outlook) · Mapa base: Natural Earth · Sem publicidade nem rastreadores.",
     },
     "variantes": {"nominal": "Nominal", "ppa": "Paridade de poder de compra"},
@@ -709,6 +772,14 @@ LANGUES.append({
             "texte": "Quantas pessoas vivem em cada país, ano a ano.",
             "h1": "A demografia mundial, em mapas.",
             "intro": "O FMI publica também a população de cada país: 197 países, de 1980 a 2031, projeções incluídas.",
+        },
+        "infrastructure": {
+            "nom": "Infraestrutura",
+            "texte": "Estradas, portos, eletricidade e redes.",
+        },
+        "armee": {
+            "nom": "Exército",
+            "texte": "Efetivos, orçamentos e material militar.",
         },
     },
     "cartes": {
@@ -774,7 +845,7 @@ LANGUES.append({
         "description": "Interaktywne mapy statystyk świata: PKB, PKB na mieszkańca, wzrost, inflacja i ludność 197 krajów, od 1980 do 2031 roku, na oficjalnych danych MFW.",
         "h1": "Statystyki świata na mapach.",
         "intro": "StatsMaps przedstawia najważniejsze światowe wskaźniki na interaktywnych mapach, w oparciu o oficjalne źródła. Wybierz kategorię, aby zobaczyć jej mapy: dziś gospodarka i demografia, na danych Międzynarodowego Funduszu Walutowego — 197 krajów, od 1980 do 2031 roku.",
-        "bientot": "Wkrótce: infrastruktura, energetyka, edukacja i zdrowie.",
+        "bientot": "Wkrótce",
         "pied": "Dane: MFW (World Economic Outlook) · Podkład mapowy: Natural Earth · Bez reklam i śledzenia.",
     },
     "variantes": {"nominal": "Nominalne", "ppa": "Parytet siły nabywczej"},
@@ -792,6 +863,14 @@ LANGUES.append({
             "texte": "Ilu ludzi mieszka w każdym kraju, rok po roku.",
             "h1": "Demografia świata na mapach.",
             "intro": "MFW publikuje także liczbę ludności każdego kraju: 197 krajów, od 1980 do 2031 roku, wraz z prognozami.",
+        },
+        "infrastructure": {
+            "nom": "Infrastruktura",
+            "texte": "Drogi, porty, energia elektryczna i sieci.",
+        },
+        "armee": {
+            "nom": "Wojsko",
+            "texte": "Liczebność, budżety i sprzęt wojskowy.",
         },
     },
     "cartes": {
@@ -857,7 +936,7 @@ LANGUES.append({
         "description": "世界の統計をインタラクティブ地図で。197か国のGDP、一人当たりGDP、成長率、インフレ率、人口を、1980年から2031年まで。IMFの公式データによる。",
         "h1": "世界の統計を、地図で。",
         "intro": "StatsMapsは、公式統計をもとに世界の主要な指標を地図にします。カテゴリーを選ぶと、その地図が並びます。今日は経済と人口統計。国際通貨基金（IMF）のデータで、197か国、1980年から2031年まで。",
-        "bientot": "近日公開：インフラ、エネルギー、教育、保健。",
+        "bientot": "近日公開",
         "pied": "データ：IMF（World Economic Outlook）· 地図：Natural Earth · 広告なし、追跡なし。",
     },
     "variantes": {"nominal": "名目", "ppa": "購買力平価"},
@@ -875,6 +954,14 @@ LANGUES.append({
             "texte": "各国に暮らす人の数を、年ごとに。",
             "h1": "世界の人口を、地図で。",
             "intro": "IMFは各国の人口も公表しています。197か国、1980年から2031年まで、予測を含みます。",
+        },
+        "infrastructure": {
+            "nom": "インフラ",
+            "texte": "道路、港湾、電力、通信網。",
+        },
+        "armee": {
+            "nom": "軍事",
+            "texte": "兵力、予算、装備。",
         },
     },
     "cartes": {
@@ -940,7 +1027,7 @@ LANGUES.append({
         "description": "세계 통계를 인터랙티브 지도로. 197개국의 GDP, 1인당 GDP, 성장률, 물가상승률, 인구를 1980년부터 2031년까지, IMF 공식 자료로.",
         "h1": "세계의 통계를 지도로.",
         "intro": "StatsMaps는 공식 통계를 바탕으로 세계의 주요 지표를 지도로 보여 줍니다. 범주를 고르면 그 안의 지도가 나옵니다. 지금은 경제와 인구 통계. 국제통화기금(IMF) 자료로 197개국, 1980년부터 2031년까지.",
-        "bientot": "곧 공개: 인프라, 에너지, 교육, 보건.",
+        "bientot": "곧 공개",
         "pied": "자료: IMF(World Economic Outlook) · 배경 지도: Natural Earth · 광고 없음, 추적 없음.",
     },
     "variantes": {"nominal": "명목", "ppa": "구매력 평가"},
@@ -958,6 +1045,14 @@ LANGUES.append({
             "texte": "각 나라에 사는 사람 수를 해마다.",
             "h1": "세계 인구를 지도로.",
             "intro": "IMF는 각국의 인구도 발표합니다. 197개국, 1980년부터 2031년까지, 전망 포함.",
+        },
+        "infrastructure": {
+            "nom": "인프라",
+            "texte": "도로, 항만, 전력, 통신망.",
+        },
+        "armee": {
+            "nom": "군사",
+            "texte": "병력, 예산, 장비.",
         },
     },
     "cartes": {
@@ -1023,7 +1118,7 @@ LANGUES.append({
         "description": "Dünya istatistiklerinin etkileşimli haritaları: 197 ülkenin GSYİH’si, kişi başına GSYİH’si, büyümesi, enflasyonu ve nüfusu; 1980’den 2031’e, IMF’nin resmî verileriyle.",
         "h1": "Dünyanın istatistikleri, haritada.",
         "intro": "StatsMaps, resmî kaynaklardan yola çıkarak dünyanın büyük göstergelerini haritaya döker. Haritalarını görmek için bir kategori seç: bugün ekonomi ve demografi, Uluslararası Para Fonu verileriyle — 197 ülke, 1980’den 2031’e.",
-        "bientot": "Yakında: altyapı, enerji, eğitim ve sağlık.",
+        "bientot": "Yakında",
         "pied": "Veriler: IMF (World Economic Outlook) · Altlık harita: Natural Earth · Reklamsız, izlemesiz.",
     },
     "variantes": {"nominal": "Nominal", "ppa": "Satın alma gücü paritesi"},
@@ -1041,6 +1136,14 @@ LANGUES.append({
             "texte": "Her ülkede kaç kişi yaşadığı, yıl yıl.",
             "h1": "Dünya nüfusu, haritada.",
             "intro": "IMF her ülkenin nüfusunu da yayımlıyor: 197 ülke, 1980’den 2031’e, projeksiyonlar dâhil.",
+        },
+        "infrastructure": {
+            "nom": "Altyapı",
+            "texte": "Yollar, limanlar, elektrik ve ağlar.",
+        },
+        "armee": {
+            "nom": "Ordu",
+            "texte": "Asker sayısı, bütçeler ve teçhizat.",
         },
     },
     "cartes": {
@@ -1106,7 +1209,7 @@ LANGUES.append({
         "description": "विश्व के आँकड़ों के इंटरैक्टिव मानचित्र: 197 देशों की जीडीपी, प्रति व्यक्ति जीडीपी, वृद्धि दर, मुद्रास्फीति और जनसंख्या, 1980 से 2031 तक, IMF के आधिकारिक आँकड़ों से।",
         "h1": "दुनिया के आँकड़े, मानचित्र पर।",
         "intro": "StatsMaps आधिकारिक स्रोतों के आधार पर विश्व के प्रमुख संकेतकों को इंटरैक्टिव मानचित्रों में बदलता है। किसी श्रेणी को चुनें और उसके मानचित्र देखें: फ़िलहाल अर्थव्यवस्था और जनसांख्यिकी, अंतर्राष्ट्रीय मुद्रा कोष के आँकड़ों से — 197 देश, 1980 से 2031 तक।",
-        "bientot": "जल्द ही: बुनियादी ढाँचा, ऊर्जा, शिक्षा और स्वास्थ्य।",
+        "bientot": "जल्द ही",
         "pied": "आँकड़े: IMF (World Economic Outlook) · आधार मानचित्र: Natural Earth · न विज्ञापन, न ट्रैकिंग।",
     },
     "variantes": {"nominal": "नाममात्र", "ppa": "क्रय शक्ति समता"},
@@ -1124,6 +1227,14 @@ LANGUES.append({
             "texte": "हर देश में कितने लोग रहते हैं, वर्ष-दर-वर्ष।",
             "h1": "दुनिया की जनसंख्या, मानचित्र पर।",
             "intro": "IMF हर देश की जनसंख्या भी प्रकाशित करता है: 197 देश, 1980 से 2031 तक, अनुमानों सहित।",
+        },
+        "infrastructure": {
+            "nom": "बुनियादी ढाँचा",
+            "texte": "सड़कें, बंदरगाह, बिजली और नेटवर्क।",
+        },
+        "armee": {
+            "nom": "सेना",
+            "texte": "सैन्य संख्या, बजट और उपकरण।",
         },
     },
     "cartes": {
@@ -1189,7 +1300,7 @@ LANGUES.append({
         "description": "خرائط تفاعلية للإحصاءات العالمية: الناتج المحلي الإجمالي، ونصيب الفرد منه، والنمو، والتضخم، وعدد السكان في 197 بلدًا، من 1980 إلى 2031، ببيانات صندوق النقد الدولي الرسمية.",
         "h1": "إحصاءات العالم، على الخريطة.",
         "intro": "يحوّل StatsMaps أبرز المؤشرات العالمية إلى خرائط تفاعلية، انطلاقًا من مصادر رسمية. اختر فئة لترى خرائطها: اليوم الاقتصاد والسكان، ببيانات صندوق النقد الدولي — 197 بلدًا، من 1980 إلى 2031.",
-        "bientot": "قريبًا: البنية التحتية، والطاقة، والتعليم، والصحة.",
+        "bientot": "قريبًا",
         "pied": "البيانات: صندوق النقد الدولي (World Economic Outlook) · خلفية الخريطة: Natural Earth · بلا إعلانات ولا تتبّع.",
     },
     "variantes": {"nominal": "اسمي", "ppa": "تعادل القوة الشرائية"},
@@ -1207,6 +1318,14 @@ LANGUES.append({
             "texte": "عدد الأشخاص الذين يعيشون في كل بلد، سنة بعد سنة.",
             "h1": "سكان العالم على الخريطة.",
             "intro": "ينشر صندوق النقد الدولي أيضًا عدد سكان كل بلد: 197 بلدًا، من 1980 إلى 2031، بما في ذلك التوقعات.",
+        },
+        "infrastructure": {
+            "nom": "البنية التحتية",
+            "texte": "الطرق والموانئ والكهرباء والشبكات.",
+        },
+        "armee": {
+            "nom": "الجيش",
+            "texte": "أعداد الجنود والميزانيات والعتاد.",
         },
     },
     "cartes": {
@@ -1354,7 +1473,6 @@ MODELE_VIGNETTES = """<!DOCTYPE html>
     <div class="vignettes">
 {vignettes}
     </div>
-{fin}
   </main>
 
   <footer class="pied">{pied}</footer>
@@ -1410,7 +1528,7 @@ ACCUEIL = ("accueil", None)
 
 # Toutes les pages d'une langue, dans l'ordre où elles comptent pour Google.
 PAGES = ([ACCUEIL]
-         + [("categorie", identifiant) for identifiant, _, _ in CATEGORIES]
+         + [("categorie", identifiant) for identifiant, _, _ in CATEGORIES_OUVERTES]
          + [("carte", identifiant) for identifiant, _, _, _, _ in CARTES])
 
 
@@ -1489,8 +1607,8 @@ def entete(langue, page=ACCUEIL):
             liens.append(lien_de_menu(haut + carte["slug"] + "/",
                                       carte["nav"], carte["nav_court"], meme))
     else:
-        # L'accueil et les pages de rubrique montrent les rubriques.
-        for identifiant, _, _ in CATEGORIES:
+        # L'accueil et les pages de rubrique montrent les rubriques ouvertes.
+        for identifiant, _, _ in CATEGORIES_OUVERTES:
             categorie = langue["categories"][identifiant]
             liens.append(lien_de_menu(haut + categorie["slug"] + "/",
                                       categorie["nom"], categorie["nom"],
@@ -1568,18 +1686,28 @@ def bascule_variantes(langue, id_carte):
             % (echapper(langue["variantes_label"]), "\n".join(boutons)))
 
 
-def vignette(lien, pastille, titre, texte, liste=""):
-    """Une carte cliquable de la grille : sur l'accueil comme sur les pages
-    de catégorie, c'est toujours le même objet."""
+def vignette(lien, pastille, titre, texte, liste="", bientot=""):
+    """Une carte de la grille : sur l'accueil comme sur les pages de catégorie,
+    c'est toujours le même objet.
+
+    Sans lien, ce n'est plus un <a> mais un <div> : une rubrique annoncée et pas
+    encore ouverte ne doit pas être cliquable. Un lien qui ne mène nulle part est
+    la plus sûre façon de faire croire à une panne."""
     dedans = ""
     if liste:
         dedans = '        <div class="vignette__liste">%s</div>\n' % echapper(liste)
-    return ('      <a class="vignette" href="%s">\n'
-            '        <div class="vignette__pastille">%s</div>\n'
-            '        <div class="vignette__titre">%s</div>\n'
-            '        <p class="vignette__texte">%s</p>\n'
-            '%s      </a>'
-            % (lien, pastille, echapper(titre), echapper(texte), dedans))
+    if bientot:
+        dedans = '        <div class="vignette__bientot">%s</div>\n' % echapper(bientot)
+
+    corps = ('        <div class="vignette__pastille">%s</div>\n'
+             '        <div class="vignette__titre">%s</div>\n'
+             '        <p class="vignette__texte">%s</p>\n'
+             '%s'
+             % (pastille, echapper(titre), echapper(texte), dedans))
+
+    if not lien:
+        return '      <div class="vignette est-bientot">\n%s      </div>' % corps
+    return '      <a class="vignette" href="%s">\n%s      </a>' % (lien, corps)
 
 
 def page_carte(langue, id_carte):
@@ -1616,9 +1744,15 @@ def page_accueil(langue):
     vignettes = []
     for identifiant, pastille, cartes in CATEGORIES:
         categorie = langue["categories"][identifiant]
-        vignettes.append(vignette(
-            categorie["slug"] + "/", pastille, categorie["nom"], categorie["texte"],
-            liste=" · ".join(langue["cartes"][c]["nav"] for c in cartes)))
+        if cartes:
+            vignettes.append(vignette(
+                categorie["slug"] + "/", pastille, categorie["nom"], categorie["texte"],
+                liste=" · ".join(langue["cartes"][c]["nav"] for c in cartes)))
+        else:
+            # Rubrique annoncée, pas encore ouverte : ni lien, ni page.
+            vignettes.append(vignette(
+                None, pastille, categorie["nom"], categorie["texte"],
+                bientot=langue["accueil"]["bientot"]))
 
     return MODELE_VIGNETTES.format(
         hreflang=langue["hreflang"],
@@ -1632,7 +1766,6 @@ def page_accueil(langue):
         h1=echapper(accueil["h1"]),
         intro=echapper(accueil["intro"]),
         vignettes="\n".join(vignettes),
-        fin='\n    <p class="accueil__bientot">%s</p>\n' % echapper(accueil["bientot"]),
         pied=echapper(accueil["pied"]),
     )
 
@@ -1662,7 +1795,6 @@ def page_categorie(langue, id_categorie):
         h1=echapper(categorie["h1"]),
         intro=echapper(categorie["intro"]),
         vignettes="\n".join(vignettes),
-        fin="",
         pied=echapper(langue["accueil"]["pied"]),
     )
 
@@ -1778,7 +1910,7 @@ def main():
     for langue in LANGUES:
         ecrire(os.path.join(langue["dossier"], "index.html"), page_accueil(langue))
         total += 1
-        for id_categorie, _, _ in CATEGORIES:
+        for id_categorie, _, _ in CATEGORIES_OUVERTES:
             nom = langue["categories"][id_categorie]["slug"]
             dossiers_attendus.add(nom)
             ecrire(os.path.join(langue["dossier"], nom, "index.html"),
