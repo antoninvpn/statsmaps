@@ -606,6 +606,27 @@ sur « octobre 2026 » dès le 15 octobre. Il n'y a rien à modifier à la main.
   deux pixels**. Il faut zoomer pour les voir — c'est leur taille réelle, pas
   un défaut de la carte.
 
+  **L'ordre de peinture, pour Ceuta et Melilla.** Ces deux contours détaillés se
+  superposent au Maroc : au 1:50 m, sa côte est lissée au kilomètre près et
+  englobe les deux villes. Les deux formes se chevauchent donc réellement, et le
+  navigateur peint les pays dans l'ordre du fichier — le Maroc, qui venait
+  après l'Espagne, les recouvrait et leur donnait sa couleur.
+
+  La fonction `remonter_les_hotes_denclaves()` place donc l'Espagne et le
+  Royaume-Uni **en dernier** dans `data/pays.json` : ils sont peints par-dessus
+  leur voisin, et les enclaves gardent leur couleur.
+
+  Pourquoi pas un découpage propre du Maroc, comme pour le Golan ? Parce que
+  `detacher()` a besoin que les deux contours partagent des sommets — ce qui
+  suppose qu'ils viennent du même fichier. Ici plusieurs sommets des enclaves
+  tombent même en mer, hors du contour marocain simplifié : il n'y a rien à
+  découper, seulement un ordre à respecter.
+
+  Le clic et le survol suivent la même règle, dans `paysDuDessus()` de
+  `carte.js` : quand plusieurs pays se superposent sous le curseur, c'est celui
+  qui est écrit en dernier — donc celui qu'on voit — qui est désigné. Sans cela,
+  on cliquerait sur une Ceuta espagnole et la bulle du Maroc s'ouvrirait.
+
 - **Cadrage au clic** — chaque pays porte une propriété `c` calculée par
   `cadrage_du_pays()` : la zone à afficher quand on clique dessus. Elle est
   calculée **avant** le rattachement des territoires, sinon cliquer sur le

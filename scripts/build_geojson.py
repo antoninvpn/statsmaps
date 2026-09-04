@@ -539,6 +539,42 @@ def ajouter_enclaves(pays):
     return ajoutees
 
 
+def remonter_les_hotes_denclaves(pays, ajoutees):
+    """Place en DERNIER, dans le fichier, les pays qui portent une enclave.
+
+    Pourquoi c'est nécessaire : les contours de Ceuta et de Melilla viennent du
+    fichier détaillé 1:10 m, alors que le reste de la carte est au 1:50 m, où la
+    côte marocaine est lissée au kilomètre près — et passe donc PAR-DESSUS les
+    deux villes, qu'elle englobe.
+
+    Les deux formes se superposent, et le navigateur peint les pays dans l'ordre
+    du fichier : le Maroc, qui venait après l'Espagne, recouvrait Ceuta et
+    Melilla et leur donnait sa couleur. Il suffit de mettre l'Espagne après lui.
+
+    Pourquoi pas un découpage propre du Maroc, comme pour le Golan ? Parce que
+    detacher() a besoin que les deux contours partagent des sommets, ce qui est
+    le cas quand ils viennent du même fichier. Ici non : plusieurs sommets des
+    enclaves tombent même en mer, hors du contour marocain simplifié. Il n'y a
+    donc rien à découper — seulement un ordre à respecter."""
+    if not ajoutees:
+        return
+    hotes = []
+    for nom, code_hote, _ in ENCLAVES:
+        if nom in ajoutees and code_hote not in hotes:
+            hotes.append(code_hote)
+
+    remontes = []
+    for code in hotes:
+        for indice, element in enumerate(pays):
+            if element["properties"]["iso"] == code:
+                pays.append(pays.pop(indice))
+                remontes.append(code)
+                break
+    if remontes:
+        print("  Peints en dernier pour rester visibles sous leurs enclaves : %s."
+              % ", ".join(remontes))
+
+
 def deplacer_iles(pays, code_source, code_destination, boite, explication):
     """Déplace d'un pays à l'autre tous les morceaux entièrement contenus dans
     une boîte. Réservé aux ÎLES : rien n'est soudé, les morceaux changent
@@ -770,7 +806,7 @@ def main():
     for element in pays_sortants:
         element["properties"]["c"] = cadrage_du_pays(element["geometry"])
 
-    ajouter_enclaves(pays_sortants)
+    enclaves_ajoutees = ajouter_enclaves(pays_sortants)
 
     # Les territoires dépendants prennent la couleur de leur État.
     for code_hote in sorted(TERRITOIRES_RATTACHES):
@@ -780,6 +816,11 @@ def main():
         print("  %s ← %d territoire(s) rattaché(s)%s"
               % (code_hote, len(rattaches),
                  " ; INTROUVABLES : %s" % ", ".join(sorted(manquants)) if manquants else ""))
+
+    # En tout dernier, une fois que plus personne ne touche à la liste : les
+    # pays qui portent une enclave passent à la fin, pour être peints par-dessus
+    # leur voisin. Voir le détail dans la fonction.
+    remonter_les_hotes_denclaves(pays_sortants, enclaves_ajoutees)
 
     resultat = {"type": "FeatureCollection", "features": pays_sortants}
 

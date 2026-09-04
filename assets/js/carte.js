@@ -527,6 +527,7 @@
   var classementActuel = []; // [{iso, nom, valeur, rang}, ...] — les 197 pays
   var nbClasses = 0;         // parmi eux, ceux qui ont un chiffre cette année
   var nomsParIso = {};
+  var rangDansLeFichier = {};     // la place de chaque pays dans data/pays.json
   var nomsCherchablesParIso = {}; // les mêmes noms, sans accents
   var drapeauxParIso = {};        // 🇫🇷, 🇺🇦 ... préparés par le script Python
   var isoSurvole = null;  // le pays sous la souris
@@ -697,10 +698,35 @@
     });
   }
 
+  /* Quel pays est SOUS le curseur, quand plusieurs se superposent ?
+
+     Le cas se produit à Ceuta et Melilla : leurs contours viennent du fichier
+     détaillé 1:10 m, alors que la côte marocaine, au 1:50 m, est lissée au
+     kilomètre près et passe par-dessus les deux villes. Les deux formes se
+     chevauchent donc pour de bon.
+
+     À l'écran, c'est le pays écrit en DERNIER dans data/pays.json qui est peint
+     par-dessus (c'est pour cela que build_geojson.py place l'Espagne après le
+     Maroc). On choisit ici exactement le même : celui qu'on voit est celui
+     qu'on désigne. Sans cette règle, on cliquerait sur Ceuta, coloriée en
+     espagnol, et la bulle du Maroc s'ouvrirait.                             */
+  function paysDuDessus(features) {
+    var choisi = features[0];
+    var meilleur = -1;
+    for (var i = 0; i < features.length; i++) {
+      var rang = rangDansLeFichier[features[i].properties.iso];
+      if (rang !== undefined && rang > meilleur) {
+        meilleur = rang;
+        choisi = features[i];
+      }
+    }
+    return choisi;
+  }
+
   function brancherInteractions() {
     carte.on("mousemove", "pays-fond", function (evenement) {
       if (!evenement.features.length) return;
-      var iso = evenement.features[0].properties.iso;
+      var iso = paysDuDessus(evenement.features).properties.iso;
       if (iso === isoSurvole) return;
       surligner(iso);
       carte.getCanvas().style.cursor = "pointer";
@@ -713,7 +739,7 @@
 
     carte.on("click", "pays-fond", function (evenement) {
       if (!evenement.features.length) return;
-      ouvrirInfobulle(evenement.features[0].properties.iso, evenement.lngLat);
+      ouvrirInfobulle(paysDuDessus(evenement.features).properties.iso, evenement.lngLat);
     });
 
     /* Un clic dans la mer : on relâche le pays de référence et la carte revient
@@ -1735,9 +1761,11 @@
         donnees = donneesBase;
         meta = resultats[2];
 
-        geo.features.forEach(function (pays) {
+        geo.features.forEach(function (pays, rang) {
           var iso = pays.properties.iso;
           var nom = pays.properties[langue] || pays.properties.fr || iso;
+          /* L'ordre du fichier EST l'ordre de peinture : voir paysDuDessus(). */
+          rangDansLeFichier[iso] = rang;
           nomsParIso[iso] = nom;
           drapeauxParIso[iso] = pays.properties.d || "";
           /* On garde aussi le nom dans l'autre langue : ainsi un visiteur
