@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>StatsMaps — Weltstatistiken auf interaktiven Karten</title>
-  <meta name="description" content="Interaktive Karten der Weltwirtschaft: nominales BIP, BIP pro Kopf, Wachstum und Höchststände von 197 Ländern, von 1980 bis 2031, auf Grundlage offizieller IWF-Daten.">
+  <title>StatsMaps — Weltkarten und Statistiken</title>
+  <meta name="description" content="Interaktive Karten der Weltstatistik: BIP, BIP pro Kopf, Wachstum, Inflation und Bevölkerung von 197 Ländern, von 1980 bis 2031, nach offiziellen IWF-Daten.">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://statsmaps.com/de/">
   <link rel="alternate" hreflang="fr" href="https://statsmaps.com/">
@@ -22,8 +22,8 @@
   <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/">
   <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="StatsMaps — Weltstatistiken auf interaktiven Karten">
-  <meta property="og:description" content="Interaktive Karten der Weltwirtschaft: nominales BIP, BIP pro Kopf, Wachstum und Höchststände von 197 Ländern, von 1980 bis 2031, auf Grundlage offizieller IWF-Daten.">
+  <meta property="og:title" content="StatsMaps — Weltkarten und Statistiken">
+  <meta property="og:description" content="Interaktive Karten der Weltstatistik: BIP, BIP pro Kopf, Wachstum, Inflation und Bevölkerung von 197 Ländern, von 1980 bis 2031, nach offiziellen IWF-Daten.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://statsmaps.com/de/">
   <link rel="stylesheet" href="../assets/css/style.css">
@@ -34,11 +34,11 @@
   <header class="barre">
     <a class="barre__logo" href="./">Stats<span>Maps</span></a>
     <nav class="barre__nav" aria-label="Karten">
-        <a class="barre__lien" href="nominales-bip/"><span class="long">Nominales BIP</span><span class="court">BIP</span></a>
+        <a class="barre__lien" href="nominales-bip/"><span class="long">BIP</span><span class="court">BIP</span></a>
         <a class="barre__lien" href="bip-pro-kopf/"><span class="long">BIP pro Kopf</span><span class="court">BIP/Kopf</span></a>
         <a class="barre__lien" href="bip-wachstum/"><span class="long">Wachstum</span><span class="court">Wachstum</span></a>
-        <a class="barre__lien" href="bip-hoechststand/"><span class="long">BIP-Höchststand</span><span class="court">BIP-Höchst.</span></a>
-        <a class="barre__lien" href="bip-pro-kopf-hoechststand/"><span class="long">Höchststand BIP pro Kopf</span><span class="court">BIP/Kopf-Höchst.</span></a>
+        <a class="barre__lien" href="inflation/"><span class="long">Inflation</span><span class="court">Inflation</span></a>
+        <a class="barre__lien" href="bevoelkerung/"><span class="long">Bevölkerung</span><span class="court">Bevölkerung</span></a>
     </nav>
     <div class="barre__droite">
       <details class="langues">
@@ -60,45 +60,33 @@
         </div>
       </details>
       <button class="bouton-icone" id="bouton-theme" type="button"
-              aria-label="Design wechseln"
-              data-vers-clair="Zum hellen Design wechseln"
-              data-vers-sombre="Zum dunklen Design wechseln">☾</button>
+              aria-label="Thema wechseln"
+              data-vers-clair="Zum hellen Thema wechseln"
+              data-vers-sombre="Zum dunklen Thema wechseln">☾</button>
     </div>
   </header>
 
   <main class="accueil">
     <h1 class="accueil__titre">Die Statistiken der Welt, als Karte.</h1>
-    <p class="accueil__intro">StatsMaps bringt die großen weltweiten Kennzahlen auf interaktive Karten, aus offiziellen Quellen. Den Anfang macht die Wirtschaft, mit Daten des Internationalen Währungsfonds: 197 Länder, von 1980 bis 2031.</p>
+    <p class="accueil__intro">StatsMaps bringt die großen weltweiten Kennzahlen auf interaktive Karten, aus offiziellen Quellen. Wähle eine Rubrik, um ihre Karten zu sehen: heute die Wirtschaft und die Bevölkerung, nach Daten des Internationalen Währungsfonds — 197 Länder, von 1980 bis 2031.</p>
 
     <div class="vignettes">
-      <a class="vignette" href="nominales-bip/">
-        <div class="vignette__pastille">💰</div>
-        <div class="vignette__titre">Nominales BIP</div>
-        <p class="vignette__texte">Die Größe jeder Volkswirtschaft, in Milliarden US-Dollar zu jeweiligen Preisen.</p>
+      <a class="vignette" href="wirtschaft/">
+        <div class="vignette__pastille">💶</div>
+        <div class="vignette__titre">Wirtschaft</div>
+        <p class="vignette__texte">BIP, Wohlstand pro Kopf, Wachstum und Inflation.</p>
+        <div class="vignette__liste">BIP · BIP pro Kopf · Wachstum · Inflation</div>
       </a>
-      <a class="vignette" href="bip-pro-kopf/">
-        <div class="vignette__pastille">👤</div>
-        <div class="vignette__titre">BIP pro Kopf</div>
-        <p class="vignette__texte">Die je Person erwirtschaftete Leistung, in US-Dollar zu jeweiligen Preisen.</p>
-      </a>
-      <a class="vignette" href="bip-wachstum/">
-        <div class="vignette__pastille">📈</div>
-        <div class="vignette__titre">BIP-Wachstum</div>
-        <p class="vignette__texte">Die Veränderung des realen BIP von Jahr zu Jahr, in Prozent.</p>
-      </a>
-      <a class="vignette" href="bip-hoechststand/">
-        <div class="vignette__pastille">🏔️</div>
-        <div class="vignette__titre">BIP-Höchststand</div>
-        <p class="vignette__texte">Das Jahr, in dem jedes Land sein Maximum erreichte — und jene, die nie dorthin zurückkehrten.</p>
-      </a>
-      <a class="vignette" href="bip-pro-kopf-hoechststand/">
-        <div class="vignette__pastille">⛰️</div>
-        <div class="vignette__titre">Höchststand BIP pro Kopf</div>
-        <p class="vignette__texte">Das Jahr, in dem die Menschen jedes Landes im Schnitt am wohlhabendsten waren.</p>
+      <a class="vignette" href="demografie/">
+        <div class="vignette__pastille">👥</div>
+        <div class="vignette__titre">Demografie</div>
+        <p class="vignette__texte">Wie viele Menschen in jedem Land leben, Jahr für Jahr.</p>
+        <div class="vignette__liste">Bevölkerung</div>
       </a>
     </div>
 
-    <p class="accueil__bientot">Demnächst: Bevölkerung, Infrastruktur, Energie, Bildung und Gesundheit.</p>
+    <p class="accueil__bientot">Demnächst: Infrastruktur, Energie, Bildung und Gesundheit.</p>
+
   </main>
 
   <footer class="pied">Daten: IWF (World Economic Outlook) · Kartengrundlage: Natural Earth · Ohne Werbung, ohne Tracker.</footer>

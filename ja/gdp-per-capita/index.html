@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>国別の一人当たりGDP — インタラクティブ世界地図 | StatsMaps</title>
-  <meta name="description" content="197か国の一人当たりGDPをたどるインタラクティブ地図。1980年から2031年まで。IMFの公式データ、世界ランキングと一人あたりの豊かさ。">
+  <meta name="description" content="一人あたりが生み出す富を、名目ドルで。 1980年から2031年まで、197か国のインタラクティブ地図。IMFの公式データ（World Economic Outlook）による世界ランキングと年ごとの推移。">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://statsmaps.com/ja/gdp-per-capita/">
   <link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-par-habitant/">
@@ -23,7 +23,7 @@
   <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant/">
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
   <meta property="og:title" content="国別の一人当たりGDP — インタラクティブ世界地図">
-  <meta property="og:description" content="197か国の一人当たりGDPをたどるインタラクティブ地図。1980年から2031年まで。IMFの公式データ、世界ランキングと一人あたりの豊かさ。">
+  <meta property="og:description" content="一人あたりが生み出す富を、名目ドルで。 1980年から2031年まで、197か国のインタラクティブ地図。IMFの公式データ（World Economic Outlook）による世界ランキングと年ごとの推移。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://statsmaps.com/ja/gdp-per-capita/">
   <link rel="preload" href="../../data/pays.json" as="fetch" crossorigin>
@@ -39,8 +39,8 @@
         <a class="barre__lien" href="../nominal-gdp/"><span class="long">名目GDP</span><span class="court">GDP</span></a>
         <a class="barre__lien" href="../gdp-per-capita/" aria-current="page"><span class="long">一人当たりGDP</span><span class="court">GDP/人</span></a>
         <a class="barre__lien" href="../gdp-growth/"><span class="long">成長率</span><span class="court">成長率</span></a>
-        <a class="barre__lien" href="../gdp-peak-year/"><span class="long">GDPの最高年</span><span class="court">GDP最高年</span></a>
-        <a class="barre__lien" href="../gdp-per-capita-peak-year/"><span class="long">一人当たりGDPの最高年</span><span class="court">GDP/人 最高年</span></a>
+        <a class="barre__lien" href="../inflation/"><span class="long">インフレ率</span><span class="court">インフレ</span></a>
+        <a class="barre__lien" href="../population/"><span class="long">人口</span><span class="court">人口</span></a>
     </nav>
     <div class="barre__droite">
       <details class="langues">
@@ -63,8 +63,8 @@
       </details>
       <button class="bouton-icone" id="bouton-theme" type="button"
               aria-label="テーマを切り替える"
-              data-vers-clair="ライトテーマに切り替える"
-              data-vers-sombre="ダークテーマに切り替える">☾</button>
+              data-vers-clair="ライトテーマにする"
+              data-vers-sombre="ダークテーマにする">☾</button>
     </div>
   </header>
 
@@ -77,6 +77,10 @@
       <div class="panneau__entete">
         <h1 class="panneau__titre" id="titre-panneau">一人当たりGDP</h1>
         <div class="panneau__soustitre" id="compteur-pays"></div>
+        <div class="variantes" role="group" aria-label="単位">
+          <a class="variante est-active" href="../gdp-per-capita/" aria-current="page">米ドル</a>
+          <a class="variante" href="../gdp-per-capita-ppp/">購買力平価</a>
+        </div>
         <input class="panneau__recherche" id="recherche" type="search" autocomplete="off" spellcheck="false">
       </div>
       <ul class="classement" id="classement"></ul>

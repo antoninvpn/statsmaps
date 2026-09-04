@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>StatsMaps — etkileşimli haritalarla dünya istatistikleri</title>
-  <meta name="description" content="Dünya ekonomisinin etkileşimli haritaları: nominal GSYİH, kişi başına GSYİH, büyüme ve zirve yılları; 197 ülke, 1980’den 2031’e, IMF’nin resmî verileriyle.">
+  <title>StatsMaps — dünya haritaları ve istatistikler</title>
+  <meta name="description" content="Dünya istatistiklerinin etkileşimli haritaları: 197 ülkenin GSYİH’si, kişi başına GSYİH’si, büyümesi, enflasyonu ve nüfusu; 1980’den 2031’e, IMF’nin resmî verileriyle.">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://statsmaps.com/tr/">
   <link rel="alternate" hreflang="fr" href="https://statsmaps.com/">
@@ -22,8 +22,8 @@
   <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/">
   <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="StatsMaps — etkileşimli haritalarla dünya istatistikleri">
-  <meta property="og:description" content="Dünya ekonomisinin etkileşimli haritaları: nominal GSYİH, kişi başına GSYİH, büyüme ve zirve yılları; 197 ülke, 1980’den 2031’e, IMF’nin resmî verileriyle.">
+  <meta property="og:title" content="StatsMaps — dünya haritaları ve istatistikler">
+  <meta property="og:description" content="Dünya istatistiklerinin etkileşimli haritaları: 197 ülkenin GSYİH’si, kişi başına GSYİH’si, büyümesi, enflasyonu ve nüfusu; 1980’den 2031’e, IMF’nin resmî verileriyle.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://statsmaps.com/tr/">
   <link rel="stylesheet" href="../assets/css/style.css">
@@ -34,11 +34,11 @@
   <header class="barre">
     <a class="barre__logo" href="./">Stats<span>Maps</span></a>
     <nav class="barre__nav" aria-label="Haritalar">
-        <a class="barre__lien" href="nominal-gsyih/"><span class="long">Nominal GSYİH</span><span class="court">GSYİH</span></a>
+        <a class="barre__lien" href="nominal-gsyih/"><span class="long">GSYİH</span><span class="court">GSYİH</span></a>
         <a class="barre__lien" href="kisi-basi-gsyih/"><span class="long">Kişi başına GSYİH</span><span class="court">GSYİH/kişi</span></a>
         <a class="barre__lien" href="gsyih-buyumesi/"><span class="long">Büyüme</span><span class="court">Büyüme</span></a>
-        <a class="barre__lien" href="gsyih-zirve-yili/"><span class="long">GSYİH zirve yılı</span><span class="court">GSYİH zirve</span></a>
-        <a class="barre__lien" href="kisi-basi-gsyih-zirve-yili/"><span class="long">Kişi başına GSYİH zirve yılı</span><span class="court">GSYİH/kişi zirve</span></a>
+        <a class="barre__lien" href="enflasyon/"><span class="long">Enflasyon</span><span class="court">Enflasyon</span></a>
+        <a class="barre__lien" href="nufus/"><span class="long">Nüfus</span><span class="court">Nüfus</span></a>
     </nav>
     <div class="barre__droite">
       <details class="langues">
@@ -68,37 +68,25 @@
 
   <main class="accueil">
     <h1 class="accueil__titre">Dünyanın istatistikleri, haritada.</h1>
-    <p class="accueil__intro">StatsMaps, resmî kaynaklardan yola çıkarak dünyanın büyük göstergelerini haritaya döker. Başlangıç ekonomiyle: Uluslararası Para Fonu verileriyle 197 ülke, 1980’den 2031’e.</p>
+    <p class="accueil__intro">StatsMaps, resmî kaynaklardan yola çıkarak dünyanın büyük göstergelerini haritaya döker. Haritalarını görmek için bir kategori seç: bugün ekonomi ve demografi, Uluslararası Para Fonu verileriyle — 197 ülke, 1980’den 2031’e.</p>
 
     <div class="vignettes">
-      <a class="vignette" href="nominal-gsyih/">
-        <div class="vignette__pastille">💰</div>
-        <div class="vignette__titre">Nominal GSYİH</div>
-        <p class="vignette__texte">Her ekonominin büyüklüğü, cari milyar dolar olarak.</p>
+      <a class="vignette" href="ekonomi/">
+        <div class="vignette__pastille">💶</div>
+        <div class="vignette__titre">Ekonomi</div>
+        <p class="vignette__texte">GSYİH, kişi başına zenginlik, büyüme ve enflasyon.</p>
+        <div class="vignette__liste">GSYİH · Kişi başına GSYİH · Büyüme · Enflasyon</div>
       </a>
-      <a class="vignette" href="kisi-basi-gsyih/">
-        <div class="vignette__pastille">👤</div>
-        <div class="vignette__titre">Kişi başına GSYİH</div>
-        <p class="vignette__texte">Kişi başına üretilen zenginlik, cari dolar olarak.</p>
-      </a>
-      <a class="vignette" href="gsyih-buyumesi/">
-        <div class="vignette__pastille">📈</div>
-        <div class="vignette__titre">GSYİH büyümesi</div>
-        <p class="vignette__texte">Reel GSYİH’nin yıldan yıla değişimi, yüzde olarak.</p>
-      </a>
-      <a class="vignette" href="gsyih-zirve-yili/">
-        <div class="vignette__pastille">🏔️</div>
-        <div class="vignette__titre">GSYİH zirve yılı</div>
-        <p class="vignette__texte">Her ülkenin en yüksek noktaya ulaştığı yıl — ve oraya bir daha dönemeyenler.</p>
-      </a>
-      <a class="vignette" href="kisi-basi-gsyih-zirve-yili/">
-        <div class="vignette__pastille">⛰️</div>
-        <div class="vignette__titre">Kişi başına GSYİH zirve yılı</div>
-        <p class="vignette__texte">Her ülkenin insanlarının ortalama olarak en zengin olduğu yıl.</p>
+      <a class="vignette" href="demografi/">
+        <div class="vignette__pastille">👥</div>
+        <div class="vignette__titre">Demografi</div>
+        <p class="vignette__texte">Her ülkede kaç kişi yaşadığı, yıl yıl.</p>
+        <div class="vignette__liste">Nüfus</div>
       </a>
     </div>
 
-    <p class="accueil__bientot">Yakında: nüfus, altyapı, enerji, eğitim ve sağlık.</p>
+    <p class="accueil__bientot">Yakında: altyapı, enerji, eğitim ve sağlık.</p>
+
   </main>
 
   <footer class="pied">Veriler: IMF (World Economic Outlook) · Altlık harita: Natural Earth · Reklamsız, izlemesiz.</footer>

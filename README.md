@@ -3,16 +3,68 @@
 Cartes interactives des statistiques mondiales, à partir de sources officielles.
 En ligne : **https://statsmaps.com**
 
-Aujourd'hui : l'économie, avec les données du **FMI** (World Economic Outlook) —
-197 pays, de 1980 à 2031.
+Aujourd'hui : l'économie et la démographie, avec les données du **FMI**
+(World Economic Outlook) — 197 pays, de 1980 à 2031.
 
 ---
 
-## 🗺️ Les pages du site
+## 🗺️ Comment le site est rangé
 
-Le site existe en **treize langues**, soit **78 pages** : l'accueil et les cinq
-cartes, dans chacune. Le français est à la racine, les autres langues dans leur
-dossier.
+Trois étages, du général au particulier :
+
+```
+l'accueil ............ les CATÉGORIES        Économie · Démographie
+  une catégorie ...... ses CARTES            PIB · PIB/hab. · Croissance · Inflation
+    une carte ........ ses VARIANTES         Dollars US ⇄ Parité de pouvoir d'achat
+```
+
+Une **variante** est une autre façon de mesurer la *même* chose : le PIB en
+dollars courants, ou le PIB corrigé du coût de la vie. Les deux ont leur propre
+adresse — c'est ce que Google indexe — et un interrupteur passe de l'une à
+l'autre en haut du panneau de gauche. Comme les deux cartes du PIB partagent
+la même échelle de couleurs, on voit littéralement les pays changer de couleur
+en basculant : l'Inde, 4ᵉ économie en dollars, est 3ᵉ en pouvoir d'achat.
+
+### Les sept cartes
+
+| Carte | Indicateur du FMI | Variantes | Onglet Records |
+|---|---|---|:---:|
+| PIB | `NGDPD` / `PPPGDP` | dollars US · parité de pouvoir d'achat | ✅ |
+| PIB par habitant | `NGDPDPC` / `PPPPC` | dollars US · parité de pouvoir d'achat | ✅ |
+| Croissance du PIB | `NGDP_RPCH` | — | ❌ |
+| Inflation | `PCPIPCH` | — | ❌ |
+| Population | `LP` | — | ✅ |
+
+Les deux cartes qui mesurent un **taux** n'ont pas d'onglet « Records » :
+demander en quelle année un pays a eu son plus fort taux d'inflation ne veut
+rien dire. C'est le champ `record` de `build_donnees.py` qui le décide.
+
+### Le vocabulaire est celui du FMI
+
+Les titres et les unités sont **recopiés de la source**
+([sa fiche pays](https://www.imf.org/external/datamapper/profile/AUT)), puis
+traduits. Le site écrit donc « PIB, prix courants » et non « PIB nominal ».
+
+Conséquence surprenante mais voulue : les deux versions du PIB portent
+**exactement le même titre**, et seule leur unité les distingue — c'est ainsi
+que le FMI les présente.
+
+| | Titre | Unité (légende) |
+|---|---|---|
+| dollars | PIB, prix courants | milliards de dollars US |
+| PPA | PIB, prix courants | parité de pouvoir d'achat ; milliards de dollars internationaux |
+
+Les noms courts (« PIB nominal », « PIB en parité de pouvoir d'achat ») ne
+servent qu'au menu du haut, aux vignettes et aux titres que lit Google : ils
+vivent dans `build_pages.py`.
+
+---
+
+## 🌍 Les pages du site
+
+Le site existe en **treize langues**, soit **130 pages** : l'accueil, les deux
+catégories et les sept cartes, dans chacune. Le français est à la racine, les
+autres langues dans leur dossier.
 
 | | Langue | Dossier | Exemple d'adresse |
 |---|---|---|---|
@@ -40,15 +92,15 @@ Deux détails d'apparence bizarre, tous deux volontaires :
   une fois encodée par le navigateur (`/ja/%E4%B8%80%E4%BA%BA...`), et « GDP »
   est de toute façon la forme employée couramment dans ces langues.
 
-L'arabe s'écrit de droite à gauche : sur ces six pages, **toute l'interface est
-inversée** — le classement passe à droite, la légende à gauche. Seules trois
+L'arabe s'écrit de droite à gauche : sur ces dix pages, **toute l'interface est
+inversée** — le panneau passe à droite, la légende à gauche. Seules trois
 choses gardent leur sens de lecture : la barre de couleurs de la légende,
 le curseur des années et le graphique du comparateur. Une échelle de valeurs et
 un axe du temps se lisent dans le même sens dans toutes les langues ; les
 retourner ferait dire à la légende l'inverse de ce que montre la carte.
 
-Les 78 pages ne s'écrivent pas à la main : elles sortent toutes d'un seul
-modèle, dans `scripts/build_pages.py`. Et les noms des 197 pays ne se
+Les 130 pages ne s'écrivent pas à la main : elles sortent toutes de deux
+modèles, dans `scripts/build_pages.py`. Et les noms des 197 pays ne se
 traduisent pas non plus — Natural Earth les fournit déjà dans les treize
 langues.
 
@@ -78,9 +130,39 @@ le Kosovo (reconnu par une centaine d'États) et la Palestine (État observateur
 Enfin, le site écrit **Puerto Rico** et non « Porto Rico » : la forme française
 courante est une déformation d'un nom espagnol. Voir `NOMS_COURTS`.
 
-### Le code couleur
+---
 
-Les cinq cartes partagent **une seule palette** de sept couleurs, du rouge
+## 🔢 Comment les chiffres sont écrits
+
+Deux règles, dans la fonction `formater()` de `assets/js/carte.js`.
+
+**1. Toute la précision disponible, sans zéro inutile.** Les fichiers de
+`data/` contiennent trois décimales : le site les affiche toutes, mais
+n'écrit pas les zéros qui ne servent à rien.
+
+| Donnée brute | Affiché |
+|---|---|
+| `32383.92` | 32 383,92 Md$ |
+| `94429.753` | 94 429,753 $/hab. |
+| `2.3` | +2,3 % |
+
+**2. Une espace insécable ordinaire entre les milliers.** En français, le
+navigateur sépare naturellement les milliers par une *espace fine* insécable
+(le caractère `U+202F`). Les polices d'Apple la dessinent si étroite qu'on ne
+la voit pas : « 30 767 » finissait par ressembler à « 30767 ». On la remplace
+donc par une espace insécable ordinaire, visible dans toutes les polices — et
+qui interdit toujours de couper un nombre en fin de ligne.
+
+Chaque langue garde évidemment ses propres usages : `1,234.5` en anglais,
+`12,34,567` en hindi (le groupement indien), et les chiffres 0-9 en arabe
+plutôt que ١٢٣٤ — c'est le rôle du suffixe `-u-nu-latn`, sur un site où l'on
+compare des nombres d'une langue à l'autre.
+
+---
+
+## 🎨 Le code couleur
+
+Les sept cartes partagent **une seule palette** de sept couleurs, du rouge
 sombre au vert sombre en passant par l'orange et le jaune — la famille de
 couleurs des cartes économiques de Wikipédia. Elle est écrite une seule fois
 dans `assets/js/carte.js` (`PALETTE_CLAIR` et `PALETTE_SOMBRE`) : la modifier
@@ -88,114 +170,137 @@ change le site entier.
 
 Le sens de lecture est toujours le même : **le vert est le côté favorable**
 (pays riche, forte croissance, record tout récent), le rouge le côté
-défavorable. Les cartes qui se lisent à l'envers — les deux cartes « année
-record », où un petit nombre d'années est une bonne nouvelle — retournent la
-palette avec `inverser()`.
+défavorable. Les deux cartes qui se lisent à l'envers — l'inflation et l'onglet
+« Records », où un petit nombre est une bonne nouvelle — retournent la palette
+avec `inverser()` et portent la mention `sens_inverse`.
 
 Ce que chaque carte règle de son côté, ce sont seulement ses `tranches` :
 les seuils qui séparent une couleur de la suivante.
 
-### Les deux cartes « année record »
+Deux choix de seuils méritent une explication :
 
-Elles répondent à la question : **en quelle année ce pays a-t-il été à son
-maximum ?** Vert = le record date de l'année affichée, le pays va bien.
-Rouge = le record est ancien, le pays ne l'a jamais retrouvé (Grèce 2008,
-Japon 2012, Afrique du Sud 2011…).
+- **PIB par habitant** : les deux variantes n'ont *pas* les mêmes tranches, à
+  la différence du PIB total. La parité de pouvoir d'achat relève fortement les
+  pays pauvres — l'Inde passe de 2 900 à 12 800 dollars —, et avec les seuils du
+  nominal la moitié du monde basculerait d'un coup dans le vert.
+- **Inflation** : les seuils suivent la lecture des banques centrales (2 % est
+  la cible, 10 % un vrai problème, 20 % le sujet principal d'une économie). Les
+  rares pays en *déflation* tombent dans la tranche la plus verte : c'est une
+  simplification assumée, la déflation n'est pas une bonne nouvelle non plus,
+  mais elle est trop rare pour mériter une couleur à elle sur les sept.
+
+---
+
+## 🖱️ Les trois onglets du panneau
+
+Le panneau de gauche porte trois vues, sous une rangée d'onglets.
+
+**Classement.** Les 197 pays pour l'année affichée, avec leur rang, leur
+drapeau et leur chiffre. Un champ de recherche ignore les accents : chercher
+« coree » trouve la Corée, et « Germany » trouve l'Allemagne.
+
+**Comparer.** Deux pays face à face, et surtout un **graphique de leur écart de
+1980 à 2031** — c'est là qu'on voit un pays rattraper l'autre, le dépasser, ou
+décrocher. On peut cliquer dans le graphique pour déplacer le curseur des
+années. Exemple, sur le PIB par habitant : le Royaume-Uni était 15 % en dessous
+de la France en 1980, l'a dépassée en 2012, et le FMI le voit 29 % au-dessus
+en 2031.
+
+**Records.** « En quelle année ce pays a-t-il été à son maximum ? » L'onglet
+fait deux choses en même temps :
+
+- il **repeint la carte** en années écoulées depuis le record — vert = le pays
+  est à son sommet cette année, rouge = il ne l'a jamais retrouvé (Ukraine 1991,
+  Grèce 2008, Japon 2012, Afrique du Sud 2011…) ;
+- il affiche la **fiche du pays choisi** : son record, l'année où il l'a
+  atteint, et le chemin qui lui reste à faire (le Japon est 30 % en dessous de
+  son record de 2012).
 
 Le curseur des années garde son rôle habituel : posé sur 2008, il montre le
 record **atteint à cette date**. On voit ainsi la crise de 2008, puis le Covid,
 arriver en faisant glisser le curseur — et, au-delà de 2025, les projections du
-FMI jusqu'en 2031.
+FMI jusqu'en 2031. C'est la fin de la course qui est la plus parlante : en 2031,
+**11 pays** ne sont toujours pas prévus pour retrouver leur record de PIB, et
+**26** pour le PIB par habitant.
 
-C'est la fin de la course qui est la plus parlante : en 2031, **11 pays** ne
-sont toujours pas prévus pour retrouver leur record de PIB (Ukraine 1991,
-Iran 2011, Japon 2012, Nigeria 2014, Russie 2026…), et **26** pour le PIB par
-habitant (RD Congo 1980, Ghana 1982, Koweït 2008, Qatar 2012…).
+> Ces années record ne sont **pas téléchargées** : le navigateur les calcule à
+> partir des chiffres déjà chargés, à la première ouverture de l'onglet
+> (`calculerRecords()` dans `carte.js`). C'est pourquoi l'onglet marche sur
+> n'importe quelle carte sans qu'il y ait un fichier de plus dans `data/`.
 
-Ces deux cartes ne sont pas téléchargées mais **calculées** à partir du PIB et
-du PIB par habitant, par la fonction `annees_record()` de `build_donnees.py`.
+---
 
-### Comparer deux pays
+## ⚖️ Comparer deux pays sur la carte
 
-Deux outils différents, qui partent tous les deux du **pays sur lequel on
-clique**. Ce pays reste sélectionné quand on fait glisser le curseur des
-années : ses chiffres défilent sous les yeux, dans la bulle qui reste ouverte.
+**Il n'y a aucun bouton à trouver : cliquer sur un pays suffit.** La carte cesse
+alors de montrer « combien » et montre « combien de plus ou de moins que lui » :
+rouge = ce pays fait moins bien que celui qu'on a cliqué, vert = il fait mieux,
+jaune = ils sont au même niveau. Le pays de référence est cerclé de bleu, et
+rappelé en haut du panneau de gauche.
 
-**1. Le mode comparaison, sur la carte.** Une fois un pays choisi, le bouton
-« Comparer à ce pays » de la légende repeint toute la carte : chaque pays prend
-alors la couleur de son **écart** avec celui-là. Rouge = fait moins bien,
-vert = fait mieux, jaune = à peu près au même niveau. Le pays de référence est
-cerclé de bleu, et une croix dans la légende fait revenir à la carte normale.
+Pour revenir aux valeurs, trois chemins, tous naturels : refermer la bulle du
+pays, cliquer sur la mer, ou la croix de la ligne « pays de référence ».
 
 L'écart ne se mesure pas de la même façon selon la carte — c'est le réglage
 `ECARTS`, en haut de `assets/js/carte.js` :
 
 | Carte | Écart mesuré en | Exemple |
 |---|---|---|
-| PIB nominal, PIB par habitant | **pourcentage** de la référence | l'Allemagne est à `+24 %` de la France |
-| Croissance | **points** de croissance | l'Inde est à `+6,7 pt` de la France |
-| Année record (×2) | **années** entre les deux records | l'Ukraine est à `−34 ans` de la France |
+| PIB, PIB par habitant, population | **pourcentage** de la référence | l'Allemagne est à `+24 %` de la France |
+| Croissance, inflation | **points** | l'Inde est à `+6,7 pt` de la France |
+| Records | **années** entre les deux records | l'Ukraine est à `−34 ans` de la France |
 
-Dans les trois cas le signe dit la même chose : **positif = fait mieux que la
-référence**. C'est pourquoi les cartes « année record », dont la palette est
-retournée d'habitude, la remettent à l'endroit dans ce mode.
+Dans les trois cas, le signe dit toujours la même chose : **positif = ce pays a
+un chiffre plus grand que la référence**. Reste à savoir si « plus grand » est
+une bonne nouvelle, et cela dépend de la carte : sur le PIB oui, sur l'inflation
+non. C'est le rôle de `ecart_sens_inverse`, qui décide si la palette revient à
+l'endroit. Sur l'inflation, dépasser l'autre reste rouge — sur la carte comme
+dans le graphique du comparateur.
 
-**2. Le comparateur, dans le panneau de gauche.** L'onglet « Comparer » met deux
-pays face à face et répond à la question « de combien, et depuis quand ? » :
-
-- l'écart pour l'année affichée, en grand ;
-- un **graphique de cet écart de 1980 à 2031** — c'est là qu'on voit un pays
-  rattraper l'autre, le dépasser, ou décrocher. On peut cliquer dedans pour
-  déplacer le curseur des années ;
-- les années remarquables : l'écart maximal, l'écart minimal, et la dernière
-  fois que les deux pays se sont croisés.
-
-Exemple, sur le PIB par habitant : le Royaume-Uni était **15 % en dessous** de
-la France en 1980, l'a dépassée en 2012, et le FMI le voit **29 % au-dessus**
-en 2031.
-
-Ce comparateur vit dans son propre fichier, `assets/js/comparateur.js`, qui ne
+Le comparateur vit dans son propre fichier, `assets/js/comparateur.js`, qui ne
 sait rien du reste du site : `carte.js` lui passe les données et les quelques
 fonctions dont il a besoin. C'est ce qui lui permet de marcher à l'identique
-sur les cinq cartes, alors qu'un écart s'y mesure de trois façons différentes.
+sur les sept cartes, alors qu'un écart s'y mesure de trois façons différentes.
 
 ---
 
 ## 📁 Où se trouve quoi ?
 
-> ⚠️ **Les 78 pages HTML et `sitemap.xml` ne se modifient pas à la main** :
+> ⚠️ **Les 130 pages HTML et `sitemap.xml` ne se modifient pas à la main** :
 > elles sont fabriquées par `scripts/build_pages.py` et toute retouche
 > directe serait effacée à la prochaine exécution. Le dossier `data/` est
 > dans le même cas, avec les deux autres scripts.
 
 ```
-index.html               L'accueil en français ─┐
-en/ ua/ de/ es/ it/ pt/                         ├─ 78 pages FABRIQUÉES par
-pl/ ja/ ko/ tr/ hi/ ar/  Les douze autres       │  scripts/build_pages.py
-pib-nominal/ ...         Les cartes en français ┘
-sitemap.xml              La carte du site pour Google ─┘
+index.html               L'accueil en français ─────────┐
+economie/ demographie/   Les catégories en français     │
+pib-nominal/ pib-ppa/                                   ├─ 130 pages FABRIQUÉES
+pib-par-habitant/ ...    Les 7 cartes en français       │  par build_pages.py
+en/ ua/ de/ es/ it/ pt/                                 │
+pl/ ja/ ko/ tr/ hi/ ar/  Les douze autres langues ──────┘
+sitemap.xml              La carte du site pour Google ──┘
 
 assets/css/style.css     TOUTES les couleurs et l'apparence du site
 assets/js/i18n.js        TOUS les textes des boutons, en 13 langues
 assets/js/theme.js       Le bouton soleil / lune
 assets/js/barre.js       Le menu déroulant des langues
-assets/js/carte.js       Le moteur des cartes (partagé par les 65 pages)
+assets/js/carte.js       Le moteur des cartes (partagé par les 91 pages)
 assets/js/comparateur.js L'onglet « Comparer » du panneau de gauche
 
 data/                    Les chiffres. FABRIQUÉS par les scripts.
 
 scripts/build_geojson.py Prépare le fond de carte (frontières, noms des pays)
 scripts/build_donnees.py Va chercher les chiffres chez le FMI
-scripts/build_pages.py   Fabrique les 78 pages, le sitemap et la page 404
+scripts/build_pages.py   Fabrique les 130 pages, le sitemap et la page 404
 ```
 
 Où sont les textes, selon leur nature :
 
 | Texte | Fichier |
 |---|---|
-| les boutons, la légende, les infobulles | `assets/js/i18n.js` |
-| les titres de pages, les descriptions pour Google, les adresses | `scripts/build_pages.py` |
-| les titres des cartes et leurs unités | `scripts/build_donnees.py` |
+| les boutons, les onglets, la légende, les infobulles | `assets/js/i18n.js` |
+| les titres du FMI et leurs unités | `scripts/build_donnees.py` |
+| les noms courts, les adresses, les descriptions pour Google, les catégories | `scripts/build_pages.py` |
 | les noms des 197 pays | personne : ils viennent de Natural Earth |
 
 ### Je veux changer…
@@ -206,7 +311,10 @@ Où sont les textes, selon leur nature :
 | les couleurs des cartes | `assets/js/carte.js`, tout en haut : `PALETTE_CLAIR` et `PALETTE_SOMBRE` |
 | les seuils entre deux couleurs | `assets/js/carte.js`, les `tranches` de la carte concernée |
 | les seuils du mode comparaison | `assets/js/carte.js`, le bloc `ECARTS` |
-| un texte de bouton | `assets/js/i18n.js` |
+| le nombre de décimales affichées | `scripts/build_donnees.py`, `decimales` de la carte |
+| un texte de bouton ou d'onglet | `assets/js/i18n.js` |
+| le titre d'une carte, son unité | `scripts/build_donnees.py`, puis relancer le script |
+| une catégorie de l'accueil | `scripts/build_pages.py`, `CATEGORIES` et le bloc `"categories"` de chaque langue |
 | un drapeau ou un nom de pays | `scripts/build_geojson.py`, puis relancer le script |
 | le titre d'une page dans Google | `scripts/build_pages.py`, puis relancer le script |
 
@@ -247,7 +355,7 @@ Le fond de carte, lui, ne change quasiment jamais. Si besoin :
 python3 scripts/build_geojson.py
 ```
 
-Et pour refabriquer les 78 pages, après avoir touché à un titre, une adresse
+Et pour refabriquer les 130 pages, après avoir touché à un titre, une adresse
 ou la liste des langues :
 
 ```bash
@@ -255,36 +363,69 @@ python3 scripts/build_pages.py
 ```
 
 Ce dernier ne dépend de rien : on peut le relancer autant de fois qu'on veut,
-il réécrit toujours exactement la même chose.
+il réécrit toujours exactement la même chose. Il fait aussi le ménage : si une
+carte disparaît de la liste, son dossier est effacé dans les treize langues,
+pour qu'aucune page fantôme ne reste en ligne avec des chiffres périmés.
 
 Aucune installation n'est nécessaire : ces scripts n'utilisent que Python,
 déjà présent sur macOS.
+
+### Le FMI refuse les requêtes de Python
+
+Depuis 2025, l'API du FMI est protégée contre les robots, et répond
+**403 Access Denied** à qui ne ressemble pas à un vrai navigateur. Deux filtres
+se cumulent :
+
+1. **les en-têtes** — une simple ligne `User-Agent: StatsMaps` ne passe plus ;
+2. **la poignée de main chiffrée elle-même** — le serveur reconnaît le logiciel
+   qui se connecte à la *forme* de sa négociation TLS, avant même de lire la
+   moindre en-tête. Python a une signature reconnaissable et se fait refouler
+   quels que soient ses en-têtes ; `curl` passe.
+
+D'où la façon de faire, dans `_telecharger()` : le script appelle **curl**,
+présent partout (macOS, Linux, les serveurs de GitHub), et ne se rabat sur
+Python que si curl manque. Si un jour la mise à jour automatique se met à
+échouer avec « 403 », c'est de ce côté qu'il faut regarder — les en-têtes de
+`EN_TETES` auront sans doute vieilli.
 
 ---
 
 ## ➕ Ajouter une nouvelle carte
 
-Le FMI propose **132 indicateurs** (population, inflation, chômage, dette
-publique…). Pour en ajouter un :
+Le FMI propose **132 indicateurs** (chômage, dette publique, balance
+courante…). Pour en ajouter un :
 
-1. Dans `scripts/build_donnees.py`, ajouter un bloc dans la liste `INDICATEURS`
-   (avec son titre et son unité dans les treize langues).
+1. Dans `scripts/build_donnees.py`, ajouter un bloc dans la liste `INDICATEURS` :
+   son code FMI, sa catégorie, et son titre et ses unités dans les treize
+   langues (le titre **court** et le titre **long**, comme les écrit le FMI).
 2. Dans `assets/js/carte.js`, ajouter ses tranches de couleur et sa façon de
    mesurer un écart dans `CARTES`.
-3. Dans `scripts/build_pages.py`, ajouter la carte à la liste `CARTES`, puis
-   son entrée `"cartes"` dans **chacun** des treize blocs de `LANGUES`.
+3. Dans `scripts/build_pages.py` : une ligne dans `CARTES`, l'identifiant dans
+   la catégorie voulue de `CATEGORIES`, puis son entrée `"cartes"` dans
+   **chacun** des treize blocs de `LANGUES` (adresse, nom, libellés du menu et
+   phrase de présentation).
 4. Relancer :
 
 ```bash
 python3 scripts/build_donnees.py && python3 scripts/build_pages.py
 ```
 
-Les 13 nouvelles pages, les liens du menu sur les 78 pages, les vignettes des
-13 accueils et le sitemap suivent tout seuls.
+Les 13 nouvelles pages, les liens du menu sur les 130 pages, les vignettes de
+la catégorie et le sitemap suivent tout seuls.
 
-> Le travail est désormais celui de la **traduction**, pas de la recopie :
-> l'étape 3 demande d'écrire un titre et une description par langue. Le reste
-> (couleurs, classement, légende, curseur, comparateur) est partagé.
+> Le travail est celui de la **traduction**, pas de la recopie : l'étape 3
+> demande cinq courtes phrases par langue. Le reste (couleurs, classement,
+> légende, curseur, comparateur, records) est partagé.
+
+**Pour ajouter une simple variante** à une carte existante — le PIB en euros,
+par exemple — c'est le même chemin, avec la même `famille` et une `variante`
+différente : l'interrupteur du panneau apparaît tout seul dès qu'une famille
+compte deux membres, et son libellé se prend dans le bloc `"variantes"` de
+chaque langue.
+
+**Pour ajouter une catégorie**, une ligne dans `CATEGORIES` et un bloc
+`"categories"` dans chaque langue. La vignette de l'accueil, sa page et le
+sitemap suivent.
 
 ---
 
@@ -295,10 +436,10 @@ Les 13 nouvelles pages, les liens du menu sur les 78 pages, les vignettes des
    (`"sv": "NAME_SV"` pour le suédois, par exemple). Les 197 noms viennent de
    là — il n'y a rien à traduire à la main.
 2. Dans `assets/js/i18n.js`, un bloc de textes, sur le modèle des treize autres.
-3. Dans `scripts/build_donnees.py`, la langue dans les `titre` et `unite` de
-   chaque indicateur.
-4. Dans `scripts/build_pages.py`, son bloc dans `LANGUES` : les adresses, les
-   titres et les descriptions des six pages.
+3. Dans `scripts/build_donnees.py`, la langue dans les `titre`, `unite` et
+   `unite_longue` de chaque indicateur.
+4. Dans `scripts/build_pages.py`, son bloc dans `LANGUES` : les modèles de
+   titre, les adresses, les catégories et les sept cartes.
 5. Relancer les trois scripts.
 
 Si la langue s'écrit de droite à gauche, mettre `"sens": "rtl"` dans son bloc :
@@ -327,7 +468,7 @@ sur « octobre 2026 » dès le 15 octobre. Il n'y a rien à modifier à la main.
 
 ## 🧾 Sources et licences
 
-- **Données économiques** : [FMI — World Economic Outlook](https://www.imf.org/external/datamapper/datasets/WEO)
+- **Données** : [FMI — World Economic Outlook](https://www.imf.org/external/datamapper/datasets/WEO)
 - **Frontières** : [Natural Earth](https://www.naturalearthdata.com/), échelle 1:50 m (domaine public)
 
   Natural Earth dessine le monde « tel qu'il est contrôlé sur le terrain ».

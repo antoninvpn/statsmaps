@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>StatsMaps — statistiche mondiali su mappe interattive</title>
-  <meta name="description" content="Mappe interattive dell’economia mondiale: PIL nominale, PIL pro capite, crescita e anni record di 197 paesi, dal 1980 al 2031, dai dati ufficiali del FMI.">
+  <title>StatsMaps — mappe e statistiche mondiali</title>
+  <meta name="description" content="Mappe interattive delle statistiche mondiali: PIL, PIL pro capite, crescita, inflazione e popolazione di 197 paesi, dal 1980 al 2031, con i dati ufficiali del FMI.">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://statsmaps.com/it/">
   <link rel="alternate" hreflang="fr" href="https://statsmaps.com/">
@@ -22,8 +22,8 @@
   <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/">
   <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="StatsMaps — statistiche mondiali su mappe interattive">
-  <meta property="og:description" content="Mappe interattive dell’economia mondiale: PIL nominale, PIL pro capite, crescita e anni record di 197 paesi, dal 1980 al 2031, dai dati ufficiali del FMI.">
+  <meta property="og:title" content="StatsMaps — mappe e statistiche mondiali">
+  <meta property="og:description" content="Mappe interattive delle statistiche mondiali: PIL, PIL pro capite, crescita, inflazione e popolazione di 197 paesi, dal 1980 al 2031, con i dati ufficiali del FMI.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://statsmaps.com/it/">
   <link rel="stylesheet" href="../assets/css/style.css">
@@ -34,11 +34,11 @@
   <header class="barre">
     <a class="barre__logo" href="./">Stats<span>Maps</span></a>
     <nav class="barre__nav" aria-label="Mappe">
-        <a class="barre__lien" href="pil-nominale/"><span class="long">PIL nominale</span><span class="court">PIL</span></a>
+        <a class="barre__lien" href="pil-nominale/"><span class="long">PIL</span><span class="court">PIL</span></a>
         <a class="barre__lien" href="pil-pro-capite/"><span class="long">PIL pro capite</span><span class="court">PIL/ab.</span></a>
         <a class="barre__lien" href="crescita-pil/"><span class="long">Crescita</span><span class="court">Crescita</span></a>
-        <a class="barre__lien" href="anno-record-pil/"><span class="long">Anno record del PIL</span><span class="court">Record PIL</span></a>
-        <a class="barre__lien" href="anno-record-pil-pro-capite/"><span class="long">Anno record del PIL pro capite</span><span class="court">Record PIL/ab.</span></a>
+        <a class="barre__lien" href="inflazione/"><span class="long">Inflazione</span><span class="court">Inflazione</span></a>
+        <a class="barre__lien" href="popolazione/"><span class="long">Popolazione</span><span class="court">Popolazione</span></a>
     </nav>
     <div class="barre__droite">
       <details class="langues">
@@ -68,37 +68,25 @@
 
   <main class="accueil">
     <h1 class="accueil__titre">Le statistiche del mondo, in mappa.</h1>
-    <p class="accueil__intro">StatsMaps trasforma i grandi indicatori mondiali in mappe interattive, a partire da fonti ufficiali. Si comincia dall’economia, con i dati del Fondo Monetario Internazionale: 197 paesi, dal 1980 al 2031.</p>
+    <p class="accueil__intro">StatsMaps trasforma i grandi indicatori mondiali in mappe interattive, a partire da fonti ufficiali. Scegli una categoria per vedere le sue mappe: oggi l’economia e la demografia, con i dati del Fondo monetario internazionale — 197 paesi, dal 1980 al 2031.</p>
 
     <div class="vignettes">
-      <a class="vignette" href="pil-nominale/">
-        <div class="vignette__pastille">💰</div>
-        <div class="vignette__titre">PIL nominale</div>
-        <p class="vignette__texte">La dimensione di ogni economia, in miliardi di dollari correnti.</p>
+      <a class="vignette" href="economia/">
+        <div class="vignette__pastille">💶</div>
+        <div class="vignette__titre">Economia</div>
+        <p class="vignette__texte">Il PIL, la ricchezza per abitante, la crescita e l’inflazione.</p>
+        <div class="vignette__liste">PIL · PIL pro capite · Crescita · Inflazione</div>
       </a>
-      <a class="vignette" href="pil-pro-capite/">
-        <div class="vignette__pastille">👤</div>
-        <div class="vignette__titre">PIL pro capite</div>
-        <p class="vignette__texte">La ricchezza prodotta per persona, in dollari correnti.</p>
-      </a>
-      <a class="vignette" href="crescita-pil/">
-        <div class="vignette__pastille">📈</div>
-        <div class="vignette__titre">Crescita del PIL</div>
-        <p class="vignette__texte">La variazione del PIL reale da un anno all’altro, in percentuale.</p>
-      </a>
-      <a class="vignette" href="anno-record-pil/">
-        <div class="vignette__pastille">🏔️</div>
-        <div class="vignette__titre">Anno record del PIL</div>
-        <p class="vignette__texte">L’anno in cui ogni paese ha toccato il massimo — e quelli che non ci sono più tornati.</p>
-      </a>
-      <a class="vignette" href="anno-record-pil-pro-capite/">
-        <div class="vignette__pastille">⛰️</div>
-        <div class="vignette__titre">Anno record del PIL pro capite</div>
-        <p class="vignette__texte">L’anno in cui gli abitanti di ogni paese sono stati mediamente più ricchi.</p>
+      <a class="vignette" href="demografia/">
+        <div class="vignette__pastille">👥</div>
+        <div class="vignette__titre">Demografia</div>
+        <p class="vignette__texte">Quante persone vivono in ogni paese, anno per anno.</p>
+        <div class="vignette__liste">Popolazione</div>
       </a>
     </div>
 
-    <p class="accueil__bientot">Prossimamente: demografia, infrastrutture, energia, istruzione e sanità.</p>
+    <p class="accueil__bientot">Prossimamente: infrastrutture, energia, istruzione e sanità.</p>
+
   </main>
 
   <footer class="pied">Dati: FMI (World Economic Outlook) · Mappa di base: Natural Earth · Senza pubblicità né tracciamento.</footer>

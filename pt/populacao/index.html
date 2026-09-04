@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>População por país — mapa mundial interativo | StatsMaps</title>
+  <meta name="description" content="Quantas pessoas vivem em cada país, em milhões. Mapa interativo de 197 países, de 1980 a 2031, com dados oficiais do FMI (World Economic Outlook): classificação mundial e evolução ano a ano.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://statsmaps.com/pt/populacao/">
+  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/population/">
+  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/population/">
+  <link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/naselennia/">
+  <link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bevoelkerung/">
+  <link rel="alternate" hreflang="es" href="https://statsmaps.com/es/poblacion/">
+  <link rel="alternate" hreflang="it" href="https://statsmaps.com/it/popolazione/">
+  <link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/populacao/">
+  <link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/ludnosc/">
+  <link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/population/">
+  <link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/population/">
+  <link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/nufus/">
+  <link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/population/">
+  <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/population/">
+  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/population/">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="População por país — mapa mundial interativo">
+  <meta property="og:description" content="Quantas pessoas vivem em cada país, em milhões. Mapa interativo de 197 países, de 1980 a 2031, com dados oficiais do FMI (World Economic Outlook): classificação mundial e evolução ano a ano.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://statsmaps.com/pt/populacao/">
+  <link rel="preload" href="../../data/pays.json" as="fetch" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.1/maplibre-gl.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <script src="../../assets/js/theme.js"></script>
+</head>
+<body class="page-carte" data-indicateur="population" data-langue="pt" data-base="../../">
+
+  <header class="barre">
+    <a class="barre__logo" href="../">Stats<span>Maps</span></a>
+    <nav class="barre__nav" aria-label="Mapas">
+        <a class="barre__lien" href="../pib-nominal/"><span class="long">PIB</span><span class="court">PIB</span></a>
+        <a class="barre__lien" href="../pib-per-capita/"><span class="long">PIB per capita</span><span class="court">PIB/hab.</span></a>
+        <a class="barre__lien" href="../crescimento-pib/"><span class="long">Crescimento</span><span class="court">Crescimento</span></a>
+        <a class="barre__lien" href="../inflacao/"><span class="long">Inflação</span><span class="court">Inflação</span></a>
+        <a class="barre__lien" href="../populacao/" aria-current="page"><span class="long">População</span><span class="court">População</span></a>
+    </nav>
+    <div class="barre__droite">
+      <details class="langues">
+        <summary class="bouton-icone" title="Idioma" aria-label="Idioma">🇵🇹</summary>
+        <div class="langues__menu">
+          <a href="/population/" hreflang="fr" lang="fr"><span class="drapeau" aria-hidden="true">🇫🇷</span>Français</a>
+          <a href="/en/population/" hreflang="en" lang="en"><span class="drapeau" aria-hidden="true">🇬🇧</span>English</a>
+          <a href="/ua/naselennia/" hreflang="uk" lang="uk"><span class="drapeau" aria-hidden="true">🇺🇦</span>Українська</a>
+          <a href="/de/bevoelkerung/" hreflang="de" lang="de"><span class="drapeau" aria-hidden="true">🇩🇪</span>Deutsch</a>
+          <a href="/es/poblacion/" hreflang="es" lang="es"><span class="drapeau" aria-hidden="true">🇪🇸</span>Español</a>
+          <a href="/it/popolazione/" hreflang="it" lang="it"><span class="drapeau" aria-hidden="true">🇮🇹</span>Italiano</a>
+          <a href="/pt/populacao/" hreflang="pt" lang="pt" aria-current="true"><span class="drapeau" aria-hidden="true">🇵🇹</span>Português</a>
+          <a href="/pl/ludnosc/" hreflang="pl" lang="pl"><span class="drapeau" aria-hidden="true">🇵🇱</span>Polski</a>
+          <a href="/ja/population/" hreflang="ja" lang="ja"><span class="drapeau" aria-hidden="true">🇯🇵</span>日本語</a>
+          <a href="/ko/population/" hreflang="ko" lang="ko"><span class="drapeau" aria-hidden="true">🇰🇷</span>한국어</a>
+          <a href="/tr/nufus/" hreflang="tr" lang="tr"><span class="drapeau" aria-hidden="true">🇹🇷</span>Türkçe</a>
+          <a href="/hi/population/" hreflang="hi" lang="hi"><span class="drapeau" aria-hidden="true">🇮🇳</span>हिन्दी</a>
+          <a href="/ar/population/" hreflang="ar" lang="ar"><span class="drapeau" aria-hidden="true">🇸🇦</span>العربية</a>
+        </div>
+      </details>
+      <button class="bouton-icone" id="bouton-theme" type="button"
+              aria-label="Mudar de tema"
+              data-vers-clair="Mudar para o tema claro"
+              data-vers-sombre="Mudar para o tema escuro">☾</button>
+    </div>
+  </header>
+
+  <div class="zone-carte">
+    <div id="carte"></div>
+
+    <button class="bouton-icone bouton-panneau" id="bouton-panneau" type="button" aria-expanded="false" aria-controls="panneau"></button>
+
+    <aside class="panneau" id="panneau">
+      <div class="panneau__entete">
+        <h1 class="panneau__titre" id="titre-panneau">População</h1>
+        <div class="panneau__soustitre" id="compteur-pays"></div>
+        <input class="panneau__recherche" id="recherche" type="search" autocomplete="off" spellcheck="false">
+      </div>
+      <ul class="classement" id="classement"></ul>
+      <div class="panneau__pied" id="source"></div>
+    </aside>
+
+    <div class="legende" id="legende"></div>
+
+    <div class="annees">
+      <div class="annees__haut">
+        <span class="annees__valeur nombre" id="annee-valeur">—</span>
+        <span class="annees__etiquette" id="annee-etiquette"></span>
+      </div>
+      <input type="range" id="curseur-annee" min="1980" max="2031" step="1" value="2025">
+      <div class="annees__bornes"><span id="annee-min"></span><span id="annee-max"></span></div>
+    </div>
+
+    <div class="chargement" id="chargement">…</div>
+  </div>
+
+  <script src="../../assets/js/i18n.js"></script>
+  <script src="../../assets/js/barre.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.1/maplibre-gl.js"></script>
+  <script src="../../assets/js/comparateur.js"></script>
+  <script src="../../assets/js/carte.js"></script>
+</body>
+</html>

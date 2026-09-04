@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>人口統計 — 地図の一覧 | StatsMaps</title>
+  <meta name="description" content="各国に暮らす人の数を、年ごとに。 1980年から2031年まで、197か国のインタラクティブ地図。IMFの公式データ（World Economic Outlook）による世界ランキングと年ごとの推移。">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://statsmaps.com/ja/demographics/">
+  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/demographie/">
+  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/demographics/">
+  <link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/demohrafiia/">
+  <link rel="alternate" hreflang="de" href="https://statsmaps.com/de/demografie/">
+  <link rel="alternate" hreflang="es" href="https://statsmaps.com/es/demografia/">
+  <link rel="alternate" hreflang="it" href="https://statsmaps.com/it/demografia/">
+  <link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/demografia/">
+  <link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/demografia/">
+  <link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/demographics/">
+  <link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/demographics/">
+  <link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/demografi/">
+  <link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/demographics/">
+  <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/demographics/">
+  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/demographie/">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="人口統計 — 地図の一覧 | StatsMaps">
+  <meta property="og:description" content="各国に暮らす人の数を、年ごとに。 1980年から2031年まで、197か国のインタラクティブ地図。IMFの公式データ（World Economic Outlook）による世界ランキングと年ごとの推移。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://statsmaps.com/ja/demographics/">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <script src="../../assets/js/theme.js"></script>
+</head>
+<body>
+
+  <header class="barre">
+    <a class="barre__logo" href="../">Stats<span>Maps</span></a>
+    <nav class="barre__nav" aria-label="地図">
+        <a class="barre__lien" href="../nominal-gdp/"><span class="long">名目GDP</span><span class="court">GDP</span></a>
+        <a class="barre__lien" href="../gdp-per-capita/"><span class="long">一人当たりGDP</span><span class="court">GDP/人</span></a>
+        <a class="barre__lien" href="../gdp-growth/"><span class="long">成長率</span><span class="court">成長率</span></a>
+        <a class="barre__lien" href="../inflation/"><span class="long">インフレ率</span><span class="court">インフレ</span></a>
+        <a class="barre__lien" href="../population/"><span class="long">人口</span><span class="court">人口</span></a>
+    </nav>
+    <div class="barre__droite">
+      <details class="langues">
+        <summary class="bouton-icone" title="言語" aria-label="言語">🇯🇵</summary>
+        <div class="langues__menu">
+          <a href="/demographie/" hreflang="fr" lang="fr"><span class="drapeau" aria-hidden="true">🇫🇷</span>Français</a>
+          <a href="/en/demographics/" hreflang="en" lang="en"><span class="drapeau" aria-hidden="true">🇬🇧</span>English</a>
+          <a href="/ua/demohrafiia/" hreflang="uk" lang="uk"><span class="drapeau" aria-hidden="true">🇺🇦</span>Українська</a>
+          <a href="/de/demografie/" hreflang="de" lang="de"><span class="drapeau" aria-hidden="true">🇩🇪</span>Deutsch</a>
+          <a href="/es/demografia/" hreflang="es" lang="es"><span class="drapeau" aria-hidden="true">🇪🇸</span>Español</a>
+          <a href="/it/demografia/" hreflang="it" lang="it"><span class="drapeau" aria-hidden="true">🇮🇹</span>Italiano</a>
+          <a href="/pt/demografia/" hreflang="pt" lang="pt"><span class="drapeau" aria-hidden="true">🇵🇹</span>Português</a>
+          <a href="/pl/demografia/" hreflang="pl" lang="pl"><span class="drapeau" aria-hidden="true">🇵🇱</span>Polski</a>
+          <a href="/ja/demographics/" hreflang="ja" lang="ja" aria-current="true"><span class="drapeau" aria-hidden="true">🇯🇵</span>日本語</a>
+          <a href="/ko/demographics/" hreflang="ko" lang="ko"><span class="drapeau" aria-hidden="true">🇰🇷</span>한국어</a>
+          <a href="/tr/demografi/" hreflang="tr" lang="tr"><span class="drapeau" aria-hidden="true">🇹🇷</span>Türkçe</a>
+          <a href="/hi/demographics/" hreflang="hi" lang="hi"><span class="drapeau" aria-hidden="true">🇮🇳</span>हिन्दी</a>
+          <a href="/ar/demographics/" hreflang="ar" lang="ar"><span class="drapeau" aria-hidden="true">🇸🇦</span>العربية</a>
+        </div>
+      </details>
+      <button class="bouton-icone" id="bouton-theme" type="button"
+              aria-label="テーマを切り替える"
+              data-vers-clair="ライトテーマにする"
+              data-vers-sombre="ダークテーマにする">☾</button>
+    </div>
+  </header>
+
+  <main class="accueil">
+    <h1 class="accueil__titre">世界の人口を、地図で。</h1>
+    <p class="accueil__intro">IMFは各国の人口も公表しています。197か国、1980年から2031年まで、予測を含みます。</p>
+
+    <div class="vignettes">
+      <a class="vignette" href="../population/">
+        <div class="vignette__pastille">👥</div>
+        <div class="vignette__titre">人口</div>
+        <p class="vignette__texte">各国に暮らす人の数を、百万人単位で。</p>
+      </a>
+    </div>
+
+  </main>
+
+  <footer class="pied">データ：IMF（World Economic Outlook）· 地図：Natural Earth · 広告なし、追跡なし。</footer>
+
+  <script src="../../assets/js/barre.js"></script>
+</body>
+</html>

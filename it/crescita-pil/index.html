@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Crescita del PIL per paese — mappa mondiale interattiva | StatsMaps</title>
-  <meta name="description" content="Mappa interattiva della crescita del PIL reale di 197 paesi, dal 1980 al 2031. Dati ufficiali del FMI: recessioni in rosso, espansioni in verde.">
+  <meta name="description" content="La variazione del PIL reale da un anno all’altro, in percentuale. Mappa interattiva di 197 paesi, dal 1980 al 2031, con i dati ufficiali del FMI (World Economic Outlook): classifica mondiale ed evoluzione anno per anno.">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://statsmaps.com/it/crescita-pil/">
   <link rel="alternate" hreflang="fr" href="https://statsmaps.com/croissance/">
@@ -23,7 +23,7 @@
   <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/croissance/">
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
   <meta property="og:title" content="Crescita del PIL per paese — mappa mondiale interattiva">
-  <meta property="og:description" content="Mappa interattiva della crescita del PIL reale di 197 paesi, dal 1980 al 2031. Dati ufficiali del FMI: recessioni in rosso, espansioni in verde.">
+  <meta property="og:description" content="La variazione del PIL reale da un anno all’altro, in percentuale. Mappa interattiva di 197 paesi, dal 1980 al 2031, con i dati ufficiali del FMI (World Economic Outlook): classifica mondiale ed evoluzione anno per anno.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://statsmaps.com/it/crescita-pil/">
   <link rel="preload" href="../../data/pays.json" as="fetch" crossorigin>
@@ -36,11 +36,11 @@
   <header class="barre">
     <a class="barre__logo" href="../">Stats<span>Maps</span></a>
     <nav class="barre__nav" aria-label="Mappe">
-        <a class="barre__lien" href="../pil-nominale/"><span class="long">PIL nominale</span><span class="court">PIL</span></a>
+        <a class="barre__lien" href="../pil-nominale/"><span class="long">PIL</span><span class="court">PIL</span></a>
         <a class="barre__lien" href="../pil-pro-capite/"><span class="long">PIL pro capite</span><span class="court">PIL/ab.</span></a>
         <a class="barre__lien" href="../crescita-pil/" aria-current="page"><span class="long">Crescita</span><span class="court">Crescita</span></a>
-        <a class="barre__lien" href="../anno-record-pil/"><span class="long">Anno record del PIL</span><span class="court">Record PIL</span></a>
-        <a class="barre__lien" href="../anno-record-pil-pro-capite/"><span class="long">Anno record del PIL pro capite</span><span class="court">Record PIL/ab.</span></a>
+        <a class="barre__lien" href="../inflazione/"><span class="long">Inflazione</span><span class="court">Inflazione</span></a>
+        <a class="barre__lien" href="../popolazione/"><span class="long">Popolazione</span><span class="court">Popolazione</span></a>
     </nav>
     <div class="barre__droite">
       <details class="langues">
@@ -75,7 +75,7 @@
 
     <aside class="panneau" id="panneau">
       <div class="panneau__entete">
-        <h1 class="panneau__titre" id="titre-panneau">Crescita</h1>
+        <h1 class="panneau__titre" id="titre-panneau">Crescita del PIL</h1>
         <div class="panneau__soustitre" id="compteur-pays"></div>
         <input class="panneau__recherche" id="recherche" type="search" autocomplete="off" spellcheck="false">
       </div>

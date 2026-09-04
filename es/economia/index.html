@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Economía — todos los mapas | StatsMaps</title>
+  <meta name="description" content="El PIB, la riqueza por habitante, el crecimiento y la inflación. Mapa interactivo de 197 países, de 1980 a 2031, con datos oficiales del FMI (World Economic Outlook): clasificación mundial y evolución año a año.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://statsmaps.com/es/economia/">
+  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/economie/">
+  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/economy/">
+  <link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/ekonomika/">
+  <link rel="alternate" hreflang="de" href="https://statsmaps.com/de/wirtschaft/">
+  <link rel="alternate" hreflang="es" href="https://statsmaps.com/es/economia/">
+  <link rel="alternate" hreflang="it" href="https://statsmaps.com/it/economia/">
+  <link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/economia/">
+  <link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/gospodarka/">
+  <link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/economy/">
+  <link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/economy/">
+  <link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/ekonomi/">
+  <link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/economy/">
+  <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/economy/">
+  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/economie/">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="Economía — todos los mapas | StatsMaps">
+  <meta property="og:description" content="El PIB, la riqueza por habitante, el crecimiento y la inflación. Mapa interactivo de 197 países, de 1980 a 2031, con datos oficiales del FMI (World Economic Outlook): clasificación mundial y evolución año a año.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://statsmaps.com/es/economia/">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <script src="../../assets/js/theme.js"></script>
+</head>
+<body>
+
+  <header class="barre">
+    <a class="barre__logo" href="../">Stats<span>Maps</span></a>
+    <nav class="barre__nav" aria-label="Mapas">
+        <a class="barre__lien" href="../pib-nominal/"><span class="long">PIB</span><span class="court">PIB</span></a>
+        <a class="barre__lien" href="../pib-per-capita/"><span class="long">PIB per cápita</span><span class="court">PIB/hab.</span></a>
+        <a class="barre__lien" href="../crecimiento-pib/"><span class="long">Crecimiento</span><span class="court">Crecimiento</span></a>
+        <a class="barre__lien" href="../inflacion/"><span class="long">Inflación</span><span class="court">Inflación</span></a>
+        <a class="barre__lien" href="../poblacion/"><span class="long">Población</span><span class="court">Población</span></a>
+    </nav>
+    <div class="barre__droite">
+      <details class="langues">
+        <summary class="bouton-icone" title="Idioma" aria-label="Idioma">🇪🇸</summary>
+        <div class="langues__menu">
+          <a href="/economie/" hreflang="fr" lang="fr"><span class="drapeau" aria-hidden="true">🇫🇷</span>Français</a>
+          <a href="/en/economy/" hreflang="en" lang="en"><span class="drapeau" aria-hidden="true">🇬🇧</span>English</a>
+          <a href="/ua/ekonomika/" hreflang="uk" lang="uk"><span class="drapeau" aria-hidden="true">🇺🇦</span>Українська</a>
+          <a href="/de/wirtschaft/" hreflang="de" lang="de"><span class="drapeau" aria-hidden="true">🇩🇪</span>Deutsch</a>
+          <a href="/es/economia/" hreflang="es" lang="es" aria-current="true"><span class="drapeau" aria-hidden="true">🇪🇸</span>Español</a>
+          <a href="/it/economia/" hreflang="it" lang="it"><span class="drapeau" aria-hidden="true">🇮🇹</span>Italiano</a>
+          <a href="/pt/economia/" hreflang="pt" lang="pt"><span class="drapeau" aria-hidden="true">🇵🇹</span>Português</a>
+          <a href="/pl/gospodarka/" hreflang="pl" lang="pl"><span class="drapeau" aria-hidden="true">🇵🇱</span>Polski</a>
+          <a href="/ja/economy/" hreflang="ja" lang="ja"><span class="drapeau" aria-hidden="true">🇯🇵</span>日本語</a>
+          <a href="/ko/economy/" hreflang="ko" lang="ko"><span class="drapeau" aria-hidden="true">🇰🇷</span>한국어</a>
+          <a href="/tr/ekonomi/" hreflang="tr" lang="tr"><span class="drapeau" aria-hidden="true">🇹🇷</span>Türkçe</a>
+          <a href="/hi/economy/" hreflang="hi" lang="hi"><span class="drapeau" aria-hidden="true">🇮🇳</span>हिन्दी</a>
+          <a href="/ar/economy/" hreflang="ar" lang="ar"><span class="drapeau" aria-hidden="true">🇸🇦</span>العربية</a>
+        </div>
+      </details>
+      <button class="bouton-icone" id="bouton-theme" type="button"
+              aria-label="Cambiar de tema"
+              data-vers-clair="Cambiar al tema claro"
+              data-vers-sombre="Cambiar al tema oscuro">☾</button>
+    </div>
+  </header>
+
+  <main class="accueil">
+    <h1 class="accueil__titre">La economía mundial, en mapas.</h1>
+    <p class="accueil__intro">Cuatro mapas extraídos del World Economic Outlook del Fondo Monetario Internacional: 197 países, de 1980 a 2031, proyecciones incluidas.</p>
+
+    <div class="vignettes">
+      <a class="vignette" href="../pib-nominal/">
+        <div class="vignette__pastille">💰</div>
+        <div class="vignette__titre">PIB nominal</div>
+        <p class="vignette__texte">El tamaño de cada economía, en miles de millones de dólares corrientes.</p>
+      </a>
+      <a class="vignette" href="../pib-per-capita/">
+        <div class="vignette__pastille">👤</div>
+        <div class="vignette__titre">PIB per cápita</div>
+        <p class="vignette__texte">La riqueza producida por persona, en dólares corrientes.</p>
+      </a>
+      <a class="vignette" href="../crecimiento-pib/">
+        <div class="vignette__pastille">📈</div>
+        <div class="vignette__titre">Crecimiento del PIB</div>
+        <p class="vignette__texte">La variación del PIB real de un año a otro, en porcentaje.</p>
+      </a>
+      <a class="vignette" href="../inflacion/">
+        <div class="vignette__pastille">🔥</div>
+        <div class="vignette__titre">Inflación</div>
+        <p class="vignette__texte">La subida de los precios al consumo de un año a otro, en porcentaje.</p>
+      </a>
+    </div>
+
+  </main>
+
+  <footer class="pied">Datos: FMI (World Economic Outlook) · Mapa base: Natural Earth · Sin publicidad ni rastreadores.</footer>
+
+  <script src="../../assets/js/barre.js"></script>
+</body>
+</html>

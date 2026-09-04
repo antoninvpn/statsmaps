@@ -39,54 +39,21 @@
   var anneeAffichee = null;
   var ongletOuvert = false;
 
-  /* Les éléments fabriqués par ce fichier, retenus une fois pour toutes. */
+  /* L'élément fabriqué par ce fichier, retenu une fois pour toutes. */
   var boite = null;          // le contenu de l'onglet
-  var ongletClassement = null;
-  var ongletComparer = null;
 
-  /* --- 2. La fabrication du panneau --------------------------------------- */
+  /* --- 2. La fabrication du panneau ---------------------------------------
 
-  /* Les deux onglets, glissés dans l'en-tête du panneau juste avant le champ
-     de recherche du classement. */
-  function fabriquerOnglets(entete, recherche) {
-    var barre = document.createElement("div");
-    barre.className = "onglets";
-    barre.setAttribute("role", "tablist");
+     Les ONGLETS ne sont plus fabriqués ici : ils appartiennent à carte.js, qui
+     en compte trois (Classement, Comparer, Records) et sait lequel montrer.
+     Ce fichier ne s'occupe plus que de son propre contenu, et se contente
+     d'attendre qu'on l'allume ou qu'on l'éteigne — c'est activer().         */
 
-    ongletClassement = bouton(t("classement"), true);
-    ongletComparer = bouton(t("onglet_comparer"), false);
-    barre.appendChild(ongletClassement);
-    barre.appendChild(ongletComparer);
-
-    /* Avant le champ de recherche : celui-ci appartient au classement et
-       disparaît avec lui. */
-    entete.insertBefore(barre, recherche || null);
-
-    ongletClassement.addEventListener("click", function () { ouvrir(false); });
-    ongletComparer.addEventListener("click", function () { ouvrir(true); });
-
-    function bouton(texte, choisi) {
-      var element = document.createElement("button");
-      element.type = "button";
-      element.className = "onglet";
-      element.setAttribute("role", "tab");
-      element.setAttribute("aria-selected", choisi ? "true" : "false");
-      element.textContent = texte;
-      return element;
-    }
-  }
-
-  /* Bascule entre le classement et le comparateur. */
+  /* Montre ou cache le comparateur. Appelé par carte.js au changement
+     d'onglet. */
   function ouvrir(comparer) {
     ongletOuvert = comparer;
-    var liste = document.getElementById("classement");
-    var recherche = document.getElementById("recherche");
-
-    if (liste) liste.hidden = comparer;
-    if (recherche) recherche.hidden = comparer;
     boite.hidden = !comparer;
-    ongletClassement.setAttribute("aria-selected", comparer ? "false" : "true");
-    ongletComparer.setAttribute("aria-selected", comparer ? "true" : "false");
 
     /* À l'ouverture, si un pays est déjà choisi sur la carte, il prend la
        première fente : on évite au visiteur de le désigner deux fois. */
@@ -230,7 +197,10 @@
     var id = "cmp" + Math.random().toString(36).slice(2, 8);
 
     /* La surface est peinte deux fois, découpée au ras de la ligne du zéro :
-       en vert au-dessus (le pays du haut mène), en rouge en dessous. */
+       d'une couleur au-dessus, de l'autre en dessous. Ce sont EXACTEMENT les
+       deux bouts de l'échelle de la carte — vert en haut sur le PIB, mais
+       rouge en haut sur l'inflation, où dépasser l'autre est une mauvaise
+       nouvelle. Le graphique se lit donc toujours comme la carte. */
     var svg =
       '<svg class="cmp__graphe" viewBox="0 0 ' + LARGEUR + " " + HAUTEUR + '" ' +
       'preserveAspectRatio="none" role="img">' +
@@ -238,8 +208,8 @@
       '<clipPath id="' + id + 'h"><rect x="0" y="0" width="' + LARGEUR + '" height="' + yZero.toFixed(1) + '"/></clipPath>' +
       '<clipPath id="' + id + 'b"><rect x="0" y="' + yZero.toFixed(1) + '" width="' + LARGEUR + '" height="' + (HAUTEUR - yZero).toFixed(1) + '"/></clipPath>' +
       "</defs>" +
-      '<path d="' + surface + '" fill="' + couleurs.vert + '" opacity="0.28" clip-path="url(#' + id + 'h)"/>' +
-      '<path d="' + surface + '" fill="' + couleurs.rouge + '" opacity="0.28" clip-path="url(#' + id + 'b)"/>' +
+      '<path d="' + surface + '" fill="' + couleurs.haut + '" opacity="0.28" clip-path="url(#' + id + 'h)"/>' +
+      '<path d="' + surface + '" fill="' + couleurs.bas + '" opacity="0.28" clip-path="url(#' + id + 'b)"/>' +
       '<line x1="0" y1="' + yZero.toFixed(1) + '" x2="' + LARGEUR + '" y2="' + yZero.toFixed(1) +
       '" stroke="' + reglages.outils.couleurCSS("--texte-tres-doux") + '" stroke-width="1" stroke-dasharray="3 3"/>' +
       '<path d="' + courbe + '" fill="none" stroke="' + reglages.outils.couleurCSS("--texte") +
@@ -447,8 +417,7 @@
       anneeAffichee = options.anneeAffichee;
 
       var panneau = document.getElementById("panneau");
-      var entete = panneau && panneau.querySelector(".panneau__entete");
-      if (!entete) return;
+      if (!panneau) return;
 
       boite = document.createElement("div");
       boite.className = "comparateur";
@@ -457,8 +426,11 @@
 
       var liste = document.getElementById("classement");
       panneau.insertBefore(boite, liste ? liste.nextSibling : null);
+    },
 
-      fabriquerOnglets(entete, document.getElementById("recherche"));
+    /* carte.js allume ou éteint l'onglet « Comparer ». */
+    activer: function (ouvert) {
+      if (boite) ouvrir(!!ouvert);
     },
 
     /* Le curseur des années a bougé. */

@@ -236,6 +236,474 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://statsmaps.com/economie/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/economie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/economy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/ekonomika/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/wirtschaft/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/economia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/gospodarka/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/economy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/ekonomi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/economy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/economie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/en/economy/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/economie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/economy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/ekonomika/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/wirtschaft/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/economia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/gospodarka/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/economy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/ekonomi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/economy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/economie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/ua/ekonomika/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/economie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/economy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/ekonomika/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/wirtschaft/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/economia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/gospodarka/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/economy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/ekonomi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/economy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/economie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/de/wirtschaft/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/economie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/economy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/ekonomika/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/wirtschaft/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/economia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/gospodarka/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/economy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/ekonomi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/economy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/economie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/es/economia/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/economie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/economy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/ekonomika/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/wirtschaft/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/economia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/gospodarka/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/economy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/ekonomi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/economy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/economie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/it/economia/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/economie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/economy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/ekonomika/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/wirtschaft/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/economia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/gospodarka/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/economy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/ekonomi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/economy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/economie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/pt/economia/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/economie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/economy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/ekonomika/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/wirtschaft/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/economia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/gospodarka/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/economy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/ekonomi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/economy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/economie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/pl/gospodarka/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/economie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/economy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/ekonomika/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/wirtschaft/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/economia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/gospodarka/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/economy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/ekonomi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/economy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/economie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/ja/economy/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/economie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/economy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/ekonomika/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/wirtschaft/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/economia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/gospodarka/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/economy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/ekonomi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/economy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/economie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/ko/economy/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/economie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/economy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/ekonomika/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/wirtschaft/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/economia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/gospodarka/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/economy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/ekonomi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/economy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/economie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/tr/ekonomi/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/economie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/economy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/ekonomika/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/wirtschaft/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/economia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/gospodarka/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/economy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/ekonomi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/economy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/economie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/hi/economy/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/economie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/economy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/ekonomika/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/wirtschaft/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/economia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/gospodarka/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/economy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/ekonomi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/economy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/economie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/ar/economy/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/economie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/economy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/ekonomika/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/wirtschaft/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/economia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/economia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/gospodarka/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/economy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/ekonomi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/economy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/economy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/economie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/demographie/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/demographie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/demohrafiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/demografie/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/demografi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/demographie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/en/demographics/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/demographie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/demohrafiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/demografie/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/demografi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/demographie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/ua/demohrafiia/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/demographie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/demohrafiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/demografie/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/demografi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/demographie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/de/demografie/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/demographie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/demohrafiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/demografie/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/demografi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/demographie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/es/demografia/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/demographie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/demohrafiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/demografie/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/demografi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/demographie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/it/demografia/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/demographie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/demohrafiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/demografie/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/demografi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/demographie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/pt/demografia/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/demographie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/demohrafiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/demografie/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/demografi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/demographie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/pl/demografia/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/demographie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/demohrafiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/demografie/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/demografi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/demographie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/ja/demographics/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/demographie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/demohrafiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/demografie/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/demografi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/demographie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/ko/demographics/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/demographie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/demohrafiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/demografie/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/demografi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/demographie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/tr/demografi/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/demographie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/demohrafiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/demografie/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/demografi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/demographie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/hi/demographics/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/demographie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/demohrafiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/demografie/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/demografi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/demographie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/ar/demographics/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/demographie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/demohrafiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/demografie/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/demografia/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/demografi/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/demographics/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/demographie/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://statsmaps.com/pib-nominal/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-nominal/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp/"/>
@@ -251,7 +719,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-nominal/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/en/gdp/</loc>
@@ -269,7 +737,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-nominal/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/ua/vvp/</loc>
@@ -287,7 +755,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-nominal/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/de/nominales-bip/</loc>
@@ -305,7 +773,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-nominal/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/es/pib-nominal/</loc>
@@ -323,7 +791,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-nominal/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/it/pil-nominale/</loc>
@@ -341,7 +809,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-nominal/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/pt/pib-nominal/</loc>
@@ -359,7 +827,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-nominal/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/pl/pkb-nominalne/</loc>
@@ -377,7 +845,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-nominal/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/ja/nominal-gdp/</loc>
@@ -395,7 +863,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-nominal/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/ko/nominal-gdp/</loc>
@@ -413,7 +881,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-nominal/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/tr/nominal-gsyih/</loc>
@@ -431,7 +899,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-nominal/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/hi/nominal-gdp/</loc>
@@ -449,7 +917,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-nominal/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/ar/nominal-gdp/</loc>
@@ -467,7 +935,241 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/nominal-gdp/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-nominal/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/pib-ppa/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/en/gdp-ppp/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/ua/vvp-pks/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/de/bip-kkp/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/es/pib-ppa/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/it/pil-ppa/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/pt/pib-ppc/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/pl/pkb-psn/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/ja/gdp-ppp/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/ko/gdp-ppp/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/tr/gsyih-sagp/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/hi/gdp-ppp/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/ar/gdp-ppp/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-ppa/"/>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/pib-par-habitant/</loc>
@@ -485,7 +1187,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/en/gdp-per-capita/</loc>
@@ -503,7 +1205,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/ua/vvp-na-osobu/</loc>
@@ -521,7 +1223,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/de/bip-pro-kopf/</loc>
@@ -539,7 +1241,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/es/pib-per-capita/</loc>
@@ -557,7 +1259,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/it/pil-pro-capite/</loc>
@@ -575,7 +1277,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/pt/pib-per-capita/</loc>
@@ -593,7 +1295,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/pl/pkb-na-mieszkanca/</loc>
@@ -611,7 +1313,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/ja/gdp-per-capita/</loc>
@@ -629,7 +1331,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/ko/gdp-per-capita/</loc>
@@ -647,7 +1349,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/tr/kisi-basi-gsyih/</loc>
@@ -665,7 +1367,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/hi/gdp-per-capita/</loc>
@@ -683,7 +1385,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/ar/gdp-per-capita/</loc>
@@ -701,7 +1403,241 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/pib-par-habitant-ppa/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-na-osobu-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-per-capita-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-pro-capite-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-per-capita-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-na-mieszkanca-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/en/gdp-per-capita-ppp/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-na-osobu-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-per-capita-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-pro-capite-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-per-capita-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-na-mieszkanca-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/ua/vvp-na-osobu-pks/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-na-osobu-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-per-capita-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-pro-capite-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-per-capita-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-na-mieszkanca-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/de/bip-pro-kopf-kkp/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-na-osobu-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-per-capita-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-pro-capite-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-per-capita-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-na-mieszkanca-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/es/pib-per-capita-ppa/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-na-osobu-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-per-capita-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-pro-capite-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-per-capita-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-na-mieszkanca-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/it/pil-pro-capite-ppa/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-na-osobu-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-per-capita-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-pro-capite-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-per-capita-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-na-mieszkanca-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/pt/pib-per-capita-ppc/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-na-osobu-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-per-capita-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-pro-capite-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-per-capita-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-na-mieszkanca-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/pl/pkb-na-mieszkanca-psn/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-na-osobu-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-per-capita-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-pro-capite-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-per-capita-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-na-mieszkanca-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/ja/gdp-per-capita-ppp/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-na-osobu-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-per-capita-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-pro-capite-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-per-capita-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-na-mieszkanca-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/ko/gdp-per-capita-ppp/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-na-osobu-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-per-capita-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-pro-capite-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-per-capita-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-na-mieszkanca-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/tr/kisi-basi-gsyih-sagp/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-na-osobu-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-per-capita-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-pro-capite-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-per-capita-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-na-mieszkanca-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/hi/gdp-per-capita-ppp/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-na-osobu-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-per-capita-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-pro-capite-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-per-capita-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-na-mieszkanca-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/ar/gdp-per-capita-ppp/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-na-osobu-pks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-kkp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-per-capita-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-pro-capite-ppa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-per-capita-ppc/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-na-mieszkanca-psn/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-sagp/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-ppp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant-ppa/"/>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/croissance/</loc>
@@ -719,7 +1655,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/croissance/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/en/growth/</loc>
@@ -737,7 +1673,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/croissance/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/ua/zrostannia/</loc>
@@ -755,7 +1691,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/croissance/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/de/bip-wachstum/</loc>
@@ -773,7 +1709,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/croissance/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/es/crecimiento-pib/</loc>
@@ -791,7 +1727,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/croissance/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/it/crescita-pil/</loc>
@@ -809,7 +1745,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/croissance/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/pt/crescimento-pib/</loc>
@@ -827,7 +1763,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/croissance/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/pl/wzrost-pkb/</loc>
@@ -845,7 +1781,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/croissance/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/ja/gdp-growth/</loc>
@@ -863,7 +1799,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/croissance/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/ko/gdp-growth/</loc>
@@ -881,7 +1817,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/croissance/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/tr/gsyih-buyumesi/</loc>
@@ -899,7 +1835,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/croissance/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/hi/gdp-growth/</loc>
@@ -917,7 +1853,7 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/croissance/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statsmaps.com/ar/gdp-growth/</loc>
@@ -935,474 +1871,474 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-growth/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/croissance/"/>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/annee-record-pib/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/inflation/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/infliatsiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/inflacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/inflazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/inflacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/inflacja/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/enflasyon/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/inflation/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/en/when-gdp-peaked/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/en/inflation/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/infliatsiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/inflacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/inflazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/inflacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/inflacja/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/enflasyon/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/inflation/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/ua/rekordnyi-rik-vvp/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/ua/infliatsiia/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/infliatsiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/inflacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/inflazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/inflacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/inflacja/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/enflasyon/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/inflation/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/de/bip-hoechststand/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/de/inflation/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/infliatsiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/inflacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/inflazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/inflacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/inflacja/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/enflasyon/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/inflation/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/es/ano-record-pib/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/es/inflacion/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/infliatsiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/inflacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/inflazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/inflacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/inflacja/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/enflasyon/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/inflation/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/it/anno-record-pil/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/it/inflazione/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/infliatsiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/inflacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/inflazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/inflacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/inflacja/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/enflasyon/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/inflation/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/pt/ano-recorde-pib/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/pt/inflacao/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/infliatsiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/inflacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/inflazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/inflacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/inflacja/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/enflasyon/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/inflation/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/pl/rekordowy-rok-pkb/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/pl/inflacja/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/infliatsiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/inflacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/inflazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/inflacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/inflacja/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/enflasyon/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/inflation/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/ja/gdp-peak-year/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/ja/inflation/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/infliatsiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/inflacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/inflazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/inflacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/inflacja/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/enflasyon/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/inflation/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/ko/gdp-peak-year/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/ko/inflation/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/infliatsiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/inflacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/inflazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/inflacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/inflacja/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/enflasyon/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/inflation/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/tr/gsyih-zirve-yili/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/tr/enflasyon/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/infliatsiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/inflacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/inflazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/inflacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/inflacja/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/enflasyon/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/inflation/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/hi/gdp-peak-year/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/hi/inflation/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/infliatsiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/inflacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/inflazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/inflacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/inflacja/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/enflasyon/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/inflation/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/ar/gdp-peak-year/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/ar/inflation/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/infliatsiia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/inflacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/inflazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/inflacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/inflacja/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/enflasyon/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/inflation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/inflation/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/annee-record-pib-par-habitant/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-per-capita-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp-na-osobu/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil-pro-capite/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb-na-mieszkanca/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/population/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/population/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/population/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/naselennia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bevoelkerung/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/poblacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/popolazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/populacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/ludnosc/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/population/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/population/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/nufus/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/population/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/population/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/population/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/en/when-gdp-per-capita-peaked/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-per-capita-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp-na-osobu/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil-pro-capite/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb-na-mieszkanca/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/en/population/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/population/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/population/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/naselennia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bevoelkerung/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/poblacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/popolazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/populacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/ludnosc/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/population/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/population/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/nufus/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/population/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/population/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/population/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/ua/rekordnyi-rik-vvp-na-osobu/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-per-capita-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp-na-osobu/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil-pro-capite/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb-na-mieszkanca/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/ua/naselennia/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/population/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/population/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/naselennia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bevoelkerung/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/poblacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/popolazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/populacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/ludnosc/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/population/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/population/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/nufus/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/population/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/population/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/population/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/de/bip-pro-kopf-hoechststand/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-per-capita-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp-na-osobu/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil-pro-capite/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb-na-mieszkanca/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/de/bevoelkerung/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/population/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/population/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/naselennia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bevoelkerung/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/poblacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/popolazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/populacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/ludnosc/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/population/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/population/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/nufus/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/population/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/population/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/population/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/es/ano-record-pib-per-capita/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-per-capita-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp-na-osobu/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil-pro-capite/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb-na-mieszkanca/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/es/poblacion/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/population/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/population/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/naselennia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bevoelkerung/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/poblacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/popolazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/populacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/ludnosc/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/population/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/population/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/nufus/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/population/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/population/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/population/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/it/anno-record-pil-pro-capite/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-per-capita-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp-na-osobu/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil-pro-capite/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb-na-mieszkanca/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/it/popolazione/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/population/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/population/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/naselennia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bevoelkerung/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/poblacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/popolazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/populacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/ludnosc/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/population/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/population/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/nufus/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/population/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/population/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/population/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/pt/ano-recorde-pib-per-capita/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-per-capita-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp-na-osobu/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil-pro-capite/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb-na-mieszkanca/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/pt/populacao/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/population/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/population/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/naselennia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bevoelkerung/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/poblacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/popolazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/populacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/ludnosc/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/population/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/population/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/nufus/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/population/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/population/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/population/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/pl/rekordowy-rok-pkb-na-mieszkanca/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-per-capita-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp-na-osobu/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil-pro-capite/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb-na-mieszkanca/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/pl/ludnosc/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/population/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/population/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/naselennia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bevoelkerung/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/poblacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/popolazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/populacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/ludnosc/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/population/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/population/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/nufus/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/population/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/population/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/population/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/ja/gdp-per-capita-peak-year/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-per-capita-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp-na-osobu/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil-pro-capite/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb-na-mieszkanca/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/ja/population/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/population/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/population/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/naselennia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bevoelkerung/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/poblacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/popolazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/populacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/ludnosc/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/population/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/population/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/nufus/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/population/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/population/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/population/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/ko/gdp-per-capita-peak-year/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-per-capita-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp-na-osobu/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil-pro-capite/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb-na-mieszkanca/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/ko/population/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/population/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/population/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/naselennia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bevoelkerung/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/poblacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/popolazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/populacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/ludnosc/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/population/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/population/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/nufus/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/population/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/population/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/population/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/tr/kisi-basi-gsyih-zirve-yili/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-per-capita-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp-na-osobu/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil-pro-capite/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb-na-mieszkanca/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/tr/nufus/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/population/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/population/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/naselennia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bevoelkerung/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/poblacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/popolazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/populacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/ludnosc/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/population/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/population/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/nufus/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/population/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/population/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/population/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/hi/gdp-per-capita-peak-year/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-per-capita-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp-na-osobu/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil-pro-capite/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb-na-mieszkanca/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/hi/population/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/population/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/population/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/naselennia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bevoelkerung/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/poblacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/popolazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/populacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/ludnosc/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/population/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/population/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/nufus/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/population/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/population/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/population/"/>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statsmaps.com/ar/gdp-per-capita-peak-year/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/when-gdp-per-capita-peaked/"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/rekordnyi-rik-vvp-na-osobu/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-hoechststand/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/ano-record-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/anno-record-pil-pro-capite/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/ano-recorde-pib-per-capita/"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/rekordowy-rok-pkb-na-mieszkanca/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-zirve-yili/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-peak-year/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/annee-record-pib-par-habitant/"/>
-    <priority>0.9</priority>
+    <loc>https://statsmaps.com/ar/population/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/population/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/population/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/naselennia/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bevoelkerung/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://statsmaps.com/es/poblacion/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://statsmaps.com/it/popolazione/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/populacao/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/ludnosc/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/population/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/population/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/nufus/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/population/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/population/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/population/"/>
+    <priority>0.8</priority>
   </url>
 </urlset>

@@ -7,18 +7,29 @@ build_pages.py — fabrique TOUTES les pages du site, dans les treize langues.
 
 Pourquoi ce script existe
 -------------------------
-Le site a 6 pages (l'accueil et les 5 cartes) et 13 langues, soit 78 fichiers
-HTML. Ces 78 fichiers sont rigoureusement identiques à quelques mots près : le
-titre, l'adresse, et la langue. Les écrire à la main voudrait dire, à chaque
-petit changement — un lien dans le menu, une balise pour Google — répéter la
-même retouche 78 fois sans en oublier une seule.
+Le site a 10 pages par langue — l'accueil, 2 pages de catégorie et 7 cartes —
+et 13 langues, soit 130 fichiers HTML. Ces fichiers sont rigoureusement
+identiques à quelques mots près : le titre, l'adresse, et la langue. Les écrire
+à la main voudrait dire, à chaque petit changement — un lien dans le menu, une
+balise pour Google — répéter la même retouche 130 fois sans en oublier une.
 
-Ici, tout est écrit UNE fois : le modèle HTML en bas du fichier, et les textes
-de chaque langue dans la grande liste LANGUES juste en dessous.
+Ici, tout est écrit UNE fois : les modèles HTML en bas du fichier, et les
+textes de chaque langue dans la grande liste LANGUES.
+
+Comment le site est organisé
+----------------------------
+    l'accueil ........... les CATÉGORIES (Économie, Démographie)
+      une catégorie ..... les CARTES qu'elle contient (PIB, croissance…)
+        une carte ....... la carte elle-même, avec ses éventuelles VARIANTES
+
+Une variante est une autre façon de mesurer la MÊME chose : le PIB en dollars
+courants, ou le PIB en parité de pouvoir d'achat. Les deux ont leur propre
+adresse — c'est ce que Google indexe — et un bouton passe de l'une à l'autre
+dans le panneau de gauche.
 
 Ce que ce script fabrique
 -------------------------
-    index.html + 5 dossiers de carte ............ le français, à la racine
+    index.html + 9 dossiers ..................... le français, à la racine
     en/, ua/, de/, es/, it/, pt/, pl/,
     ja/, ko/, tr/, hi/, ar/ ..................... les douze autres langues
     sitemap.xml ................................. la carte du site pour Google
@@ -32,18 +43,20 @@ qui ne dépendent d'aucune langue.
 Pour ajouter une langue
 -----------------------
     1. Ajouter son bloc dans LANGUES ci-dessous (le plus long : il faut
-       traduire les titres et les descriptions).
+       traduire les noms et les phrases des cartes).
     2. Ajouter son bloc dans assets/js/i18n.js (les textes des boutons).
     3. Ajouter son code dans le tableau LANGUES de build_geojson.py, puis
        relancer ce script-là : les noms des 197 pays viennent de Natural Earth
        et n'ont pas à être traduits à la main.
-    4. Relancer ce script.
+    4. Ajouter sa langue dans les titres et unités de build_donnees.py.
+    5. Relancer ce script.
 
 Pour ajouter une carte
 ----------------------
-    1. Une ligne dans INDICATEURS de build_donnees.py.
+    1. Une ligne dans INDICATEURS de build_donnees.py (titre et unité).
     2. Les tranches de couleur dans CARTES de assets/js/carte.js.
-    3. Son entrée "cartes" dans CHACUN des blocs de LANGUES ci-dessous.
+    3. Une ligne dans CARTES ci-dessous, sa catégorie dans CATEGORIES, et son
+       entrée "cartes" dans CHACUN des treize blocs de LANGUES.
     4. Relancer ce script : les 13 pages, les menus et le sitemap suivent.
 """
 
@@ -53,17 +66,58 @@ import os
 SITE = "https://statsmaps.com"
 RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# L'ordre des cartes, tel qu'il apparaît dans le menu et sur l'accueil.
-# La pastille est l'emoji de la vignette ; il ne dépend pas de la langue.
+# ---------------------------------------------------------------- LES CARTES
+#
+#   identifiant ... celui du fichier data/<identifiant>.json et de carte.js
+#   pastille ...... l'emoji de la vignette ; il ne dépend pas de la langue
+#   famille ....... les cartes d'une même famille sont deux VERSIONS d'une même
+#                   grandeur, et un bouton passe de l'une à l'autre. None quand
+#                   la carte est seule de son espèce.
+#   variante ...... le nom de la version, dont le libellé est traduit dans
+#                   chaque langue (voir "variantes" dans LANGUES)
+#   principale .... la version montrée par défaut, celle qui apparaît dans le
+#                   menu du haut et sur la page de sa catégorie
 CARTES = [
-    ("pib-nominal", "💰"),
-    ("pib-par-habitant", "👤"),
-    ("croissance", "📈"),
-    ("annee-record-pib", "🏔️"),
-    ("annee-record-pib-par-habitant", "⛰️"),
+    # identifiant,              pastille, famille,            variante,  principale
+    ("pib-nominal",             "💰", "pib",              "nominal", True),
+    ("pib-ppa",                 "💰", "pib",              "ppa",     False),
+    ("pib-par-habitant",        "👤", "pib-par-habitant", "nominal", True),
+    ("pib-par-habitant-ppa",    "👤", "pib-par-habitant", "ppa",     False),
+    ("croissance",              "📈", None,               None,      True),
+    ("inflation",               "🔥", None,               None,      True),
+    ("population",              "👥", None,               None,      True),
 ]
 
-# La version de MapLibre, écrite une seule fois pour les 65 pages de carte.
+# ----------------------------------------------------------- LES CATÉGORIES
+#
+# L'accueil montre ces rubriques ; chacune a sa page, qui montre ses cartes.
+# Seules les cartes PRINCIPALES y figurent : on n'affiche pas deux vignettes
+# pour le PIB, on entre dans la carte et on choisit son unité sur place.
+CATEGORIES = [
+    ("economie", "💶", ["pib-nominal", "pib-par-habitant", "croissance", "inflation"]),
+    ("demographie", "👥", ["population"]),
+]
+
+# Le menu du haut, présent sur toutes les pages. Il ne montre que les cartes
+# principales : cinq entrées, une par grandeur mesurée.
+MENU = [identifiant for identifiant, _, _, _, principale in CARTES if principale]
+
+# Pour chaque famille, la liste de ses variantes, dans l'ordre d'affichage.
+FAMILLES = {}
+for _identifiant, _pastille, _famille, _variante, _principale in CARTES:
+    if _famille:
+        FAMILLES.setdefault(_famille, []).append((_identifiant, _variante))
+
+# La pastille de chaque carte, retrouvée par son identifiant.
+PASTILLES = {c[0]: c[1] for c in CARTES}
+
+# La famille de chaque carte (None quand elle est seule de son espèce).
+FAMILLE_DE = {c[0]: c[2] for c in CARTES}
+
+# Les cartes de chaque catégorie, retrouvées par l'identifiant de celle-ci.
+CARTES_DE = {identifiant: cartes for identifiant, _, cartes in CATEGORIES}
+
+# La version de MapLibre, écrite une seule fois pour les 91 pages de carte.
 MAPLIBRE = "5.6.1"
 
 
@@ -74,818 +128,1115 @@ MAPLIBRE = "5.6.1"
 #  répétitif : pour corriger une faute en allemand, on ouvre le bloc "de" et
 #  tout y est, sans avoir à sauter d'un fichier à l'autre.
 #
-#  - code ........ celui de i18n.js et de build_geojson.py
-#  - dossier ..... le dossier du site ("" pour le français, à la racine)
-#  - hreflang .... le code que lit Google (celui de l'ukrainien est "uk",
-#                  alors que son dossier s'appelle "ua" — c'est voulu)
-#  - sens ........ "rtl" pour les langues qui s'écrivent de droite à gauche
-#  - slug ........ l'adresse de la page. Traduite quand la langue s'écrit en
-#                  alphabet latin ; en anglais pour le japonais, le coréen,
-#                  l'hindi et l'arabe, où une adresse en écriture native
-#                  deviendrait illisible une fois encodée par le navigateur
-#                  (%E4%B8%80%E4%BA%BA...), et où « GDP » est de toute façon
-#                  la forme employée couramment.
+#  - code ............. celui de i18n.js et de build_geojson.py
+#  - dossier .......... le dossier du site ("" pour le français, à la racine)
+#  - hreflang ......... le code que lit Google (celui de l'ukrainien est "uk",
+#                       alors que son dossier s'appelle "ua" — c'est voulu)
+#  - sens ............. "rtl" pour les langues qui s'écrivent de droite à gauche
+#  - modele_titre ..... le titre que voit Google, fabriqué à partir du nom de
+#                       la carte. Écrit une fois par langue plutôt que 7 fois.
+#  - modele_titre_categorie  idem pour les pages de rubrique, qui ne sont pas
+#                       des cartes mais des sommaires
+#  - modele_description  idem pour la phrase de résumé
+#  - variantes ........ les libellés du bouton « dollars / parité de pouvoir
+#                       d'achat », les mêmes pour toutes les familles
+#  - slug ............. l'adresse de la page. Traduite quand la langue s'écrit
+#                       en alphabet latin ; en anglais pour le japonais, le
+#                       coréen, l'hindi et l'arabe, où une adresse en écriture
+#                       native deviendrait illisible une fois encodée par le
+#                       navigateur (%E4%B8%80%E4%BA%BA...), et où « GDP » est
+#                       de toute façon la forme employée couramment.
+#  - nom .............. le nom de la carte, pour le titre et la vignette
+#  - nav / nav_court .. les deux libellés du menu du haut (large / téléphone)
+#  - texte ............ la phrase de la vignette, reprise en tête de la
+#                       description que lit Google
 # ==========================================================================
 
 LANGUES = []
-
-# --------------------------------------------------------------- Français ---
+# -------------------------------------------------------------- Français ---
 LANGUES.append({
     "code": "fr", "dossier": "", "hreflang": "fr", "sens": "ltr",
     "drapeau": "🇫🇷", "nom": "Français", "nav_aria": "Cartes",
-    # Les libellés que lisent les lecteurs d'écran, et l'infobulle du menu.
+    # Les libellés que lisent les lecteurs d'écran, et les infobulles.
     "langue_label": "Langue", "theme_label": "Changer de thème",
     "theme_clair": "Passer en thème clair", "theme_sombre": "Passer en thème sombre",
+    "variantes_label": "Unité",
+    "modele_titre": "{nom}, par pays — carte mondiale interactive | StatsMaps",
+    "modele_titre_categorie": "{nom} — toutes les cartes | StatsMaps",
+    "modele_description": (
+        "{texte} Carte interactive de 197 pays, de 1980 à 2031, à partir des données officielles du FMI (World Economic Outlook) : classement mondial et évolution année par année."),
     "accueil": {
         "titre": "StatsMaps — cartes et statistiques mondiales",
-        "description": "Cartes interactives des statistiques mondiales : PIB nominal, PIB par habitant, croissance et années record de 197 pays, de 1980 à 2031, à partir des données officielles du FMI.",
+        "description": "Cartes interactives des statistiques mondiales : PIB, PIB par habitant, croissance, inflation et population de 197 pays, de 1980 à 2031, à partir des données officielles du FMI.",
         "h1": "Les statistiques du monde, en cartes.",
-        "intro": "StatsMaps met en carte les grands indicateurs mondiaux à partir de sources officielles. Aujourd’hui l’économie, à partir des données du Fonds monétaire international : 197 pays, de 1980 à 2031.",
-        "bientot": "Bientôt : démographie, infrastructures, énergie, éducation et santé.",
+        "intro": "StatsMaps met en carte les grands indicateurs mondiaux à partir de sources officielles. Choisis une catégorie pour voir les cartes qu’elle contient : aujourd’hui l’économie et la démographie, à partir des données du Fonds monétaire international — 197 pays, de 1980 à 2031.",
+        "bientot": "Bientôt : infrastructures, énergie, éducation et santé.",
         "pied": "Données : FMI (World Economic Outlook) · Fond de carte : Natural Earth · Site sans publicité ni traceur.",
+    },
+    "variantes": {"nominal": "Dollars US", "ppa": "Parité de pouvoir d’achat"},
+    "categories": {
+        "economie": {
+            "slug": "economie",
+            "nom": "Économie",
+            "texte": "Le PIB, la richesse par habitant, la croissance et l’inflation.",
+            "h1": "L’économie mondiale, en cartes.",
+            "intro": "Quatre cartes tirées du World Economic Outlook du Fonds monétaire international : 197 pays, de 1980 à 2031, projections comprises.",
+        },
+        "demographie": {
+            "slug": "demographie",
+            "nom": "Démographie",
+            "texte": "Le nombre d’habitants de chaque pays, année par année.",
+            "h1": "La démographie mondiale, en cartes.",
+            "intro": "Le FMI publie aussi la population de chaque pays : 197 pays, de 1980 à 2031, projections comprises.",
+        },
     },
     "cartes": {
         "pib-nominal": {
             "slug": "pib-nominal",
-            "titre": "PIB nominal par pays — carte mondiale interactive | StatsMaps",
-            "description": "Carte interactive du PIB nominal de 197 pays, de 1980 à 2031. Données officielles du FMI (World Economic Outlook), classement mondial et évolution année par année.",
-            "h1": "PIB nominal", "nav": "PIB nominal", "nav_court": "PIB",
-            "vignette": "PIB nominal",
-            "vignette_texte": "La taille de chaque économie, en milliards de dollars courants.",
+            "nom": "PIB nominal",
+            "nav": "PIB", "nav_court": "PIB",
+            "texte": "La taille de chaque économie, en milliards de dollars courants.",
+        },
+        "pib-ppa": {
+            "slug": "pib-ppa",
+            "nom": "PIB en parité de pouvoir d’achat",
+            "nav": "PIB (PPA)", "nav_court": "PIB PPA",
+            "texte": "La taille de chaque économie une fois le coût de la vie corrigé, en dollars internationaux.",
         },
         "pib-par-habitant": {
             "slug": "pib-par-habitant",
-            "titre": "PIB par habitant par pays — carte mondiale interactive | StatsMaps",
-            "description": "Carte interactive du PIB par habitant de 197 pays, de 1980 à 2031. Données officielles du FMI, classement mondial et niveau de richesse par personne.",
-            "h1": "PIB par habitant", "nav": "PIB par habitant", "nav_court": "PIB/hab.",
-            "vignette": "PIB par habitant",
-            "vignette_texte": "La richesse produite par personne, en dollars courants.",
+            "nom": "PIB par habitant",
+            "nav": "PIB par habitant", "nav_court": "PIB/hab.",
+            "texte": "La richesse produite par personne, en dollars courants.",
+        },
+        "pib-par-habitant-ppa": {
+            "slug": "pib-par-habitant-ppa",
+            "nom": "PIB par habitant en parité de pouvoir d’achat",
+            "nav": "PIB par habitant (PPA)", "nav_court": "PIB/hab. PPA",
+            "texte": "La richesse produite par personne une fois le coût de la vie corrigé, en dollars internationaux.",
         },
         "croissance": {
             "slug": "croissance",
-            "titre": "Croissance du PIB par pays — carte mondiale interactive | StatsMaps",
-            "description": "Carte interactive de la croissance du PIB réel de 197 pays, de 1980 à 2031. Données officielles du FMI : récessions en rouge, expansions en vert.",
-            "h1": "Croissance", "nav": "Croissance", "nav_court": "Croissance",
-            "vignette": "Croissance du PIB",
-            "vignette_texte": "L’évolution du PIB réel d’une année sur l’autre, en pourcentage.",
+            "nom": "Croissance du PIB",
+            "nav": "Croissance", "nav_court": "Croissance",
+            "texte": "L’évolution du PIB réel d’une année sur l’autre, en pourcentage.",
         },
-        "annee-record-pib": {
-            "slug": "annee-record-pib",
-            "titre": "Année record du PIB par pays — carte mondiale interactive | StatsMaps",
-            "description": "Carte interactive de l’année où le PIB de chaque pays a été le plus élevé, de 1980 à 2031, projections du FMI comprises. En vert les pays au sommet aujourd’hui, en rouge ceux qui n’ont jamais retrouvé leur record. Données officielles du FMI.",
-            "h1": "Année record du PIB", "nav": "Année record du PIB", "nav_court": "Record PIB",
-            "vignette": "Année record du PIB",
-            "vignette_texte": "L’année où chaque pays a été à son maximum — et ceux qui n’y sont jamais revenus.",
+        "inflation": {
+            "slug": "inflation",
+            "nom": "Inflation",
+            "nav": "Inflation", "nav_court": "Inflation",
+            "texte": "La hausse des prix à la consommation d’une année sur l’autre, en pourcentage.",
         },
-        "annee-record-pib-par-habitant": {
-            "slug": "annee-record-pib-par-habitant",
-            "titre": "Année record du PIB par habitant — carte mondiale interactive | StatsMaps",
-            "description": "Carte interactive de l’année où le PIB par habitant de chaque pays a été le plus élevé, de 1980 à 2031, projections du FMI comprises. En vert les pays au sommet aujourd’hui, en rouge ceux qui n’ont jamais retrouvé leur record. Données officielles du FMI.",
-            "h1": "Année record du PIB par hab.",
-            "nav": "Année record du PIB par hab.", "nav_court": "Record PIB/hab.",
-            "vignette": "Année record du PIB par hab.",
-            "vignette_texte": "L’année où chaque habitant a été le plus riche, en moyenne.",
+        "population": {
+            "slug": "population",
+            "nom": "Population",
+            "nav": "Population", "nav_court": "Population",
+            "texte": "Le nombre d’habitants de chaque pays, en millions.",
         },
     },
 })
 
-# ---------------------------------------------------------------- Anglais ---
+# --------------------------------------------------------------- English ---
 LANGUES.append({
     "code": "en", "dossier": "en", "hreflang": "en", "sens": "ltr",
     "drapeau": "🇬🇧", "nom": "English", "nav_aria": "Maps",
-    # Les libellés que lisent les lecteurs d'écran, et l'infobulle du menu.
-    "langue_label": "Language", "theme_label": "Change theme",
+    # Les libellés que lisent les lecteurs d'écran, et les infobulles.
+    "langue_label": "Language", "theme_label": "Switch theme",
     "theme_clair": "Switch to light theme", "theme_sombre": "Switch to dark theme",
+    "variantes_label": "Unit",
+    "modele_titre": "{nom} by country — interactive world map | StatsMaps",
+    "modele_titre_categorie": "{nom} — all the maps | StatsMaps",
+    "modele_description": (
+        "{texte} An interactive map of 197 countries, from 1980 to 2031, built on official IMF data (World Economic Outlook): world ranking and year-by-year change."),
     "accueil": {
-        "titre": "StatsMaps — world statistics on interactive maps",
-        "description": "Interactive maps of world statistics: nominal GDP, GDP per capita, growth and peak years for 197 countries, from 1980 to 2031, based on official IMF data.",
+        "titre": "StatsMaps — world maps and statistics",
+        "description": "Interactive maps of world statistics: GDP, GDP per capita, growth, inflation and population for 197 countries, from 1980 to 2031, from official IMF data.",
         "h1": "The world’s statistics, mapped.",
-        "intro": "StatsMaps turns major global indicators into interactive maps, using official sources. Starting with the economy, based on International Monetary Fund data: 197 countries, from 1980 to 2031.",
-        "bientot": "Coming soon: demographics, infrastructure, energy, education and health.",
+        "intro": "StatsMaps turns major global indicators into interactive maps, using official sources. Pick a category to see the maps inside it: for now the economy and demographics, based on International Monetary Fund data — 197 countries, from 1980 to 2031.",
+        "bientot": "Coming soon: infrastructure, energy, education and health.",
         "pied": "Data: IMF (World Economic Outlook) · Basemap: Natural Earth · No ads, no trackers.",
+    },
+    "variantes": {"nominal": "U.S. dollars", "ppa": "Purchasing power parity"},
+    "categories": {
+        "economie": {
+            "slug": "economy",
+            "nom": "Economy",
+            "texte": "GDP, wealth per person, growth and inflation.",
+            "h1": "The world economy, mapped.",
+            "intro": "Four maps drawn from the International Monetary Fund’s World Economic Outlook: 197 countries, from 1980 to 2031, projections included.",
+        },
+        "demographie": {
+            "slug": "demographics",
+            "nom": "Demographics",
+            "texte": "How many people live in each country, year by year.",
+            "h1": "World demographics, mapped.",
+            "intro": "The IMF also publishes each country’s population: 197 countries, from 1980 to 2031, projections included.",
+        },
     },
     "cartes": {
         "pib-nominal": {
             "slug": "gdp",
-            "titre": "Nominal GDP by country — interactive world map | StatsMaps",
-            "description": "Interactive map of nominal GDP for 197 countries, from 1980 to 2031. Official IMF data (World Economic Outlook), world ranking and year-by-year evolution.",
-            "h1": "Nominal GDP", "nav": "Nominal GDP", "nav_court": "GDP",
-            "vignette": "Nominal GDP",
-            "vignette_texte": "The size of each economy, in billions of current US dollars.",
+            "nom": "Nominal GDP",
+            "nav": "GDP", "nav_court": "GDP",
+            "texte": "The size of each economy, in billions of current US dollars.",
+        },
+        "pib-ppa": {
+            "slug": "gdp-ppp",
+            "nom": "GDP at purchasing power parity",
+            "nav": "GDP (PPP)", "nav_court": "GDP PPP",
+            "texte": "The size of each economy once the cost of living is taken into account, in international dollars.",
         },
         "pib-par-habitant": {
             "slug": "gdp-per-capita",
-            "titre": "GDP per capita by country — interactive world map | StatsMaps",
-            "description": "Interactive map of GDP per capita for 197 countries, from 1980 to 2031. Official IMF data, world ranking and wealth level per person.",
-            "h1": "GDP per capita", "nav": "GDP per capita", "nav_court": "GDP/cap.",
-            "vignette": "GDP per capita",
-            "vignette_texte": "Wealth produced per person, in current US dollars.",
+            "nom": "GDP per capita",
+            "nav": "GDP per capita", "nav_court": "GDP/cap.",
+            "texte": "Wealth produced per person, in current US dollars.",
+        },
+        "pib-par-habitant-ppa": {
+            "slug": "gdp-per-capita-ppp",
+            "nom": "GDP per capita at purchasing power parity",
+            "nav": "GDP per capita (PPP)", "nav_court": "GDP/cap. PPP",
+            "texte": "Wealth produced per person once the cost of living is taken into account, in international dollars.",
         },
         "croissance": {
             "slug": "growth",
-            "titre": "GDP growth by country — interactive world map | StatsMaps",
-            "description": "Interactive map of real GDP growth for 197 countries, from 1980 to 2031. Official IMF data: recessions in red, expansions in green.",
-            "h1": "Growth", "nav": "Growth", "nav_court": "Growth",
-            "vignette": "GDP growth",
-            "vignette_texte": "Year-on-year change in real GDP, as a percentage.",
+            "nom": "GDP growth",
+            "nav": "Growth", "nav_court": "Growth",
+            "texte": "Year-on-year change in real GDP, as a percentage.",
         },
-        "annee-record-pib": {
-            "slug": "when-gdp-peaked",
-            "titre": "When GDP peaked, by country — interactive world map | StatsMaps",
-            "description": "Interactive map showing the year each country’s GDP peaked, from 1980 to 2031, including IMF projections. Green for countries at their peak today, red for those that never recovered. Official IMF data.",
-            "h1": "When GDP peaked", "nav": "When GDP peaked", "nav_court": "GDP peak",
-            "vignette": "When GDP peaked",
-            "vignette_texte": "The year each country hit its maximum — and those that never got back there.",
+        "inflation": {
+            "slug": "inflation",
+            "nom": "Inflation",
+            "nav": "Inflation", "nav_court": "Inflation",
+            "texte": "Year-on-year rise in consumer prices, as a percentage.",
         },
-        "annee-record-pib-par-habitant": {
-            "slug": "when-gdp-per-capita-peaked",
-            "titre": "When GDP per capita peaked, by country — interactive world map | StatsMaps",
-            "description": "Interactive map showing the year each country’s GDP per capita peaked, from 1980 to 2031, including IMF projections. Green for countries at their peak today, red for those that never recovered. Official IMF data.",
-            "h1": "When GDP per capita peaked",
-            "nav": "When GDP per capita peaked", "nav_court": "GDP/cap. peak",
-            "vignette": "When GDP per capita peaked",
-            "vignette_texte": "The year each country’s people were at their richest, on average.",
+        "population": {
+            "slug": "population",
+            "nom": "Population",
+            "nav": "Population", "nav_court": "Population",
+            "texte": "How many people live in each country, in millions.",
         },
     },
 })
 
-# -------------------------------------------------------------- Ukrainien ---
-# Le dossier s'appelle "ua" — ce qu'écrivent les Ukrainiens — mais le code
-# déclaré à Google reste "uk", le seul officiel.
+# ------------------------------------------------------------ Українська ---
 LANGUES.append({
     "code": "uk", "dossier": "ua", "hreflang": "uk", "sens": "ltr",
     "drapeau": "🇺🇦", "nom": "Українська", "nav_aria": "Карти",
-    # Les libellés que lisent les lecteurs d'écran, et l'infobulle du menu.
+    # Les libellés que lisent les lecteurs d'écran, et les infobulles.
     "langue_label": "Мова", "theme_label": "Змінити тему",
-    "theme_clair": "Перемкнути на світлу тему", "theme_sombre": "Перемкнути на темну тему",
+    "theme_clair": "Перейти на світлу тему", "theme_sombre": "Перейти на темну тему",
+    "variantes_label": "Одиниця",
+    "modele_titre": "{nom} за країнами — інтерактивна карта світу | StatsMaps",
+    "modele_titre_categorie": "{nom} — усі карти | StatsMaps",
+    "modele_description": (
+        "{texte} Інтерактивна карта 197 країн, від 1980 до 2031 року, за офіційними даними МВФ (World Economic Outlook): світовий рейтинг і зміни рік за роком."),
     "accueil": {
-        "titre": "StatsMaps — світова статистика на інтерактивних картах",
-        "description": "Інтерактивні карти світової статистики: номінальний ВВП, ВВП на душу населення, зростання та рекордні роки для 197 країн, від 1980 до 2031 року, за офіційними даними МВФ.",
+        "titre": "StatsMaps — карти та світова статистика",
+        "description": "Інтерактивні карти світової статистики: ВВП, ВВП на душу населення, зростання, інфляція та населення 197 країн, від 1980 до 2031 року, за офіційними даними МВФ.",
         "h1": "Статистика світу — на картах.",
-        "intro": "StatsMaps перетворює головні світові показники на інтерактивні карти, спираючись на офіційні джерела. Починаємо з економіки, за даними Міжнародного валютного фонду: 197 країн, від 1980 до 2031 року.",
-        "bientot": "Незабаром: демографія, інфраструктура, енергетика, освіта та охорона здоров’я.",
+        "intro": "StatsMaps перетворює головні світові показники на інтерактивні карти, спираючись на офіційні джерела. Оберіть категорію, щоб побачити її карти: сьогодні це економіка та демографія, за даними Міжнародного валютного фонду — 197 країн, від 1980 до 2031 року.",
+        "bientot": "Незабаром: інфраструктура, енергетика, освіта та охорона здоров’я.",
         "pied": "Дані: МВФ (World Economic Outlook) · Основа карти: Natural Earth · Без реклами та стеження.",
+    },
+    "variantes": {"nominal": "Долари США", "ppa": "Паритет купівельної спроможності"},
+    "categories": {
+        "economie": {
+            "slug": "ekonomika",
+            "nom": "Економіка",
+            "texte": "ВВП, багатство на особу, зростання та інфляція.",
+            "h1": "Світова економіка на картах.",
+            "intro": "Чотири карти зі звіту World Economic Outlook Міжнародного валютного фонду: 197 країн, від 1980 до 2031 року, разом із прогнозами.",
+        },
+        "demographie": {
+            "slug": "demohrafiia",
+            "nom": "Демографія",
+            "texte": "Скільки людей живе в кожній країні, рік за роком.",
+            "h1": "Світова демографія на картах.",
+            "intro": "МВФ публікує також населення кожної країни: 197 країн, від 1980 до 2031 року, разом із прогнозами.",
+        },
     },
     "cartes": {
         "pib-nominal": {
             "slug": "vvp",
-            "titre": "Номінальний ВВП за країнами — інтерактивна карта світу | StatsMaps",
-            "description": "Інтерактивна карта номінального ВВП 197 країн, від 1980 до 2031 року. Офіційні дані МВФ (World Economic Outlook), світовий рейтинг і зміни рік за роком.",
-            "h1": "Номінальний ВВП", "nav": "Номінальний ВВП", "nav_court": "ВВП",
-            "vignette": "Номінальний ВВП",
-            "vignette_texte": "Розмір кожної економіки, у мільярдах доларів у поточних цінах.",
+            "nom": "Номінальний ВВП",
+            "nav": "ВВП", "nav_court": "ВВП",
+            "texte": "Розмір кожної економіки, у мільярдах доларів у поточних цінах.",
+        },
+        "pib-ppa": {
+            "slug": "vvp-pks",
+            "nom": "ВВП за паритетом купівельної спроможності",
+            "nav": "ВВП (ПКС)", "nav_court": "ВВП ПКС",
+            "texte": "Розмір кожної економіки з урахуванням вартості життя, у міжнародних доларах.",
         },
         "pib-par-habitant": {
             "slug": "vvp-na-osobu",
-            "titre": "ВВП на душу населення за країнами — інтерактивна карта світу | StatsMaps",
-            "description": "Інтерактивна карта ВВП на душу населення 197 країн, від 1980 до 2031 року. Офіційні дані МВФ, світовий рейтинг і рівень багатства на особу.",
-            "h1": "ВВП на душу населення",
+            "nom": "ВВП на душу населення",
             "nav": "ВВП на душу населення", "nav_court": "ВВП/особу",
-            "vignette": "ВВП на душу населення",
-            "vignette_texte": "Багатство, вироблене на одну особу, у доларах у поточних цінах.",
+            "texte": "Багатство, вироблене на одну особу, у доларах у поточних цінах.",
+        },
+        "pib-par-habitant-ppa": {
+            "slug": "vvp-na-osobu-pks",
+            "nom": "ВВП на душу населення за ПКС",
+            "nav": "ВВП на душу населення (ПКС)", "nav_court": "ВВП/особу ПКС",
+            "texte": "Багатство, вироблене на одну особу з урахуванням вартості життя, у міжнародних доларах.",
         },
         "croissance": {
             "slug": "zrostannia",
-            "titre": "Зростання ВВП за країнами — інтерактивна карта світу | StatsMaps",
-            "description": "Інтерактивна карта зростання реального ВВП 197 країн, від 1980 до 2031 року. Офіційні дані МВФ: спад — червоним, зростання — зеленим.",
-            "h1": "Зростання", "nav": "Зростання", "nav_court": "Зростання",
-            "vignette": "Зростання ВВП",
-            "vignette_texte": "Зміна реального ВВП рік до року, у відсотках.",
+            "nom": "Зростання ВВП",
+            "nav": "Зростання", "nav_court": "Зростання",
+            "texte": "Зміна реального ВВП рік до року, у відсотках.",
         },
-        "annee-record-pib": {
-            "slug": "rekordnyi-rik-vvp",
-            "titre": "Рекордний рік ВВП за країнами — інтерактивна карта світу | StatsMaps",
-            "description": "Інтерактивна карта року, коли ВВП кожної країни був найвищим, від 1980 до 2031 року, включно з прогнозами МВФ. Зеленим — країни на піку сьогодні, червоним — ті, що так і не повернулися до рекорду. Офіційні дані МВФ.",
-            "h1": "Рекордний рік ВВП", "nav": "Рекордний рік ВВП", "nav_court": "Рекорд ВВП",
-            "vignette": "Рекордний рік ВВП",
-            "vignette_texte": "Рік, коли кожна країна досягла свого максимуму — і ті, що туди так і не повернулися.",
+        "inflation": {
+            "slug": "infliatsiia",
+            "nom": "Інфляція",
+            "nav": "Інфляція", "nav_court": "Інфляція",
+            "texte": "Зростання споживчих цін рік до року, у відсотках.",
         },
-        "annee-record-pib-par-habitant": {
-            "slug": "rekordnyi-rik-vvp-na-osobu",
-            "titre": "Рекордний рік ВВП на душу населення — інтерактивна карта світу | StatsMaps",
-            "description": "Інтерактивна карта року, коли ВВП на душу населення кожної країни був найвищим, від 1980 до 2031 року, включно з прогнозами МВФ. Зеленим — країни на піку сьогодні, червоним — ті, що так і не повернулися до рекорду. Офіційні дані МВФ.",
-            "h1": "Рекордний рік ВВП на особу",
-            "nav": "Рекордний рік ВВП на особу", "nav_court": "Рекорд ВВП/особу",
-            "vignette": "Рекордний рік ВВП на особу",
-            "vignette_texte": "Рік, коли мешканці кожної країни були найбагатшими в середньому.",
+        "population": {
+            "slug": "naselennia",
+            "nom": "Населення",
+            "nav": "Населення", "nav_court": "Населення",
+            "texte": "Кількість жителів кожної країни, у мільйонах.",
         },
     },
 })
 
-# --------------------------------------------------------------- Allemand ---
+# --------------------------------------------------------------- Deutsch ---
 LANGUES.append({
     "code": "de", "dossier": "de", "hreflang": "de", "sens": "ltr",
     "drapeau": "🇩🇪", "nom": "Deutsch", "nav_aria": "Karten",
-    # Les libellés que lisent les lecteurs d'écran, et l'infobulle du menu.
-    "langue_label": "Sprache", "theme_label": "Design wechseln",
-    "theme_clair": "Zum hellen Design wechseln", "theme_sombre": "Zum dunklen Design wechseln",
+    # Les libellés que lisent les lecteurs d'écran, et les infobulles.
+    "langue_label": "Sprache", "theme_label": "Thema wechseln",
+    "theme_clair": "Zum hellen Thema wechseln", "theme_sombre": "Zum dunklen Thema wechseln",
+    "variantes_label": "Einheit",
+    "modele_titre": "{nom} nach Ländern — interaktive Weltkarte | StatsMaps",
+    "modele_titre_categorie": "{nom} — alle Karten | StatsMaps",
+    "modele_description": (
+        "{texte} Eine interaktive Karte mit 197 Ländern, von 1980 bis 2031, auf Grundlage offizieller IWF-Daten (World Economic Outlook): Weltrangliste und Entwicklung Jahr für Jahr."),
     "accueil": {
-        "titre": "StatsMaps — Weltstatistiken auf interaktiven Karten",
-        "description": "Interaktive Karten der Weltwirtschaft: nominales BIP, BIP pro Kopf, Wachstum und Höchststände von 197 Ländern, von 1980 bis 2031, auf Grundlage offizieller IWF-Daten.",
+        "titre": "StatsMaps — Weltkarten und Statistiken",
+        "description": "Interaktive Karten der Weltstatistik: BIP, BIP pro Kopf, Wachstum, Inflation und Bevölkerung von 197 Ländern, von 1980 bis 2031, nach offiziellen IWF-Daten.",
         "h1": "Die Statistiken der Welt, als Karte.",
-        "intro": "StatsMaps bringt die großen weltweiten Kennzahlen auf interaktive Karten, aus offiziellen Quellen. Den Anfang macht die Wirtschaft, mit Daten des Internationalen Währungsfonds: 197 Länder, von 1980 bis 2031.",
-        "bientot": "Demnächst: Bevölkerung, Infrastruktur, Energie, Bildung und Gesundheit.",
+        "intro": "StatsMaps bringt die großen weltweiten Kennzahlen auf interaktive Karten, aus offiziellen Quellen. Wähle eine Rubrik, um ihre Karten zu sehen: heute die Wirtschaft und die Bevölkerung, nach Daten des Internationalen Währungsfonds — 197 Länder, von 1980 bis 2031.",
+        "bientot": "Demnächst: Infrastruktur, Energie, Bildung und Gesundheit.",
         "pied": "Daten: IWF (World Economic Outlook) · Kartengrundlage: Natural Earth · Ohne Werbung, ohne Tracker.",
+    },
+    "variantes": {"nominal": "US-Dollar", "ppa": "Kaufkraftparität"},
+    "categories": {
+        "economie": {
+            "slug": "wirtschaft",
+            "nom": "Wirtschaft",
+            "texte": "BIP, Wohlstand pro Kopf, Wachstum und Inflation.",
+            "h1": "Die Weltwirtschaft, als Karte.",
+            "intro": "Vier Karten aus dem World Economic Outlook des Internationalen Währungsfonds: 197 Länder, von 1980 bis 2031, Prognosen inbegriffen.",
+        },
+        "demographie": {
+            "slug": "demografie",
+            "nom": "Demografie",
+            "texte": "Wie viele Menschen in jedem Land leben, Jahr für Jahr.",
+            "h1": "Die Bevölkerung der Welt, als Karte.",
+            "intro": "Der IWF veröffentlicht auch die Bevölkerung jedes Landes: 197 Länder, von 1980 bis 2031, Prognosen inbegriffen.",
+        },
     },
     "cartes": {
         "pib-nominal": {
             "slug": "nominales-bip",
-            "titre": "Nominales BIP nach Ländern — interaktive Weltkarte | StatsMaps",
-            "description": "Interaktive Karte des nominalen BIP von 197 Ländern, von 1980 bis 2031. Offizielle IWF-Daten (World Economic Outlook), weltweite Rangliste und Entwicklung Jahr für Jahr.",
-            "h1": "Nominales BIP", "nav": "Nominales BIP", "nav_court": "BIP",
-            "vignette": "Nominales BIP",
-            "vignette_texte": "Die Größe jeder Volkswirtschaft, in Milliarden US-Dollar zu jeweiligen Preisen.",
+            "nom": "Nominales BIP",
+            "nav": "BIP", "nav_court": "BIP",
+            "texte": "Die Größe jeder Volkswirtschaft, in Milliarden US-Dollar zu jeweiligen Preisen.",
+        },
+        "pib-ppa": {
+            "slug": "bip-kkp",
+            "nom": "BIP zu Kaufkraftparität",
+            "nav": "BIP (KKP)", "nav_court": "BIP KKP",
+            "texte": "Die Größe jeder Volkswirtschaft, um die Lebenshaltungskosten bereinigt, in internationalen Dollar.",
         },
         "pib-par-habitant": {
             "slug": "bip-pro-kopf",
-            "titre": "BIP pro Kopf nach Ländern — interaktive Weltkarte | StatsMaps",
-            "description": "Interaktive Karte des BIP pro Kopf von 197 Ländern, von 1980 bis 2031. Offizielle IWF-Daten, weltweite Rangliste und Wohlstandsniveau je Person.",
-            "h1": "BIP pro Kopf", "nav": "BIP pro Kopf", "nav_court": "BIP/Kopf",
-            "vignette": "BIP pro Kopf",
-            "vignette_texte": "Die je Person erwirtschaftete Leistung, in US-Dollar zu jeweiligen Preisen.",
+            "nom": "BIP pro Kopf",
+            "nav": "BIP pro Kopf", "nav_court": "BIP/Kopf",
+            "texte": "Die je Person erwirtschaftete Leistung, in US-Dollar zu jeweiligen Preisen.",
+        },
+        "pib-par-habitant-ppa": {
+            "slug": "bip-pro-kopf-kkp",
+            "nom": "BIP pro Kopf zu Kaufkraftparität",
+            "nav": "BIP pro Kopf (KKP)", "nav_court": "BIP/Kopf KKP",
+            "texte": "Die je Person erwirtschaftete Leistung, um die Lebenshaltungskosten bereinigt, in internationalen Dollar.",
         },
         "croissance": {
             "slug": "bip-wachstum",
-            "titre": "BIP-Wachstum nach Ländern — interaktive Weltkarte | StatsMaps",
-            "description": "Interaktive Karte des realen BIP-Wachstums von 197 Ländern, von 1980 bis 2031. Offizielle IWF-Daten: Rezessionen in Rot, Aufschwünge in Grün.",
-            "h1": "Wachstum", "nav": "Wachstum", "nav_court": "Wachstum",
-            "vignette": "BIP-Wachstum",
-            "vignette_texte": "Die Veränderung des realen BIP von Jahr zu Jahr, in Prozent.",
+            "nom": "BIP-Wachstum",
+            "nav": "Wachstum", "nav_court": "Wachstum",
+            "texte": "Die Veränderung des realen BIP von Jahr zu Jahr, in Prozent.",
         },
-        "annee-record-pib": {
-            "slug": "bip-hoechststand",
-            "titre": "BIP-Höchststand nach Ländern — interaktive Weltkarte | StatsMaps",
-            "description": "Interaktive Karte des Jahres, in dem das BIP jedes Landes am höchsten war, von 1980 bis 2031, IWF-Prognosen inbegriffen. Grün für Länder, die heute auf ihrem Höchststand sind, rot für jene, die ihn nie wieder erreicht haben. Offizielle IWF-Daten.",
-            "h1": "BIP-Höchststand", "nav": "BIP-Höchststand", "nav_court": "BIP-Höchst.",
-            "vignette": "BIP-Höchststand",
-            "vignette_texte": "Das Jahr, in dem jedes Land sein Maximum erreichte — und jene, die nie dorthin zurückkehrten.",
+        "inflation": {
+            "slug": "inflation",
+            "nom": "Inflation",
+            "nav": "Inflation", "nav_court": "Inflation",
+            "texte": "Der Anstieg der Verbraucherpreise von Jahr zu Jahr, in Prozent.",
         },
-        "annee-record-pib-par-habitant": {
-            "slug": "bip-pro-kopf-hoechststand",
-            "titre": "Höchststand des BIP pro Kopf — interaktive Weltkarte | StatsMaps",
-            "description": "Interaktive Karte des Jahres, in dem das BIP pro Kopf jedes Landes am höchsten war, von 1980 bis 2031, IWF-Prognosen inbegriffen. Grün für Länder, die heute auf ihrem Höchststand sind, rot für jene, die ihn nie wieder erreicht haben. Offizielle IWF-Daten.",
-            "h1": "Höchststand BIP pro Kopf",
-            "nav": "Höchststand BIP pro Kopf", "nav_court": "BIP/Kopf-Höchst.",
-            "vignette": "Höchststand BIP pro Kopf",
-            "vignette_texte": "Das Jahr, in dem die Menschen jedes Landes im Schnitt am wohlhabendsten waren.",
+        "population": {
+            "slug": "bevoelkerung",
+            "nom": "Bevölkerung",
+            "nav": "Bevölkerung", "nav_court": "Bevölkerung",
+            "texte": "Wie viele Menschen in jedem Land leben, in Millionen.",
         },
     },
 })
 
-# --------------------------------------------------------------- Espagnol ---
+# --------------------------------------------------------------- Español ---
 LANGUES.append({
     "code": "es", "dossier": "es", "hreflang": "es", "sens": "ltr",
     "drapeau": "🇪🇸", "nom": "Español", "nav_aria": "Mapas",
-    # Les libellés que lisent les lecteurs d'écran, et l'infobulle du menu.
+    # Les libellés que lisent les lecteurs d'écran, et les infobulles.
     "langue_label": "Idioma", "theme_label": "Cambiar de tema",
     "theme_clair": "Cambiar al tema claro", "theme_sombre": "Cambiar al tema oscuro",
+    "variantes_label": "Unidad",
+    "modele_titre": "{nom} por país — mapa mundial interactivo | StatsMaps",
+    "modele_titre_categorie": "{nom} — todos los mapas | StatsMaps",
+    "modele_description": (
+        "{texte} Mapa interactivo de 197 países, de 1980 a 2031, con datos oficiales del FMI (World Economic Outlook): clasificación mundial y evolución año a año."),
     "accueil": {
-        "titre": "StatsMaps — estadísticas mundiales en mapas interactivos",
-        "description": "Mapas interactivos de la economía mundial: PIB nominal, PIB per cápita, crecimiento y años récord de 197 países, de 1980 a 2031, a partir de datos oficiales del FMI.",
+        "titre": "StatsMaps — mapas y estadísticas mundiales",
+        "description": "Mapas interactivos de las estadísticas mundiales: PIB, PIB per cápita, crecimiento, inflación y población de 197 países, de 1980 a 2031, con datos oficiales del FMI.",
         "h1": "Las estadísticas del mundo, en mapas.",
-        "intro": "StatsMaps lleva los grandes indicadores mundiales a mapas interactivos, a partir de fuentes oficiales. Empezamos por la economía, con datos del Fondo Monetario Internacional: 197 países, de 1980 a 2031.",
-        "bientot": "Próximamente: demografía, infraestructuras, energía, educación y salud.",
+        "intro": "StatsMaps lleva los grandes indicadores mundiales a mapas interactivos, a partir de fuentes oficiales. Elige una categoría para ver sus mapas: hoy la economía y la demografía, con datos del Fondo Monetario Internacional — 197 países, de 1980 a 2031.",
+        "bientot": "Próximamente: infraestructuras, energía, educación y salud.",
         "pied": "Datos: FMI (World Economic Outlook) · Mapa base: Natural Earth · Sin publicidad ni rastreadores.",
+    },
+    "variantes": {"nominal": "Dólares de EE. UU.", "ppa": "Paridad de poder adquisitivo"},
+    "categories": {
+        "economie": {
+            "slug": "economia",
+            "nom": "Economía",
+            "texte": "El PIB, la riqueza por habitante, el crecimiento y la inflación.",
+            "h1": "La economía mundial, en mapas.",
+            "intro": "Cuatro mapas extraídos del World Economic Outlook del Fondo Monetario Internacional: 197 países, de 1980 a 2031, proyecciones incluidas.",
+        },
+        "demographie": {
+            "slug": "demografia",
+            "nom": "Demografía",
+            "texte": "Cuántas personas viven en cada país, año a año.",
+            "h1": "La demografía mundial, en mapas.",
+            "intro": "El FMI también publica la población de cada país: 197 países, de 1980 a 2031, proyecciones incluidas.",
+        },
     },
     "cartes": {
         "pib-nominal": {
             "slug": "pib-nominal",
-            "titre": "PIB nominal por país — mapa mundial interactivo | StatsMaps",
-            "description": "Mapa interactivo del PIB nominal de 197 países, de 1980 a 2031. Datos oficiales del FMI (World Economic Outlook), clasificación mundial y evolución año a año.",
-            "h1": "PIB nominal", "nav": "PIB nominal", "nav_court": "PIB",
-            "vignette": "PIB nominal",
-            "vignette_texte": "El tamaño de cada economía, en miles de millones de dólares corrientes.",
+            "nom": "PIB nominal",
+            "nav": "PIB", "nav_court": "PIB",
+            "texte": "El tamaño de cada economía, en miles de millones de dólares corrientes.",
+        },
+        "pib-ppa": {
+            "slug": "pib-ppa",
+            "nom": "PIB en paridad de poder adquisitivo",
+            "nav": "PIB (PPA)", "nav_court": "PIB PPA",
+            "texte": "El tamaño de cada economía una vez corregido el coste de la vida, en dólares internacionales.",
         },
         "pib-par-habitant": {
             "slug": "pib-per-capita",
-            "titre": "PIB per cápita por país — mapa mundial interactivo | StatsMaps",
-            "description": "Mapa interactivo del PIB per cápita de 197 países, de 1980 a 2031. Datos oficiales del FMI, clasificación mundial y nivel de riqueza por persona.",
-            "h1": "PIB per cápita", "nav": "PIB per cápita", "nav_court": "PIB/hab.",
-            "vignette": "PIB per cápita",
-            "vignette_texte": "La riqueza producida por persona, en dólares corrientes.",
+            "nom": "PIB per cápita",
+            "nav": "PIB per cápita", "nav_court": "PIB/hab.",
+            "texte": "La riqueza producida por persona, en dólares corrientes.",
+        },
+        "pib-par-habitant-ppa": {
+            "slug": "pib-per-capita-ppa",
+            "nom": "PIB per cápita en paridad de poder adquisitivo",
+            "nav": "PIB per cápita (PPA)", "nav_court": "PIB/hab. PPA",
+            "texte": "La riqueza producida por persona una vez corregido el coste de la vida, en dólares internacionales.",
         },
         "croissance": {
             "slug": "crecimiento-pib",
-            "titre": "Crecimiento del PIB por país — mapa mundial interactivo | StatsMaps",
-            "description": "Mapa interactivo del crecimiento del PIB real de 197 países, de 1980 a 2031. Datos oficiales del FMI: recesiones en rojo, expansiones en verde.",
-            "h1": "Crecimiento", "nav": "Crecimiento", "nav_court": "Crecimiento",
-            "vignette": "Crecimiento del PIB",
-            "vignette_texte": "La variación del PIB real de un año a otro, en porcentaje.",
+            "nom": "Crecimiento del PIB",
+            "nav": "Crecimiento", "nav_court": "Crecimiento",
+            "texte": "La variación del PIB real de un año a otro, en porcentaje.",
         },
-        "annee-record-pib": {
-            "slug": "ano-record-pib",
-            "titre": "Año récord del PIB por país — mapa mundial interactivo | StatsMaps",
-            "description": "Mapa interactivo del año en que el PIB de cada país alcanzó su máximo, de 1980 a 2031, proyecciones del FMI incluidas. En verde los países que hoy están en su máximo, en rojo los que nunca lo recuperaron. Datos oficiales del FMI.",
-            "h1": "Año récord del PIB", "nav": "Año récord del PIB", "nav_court": "Récord PIB",
-            "vignette": "Año récord del PIB",
-            "vignette_texte": "El año en que cada país alcanzó su máximo — y los que nunca volvieron a él.",
+        "inflation": {
+            "slug": "inflacion",
+            "nom": "Inflación",
+            "nav": "Inflación", "nav_court": "Inflación",
+            "texte": "La subida de los precios al consumo de un año a otro, en porcentaje.",
         },
-        "annee-record-pib-par-habitant": {
-            "slug": "ano-record-pib-per-capita",
-            "titre": "Año récord del PIB per cápita — mapa mundial interactivo | StatsMaps",
-            "description": "Mapa interactivo del año en que el PIB per cápita de cada país alcanzó su máximo, de 1980 a 2031, proyecciones del FMI incluidas. En verde los países que hoy están en su máximo, en rojo los que nunca lo recuperaron. Datos oficiales del FMI.",
-            "h1": "Año récord del PIB per cápita",
-            "nav": "Año récord del PIB per cápita", "nav_court": "Récord PIB/hab.",
-            "vignette": "Año récord del PIB per cápita",
-            "vignette_texte": "El año en que los habitantes de cada país fueron, de media, más ricos.",
+        "population": {
+            "slug": "poblacion",
+            "nom": "Población",
+            "nav": "Población", "nav_court": "Población",
+            "texte": "Cuántas personas viven en cada país, en millones.",
         },
     },
 })
 
-# ---------------------------------------------------------------- Italien ---
+# -------------------------------------------------------------- Italiano ---
 LANGUES.append({
     "code": "it", "dossier": "it", "hreflang": "it", "sens": "ltr",
     "drapeau": "🇮🇹", "nom": "Italiano", "nav_aria": "Mappe",
-    # Les libellés que lisent les lecteurs d'écran, et l'infobulle du menu.
+    # Les libellés que lisent les lecteurs d'écran, et les infobulles.
     "langue_label": "Lingua", "theme_label": "Cambia tema",
     "theme_clair": "Passa al tema chiaro", "theme_sombre": "Passa al tema scuro",
+    "variantes_label": "Unità",
+    "modele_titre": "{nom} per paese — mappa mondiale interattiva | StatsMaps",
+    "modele_titre_categorie": "{nom} — tutte le mappe | StatsMaps",
+    "modele_description": (
+        "{texte} Mappa interattiva di 197 paesi, dal 1980 al 2031, con i dati ufficiali del FMI (World Economic Outlook): classifica mondiale ed evoluzione anno per anno."),
     "accueil": {
-        "titre": "StatsMaps — statistiche mondiali su mappe interattive",
-        "description": "Mappe interattive dell’economia mondiale: PIL nominale, PIL pro capite, crescita e anni record di 197 paesi, dal 1980 al 2031, dai dati ufficiali del FMI.",
+        "titre": "StatsMaps — mappe e statistiche mondiali",
+        "description": "Mappe interattive delle statistiche mondiali: PIL, PIL pro capite, crescita, inflazione e popolazione di 197 paesi, dal 1980 al 2031, con i dati ufficiali del FMI.",
         "h1": "Le statistiche del mondo, in mappa.",
-        "intro": "StatsMaps trasforma i grandi indicatori mondiali in mappe interattive, a partire da fonti ufficiali. Si comincia dall’economia, con i dati del Fondo Monetario Internazionale: 197 paesi, dal 1980 al 2031.",
-        "bientot": "Prossimamente: demografia, infrastrutture, energia, istruzione e sanità.",
+        "intro": "StatsMaps trasforma i grandi indicatori mondiali in mappe interattive, a partire da fonti ufficiali. Scegli una categoria per vedere le sue mappe: oggi l’economia e la demografia, con i dati del Fondo monetario internazionale — 197 paesi, dal 1980 al 2031.",
+        "bientot": "Prossimamente: infrastrutture, energia, istruzione e sanità.",
         "pied": "Dati: FMI (World Economic Outlook) · Mappa di base: Natural Earth · Senza pubblicità né tracciamento.",
+    },
+    "variantes": {"nominal": "Dollari USA", "ppa": "Parità di potere d’acquisto"},
+    "categories": {
+        "economie": {
+            "slug": "economia",
+            "nom": "Economia",
+            "texte": "Il PIL, la ricchezza per abitante, la crescita e l’inflazione.",
+            "h1": "L’economia mondiale, in mappa.",
+            "intro": "Quattro mappe tratte dal World Economic Outlook del Fondo monetario internazionale: 197 paesi, dal 1980 al 2031, proiezioni comprese.",
+        },
+        "demographie": {
+            "slug": "demografia",
+            "nom": "Demografia",
+            "texte": "Quante persone vivono in ogni paese, anno per anno.",
+            "h1": "La demografia mondiale, in mappa.",
+            "intro": "Il FMI pubblica anche la popolazione di ogni paese: 197 paesi, dal 1980 al 2031, proiezioni comprese.",
+        },
     },
     "cartes": {
         "pib-nominal": {
             "slug": "pil-nominale",
-            "titre": "PIL nominale per paese — mappa mondiale interattiva | StatsMaps",
-            "description": "Mappa interattiva del PIL nominale di 197 paesi, dal 1980 al 2031. Dati ufficiali del FMI (World Economic Outlook), classifica mondiale ed evoluzione anno per anno.",
-            "h1": "PIL nominale", "nav": "PIL nominale", "nav_court": "PIL",
-            "vignette": "PIL nominale",
-            "vignette_texte": "La dimensione di ogni economia, in miliardi di dollari correnti.",
+            "nom": "PIL nominale",
+            "nav": "PIL", "nav_court": "PIL",
+            "texte": "La dimensione di ogni economia, in miliardi di dollari correnti.",
+        },
+        "pib-ppa": {
+            "slug": "pil-ppa",
+            "nom": "PIL a parità di potere d’acquisto",
+            "nav": "PIL (PPA)", "nav_court": "PIL PPA",
+            "texte": "La dimensione di ogni economia una volta corretto il costo della vita, in dollari internazionali.",
         },
         "pib-par-habitant": {
             "slug": "pil-pro-capite",
-            "titre": "PIL pro capite per paese — mappa mondiale interattiva | StatsMaps",
-            "description": "Mappa interattiva del PIL pro capite di 197 paesi, dal 1980 al 2031. Dati ufficiali del FMI, classifica mondiale e livello di ricchezza per persona.",
-            "h1": "PIL pro capite", "nav": "PIL pro capite", "nav_court": "PIL/ab.",
-            "vignette": "PIL pro capite",
-            "vignette_texte": "La ricchezza prodotta per persona, in dollari correnti.",
+            "nom": "PIL pro capite",
+            "nav": "PIL pro capite", "nav_court": "PIL/ab.",
+            "texte": "La ricchezza prodotta per persona, in dollari correnti.",
+        },
+        "pib-par-habitant-ppa": {
+            "slug": "pil-pro-capite-ppa",
+            "nom": "PIL pro capite a parità di potere d’acquisto",
+            "nav": "PIL pro capite (PPA)", "nav_court": "PIL/ab. PPA",
+            "texte": "La ricchezza prodotta per persona una volta corretto il costo della vita, in dollari internazionali.",
         },
         "croissance": {
             "slug": "crescita-pil",
-            "titre": "Crescita del PIL per paese — mappa mondiale interattiva | StatsMaps",
-            "description": "Mappa interattiva della crescita del PIL reale di 197 paesi, dal 1980 al 2031. Dati ufficiali del FMI: recessioni in rosso, espansioni in verde.",
-            "h1": "Crescita", "nav": "Crescita", "nav_court": "Crescita",
-            "vignette": "Crescita del PIL",
-            "vignette_texte": "La variazione del PIL reale da un anno all’altro, in percentuale.",
+            "nom": "Crescita del PIL",
+            "nav": "Crescita", "nav_court": "Crescita",
+            "texte": "La variazione del PIL reale da un anno all’altro, in percentuale.",
         },
-        "annee-record-pib": {
-            "slug": "anno-record-pil",
-            "titre": "Anno record del PIL per paese — mappa mondiale interattiva | StatsMaps",
-            "description": "Mappa interattiva dell’anno in cui il PIL di ogni paese ha toccato il massimo, dal 1980 al 2031, proiezioni del FMI comprese. In verde i paesi oggi al massimo, in rosso quelli che non l’hanno più ritrovato. Dati ufficiali del FMI.",
-            "h1": "Anno record del PIL", "nav": "Anno record del PIL", "nav_court": "Record PIL",
-            "vignette": "Anno record del PIL",
-            "vignette_texte": "L’anno in cui ogni paese ha toccato il massimo — e quelli che non ci sono più tornati.",
+        "inflation": {
+            "slug": "inflazione",
+            "nom": "Inflazione",
+            "nav": "Inflazione", "nav_court": "Inflazione",
+            "texte": "L’aumento dei prezzi al consumo da un anno all’altro, in percentuale.",
         },
-        "annee-record-pib-par-habitant": {
-            "slug": "anno-record-pil-pro-capite",
-            "titre": "Anno record del PIL pro capite — mappa mondiale interattiva | StatsMaps",
-            "description": "Mappa interattiva dell’anno in cui il PIL pro capite di ogni paese ha toccato il massimo, dal 1980 al 2031, proiezioni del FMI comprese. In verde i paesi oggi al massimo, in rosso quelli che non l’hanno più ritrovato. Dati ufficiali del FMI.",
-            "h1": "Anno record del PIL pro capite",
-            "nav": "Anno record del PIL pro capite", "nav_court": "Record PIL/ab.",
-            "vignette": "Anno record del PIL pro capite",
-            "vignette_texte": "L’anno in cui gli abitanti di ogni paese sono stati mediamente più ricchi.",
+        "population": {
+            "slug": "popolazione",
+            "nom": "Popolazione",
+            "nav": "Popolazione", "nav_court": "Popolazione",
+            "texte": "Quante persone vivono in ogni paese, in milioni.",
         },
     },
 })
 
-# -------------------------------------------------------------- Portugais ---
+# ------------------------------------------------------------- Português ---
 LANGUES.append({
     "code": "pt", "dossier": "pt", "hreflang": "pt", "sens": "ltr",
     "drapeau": "🇵🇹", "nom": "Português", "nav_aria": "Mapas",
-    # Les libellés que lisent les lecteurs d'écran, et l'infobulle du menu.
+    # Les libellés que lisent les lecteurs d'écran, et les infobulles.
     "langue_label": "Idioma", "theme_label": "Mudar de tema",
     "theme_clair": "Mudar para o tema claro", "theme_sombre": "Mudar para o tema escuro",
+    "variantes_label": "Unidade",
+    "modele_titre": "{nom} por país — mapa mundial interativo | StatsMaps",
+    "modele_titre_categorie": "{nom} — todos os mapas | StatsMaps",
+    "modele_description": (
+        "{texte} Mapa interativo de 197 países, de 1980 a 2031, com dados oficiais do FMI (World Economic Outlook): classificação mundial e evolução ano a ano."),
     "accueil": {
-        "titre": "StatsMaps — estatísticas mundiais em mapas interativos",
-        "description": "Mapas interativos da economia mundial: PIB nominal, PIB per capita, crescimento e anos recorde de 197 países, de 1980 a 2031, a partir dos dados oficiais do FMI.",
+        "titre": "StatsMaps — mapas e estatísticas mundiais",
+        "description": "Mapas interativos das estatísticas mundiais: PIB, PIB per capita, crescimento, inflação e população de 197 países, de 1980 a 2031, com dados oficiais do FMI.",
         "h1": "As estatísticas do mundo, em mapas.",
-        "intro": "O StatsMaps transforma os grandes indicadores mundiais em mapas interativos, a partir de fontes oficiais. Começamos pela economia, com os dados do Fundo Monetário Internacional: 197 países, de 1980 a 2031.",
-        "bientot": "Em breve: demografia, infraestruturas, energia, educação e saúde.",
+        "intro": "O StatsMaps transforma os grandes indicadores mundiais em mapas interativos, a partir de fontes oficiais. Escolhe uma categoria para ver os seus mapas: hoje a economia e a demografia, com dados do Fundo Monetário Internacional — 197 países, de 1980 a 2031.",
+        "bientot": "Em breve: infraestruturas, energia, educação e saúde.",
         "pied": "Dados: FMI (World Economic Outlook) · Mapa base: Natural Earth · Sem publicidade nem rastreadores.",
+    },
+    "variantes": {"nominal": "Dólares dos EUA", "ppa": "Paridade de poder de compra"},
+    "categories": {
+        "economie": {
+            "slug": "economia",
+            "nom": "Economia",
+            "texte": "O PIB, a riqueza por habitante, o crescimento e a inflação.",
+            "h1": "A economia mundial, em mapas.",
+            "intro": "Quatro mapas retirados do World Economic Outlook do Fundo Monetário Internacional: 197 países, de 1980 a 2031, projeções incluídas.",
+        },
+        "demographie": {
+            "slug": "demografia",
+            "nom": "Demografia",
+            "texte": "Quantas pessoas vivem em cada país, ano a ano.",
+            "h1": "A demografia mundial, em mapas.",
+            "intro": "O FMI publica também a população de cada país: 197 países, de 1980 a 2031, projeções incluídas.",
+        },
     },
     "cartes": {
         "pib-nominal": {
             "slug": "pib-nominal",
-            "titre": "PIB nominal por país — mapa mundial interativo | StatsMaps",
-            "description": "Mapa interativo do PIB nominal de 197 países, de 1980 a 2031. Dados oficiais do FMI (World Economic Outlook), classificação mundial e evolução ano a ano.",
-            "h1": "PIB nominal", "nav": "PIB nominal", "nav_court": "PIB",
-            "vignette": "PIB nominal",
-            "vignette_texte": "O tamanho de cada economia, em mil milhões de dólares correntes.",
+            "nom": "PIB nominal",
+            "nav": "PIB", "nav_court": "PIB",
+            "texte": "O tamanho de cada economia, em mil milhões de dólares correntes.",
+        },
+        "pib-ppa": {
+            "slug": "pib-ppc",
+            "nom": "PIB em paridade de poder de compra",
+            "nav": "PIB (PPC)", "nav_court": "PIB PPC",
+            "texte": "O tamanho de cada economia depois de corrigido o custo de vida, em dólares internacionais.",
         },
         "pib-par-habitant": {
             "slug": "pib-per-capita",
-            "titre": "PIB per capita por país — mapa mundial interativo | StatsMaps",
-            "description": "Mapa interativo do PIB per capita de 197 países, de 1980 a 2031. Dados oficiais do FMI, classificação mundial e nível de riqueza por pessoa.",
-            "h1": "PIB per capita", "nav": "PIB per capita", "nav_court": "PIB/hab.",
-            "vignette": "PIB per capita",
-            "vignette_texte": "A riqueza produzida por pessoa, em dólares correntes.",
+            "nom": "PIB per capita",
+            "nav": "PIB per capita", "nav_court": "PIB/hab.",
+            "texte": "A riqueza produzida por pessoa, em dólares correntes.",
+        },
+        "pib-par-habitant-ppa": {
+            "slug": "pib-per-capita-ppc",
+            "nom": "PIB per capita em paridade de poder de compra",
+            "nav": "PIB per capita (PPC)", "nav_court": "PIB/hab. PPC",
+            "texte": "A riqueza produzida por pessoa depois de corrigido o custo de vida, em dólares internacionais.",
         },
         "croissance": {
             "slug": "crescimento-pib",
-            "titre": "Crescimento do PIB por país — mapa mundial interativo | StatsMaps",
-            "description": "Mapa interativo do crescimento do PIB real de 197 países, de 1980 a 2031. Dados oficiais do FMI: recessões a vermelho, expansões a verde.",
-            "h1": "Crescimento", "nav": "Crescimento", "nav_court": "Crescimento",
-            "vignette": "Crescimento do PIB",
-            "vignette_texte": "A variação do PIB real de um ano para o outro, em percentagem.",
+            "nom": "Crescimento do PIB",
+            "nav": "Crescimento", "nav_court": "Crescimento",
+            "texte": "A variação do PIB real de um ano para o outro, em percentagem.",
         },
-        "annee-record-pib": {
-            "slug": "ano-recorde-pib",
-            "titre": "Ano recorde do PIB por país — mapa mundial interativo | StatsMaps",
-            "description": "Mapa interativo do ano em que o PIB de cada país atingiu o máximo, de 1980 a 2031, projeções do FMI incluídas. A verde os países hoje no máximo, a vermelho os que nunca o recuperaram. Dados oficiais do FMI.",
-            "h1": "Ano recorde do PIB", "nav": "Ano recorde do PIB", "nav_court": "Recorde PIB",
-            "vignette": "Ano recorde do PIB",
-            "vignette_texte": "O ano em que cada país atingiu o seu máximo — e aqueles que nunca lá voltaram.",
+        "inflation": {
+            "slug": "inflacao",
+            "nom": "Inflação",
+            "nav": "Inflação", "nav_court": "Inflação",
+            "texte": "A subida dos preços no consumidor de um ano para o outro, em percentagem.",
         },
-        "annee-record-pib-par-habitant": {
-            "slug": "ano-recorde-pib-per-capita",
-            "titre": "Ano recorde do PIB per capita — mapa mundial interativo | StatsMaps",
-            "description": "Mapa interativo do ano em que o PIB per capita de cada país atingiu o máximo, de 1980 a 2031, projeções do FMI incluídas. A verde os países hoje no máximo, a vermelho os que nunca o recuperaram. Dados oficiais do FMI.",
-            "h1": "Ano recorde do PIB per capita",
-            "nav": "Ano recorde do PIB per capita", "nav_court": "Recorde PIB/hab.",
-            "vignette": "Ano recorde do PIB per capita",
-            "vignette_texte": "O ano em que os habitantes de cada país foram, em média, mais ricos.",
+        "population": {
+            "slug": "populacao",
+            "nom": "População",
+            "nav": "População", "nav_court": "População",
+            "texte": "Quantas pessoas vivem em cada país, em milhões.",
         },
     },
 })
 
-# --------------------------------------------------------------- Polonais ---
+# ---------------------------------------------------------------- Polski ---
 LANGUES.append({
     "code": "pl", "dossier": "pl", "hreflang": "pl", "sens": "ltr",
     "drapeau": "🇵🇱", "nom": "Polski", "nav_aria": "Mapy",
-    # Les libellés que lisent les lecteurs d'écran, et l'infobulle du menu.
+    # Les libellés que lisent les lecteurs d'écran, et les infobulles.
     "langue_label": "Język", "theme_label": "Zmień motyw",
     "theme_clair": "Przełącz na jasny motyw", "theme_sombre": "Przełącz na ciemny motyw",
+    "variantes_label": "Jednostka",
+    "modele_titre": "{nom} według krajów — interaktywna mapa świata | StatsMaps",
+    "modele_titre_categorie": "{nom} — wszystkie mapy | StatsMaps",
+    "modele_description": (
+        "{texte} Interaktywna mapa 197 krajów, od 1980 do 2031 roku, na oficjalnych danych MFW (World Economic Outlook): ranking światowy i zmiany rok po roku."),
     "accueil": {
-        "titre": "StatsMaps — światowe statystyki na interaktywnych mapach",
-        "description": "Interaktywne mapy gospodarki świata: PKB nominalne, PKB na mieszkańca, wzrost i rekordowe lata 197 krajów, od 1980 do 2031 roku, na podstawie oficjalnych danych MFW.",
+        "titre": "StatsMaps — mapy i statystyki świata",
+        "description": "Interaktywne mapy statystyk świata: PKB, PKB na mieszkańca, wzrost, inflacja i ludność 197 krajów, od 1980 do 2031 roku, na oficjalnych danych MFW.",
         "h1": "Statystyki świata na mapach.",
-        "intro": "StatsMaps przedstawia najważniejsze światowe wskaźniki na interaktywnych mapach, w oparciu o oficjalne źródła. Zaczynamy od gospodarki, na podstawie danych Międzynarodowego Funduszu Walutowego: 197 krajów, od 1980 do 2031 roku.",
-        "bientot": "Wkrótce: demografia, infrastruktura, energetyka, edukacja i zdrowie.",
+        "intro": "StatsMaps przedstawia najważniejsze światowe wskaźniki na interaktywnych mapach, w oparciu o oficjalne źródła. Wybierz kategorię, aby zobaczyć jej mapy: dziś gospodarka i demografia, na danych Międzynarodowego Funduszu Walutowego — 197 krajów, od 1980 do 2031 roku.",
+        "bientot": "Wkrótce: infrastruktura, energetyka, edukacja i zdrowie.",
         "pied": "Dane: MFW (World Economic Outlook) · Podkład mapowy: Natural Earth · Bez reklam i śledzenia.",
+    },
+    "variantes": {"nominal": "Dolary USA", "ppa": "Parytet siły nabywczej"},
+    "categories": {
+        "economie": {
+            "slug": "gospodarka",
+            "nom": "Gospodarka",
+            "texte": "PKB, bogactwo na mieszkańca, wzrost i inflacja.",
+            "h1": "Gospodarka świata na mapach.",
+            "intro": "Cztery mapy z raportu World Economic Outlook Międzynarodowego Funduszu Walutowego: 197 krajów, od 1980 do 2031 roku, wraz z prognozami.",
+        },
+        "demographie": {
+            "slug": "demografia",
+            "nom": "Demografia",
+            "texte": "Ilu ludzi mieszka w każdym kraju, rok po roku.",
+            "h1": "Demografia świata na mapach.",
+            "intro": "MFW publikuje także liczbę ludności każdego kraju: 197 krajów, od 1980 do 2031 roku, wraz z prognozami.",
+        },
     },
     "cartes": {
         "pib-nominal": {
             "slug": "pkb-nominalne",
-            "titre": "PKB nominalne według krajów — interaktywna mapa świata | StatsMaps",
-            "description": "Interaktywna mapa PKB nominalnego 197 krajów, od 1980 do 2031 roku. Oficjalne dane MFW (World Economic Outlook), ranking światowy i zmiany rok po roku.",
-            "h1": "PKB nominalne", "nav": "PKB nominalne", "nav_court": "PKB",
-            "vignette": "PKB nominalne",
-            "vignette_texte": "Wielkość każdej gospodarki, w miliardach dolarów bieżących.",
+            "nom": "PKB nominalne",
+            "nav": "PKB", "nav_court": "PKB",
+            "texte": "Wielkość każdej gospodarki, w miliardach dolarów bieżących.",
+        },
+        "pib-ppa": {
+            "slug": "pkb-psn",
+            "nom": "PKB według parytetu siły nabywczej",
+            "nav": "PKB (PSN)", "nav_court": "PKB PSN",
+            "texte": "Wielkość każdej gospodarki po uwzględnieniu kosztów życia, w dolarach międzynarodowych.",
         },
         "pib-par-habitant": {
             "slug": "pkb-na-mieszkanca",
-            "titre": "PKB na mieszkańca według krajów — interaktywna mapa świata | StatsMaps",
-            "description": "Interaktywna mapa PKB na mieszkańca 197 krajów, od 1980 do 2031 roku. Oficjalne dane MFW, ranking światowy i poziom zamożności na osobę.",
-            "h1": "PKB na mieszkańca", "nav": "PKB na mieszkańca", "nav_court": "PKB/mieszk.",
-            "vignette": "PKB na mieszkańca",
-            "vignette_texte": "Bogactwo wytworzone na osobę, w dolarach bieżących.",
+            "nom": "PKB na mieszkańca",
+            "nav": "PKB na mieszkańca", "nav_court": "PKB/mieszk.",
+            "texte": "Bogactwo wytworzone na osobę, w dolarach bieżących.",
+        },
+        "pib-par-habitant-ppa": {
+            "slug": "pkb-na-mieszkanca-psn",
+            "nom": "PKB na mieszkańca według parytetu siły nabywczej",
+            "nav": "PKB na mieszkańca (PSN)", "nav_court": "PKB/mieszk. PSN",
+            "texte": "Bogactwo wytworzone na osobę po uwzględnieniu kosztów życia, w dolarach międzynarodowych.",
         },
         "croissance": {
             "slug": "wzrost-pkb",
-            "titre": "Wzrost PKB według krajów — interaktywna mapa świata | StatsMaps",
-            "description": "Interaktywna mapa wzrostu realnego PKB 197 krajów, od 1980 do 2031 roku. Oficjalne dane MFW: recesje na czerwono, wzrost na zielono.",
-            "h1": "Wzrost", "nav": "Wzrost", "nav_court": "Wzrost",
-            "vignette": "Wzrost PKB",
-            "vignette_texte": "Zmiana realnego PKB z roku na rok, w procentach.",
+            "nom": "Wzrost PKB",
+            "nav": "Wzrost", "nav_court": "Wzrost",
+            "texte": "Zmiana realnego PKB z roku na rok, w procentach.",
         },
-        "annee-record-pib": {
-            "slug": "rekordowy-rok-pkb",
-            "titre": "Rekordowy rok PKB według krajów — interaktywna mapa świata | StatsMaps",
-            "description": "Interaktywna mapa roku, w którym PKB każdego kraju było najwyższe, od 1980 do 2031 roku, wraz z prognozami MFW. Na zielono kraje dziś na szczycie, na czerwono te, które nigdy nie wróciły do rekordu. Oficjalne dane MFW.",
-            "h1": "Rekordowy rok PKB", "nav": "Rekordowy rok PKB", "nav_court": "Rekord PKB",
-            "vignette": "Rekordowy rok PKB",
-            "vignette_texte": "Rok, w którym każdy kraj osiągnął maksimum — i te, które już do niego nie wróciły.",
+        "inflation": {
+            "slug": "inflacja",
+            "nom": "Inflacja",
+            "nav": "Inflacja", "nav_court": "Inflacja",
+            "texte": "Wzrost cen konsumpcyjnych z roku na rok, w procentach.",
         },
-        "annee-record-pib-par-habitant": {
-            "slug": "rekordowy-rok-pkb-na-mieszkanca",
-            "titre": "Rekordowy rok PKB na mieszkańca — interaktywna mapa świata | StatsMaps",
-            "description": "Interaktywna mapa roku, w którym PKB na mieszkańca każdego kraju było najwyższe, od 1980 do 2031 roku, wraz z prognozami MFW. Na zielono kraje dziś na szczycie, na czerwono te, które nigdy nie wróciły do rekordu. Oficjalne dane MFW.",
-            "h1": "Rekordowy rok PKB na mieszkańca",
-            "nav": "Rekordowy rok PKB na mieszkańca", "nav_court": "Rekord PKB/mieszk.",
-            "vignette": "Rekordowy rok PKB na mieszkańca",
-            "vignette_texte": "Rok, w którym mieszkańcy każdego kraju byli średnio najzamożniejsi.",
+        "population": {
+            "slug": "ludnosc",
+            "nom": "Ludność",
+            "nav": "Ludność", "nav_court": "Ludność",
+            "texte": "Ilu ludzi mieszka w każdym kraju, w milionach.",
         },
     },
 })
 
-# --------------------------------------------------------------- Japonais ---
+# ------------------------------------------------------------------- 日本語 ---
 LANGUES.append({
     "code": "ja", "dossier": "ja", "hreflang": "ja", "sens": "ltr",
     "drapeau": "🇯🇵", "nom": "日本語", "nav_aria": "地図",
-    # Les libellés que lisent les lecteurs d'écran, et l'infobulle du menu.
+    # Les libellés que lisent les lecteurs d'écran, et les infobulles.
     "langue_label": "言語", "theme_label": "テーマを切り替える",
-    "theme_clair": "ライトテーマに切り替える", "theme_sombre": "ダークテーマに切り替える",
+    "theme_clair": "ライトテーマにする", "theme_sombre": "ダークテーマにする",
+    "variantes_label": "単位",
+    "modele_titre": "国別の{nom} — インタラクティブ世界地図 | StatsMaps",
+    "modele_titre_categorie": "{nom} — 地図の一覧 | StatsMaps",
+    "modele_description": (
+        "{texte} 1980年から2031年まで、197か国のインタラクティブ地図。IMFの公式データ（World Economic Outlook）による世界ランキングと年ごとの推移。"),
     "accueil": {
-        "titre": "StatsMaps — 世界の統計をインタラクティブな地図で",
-        "description": "世界経済のインタラクティブ地図。名目GDP、一人当たりGDP、成長率、最高年を197か国について1980年から2031年まで、IMFの公式データにもとづいて表示します。",
+        "titre": "StatsMaps — 世界の地図と統計",
+        "description": "世界の統計をインタラクティブ地図で。197か国のGDP、一人当たりGDP、成長率、インフレ率、人口を、1980年から2031年まで。IMFの公式データによる。",
         "h1": "世界の統計を、地図で。",
-        "intro": "StatsMapsは、公式統計をもとに世界の主要な指標を地図にします。まずは経済から。国際通貨基金（IMF）のデータで、197か国、1980年から2031年まで。",
-        "bientot": "近日公開：人口、インフラ、エネルギー、教育、保健。",
+        "intro": "StatsMapsは、公式統計をもとに世界の主要な指標を地図にします。カテゴリーを選ぶと、その地図が並びます。今日は経済と人口統計。国際通貨基金（IMF）のデータで、197か国、1980年から2031年まで。",
+        "bientot": "近日公開：インフラ、エネルギー、教育、保健。",
         "pied": "データ：IMF（World Economic Outlook）· 地図：Natural Earth · 広告なし、追跡なし。",
+    },
+    "variantes": {"nominal": "米ドル", "ppa": "購買力平価"},
+    "categories": {
+        "economie": {
+            "slug": "economy",
+            "nom": "経済",
+            "texte": "GDP、一人当たりの豊かさ、成長率、インフレ率。",
+            "h1": "世界の経済を、地図で。",
+            "intro": "国際通貨基金（IMF）のWorld Economic Outlookによる4つの地図。197か国、1980年から2031年まで、予測を含みます。",
+        },
+        "demographie": {
+            "slug": "demographics",
+            "nom": "人口統計",
+            "texte": "各国に暮らす人の数を、年ごとに。",
+            "h1": "世界の人口を、地図で。",
+            "intro": "IMFは各国の人口も公表しています。197か国、1980年から2031年まで、予測を含みます。",
+        },
     },
     "cartes": {
         "pib-nominal": {
             "slug": "nominal-gdp",
-            "titre": "国別の名目GDP — インタラクティブ世界地図 | StatsMaps",
-            "description": "197か国の名目GDPをたどるインタラクティブ地図。1980年から2031年まで。IMFの公式データ（World Economic Outlook）、世界ランキングと年ごとの推移。",
-            "h1": "名目GDP", "nav": "名目GDP", "nav_court": "GDP",
-            "vignette": "名目GDP",
-            "vignette_texte": "各国経済の規模を、名目の十億ドルで。",
+            "nom": "名目GDP",
+            "nav": "名目GDP", "nav_court": "GDP",
+            "texte": "各国経済の規模を、名目の十億ドルで。",
+        },
+        "pib-ppa": {
+            "slug": "gdp-ppp",
+            "nom": "購買力平価GDP",
+            "nav": "GDP（PPP）", "nav_court": "GDP PPP",
+            "texte": "物価水準を補正した各国経済の規模を、国際ドルで。",
         },
         "pib-par-habitant": {
             "slug": "gdp-per-capita",
-            "titre": "国別の一人当たりGDP — インタラクティブ世界地図 | StatsMaps",
-            "description": "197か国の一人当たりGDPをたどるインタラクティブ地図。1980年から2031年まで。IMFの公式データ、世界ランキングと一人あたりの豊かさ。",
-            "h1": "一人当たりGDP", "nav": "一人当たりGDP", "nav_court": "GDP/人",
-            "vignette": "一人当たりGDP",
-            "vignette_texte": "一人あたりが生み出す富を、名目ドルで。",
+            "nom": "一人当たりGDP",
+            "nav": "一人当たりGDP", "nav_court": "GDP/人",
+            "texte": "一人あたりが生み出す富を、名目ドルで。",
+        },
+        "pib-par-habitant-ppa": {
+            "slug": "gdp-per-capita-ppp",
+            "nom": "購買力平価の一人当たりGDP",
+            "nav": "一人当たりGDP（PPP）", "nav_court": "GDP/人 PPP",
+            "texte": "物価水準を補正した一人あたりの富を、国際ドルで。",
         },
         "croissance": {
             "slug": "gdp-growth",
-            "titre": "国別のGDP成長率 — インタラクティブ世界地図 | StatsMaps",
-            "description": "197か国の実質GDP成長率をたどるインタラクティブ地図。1980年から2031年まで。IMFの公式データ。景気後退は赤、拡大は緑。",
-            "h1": "成長率", "nav": "成長率", "nav_court": "成長率",
-            "vignette": "GDP成長率",
-            "vignette_texte": "実質GDPの前年からの変化を、パーセントで。",
+            "nom": "GDP成長率",
+            "nav": "成長率", "nav_court": "成長率",
+            "texte": "実質GDPの前年からの変化を、パーセントで。",
         },
-        "annee-record-pib": {
-            "slug": "gdp-peak-year",
-            "titre": "国別のGDP最高年 — インタラクティブ世界地図 | StatsMaps",
-            "description": "各国のGDPが最も高かった年を示すインタラクティブ地図。1980年から2031年まで、IMFの予測を含みます。今が最高の国は緑、いまだ最高値に戻っていない国は赤。IMFの公式データ。",
-            "h1": "GDPの最高年", "nav": "GDPの最高年", "nav_court": "GDP最高年",
-            "vignette": "GDPの最高年",
-            "vignette_texte": "各国が最高値をつけた年 — そして、そこへ戻れないままの国々。",
+        "inflation": {
+            "slug": "inflation",
+            "nom": "インフレ率",
+            "nav": "インフレ率", "nav_court": "インフレ",
+            "texte": "消費者物価の前年からの上昇を、パーセントで。",
         },
-        "annee-record-pib-par-habitant": {
-            "slug": "gdp-per-capita-peak-year",
-            "titre": "一人当たりGDPの最高年 — インタラクティブ世界地図 | StatsMaps",
-            "description": "各国の一人当たりGDPが最も高かった年を示すインタラクティブ地図。1980年から2031年まで、IMFの予測を含みます。今が最高の国は緑、いまだ最高値に戻っていない国は赤。IMFの公式データ。",
-            "h1": "一人当たりGDPの最高年",
-            "nav": "一人当たりGDPの最高年", "nav_court": "GDP/人 最高年",
-            "vignette": "一人当たりGDPの最高年",
-            "vignette_texte": "各国の人々が平均として最も豊かだった年。",
+        "population": {
+            "slug": "population",
+            "nom": "人口",
+            "nav": "人口", "nav_court": "人口",
+            "texte": "各国に暮らす人の数を、百万人単位で。",
         },
     },
 })
 
-# ----------------------------------------------------------------- Coréen ---
+# ------------------------------------------------------------------- 한국어 ---
 LANGUES.append({
     "code": "ko", "dossier": "ko", "hreflang": "ko", "sens": "ltr",
     "drapeau": "🇰🇷", "nom": "한국어", "nav_aria": "지도",
-    # Les libellés que lisent les lecteurs d'écran, et l'infobulle du menu.
-    "langue_label": "언어", "theme_label": "테마 변경",
-    "theme_clair": "밝은 테마로 전환", "theme_sombre": "어두운 테마로 전환",
+    # Les libellés que lisent les lecteurs d'écran, et les infobulles.
+    "langue_label": "언어", "theme_label": "테마 바꾸기",
+    "theme_clair": "밝은 테마로", "theme_sombre": "어두운 테마로",
+    "variantes_label": "단위",
+    "modele_titre": "국가별 {nom} — 인터랙티브 세계 지도 | StatsMaps",
+    "modele_titre_categorie": "{nom} — 지도 전체 | StatsMaps",
+    "modele_description": (
+        "{texte} 1980년부터 2031년까지 197개국의 인터랙티브 지도. IMF 공식 자료(World Economic Outlook)에 따른 세계 순위와 연도별 변화."),
     "accueil": {
-        "titre": "StatsMaps — 인터랙티브 지도로 보는 세계 통계",
-        "description": "세계 경제를 보여 주는 인터랙티브 지도. 명목 GDP, 1인당 GDP, 성장률, 최고 연도를 197개국에 대해 1980년부터 2031년까지, IMF 공식 자료를 바탕으로 제공합니다.",
+        "titre": "StatsMaps — 세계 지도와 통계",
+        "description": "세계 통계를 인터랙티브 지도로. 197개국의 GDP, 1인당 GDP, 성장률, 물가상승률, 인구를 1980년부터 2031년까지, IMF 공식 자료로.",
         "h1": "세계의 통계를 지도로.",
-        "intro": "StatsMaps는 공식 통계를 바탕으로 세계의 주요 지표를 지도로 보여 줍니다. 먼저 경제부터. 국제통화기금(IMF) 자료로 197개국, 1980년부터 2031년까지.",
-        "bientot": "곧 공개: 인구, 인프라, 에너지, 교육, 보건.",
+        "intro": "StatsMaps는 공식 통계를 바탕으로 세계의 주요 지표를 지도로 보여 줍니다. 범주를 고르면 그 안의 지도가 나옵니다. 지금은 경제와 인구 통계. 국제통화기금(IMF) 자료로 197개국, 1980년부터 2031년까지.",
+        "bientot": "곧 공개: 인프라, 에너지, 교육, 보건.",
         "pied": "자료: IMF(World Economic Outlook) · 배경 지도: Natural Earth · 광고 없음, 추적 없음.",
+    },
+    "variantes": {"nominal": "미국 달러", "ppa": "구매력 평가"},
+    "categories": {
+        "economie": {
+            "slug": "economy",
+            "nom": "경제",
+            "texte": "GDP, 1인당 부, 성장률, 물가상승률.",
+            "h1": "세계 경제를 지도로.",
+            "intro": "국제통화기금(IMF)의 World Economic Outlook에서 뽑은 네 장의 지도. 197개국, 1980년부터 2031년까지, 전망 포함.",
+        },
+        "demographie": {
+            "slug": "demographics",
+            "nom": "인구 통계",
+            "texte": "각 나라에 사는 사람 수를 해마다.",
+            "h1": "세계 인구를 지도로.",
+            "intro": "IMF는 각국의 인구도 발표합니다. 197개국, 1980년부터 2031년까지, 전망 포함.",
+        },
     },
     "cartes": {
         "pib-nominal": {
             "slug": "nominal-gdp",
-            "titre": "국가별 명목 GDP — 인터랙티브 세계 지도 | StatsMaps",
-            "description": "197개국의 명목 GDP를 보여 주는 인터랙티브 지도. 1980년부터 2031년까지. IMF 공식 자료(World Economic Outlook), 세계 순위와 연도별 변화.",
-            "h1": "명목 GDP", "nav": "명목 GDP", "nav_court": "GDP",
-            "vignette": "명목 GDP",
-            "vignette_texte": "각국 경제의 규모를 경상 십억 달러로.",
+            "nom": "명목 GDP",
+            "nav": "명목 GDP", "nav_court": "GDP",
+            "texte": "각국 경제의 규모를 경상 십억 달러로.",
+        },
+        "pib-ppa": {
+            "slug": "gdp-ppp",
+            "nom": "구매력 평가 GDP",
+            "nav": "GDP(PPP)", "nav_court": "GDP PPP",
+            "texte": "물가 수준을 반영한 각국 경제의 규모를 국제 달러로.",
         },
         "pib-par-habitant": {
             "slug": "gdp-per-capita",
-            "titre": "국가별 1인당 GDP — 인터랙티브 세계 지도 | StatsMaps",
-            "description": "197개국의 1인당 GDP를 보여 주는 인터랙티브 지도. 1980년부터 2031년까지. IMF 공식 자료, 세계 순위와 1인당 소득 수준.",
-            "h1": "1인당 GDP", "nav": "1인당 GDP", "nav_court": "GDP/인",
-            "vignette": "1인당 GDP",
-            "vignette_texte": "한 사람이 만들어 내는 부를 경상 달러로.",
+            "nom": "1인당 GDP",
+            "nav": "1인당 GDP", "nav_court": "GDP/인",
+            "texte": "한 사람이 만들어 내는 부를 경상 달러로.",
+        },
+        "pib-par-habitant-ppa": {
+            "slug": "gdp-per-capita-ppp",
+            "nom": "구매력 평가 1인당 GDP",
+            "nav": "1인당 GDP(PPP)", "nav_court": "GDP/인 PPP",
+            "texte": "물가 수준을 반영한 1인당 부를 국제 달러로.",
         },
         "croissance": {
             "slug": "gdp-growth",
-            "titre": "국가별 GDP 성장률 — 인터랙티브 세계 지도 | StatsMaps",
-            "description": "197개국의 실질 GDP 성장률을 보여 주는 인터랙티브 지도. 1980년부터 2031년까지. IMF 공식 자료: 경기 침체는 빨강, 확장은 초록.",
-            "h1": "성장률", "nav": "성장률", "nav_court": "성장률",
-            "vignette": "GDP 성장률",
-            "vignette_texte": "실질 GDP의 전년 대비 변화를 백분율로.",
+            "nom": "GDP 성장률",
+            "nav": "성장률", "nav_court": "성장률",
+            "texte": "실질 GDP의 전년 대비 변화를 백분율로.",
         },
-        "annee-record-pib": {
-            "slug": "gdp-peak-year",
-            "titre": "국가별 GDP 최고 연도 — 인터랙티브 세계 지도 | StatsMaps",
-            "description": "각국의 GDP가 가장 높았던 해를 보여 주는 인터랙티브 지도. 1980년부터 2031년까지, IMF 전망 포함. 오늘 최고치인 나라는 초록, 아직 회복하지 못한 나라는 빨강. IMF 공식 자료.",
-            "h1": "GDP 최고 연도", "nav": "GDP 최고 연도", "nav_court": "GDP 최고",
-            "vignette": "GDP 최고 연도",
-            "vignette_texte": "각 나라가 최고치에 이른 해 — 그리고 다시 돌아가지 못한 나라들.",
+        "inflation": {
+            "slug": "inflation",
+            "nom": "물가상승률",
+            "nav": "물가상승률", "nav_court": "물가",
+            "texte": "소비자물가의 전년 대비 상승을 백분율로.",
         },
-        "annee-record-pib-par-habitant": {
-            "slug": "gdp-per-capita-peak-year",
-            "titre": "1인당 GDP 최고 연도 — 인터랙티브 세계 지도 | StatsMaps",
-            "description": "각국의 1인당 GDP가 가장 높았던 해를 보여 주는 인터랙티브 지도. 1980년부터 2031년까지, IMF 전망 포함. 오늘 최고치인 나라는 초록, 아직 회복하지 못한 나라는 빨강. IMF 공식 자료.",
-            "h1": "1인당 GDP 최고 연도",
-            "nav": "1인당 GDP 최고 연도", "nav_court": "GDP/인 최고",
-            "vignette": "1인당 GDP 최고 연도",
-            "vignette_texte": "각 나라 사람들이 평균적으로 가장 부유했던 해.",
+        "population": {
+            "slug": "population",
+            "nom": "인구",
+            "nav": "인구", "nav_court": "인구",
+            "texte": "각 나라에 사는 사람 수를 백만 명 단위로.",
         },
     },
 })
 
-# ------------------------------------------------------------------- Turc ---
+# ---------------------------------------------------------------- Türkçe ---
 LANGUES.append({
     "code": "tr", "dossier": "tr", "hreflang": "tr", "sens": "ltr",
     "drapeau": "🇹🇷", "nom": "Türkçe", "nav_aria": "Haritalar",
-    # Les libellés que lisent les lecteurs d'écran, et l'infobulle du menu.
+    # Les libellés que lisent les lecteurs d'écran, et les infobulles.
     "langue_label": "Dil", "theme_label": "Temayı değiştir",
     "theme_clair": "Açık temaya geç", "theme_sombre": "Koyu temaya geç",
+    "variantes_label": "Birim",
+    "modele_titre": "Ülkelere göre {nom} — etkileşimli dünya haritası | StatsMaps",
+    "modele_titre_categorie": "{nom} — bütün haritalar | StatsMaps",
+    "modele_description": (
+        "{texte} 1980’den 2031’e 197 ülkenin etkileşimli haritası. IMF’nin resmî verileriyle (World Economic Outlook) dünya sıralaması ve yıldan yıla değişim."),
     "accueil": {
-        "titre": "StatsMaps — etkileşimli haritalarla dünya istatistikleri",
-        "description": "Dünya ekonomisinin etkileşimli haritaları: nominal GSYİH, kişi başına GSYİH, büyüme ve zirve yılları; 197 ülke, 1980’den 2031’e, IMF’nin resmî verileriyle.",
+        "titre": "StatsMaps — dünya haritaları ve istatistikler",
+        "description": "Dünya istatistiklerinin etkileşimli haritaları: 197 ülkenin GSYİH’si, kişi başına GSYİH’si, büyümesi, enflasyonu ve nüfusu; 1980’den 2031’e, IMF’nin resmî verileriyle.",
         "h1": "Dünyanın istatistikleri, haritada.",
-        "intro": "StatsMaps, resmî kaynaklardan yola çıkarak dünyanın büyük göstergelerini haritaya döker. Başlangıç ekonomiyle: Uluslararası Para Fonu verileriyle 197 ülke, 1980’den 2031’e.",
-        "bientot": "Yakında: nüfus, altyapı, enerji, eğitim ve sağlık.",
+        "intro": "StatsMaps, resmî kaynaklardan yola çıkarak dünyanın büyük göstergelerini haritaya döker. Haritalarını görmek için bir kategori seç: bugün ekonomi ve demografi, Uluslararası Para Fonu verileriyle — 197 ülke, 1980’den 2031’e.",
+        "bientot": "Yakında: altyapı, enerji, eğitim ve sağlık.",
         "pied": "Veriler: IMF (World Economic Outlook) · Altlık harita: Natural Earth · Reklamsız, izlemesiz.",
+    },
+    "variantes": {"nominal": "ABD doları", "ppa": "Satın alma gücü paritesi"},
+    "categories": {
+        "economie": {
+            "slug": "ekonomi",
+            "nom": "Ekonomi",
+            "texte": "GSYİH, kişi başına zenginlik, büyüme ve enflasyon.",
+            "h1": "Dünya ekonomisi, haritada.",
+            "intro": "Uluslararası Para Fonu’nun World Economic Outlook raporundan dört harita: 197 ülke, 1980’den 2031’e, projeksiyonlar dâhil.",
+        },
+        "demographie": {
+            "slug": "demografi",
+            "nom": "Demografi",
+            "texte": "Her ülkede kaç kişi yaşadığı, yıl yıl.",
+            "h1": "Dünya nüfusu, haritada.",
+            "intro": "IMF her ülkenin nüfusunu da yayımlıyor: 197 ülke, 1980’den 2031’e, projeksiyonlar dâhil.",
+        },
     },
     "cartes": {
         "pib-nominal": {
             "slug": "nominal-gsyih",
-            "titre": "Ülkelere göre nominal GSYİH — etkileşimli dünya haritası | StatsMaps",
-            "description": "197 ülkenin nominal GSYİH’sini gösteren etkileşimli harita, 1980’den 2031’e. IMF’nin resmî verileri (World Economic Outlook), dünya sıralaması ve yıl yıl değişim.",
-            "h1": "Nominal GSYİH", "nav": "Nominal GSYİH", "nav_court": "GSYİH",
-            "vignette": "Nominal GSYİH",
-            "vignette_texte": "Her ekonominin büyüklüğü, cari milyar dolar olarak.",
+            "nom": "Nominal GSYİH",
+            "nav": "GSYİH", "nav_court": "GSYİH",
+            "texte": "Her ekonominin büyüklüğü, cari milyar dolar olarak.",
+        },
+        "pib-ppa": {
+            "slug": "gsyih-sagp",
+            "nom": "Satın alma gücü paritesine göre GSYİH",
+            "nav": "GSYİH (SAGP)", "nav_court": "GSYİH SAGP",
+            "texte": "Hayat pahalılığı düzeltildikten sonra her ekonominin büyüklüğü, uluslararası dolar olarak.",
         },
         "pib-par-habitant": {
             "slug": "kisi-basi-gsyih",
-            "titre": "Ülkelere göre kişi başına GSYİH — etkileşimli dünya haritası | StatsMaps",
-            "description": "197 ülkenin kişi başına GSYİH’sini gösteren etkileşimli harita, 1980’den 2031’e. IMF’nin resmî verileri, dünya sıralaması ve kişi başına refah düzeyi.",
-            "h1": "Kişi başına GSYİH",
+            "nom": "Kişi başına GSYİH",
             "nav": "Kişi başına GSYİH", "nav_court": "GSYİH/kişi",
-            "vignette": "Kişi başına GSYİH",
-            "vignette_texte": "Kişi başına üretilen zenginlik, cari dolar olarak.",
+            "texte": "Kişi başına üretilen zenginlik, cari dolar olarak.",
+        },
+        "pib-par-habitant-ppa": {
+            "slug": "kisi-basi-gsyih-sagp",
+            "nom": "Satın alma gücü paritesine göre kişi başına GSYİH",
+            "nav": "Kişi başına GSYİH (SAGP)", "nav_court": "GSYİH/kişi SAGP",
+            "texte": "Hayat pahalılığı düzeltildikten sonra kişi başına zenginlik, uluslararası dolar olarak.",
         },
         "croissance": {
             "slug": "gsyih-buyumesi",
-            "titre": "Ülkelere göre GSYİH büyümesi — etkileşimli dünya haritası | StatsMaps",
-            "description": "197 ülkenin reel GSYİH büyümesini gösteren etkileşimli harita, 1980’den 2031’e. IMF’nin resmî verileri: durgunluklar kırmızı, büyümeler yeşil.",
-            "h1": "Büyüme", "nav": "Büyüme", "nav_court": "Büyüme",
-            "vignette": "GSYİH büyümesi",
-            "vignette_texte": "Reel GSYİH’nin yıldan yıla değişimi, yüzde olarak.",
+            "nom": "GSYİH büyümesi",
+            "nav": "Büyüme", "nav_court": "Büyüme",
+            "texte": "Reel GSYİH’nin yıldan yıla değişimi, yüzde olarak.",
         },
-        "annee-record-pib": {
-            "slug": "gsyih-zirve-yili",
-            "titre": "Ülkelere göre GSYİH zirve yılı — etkileşimli dünya haritası | StatsMaps",
-            "description": "Her ülkenin GSYİH’sinin en yüksek olduğu yılı gösteren etkileşimli harita, 1980’den 2031’e, IMF öngörüleri dâhil. Bugün zirvede olan ülkeler yeşil, zirveye bir daha dönemeyenler kırmızı. IMF’nin resmî verileri.",
-            "h1": "GSYİH zirve yılı", "nav": "GSYİH zirve yılı", "nav_court": "GSYİH zirve",
-            "vignette": "GSYİH zirve yılı",
-            "vignette_texte": "Her ülkenin en yüksek noktaya ulaştığı yıl — ve oraya bir daha dönemeyenler.",
+        "inflation": {
+            "slug": "enflasyon",
+            "nom": "Enflasyon",
+            "nav": "Enflasyon", "nav_court": "Enflasyon",
+            "texte": "Tüketici fiyatlarının yıldan yıla artışı, yüzde olarak.",
         },
-        "annee-record-pib-par-habitant": {
-            "slug": "kisi-basi-gsyih-zirve-yili",
-            "titre": "Kişi başına GSYİH zirve yılı — etkileşimli dünya haritası | StatsMaps",
-            "description": "Her ülkenin kişi başına GSYİH’sinin en yüksek olduğu yılı gösteren etkileşimli harita, 1980’den 2031’e, IMF öngörüleri dâhil. Bugün zirvede olan ülkeler yeşil, zirveye bir daha dönemeyenler kırmızı. IMF’nin resmî verileri.",
-            "h1": "Kişi başına GSYİH zirve yılı",
-            "nav": "Kişi başına GSYİH zirve yılı", "nav_court": "GSYİH/kişi zirve",
-            "vignette": "Kişi başına GSYİH zirve yılı",
-            "vignette_texte": "Her ülkenin insanlarının ortalama olarak en zengin olduğu yıl.",
+        "population": {
+            "slug": "nufus",
+            "nom": "Nüfus",
+            "nav": "Nüfus", "nav_court": "Nüfus",
+            "texte": "Her ülkede kaç kişi yaşadığı, milyon olarak.",
         },
     },
 })
 
-# ------------------------------------------------------------------ Hindi ---
+# ---------------------------------------------------------------- हिन्दी ---
 LANGUES.append({
     "code": "hi", "dossier": "hi", "hreflang": "hi", "sens": "ltr",
     "drapeau": "🇮🇳", "nom": "हिन्दी", "nav_aria": "मानचित्र",
-    # Les libellés que lisent les lecteurs d'écran, et l'infobulle du menu.
+    # Les libellés que lisent les lecteurs d'écran, et les infobulles.
     "langue_label": "भाषा", "theme_label": "थीम बदलें",
     "theme_clair": "हल्की थीम पर जाएँ", "theme_sombre": "गहरी थीम पर जाएँ",
+    "variantes_label": "इकाई",
+    "modele_titre": "देश के अनुसार {nom} — इंटरैक्टिव विश्व मानचित्र | StatsMaps",
+    "modele_titre_categorie": "{nom} — सभी मानचित्र | StatsMaps",
+    "modele_description": (
+        "{texte} 1980 से 2031 तक 197 देशों का इंटरैक्टिव मानचित्र। IMF के आधिकारिक आँकड़ों (World Economic Outlook) पर आधारित विश्व रैंकिंग और वर्ष-दर-वर्ष बदलाव।"),
     "accueil": {
-        "titre": "StatsMaps — इंटरैक्टिव मानचित्रों पर विश्व के आँकड़े",
-        "description": "विश्व अर्थव्यवस्था के इंटरैक्टिव मानचित्र: नाममात्र जीडीपी, प्रति व्यक्ति जीडीपी, वृद्धि दर और शिखर वर्ष — 197 देश, 1980 से 2031 तक, IMF के आधिकारिक आँकड़ों पर आधारित।",
+        "titre": "StatsMaps — विश्व मानचित्र और आँकड़े",
+        "description": "विश्व के आँकड़ों के इंटरैक्टिव मानचित्र: 197 देशों की जीडीपी, प्रति व्यक्ति जीडीपी, वृद्धि दर, मुद्रास्फीति और जनसंख्या, 1980 से 2031 तक, IMF के आधिकारिक आँकड़ों से।",
         "h1": "दुनिया के आँकड़े, मानचित्र पर।",
-        "intro": "StatsMaps आधिकारिक स्रोतों के आधार पर विश्व के प्रमुख संकेतकों को इंटरैक्टिव मानचित्रों में बदलता है। शुरुआत अर्थव्यवस्था से — अंतर्राष्ट्रीय मुद्रा कोष के आँकड़ों के साथ: 197 देश, 1980 से 2031 तक।",
-        "bientot": "जल्द ही: जनसांख्यिकी, बुनियादी ढाँचा, ऊर्जा, शिक्षा और स्वास्थ्य।",
+        "intro": "StatsMaps आधिकारिक स्रोतों के आधार पर विश्व के प्रमुख संकेतकों को इंटरैक्टिव मानचित्रों में बदलता है। किसी श्रेणी को चुनें और उसके मानचित्र देखें: फ़िलहाल अर्थव्यवस्था और जनसांख्यिकी, अंतर्राष्ट्रीय मुद्रा कोष के आँकड़ों से — 197 देश, 1980 से 2031 तक।",
+        "bientot": "जल्द ही: बुनियादी ढाँचा, ऊर्जा, शिक्षा और स्वास्थ्य।",
         "pied": "आँकड़े: IMF (World Economic Outlook) · आधार मानचित्र: Natural Earth · न विज्ञापन, न ट्रैकिंग।",
+    },
+    "variantes": {"nominal": "अमेरिकी डॉलर", "ppa": "क्रय शक्ति समता"},
+    "categories": {
+        "economie": {
+            "slug": "economy",
+            "nom": "अर्थव्यवस्था",
+            "texte": "जीडीपी, प्रति व्यक्ति संपत्ति, वृद्धि दर और मुद्रास्फीति।",
+            "h1": "दुनिया की अर्थव्यवस्था, मानचित्र पर।",
+            "intro": "अंतर्राष्ट्रीय मुद्रा कोष की World Economic Outlook रिपोर्ट से चार मानचित्र: 197 देश, 1980 से 2031 तक, अनुमानों सहित।",
+        },
+        "demographie": {
+            "slug": "demographics",
+            "nom": "जनसांख्यिकी",
+            "texte": "हर देश में कितने लोग रहते हैं, वर्ष-दर-वर्ष।",
+            "h1": "दुनिया की जनसंख्या, मानचित्र पर।",
+            "intro": "IMF हर देश की जनसंख्या भी प्रकाशित करता है: 197 देश, 1980 से 2031 तक, अनुमानों सहित।",
+        },
     },
     "cartes": {
         "pib-nominal": {
             "slug": "nominal-gdp",
-            "titre": "देशवार नाममात्र जीडीपी — इंटरैक्टिव विश्व मानचित्र | StatsMaps",
-            "description": "197 देशों की नाममात्र जीडीपी का इंटरैक्टिव मानचित्र, 1980 से 2031 तक। IMF के आधिकारिक आँकड़े (World Economic Outlook), विश्व क्रम और वर्ष-दर-वर्ष बदलाव।",
-            "h1": "नाममात्र जीडीपी", "nav": "नाममात्र जीडीपी", "nav_court": "जीडीपी",
-            "vignette": "नाममात्र जीडीपी",
-            "vignette_texte": "हर अर्थव्यवस्था का आकार, चालू अरब डॉलर में।",
+            "nom": "नाममात्र जीडीपी",
+            "nav": "जीडीपी", "nav_court": "जीडीपी",
+            "texte": "हर अर्थव्यवस्था का आकार, चालू अरब डॉलर में।",
+        },
+        "pib-ppa": {
+            "slug": "gdp-ppp",
+            "nom": "क्रय शक्ति समता जीडीपी",
+            "nav": "जीडीपी (पीपीपी)", "nav_court": "जीडीपी पीपीपी",
+            "texte": "जीवन-यापन की लागत को समायोजित करने के बाद हर अर्थव्यवस्था का आकार, अंतर्राष्ट्रीय डॉलर में।",
         },
         "pib-par-habitant": {
             "slug": "gdp-per-capita",
-            "titre": "देशवार प्रति व्यक्ति जीडीपी — इंटरैक्टिव विश्व मानचित्र | StatsMaps",
-            "description": "197 देशों की प्रति व्यक्ति जीडीपी का इंटरैक्टिव मानचित्र, 1980 से 2031 तक। IMF के आधिकारिक आँकड़े, विश्व क्रम और प्रति व्यक्ति समृद्धि का स्तर।",
-            "h1": "प्रति व्यक्ति जीडीपी",
+            "nom": "प्रति व्यक्ति जीडीपी",
             "nav": "प्रति व्यक्ति जीडीपी", "nav_court": "जीडीपी/व्यक्ति",
-            "vignette": "प्रति व्यक्ति जीडीपी",
-            "vignette_texte": "प्रति व्यक्ति उत्पादित संपत्ति, चालू डॉलर में।",
+            "texte": "प्रति व्यक्ति उत्पादित संपत्ति, चालू डॉलर में।",
+        },
+        "pib-par-habitant-ppa": {
+            "slug": "gdp-per-capita-ppp",
+            "nom": "क्रय शक्ति समता पर प्रति व्यक्ति जीडीपी",
+            "nav": "प्रति व्यक्ति जीडीपी (पीपीपी)", "nav_court": "जीडीपी/व्यक्ति पीपीपी",
+            "texte": "जीवन-यापन की लागत को समायोजित करने के बाद प्रति व्यक्ति संपत्ति, अंतर्राष्ट्रीय डॉलर में।",
         },
         "croissance": {
             "slug": "gdp-growth",
-            "titre": "देशवार जीडीपी वृद्धि दर — इंटरैक्टिव विश्व मानचित्र | StatsMaps",
-            "description": "197 देशों की वास्तविक जीडीपी वृद्धि दर का इंटरैक्टिव मानचित्र, 1980 से 2031 तक। IMF के आधिकारिक आँकड़े: मंदी लाल रंग में, विस्तार हरे रंग में।",
-            "h1": "वृद्धि दर", "nav": "वृद्धि दर", "nav_court": "वृद्धि",
-            "vignette": "जीडीपी वृद्धि दर",
-            "vignette_texte": "वास्तविक जीडीपी में वर्ष-दर-वर्ष बदलाव, प्रतिशत में।",
+            "nom": "जीडीपी वृद्धि दर",
+            "nav": "वृद्धि दर", "nav_court": "वृद्धि",
+            "texte": "वास्तविक जीडीपी में वर्ष-दर-वर्ष बदलाव, प्रतिशत में।",
         },
-        "annee-record-pib": {
-            "slug": "gdp-peak-year",
-            "titre": "देशवार जीडीपी का शिखर वर्ष — इंटरैक्टिव विश्व मानचित्र | StatsMaps",
-            "description": "वह वर्ष दिखाने वाला इंटरैक्टिव मानचित्र जब हर देश की जीडीपी सर्वोच्च थी, 1980 से 2031 तक, IMF के अनुमानों सहित। आज शिखर पर मौजूद देश हरे, कभी न लौट पाने वाले लाल। IMF के आधिकारिक आँकड़े।",
-            "h1": "जीडीपी का शिखर वर्ष",
-            "nav": "जीडीपी का शिखर वर्ष", "nav_court": "जीडीपी शिखर",
-            "vignette": "जीडीपी का शिखर वर्ष",
-            "vignette_texte": "वह वर्ष जब हर देश अपने चरम पर था — और वे देश जो वहाँ कभी नहीं लौटे।",
+        "inflation": {
+            "slug": "inflation",
+            "nom": "मुद्रास्फीति",
+            "nav": "मुद्रास्फीति", "nav_court": "मुद्रास्फीति",
+            "texte": "उपभोक्ता मूल्यों में वर्ष-दर-वर्ष वृद्धि, प्रतिशत में।",
         },
-        "annee-record-pib-par-habitant": {
-            "slug": "gdp-per-capita-peak-year",
-            "titre": "प्रति व्यक्ति जीडीपी का शिखर वर्ष — इंटरैक्टिव विश्व मानचित्र | StatsMaps",
-            "description": "वह वर्ष दिखाने वाला इंटरैक्टिव मानचित्र जब हर देश की प्रति व्यक्ति जीडीपी सर्वोच्च थी, 1980 से 2031 तक, IMF के अनुमानों सहित। आज शिखर पर मौजूद देश हरे, कभी न लौट पाने वाले लाल। IMF के आधिकारिक आँकड़े।",
-            "h1": "प्रति व्यक्ति जीडीपी का शिखर वर्ष",
-            "nav": "प्रति व्यक्ति जीडीपी का शिखर वर्ष", "nav_court": "जीडीपी/व्यक्ति शिखर",
-            "vignette": "प्रति व्यक्ति जीडीपी का शिखर वर्ष",
-            "vignette_texte": "वह वर्ष जब हर देश के लोग औसतन सबसे समृद्ध थे।",
+        "population": {
+            "slug": "population",
+            "nom": "जनसंख्या",
+            "nav": "जनसंख्या", "nav_court": "जनसंख्या",
+            "texte": "हर देश में कितने लोग रहते हैं, मिलियन में।",
         },
     },
 })
 
-# ------------------------------------------------------------------ Arabe ---
-# La seule langue du site qui s'écrit de droite à gauche : "sens" vaut "rtl",
-# ce qui pose dir="rtl" sur la page et retourne toute la mise en page.
+# --------------------------------------------------------------- العربية ---
 LANGUES.append({
     "code": "ar", "dossier": "ar", "hreflang": "ar", "sens": "rtl",
     "drapeau": "🇸🇦", "nom": "العربية", "nav_aria": "الخرائط",
-    # Les libellés que lisent les lecteurs d'écran, et l'infobulle du menu.
-    "langue_label": "اللغة", "theme_label": "تغيير المظهر",
-    "theme_clair": "التبديل إلى المظهر الفاتح", "theme_sombre": "التبديل إلى المظهر الداكن",
+    # Les libellés que lisent les lecteurs d'écran, et les infobulles.
+    "langue_label": "اللغة", "theme_label": "تغيير السمة",
+    "theme_clair": "التبديل إلى السمة الفاتحة", "theme_sombre": "التبديل إلى السمة الداكنة",
+    "variantes_label": "الوحدة",
+    "modele_titre": "{nom} حسب البلد — خريطة عالمية تفاعلية | StatsMaps",
+    "modele_titre_categorie": "{nom} — كل الخرائط | StatsMaps",
+    "modele_description": (
+        "{texte} خريطة تفاعلية لـ197 بلدًا، من 1980 إلى 2031، اعتمادًا على بيانات صندوق النقد الدولي الرسمية (World Economic Outlook): الترتيب العالمي والتطور سنة بعد سنة."),
     "accueil": {
-        "titre": "StatsMaps — إحصاءات العالم على خرائط تفاعلية",
-        "description": "خرائط تفاعلية للاقتصاد العالمي: الناتج المحلي الإجمالي الاسمي، ونصيب الفرد منه، والنمو، وسنوات الذروة، لـ197 بلدًا من 1980 إلى 2031، استنادًا إلى بيانات صندوق النقد الدولي الرسمية.",
+        "titre": "StatsMaps — خرائط وإحصاءات عالمية",
+        "description": "خرائط تفاعلية للإحصاءات العالمية: الناتج المحلي الإجمالي، ونصيب الفرد منه، والنمو، والتضخم، وعدد السكان في 197 بلدًا، من 1980 إلى 2031، ببيانات صندوق النقد الدولي الرسمية.",
         "h1": "إحصاءات العالم، على الخريطة.",
-        "intro": "يحوّل StatsMaps أبرز المؤشرات العالمية إلى خرائط تفاعلية، انطلاقًا من مصادر رسمية. نبدأ بالاقتصاد، ببيانات صندوق النقد الدولي: 197 بلدًا، من 1980 إلى 2031.",
-        "bientot": "قريبًا: السكان، والبنية التحتية، والطاقة، والتعليم، والصحة.",
+        "intro": "يحوّل StatsMaps أبرز المؤشرات العالمية إلى خرائط تفاعلية، انطلاقًا من مصادر رسمية. اختر فئة لترى خرائطها: اليوم الاقتصاد والسكان، ببيانات صندوق النقد الدولي — 197 بلدًا، من 1980 إلى 2031.",
+        "bientot": "قريبًا: البنية التحتية، والطاقة، والتعليم، والصحة.",
         "pied": "البيانات: صندوق النقد الدولي (World Economic Outlook) · خلفية الخريطة: Natural Earth · بلا إعلانات ولا تتبّع.",
+    },
+    "variantes": {"nominal": "الدولار الأمريكي", "ppa": "تعادل القوة الشرائية"},
+    "categories": {
+        "economie": {
+            "slug": "economy",
+            "nom": "الاقتصاد",
+            "texte": "الناتج المحلي، وثروة الفرد، والنمو، والتضخم.",
+            "h1": "اقتصاد العالم على الخريطة.",
+            "intro": "أربع خرائط من تقرير World Economic Outlook الصادر عن صندوق النقد الدولي: 197 بلدًا، من 1980 إلى 2031، بما في ذلك التوقعات.",
+        },
+        "demographie": {
+            "slug": "demographics",
+            "nom": "السكان",
+            "texte": "عدد الأشخاص الذين يعيشون في كل بلد، سنة بعد سنة.",
+            "h1": "سكان العالم على الخريطة.",
+            "intro": "ينشر صندوق النقد الدولي أيضًا عدد سكان كل بلد: 197 بلدًا، من 1980 إلى 2031، بما في ذلك التوقعات.",
+        },
     },
     "cartes": {
         "pib-nominal": {
             "slug": "nominal-gdp",
-            "titre": "الناتج المحلي الإجمالي الاسمي حسب البلد — خريطة عالمية تفاعلية | StatsMaps",
-            "description": "خريطة تفاعلية للناتج المحلي الإجمالي الاسمي في 197 بلدًا، من 1980 إلى 2031. بيانات رسمية من صندوق النقد الدولي (World Economic Outlook)، مع الترتيب العالمي والتغير سنة بعد سنة.",
-            "h1": "الناتج المحلي الإجمالي",
+            "nom": "الناتج المحلي الإجمالي الاسمي",
             "nav": "الناتج المحلي الإجمالي", "nav_court": "الناتج",
-            "vignette": "الناتج المحلي الإجمالي",
-            "vignette_texte": "حجم كل اقتصاد، بمليارات الدولارات الجارية.",
+            "texte": "حجم كل اقتصاد، بمليارات الدولارات الجارية.",
+        },
+        "pib-ppa": {
+            "slug": "gdp-ppp",
+            "nom": "الناتج المحلي الإجمالي بتعادل القوة الشرائية",
+            "nav": "الناتج (تعادل القوة الشرائية)", "nav_court": "الناتج ت.ق.ش",
+            "texte": "حجم كل اقتصاد بعد تصحيح تكلفة المعيشة، بالدولارات الدولية.",
         },
         "pib-par-habitant": {
             "slug": "gdp-per-capita",
-            "titre": "نصيب الفرد من الناتج المحلي حسب البلد — خريطة عالمية تفاعلية | StatsMaps",
-            "description": "خريطة تفاعلية لنصيب الفرد من الناتج المحلي الإجمالي في 197 بلدًا، من 1980 إلى 2031. بيانات رسمية من صندوق النقد الدولي، مع الترتيب العالمي ومستوى الثروة للفرد.",
-            "h1": "نصيب الفرد من الناتج",
+            "nom": "نصيب الفرد من الناتج المحلي",
             "nav": "نصيب الفرد من الناتج", "nav_court": "نصيب الفرد",
-            "vignette": "نصيب الفرد من الناتج",
-            "vignette_texte": "الثروة المنتَجة لكل فرد، بالدولارات الجارية.",
+            "texte": "الثروة المنتَجة لكل فرد، بالدولارات الجارية.",
+        },
+        "pib-par-habitant-ppa": {
+            "slug": "gdp-per-capita-ppp",
+            "nom": "نصيب الفرد من الناتج بتعادل القوة الشرائية",
+            "nav": "نصيب الفرد (تعادل القوة الشرائية)", "nav_court": "نصيب الفرد ت.ق.ش",
+            "texte": "الثروة المنتَجة لكل فرد بعد تصحيح تكلفة المعيشة، بالدولارات الدولية.",
         },
         "croissance": {
             "slug": "gdp-growth",
-            "titre": "نمو الناتج المحلي حسب البلد — خريطة عالمية تفاعلية | StatsMaps",
-            "description": "خريطة تفاعلية لنمو الناتج المحلي الإجمالي الحقيقي في 197 بلدًا، من 1980 إلى 2031. بيانات رسمية من صندوق النقد الدولي: الركود بالأحمر والتوسّع بالأخضر.",
-            "h1": "النمو", "nav": "النمو", "nav_court": "النمو",
-            "vignette": "نمو الناتج المحلي",
-            "vignette_texte": "تغيّر الناتج المحلي الحقيقي من سنة إلى أخرى، بالنسبة المئوية.",
+            "nom": "نمو الناتج المحلي",
+            "nav": "النمو", "nav_court": "النمو",
+            "texte": "تغيّر الناتج المحلي الحقيقي من سنة إلى أخرى، بالنسبة المئوية.",
         },
-        "annee-record-pib": {
-            "slug": "gdp-peak-year",
-            "titre": "سنة ذروة الناتج المحلي حسب البلد — خريطة عالمية تفاعلية | StatsMaps",
-            "description": "خريطة تفاعلية للسنة التي بلغ فيها الناتج المحلي الإجمالي لكل بلد أعلى مستوياته، من 1980 إلى 2031، بما في ذلك توقعات صندوق النقد الدولي. بالأخضر البلدان في ذروتها اليوم، وبالأحمر تلك التي لم تستعدها قط. بيانات رسمية من صندوق النقد الدولي.",
-            "h1": "سنة ذروة الناتج",
-            "nav": "سنة ذروة الناتج", "nav_court": "ذروة الناتج",
-            "vignette": "سنة ذروة الناتج",
-            "vignette_texte": "السنة التي بلغ فيها كل بلد أقصاه — والبلدان التي لم تعد إليها أبدًا.",
+        "inflation": {
+            "slug": "inflation",
+            "nom": "التضخم",
+            "nav": "التضخم", "nav_court": "التضخم",
+            "texte": "ارتفاع أسعار المستهلك من سنة إلى أخرى، بالنسبة المئوية.",
         },
-        "annee-record-pib-par-habitant": {
-            "slug": "gdp-per-capita-peak-year",
-            "titre": "سنة ذروة نصيب الفرد من الناتج — خريطة عالمية تفاعلية | StatsMaps",
-            "description": "خريطة تفاعلية للسنة التي بلغ فيها نصيب الفرد من الناتج المحلي أعلى مستوياته في كل بلد، من 1980 إلى 2031، بما في ذلك توقعات صندوق النقد الدولي. بالأخضر البلدان في ذروتها اليوم، وبالأحمر تلك التي لم تستعدها قط. بيانات رسمية من صندوق النقد الدولي.",
-            "h1": "سنة ذروة نصيب الفرد",
-            "nav": "سنة ذروة نصيب الفرد", "nav_court": "ذروة نصيب الفرد",
-            "vignette": "سنة ذروة نصيب الفرد",
-            "vignette_texte": "السنة التي كان فيها سكان كل بلد الأكثر ثراءً في المتوسط.",
+        "population": {
+            "slug": "population",
+            "nom": "عدد السكان",
+            "nav": "السكان", "nav_court": "السكان",
+            "texte": "عدد الأشخاص الذين يعيشون في كل بلد، بالملايين.",
         },
     },
 })
-
 
 # ==========================================================================
 #  LES MODÈLES HTML
 #
 #  Écrits une seule fois. Les {accolades} sont remplies plus bas.
-#  Attention en les modifiant : ce sont les 78 pages du site qui changent.
+#  Attention en les modifiant : ce sont les 130 pages du site qui changent.
 # ==========================================================================
 
 MODELE_CARTE = """<!DOCTYPE html>
@@ -920,7 +1271,7 @@ MODELE_CARTE = """<!DOCTYPE html>
       <div class="panneau__entete">
         <h1 class="panneau__titre" id="titre-panneau">{h1}</h1>
         <div class="panneau__soustitre" id="compteur-pays"></div>
-        <input class="panneau__recherche" id="recherche" type="search" autocomplete="off" spellcheck="false">
+{variantes}        <input class="panneau__recherche" id="recherche" type="search" autocomplete="off" spellcheck="false">
       </div>
       <ul class="classement" id="classement"></ul>
       <div class="panneau__pied" id="source"></div>
@@ -949,7 +1300,10 @@ MODELE_CARTE = """<!DOCTYPE html>
 </html>
 """
 
-MODELE_ACCUEIL = """<!DOCTYPE html>
+# L'accueil et les pages de catégorie partagent le même modèle : une phrase
+# d'introduction, puis une grille de vignettes. Seul ce qu'il y a DANS les
+# vignettes change — des catégories sur l'accueil, des cartes ailleurs.
+MODELE_VIGNETTES = """<!DOCTYPE html>
 <html lang="{hreflang}"{rtl}>
 <head>
   <meta charset="UTF-8">
@@ -977,8 +1331,7 @@ MODELE_ACCUEIL = """<!DOCTYPE html>
     <div class="vignettes">
 {vignettes}
     </div>
-
-    <p class="accueil__bientot">{bientot}</p>
+{fin}
   </main>
 
   <footer class="pied">{pied}</footer>
@@ -1022,7 +1375,21 @@ MODELE_ENTETE = """  <header class="barre">
 
 # ==========================================================================
 #  LA FABRICATION
+#
+#  Une PAGE est désignée par un couple (genre, clef) :
+#      ("accueil",   None)            l'accueil de la langue
+#      ("categorie", "economie")      la page d'une rubrique
+#      ("carte",     "pib-nominal")   une carte
+#  Toutes les fonctions ci-dessous parlent ce langage-là.
 # ==========================================================================
+
+ACCUEIL = ("accueil", None)
+
+# Toutes les pages d'une langue, dans l'ordre où elles comptent pour Google.
+PAGES = ([ACCUEIL]
+         + [("categorie", identifiant) for identifiant, _, _ in CATEGORIES]
+         + [("carte", identifiant) for identifiant, _, _, _, _ in CARTES])
+
 
 def echapper(texte):
     """Protège un texte destiné à un attribut HTML."""
@@ -1030,18 +1397,29 @@ def echapper(texte):
                  .replace(">", "&gt;").replace('"', "&quot;"))
 
 
-def adresse(langue, id_carte=None):
+def slug(langue, page):
+    """Le nom du dossier de la page, ou None pour l'accueil."""
+    genre, clef = page
+    if genre == "accueil":
+        return None
+    if genre == "categorie":
+        return langue["categories"][clef]["slug"]
+    return langue["cartes"][clef]["slug"]
+
+
+def adresse(langue, page=ACCUEIL):
     """L'adresse d'une page, à partir de la racine du site : "/de/bip-pro-kopf/".
     L'accueil français est simplement "/"."""
     morceaux = [langue["dossier"]] if langue["dossier"] else []
-    if id_carte:
-        morceaux.append(langue["cartes"][id_carte]["slug"])
+    nom = slug(langue, page)
+    if nom:
+        morceaux.append(nom)
     return "/" + "".join(m + "/" for m in morceaux)
 
 
-def profondeur(langue, id_carte=None):
+def profondeur(langue, page=ACCUEIL):
     """Combien de dossiers séparent la page de la racine du site."""
-    return (1 if langue["dossier"] else 0) + (1 if id_carte else 0)
+    return (1 if langue["dossier"] else 0) + (0 if page == ACCUEIL else 1)
 
 
 def remonter(niveaux):
@@ -1049,31 +1427,44 @@ def remonter(niveaux):
     return "./" if niveaux == 0 else "../" * niveaux
 
 
-def alternates(id_carte):
+def alternates(page):
     """Les balises qui disent à Google : « cette page existe aussi dans ces
     douze autres langues ». Le français fait aussi office de x-default, la
     version servie quand aucune langue du visiteur ne correspond."""
     lignes = []
     for langue in LANGUES:
         lignes.append('  <link rel="alternate" hreflang="%s" href="%s%s">'
-                      % (langue["hreflang"], SITE, adresse(langue, id_carte)))
+                      % (langue["hreflang"], SITE, adresse(langue, page)))
     lignes.append('  <link rel="alternate" hreflang="x-default" href="%s%s">'
-                  % (SITE, adresse(LANGUES[0], id_carte)))
+                  % (SITE, adresse(LANGUES[0], page)))
     return "\n".join(lignes)
 
 
-def entete(langue, id_carte=None):
-    """La barre du haut : logo, menu des cartes, menu des langues, thème."""
-    # Les liens vers les cartes, dans la langue de la page. Depuis une carte on
-    # remonte d'un cran ("../croissance/") ; depuis l'accueil, non ("croissance/").
+def entete(langue, page=ACCUEIL):
+    """La barre du haut : logo, menu des cartes, menu des langues, thème.
+
+    Le menu ne montre que les cartes PRINCIPALES — cinq entrées. La version en
+    parité de pouvoir d'achat n'y figure pas : on la choisit dans le panneau de
+    gauche, une fois la carte ouverte. Mettre les sept ferait un menu illisible
+    où « PIB » apparaîtrait deux fois."""
+    # Depuis l'accueil, un lien vers une carte s'écrit "croissance/" ; depuis
+    # n'importe quelle autre page, on remonte d'un cran : "../croissance/".
+    haut = "" if page == ACCUEIL else "../"
+
     liens = []
-    for autre_id, _ in CARTES:
-        carte = langue["cartes"][autre_id]
-        courante = ' aria-current="page"' if autre_id == id_carte else ""
+    for identifiant in MENU:
+        carte = langue["cartes"][identifiant]
+        # La page de la VARIANTE d'une carte allume quand même son entrée de
+        # menu : sur /pib-ppa/, c'est bien « PIB » qu'on est en train de voir.
+        genre, clef = page
+        courante = ""
+        if genre == "carte" and (clef == identifiant or (
+                FAMILLE_DE[clef] and FAMILLE_DE[clef] == FAMILLE_DE[identifiant])):
+            courante = ' aria-current="page"'
         liens.append(
             '        <a class="barre__lien" href="%s%s/"%s>'
             '<span class="long">%s</span><span class="court">%s</span></a>'
-            % ("../" if id_carte else "", carte["slug"], courante,
+            % (haut, carte["slug"], courante,
                echapper(carte["nav"]), echapper(carte["nav_court"])))
 
     # Le menu des langues pointe vers la MÊME page dans chaque langue, en
@@ -1085,16 +1476,15 @@ def entete(langue, id_carte=None):
         menu.append(
             '          <a href="%s" hreflang="%s" lang="%s"%s>'
             '<span class="drapeau" aria-hidden="true">%s</span>%s</a>'
-            % (adresse(autre, id_carte), autre["hreflang"], autre["hreflang"],
+            % (adresse(autre, page), autre["hreflang"], autre["hreflang"],
                actuelle, autre["drapeau"], echapper(autre["nom"])))
 
     return MODELE_ENTETE.format(
         # Le logo ramène à l'accueil DE LA LANGUE COURANTE, et non à la racine
         # du site : depuis /en/gdp/, il mène à /en/ et non à l'accueil français.
-        # Depuis une carte c'est donc toujours un cran plus haut, quelle que
-        # soit la langue — ne pas confondre avec « base », qui vise la racine
-        # pour aller y chercher assets/ et data/.
-        accueil="../" if id_carte else "./",
+        # Ne pas confondre avec « base », qui vise la racine pour aller y
+        # chercher assets/ et data/.
+        accueil=haut or "./",
         nav_aria=echapper(langue["nav_aria"]),
         liens="\n".join(liens),
         langue_label=echapper(langue["langue_label"]),
@@ -1106,60 +1496,127 @@ def entete(langue, id_carte=None):
     )
 
 
+def bascule_variantes(langue, id_carte):
+    """Le bouton « Dollars US / Parité de pouvoir d'achat », en haut du panneau.
+
+    Ce sont de VRAIS liens vers de VRAIES pages : chaque version a son adresse,
+    son titre et sa place dans Google. Une carte qui n'a qu'une version — la
+    croissance, l'inflation, la population — n'affiche rien du tout."""
+    famille = FAMILLE_DE[id_carte]
+    if not famille or len(FAMILLES[famille]) < 2:
+        return ""
+
+    boutons = []
+    for autre_id, variante in FAMILLES[famille]:
+        active = autre_id == id_carte
+        boutons.append(
+            '          <a class="variante%s" href="../%s/"%s>%s</a>'
+            % (" est-active" if active else "",
+               langue["cartes"][autre_id]["slug"],
+               ' aria-current="page"' if active else "",
+               echapper(langue["variantes"][variante])))
+
+    return ('        <div class="variantes" role="group" aria-label="%s">\n%s\n'
+            '        </div>\n'
+            % (echapper(langue["variantes_label"]), "\n".join(boutons)))
+
+
+def vignette(lien, pastille, titre, texte, liste=""):
+    """Une carte cliquable de la grille : sur l'accueil comme sur les pages
+    de catégorie, c'est toujours le même objet."""
+    dedans = ""
+    if liste:
+        dedans = '        <div class="vignette__liste">%s</div>\n' % echapper(liste)
+    return ('      <a class="vignette" href="%s">\n'
+            '        <div class="vignette__pastille">%s</div>\n'
+            '        <div class="vignette__titre">%s</div>\n'
+            '        <p class="vignette__texte">%s</p>\n'
+            '%s      </a>'
+            % (lien, pastille, echapper(titre), echapper(texte), dedans))
+
+
 def page_carte(langue, id_carte):
     carte = langue["cartes"][id_carte]
-    base = remonter(profondeur(langue, id_carte))
+    base = remonter(profondeur(langue, ("carte", id_carte)))
+    titre = langue["modele_titre"].format(nom=carte["nom"])
     # Le titre partagé sur les réseaux sociaux n'a pas besoin du « | StatsMaps »
     # final : le nom du site y est déjà affiché à part.
-    og_titre = carte["titre"].split(" | StatsMaps")[0]
+    og_titre = titre.split(" | StatsMaps")[0]
 
     return MODELE_CARTE.format(
         hreflang=langue["hreflang"],
         rtl=' dir="rtl"' if langue["sens"] == "rtl" else "",
-        titre=echapper(carte["titre"]),
-        description=echapper(carte["description"]),
-        url=SITE + adresse(langue, id_carte),
-        alternates=alternates(id_carte),
+        titre=echapper(titre),
+        description=echapper(langue["modele_description"].format(texte=carte["texte"])),
+        url=SITE + adresse(langue, ("carte", id_carte)),
+        alternates=alternates(("carte", id_carte)),
         base=base,
         og_titre=echapper(og_titre),
         maplibre=MAPLIBRE,
         indicateur=id_carte,
         code=langue["code"],
-        entete=entete(langue, id_carte),
-        h1=echapper(carte["h1"]),
+        entete=entete(langue, ("carte", id_carte)),
+        h1=echapper(carte["nom"]),
+        variantes=bascule_variantes(langue, id_carte),
     )
 
 
 def page_accueil(langue):
-    base = remonter(profondeur(langue))
+    """L'accueil : les CATÉGORIES, et non les cartes. Chaque vignette annonce
+    ce qu'elle contient, pour qu'on sache où l'on va avant de cliquer."""
     accueil = langue["accueil"]
 
     vignettes = []
-    for id_carte, pastille in CARTES:
-        carte = langue["cartes"][id_carte]
-        vignettes.append(
-            '      <a class="vignette" href="%s/">\n'
-            '        <div class="vignette__pastille">%s</div>\n'
-            '        <div class="vignette__titre">%s</div>\n'
-            '        <p class="vignette__texte">%s</p>\n'
-            '      </a>'
-            % (carte["slug"], pastille,
-               echapper(carte["vignette"]), echapper(carte["vignette_texte"])))
+    for identifiant, pastille, cartes in CATEGORIES:
+        categorie = langue["categories"][identifiant]
+        vignettes.append(vignette(
+            categorie["slug"] + "/", pastille, categorie["nom"], categorie["texte"],
+            liste=" · ".join(langue["cartes"][c]["nav"] for c in cartes)))
 
-    return MODELE_ACCUEIL.format(
+    return MODELE_VIGNETTES.format(
         hreflang=langue["hreflang"],
         rtl=' dir="rtl"' if langue["sens"] == "rtl" else "",
         titre=echapper(accueil["titre"]),
         description=echapper(accueil["description"]),
         url=SITE + adresse(langue),
-        alternates=alternates(None),
-        base=base,
+        alternates=alternates(ACCUEIL),
+        base=remonter(profondeur(langue)),
         entete=entete(langue),
         h1=echapper(accueil["h1"]),
         intro=echapper(accueil["intro"]),
         vignettes="\n".join(vignettes),
-        bientot=echapper(accueil["bientot"]),
+        fin='\n    <p class="accueil__bientot">%s</p>\n' % echapper(accueil["bientot"]),
         pied=echapper(accueil["pied"]),
+    )
+
+
+def page_categorie(langue, id_categorie):
+    """La page d'une rubrique : ses cartes, et rien d'autre."""
+    categorie = langue["categories"][id_categorie]
+    cartes = CARTES_DE[id_categorie]
+    titre = langue["modele_titre_categorie"].format(nom=categorie["nom"])
+
+    vignettes = []
+    for id_carte in cartes:
+        carte = langue["cartes"][id_carte]
+        vignettes.append(vignette(
+            "../" + carte["slug"] + "/", PASTILLES[id_carte],
+            carte["nom"], carte["texte"]))
+
+    return MODELE_VIGNETTES.format(
+        hreflang=langue["hreflang"],
+        rtl=' dir="rtl"' if langue["sens"] == "rtl" else "",
+        titre=echapper(titre),
+        description=echapper(langue["modele_description"].format(texte=categorie["texte"])),
+        url=SITE + adresse(langue, ("categorie", id_categorie)),
+        alternates=alternates(("categorie", id_categorie)),
+        base=remonter(profondeur(langue, ("categorie", id_categorie))),
+        entete=entete(langue, ("categorie", id_categorie)),
+        h1=echapper(categorie["h1"]),
+        intro=echapper(categorie["intro"]),
+        vignettes="\n".join(vignettes),
+        fin="",
+        pied=echapper(langue["accueil"]["pied"]),
     )
 
 
@@ -1170,24 +1627,25 @@ def sitemap():
 
     Volontairement sans <lastmod> : la date serait celle du jour où le script a
     tourné, pas celle du dernier vrai changement. Elle ferait donc bouger les
-    78 lignes du fichier à chaque exécution, pour rien."""
+    130 lignes du fichier à chaque exécution, pour rien."""
     lignes = ['<?xml version="1.0" encoding="UTF-8"?>',
               '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
               '        xmlns:xhtml="http://www.w3.org/1999/xhtml">']
 
-    for id_carte in [None] + [c[0] for c in CARTES]:
+    # Les accueils sont les portes d'entrée du site ; viennent ensuite les
+    # catégories, puis les cartes elles-mêmes.
+    priorites = {"accueil": "1.0", "categorie": "0.9", "carte": "0.8"}
+
+    for page in PAGES:
         for langue in LANGUES:
             lignes.append("  <url>")
-            lignes.append("    <loc>%s%s</loc>" % (SITE, adresse(langue, id_carte)))
+            lignes.append("    <loc>%s%s</loc>" % (SITE, adresse(langue, page)))
             for autre in LANGUES:
                 lignes.append('    <xhtml:link rel="alternate" hreflang="%s" href="%s%s"/>'
-                              % (autre["hreflang"], SITE, adresse(autre, id_carte)))
+                              % (autre["hreflang"], SITE, adresse(autre, page)))
             lignes.append('    <xhtml:link rel="alternate" hreflang="x-default" href="%s%s"/>'
-                          % (SITE, adresse(LANGUES[0], id_carte)))
-            # Les accueils sont les portes d'entrée du site, les cartes viennent
-            # juste après : c'est l'ordre déjà retenu avant ce script.
-            lignes.append("    <priority>%s</priority>"
-                          % ("1.0" if id_carte is None else "0.9"))
+                          % (SITE, adresse(LANGUES[0], page)))
+            lignes.append("    <priority>%s</priority>" % priorites[page[0]])
             lignes.append("  </url>")
 
     lignes.append("</urlset>")
@@ -1218,13 +1676,42 @@ def ecrire(chemin_relatif, contenu):
         fichier.write(contenu)
 
 
+def ranger(dossiers_attendus):
+    """Efface les dossiers de pages d'une version précédente du site.
+
+    Sans ce ménage, les anciennes cartes « année record » resteraient en ligne
+    indéfiniment, absentes du sitemap et des menus mais toujours accessibles —
+    avec des chiffres que plus personne ne met à jour."""
+    efface = 0
+    for langue in LANGUES:
+        racine_langue = os.path.join(RACINE, langue["dossier"])
+        if not os.path.isdir(racine_langue):
+            continue
+        for nom in sorted(os.listdir(racine_langue)):
+            chemin = os.path.join(racine_langue, nom)
+            if not os.path.isdir(chemin) or nom in dossiers_attendus:
+                continue
+            # On ne touche qu'aux dossiers qui contiennent une page fabriquée,
+            # et à rien d'autre : assets/, data/, scripts/ ne risquent rien.
+            if os.path.isfile(os.path.join(chemin, "index.html")):
+                os.remove(os.path.join(chemin, "index.html"))
+                if not os.listdir(chemin):
+                    os.rmdir(chemin)
+                print("  supprimé (page d'une version précédente) : %s/%s"
+                      % (langue["dossier"] or ".", nom))
+                efface += 1
+    return efface
+
+
 def main():
     print("Fabrication des pages de StatsMaps")
     print("-" * 55)
 
-    # Contrôle : chaque langue doit décrire les cinq cartes, sans oubli.
+    # Contrôle : chaque langue doit décrire toutes les cartes et toutes les
+    # catégories, sans oubli.
     for langue in LANGUES:
-        manquantes = [c for c, _ in CARTES if c not in langue["cartes"]]
+        manquantes = [c[0] for c in CARTES if c[0] not in langue["cartes"]]
+        manquantes += [c[0] for c in CATEGORIES if c[0] not in langue["categories"]]
         if manquantes:
             raise SystemExit("  ERREUR : la langue « %s » ne décrit pas %s"
                              % (langue["code"], ", ".join(manquantes)))
@@ -1232,27 +1719,38 @@ def main():
     # Contrôle : deux pages ne doivent jamais se retrouver à la même adresse.
     vues = {}
     for langue in LANGUES:
-        for id_carte in [None] + [c[0] for c in CARTES]:
-            url = adresse(langue, id_carte)
+        for page in PAGES:
+            url = adresse(langue, page)
             if url in vues:
                 raise SystemExit("  ERREUR : l'adresse %s est utilisée deux fois "
                                  "(%s et %s)" % (url, vues[url], langue["code"]))
-            vues[url] = langue["code"]
+            vues[url] = "%s / %s" % (langue["code"], page[1] or "accueil")
 
     total = 0
+    dossiers_attendus = set()
     for langue in LANGUES:
-        chemins = []
         ecrire(os.path.join(langue["dossier"], "index.html"), page_accueil(langue))
-        chemins.append(adresse(langue))
         total += 1
-        for id_carte, _ in CARTES:
-            slug = langue["cartes"][id_carte]["slug"]
-            ecrire(os.path.join(langue["dossier"], slug, "index.html"),
+        for id_categorie, _, _ in CATEGORIES:
+            nom = langue["categories"][id_categorie]["slug"]
+            dossiers_attendus.add(nom)
+            ecrire(os.path.join(langue["dossier"], nom, "index.html"),
+                   page_categorie(langue, id_categorie))
+            total += 1
+        for id_carte, _, _, _, _ in CARTES:
+            nom = langue["cartes"][id_carte]["slug"]
+            dossiers_attendus.add(nom)
+            ecrire(os.path.join(langue["dossier"], nom, "index.html"),
                    page_carte(langue, id_carte))
             total += 1
         print("  %-3s %-12s %d pages   %s…"
               % (langue["code"], "(" + (langue["dossier"] or "racine") + ")",
-                 len(CARTES) + 1, adresse(langue)))
+                 len(PAGES), adresse(langue)))
+
+    # Les dossiers des autres langues ne sont pas des pages : on les protège.
+    dossiers_attendus |= {l["dossier"] for l in LANGUES if l["dossier"]}
+    dossiers_attendus |= {"assets", "data", "scripts", ".git", ".github", ".claude"}
+    ranger(dossiers_attendus)
 
     ecrire("sitemap.xml", sitemap())
 

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>StatsMaps — إحصاءات العالم على خرائط تفاعلية</title>
-  <meta name="description" content="خرائط تفاعلية للاقتصاد العالمي: الناتج المحلي الإجمالي الاسمي، ونصيب الفرد منه، والنمو، وسنوات الذروة، لـ197 بلدًا من 1980 إلى 2031، استنادًا إلى بيانات صندوق النقد الدولي الرسمية.">
+  <title>StatsMaps — خرائط وإحصاءات عالمية</title>
+  <meta name="description" content="خرائط تفاعلية للإحصاءات العالمية: الناتج المحلي الإجمالي، ونصيب الفرد منه، والنمو، والتضخم، وعدد السكان في 197 بلدًا، من 1980 إلى 2031، ببيانات صندوق النقد الدولي الرسمية.">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://statsmaps.com/ar/">
   <link rel="alternate" hreflang="fr" href="https://statsmaps.com/">
@@ -22,8 +22,8 @@
   <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/">
   <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="StatsMaps — إحصاءات العالم على خرائط تفاعلية">
-  <meta property="og:description" content="خرائط تفاعلية للاقتصاد العالمي: الناتج المحلي الإجمالي الاسمي، ونصيب الفرد منه، والنمو، وسنوات الذروة، لـ197 بلدًا من 1980 إلى 2031، استنادًا إلى بيانات صندوق النقد الدولي الرسمية.">
+  <meta property="og:title" content="StatsMaps — خرائط وإحصاءات عالمية">
+  <meta property="og:description" content="خرائط تفاعلية للإحصاءات العالمية: الناتج المحلي الإجمالي، ونصيب الفرد منه، والنمو، والتضخم، وعدد السكان في 197 بلدًا، من 1980 إلى 2031، ببيانات صندوق النقد الدولي الرسمية.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://statsmaps.com/ar/">
   <link rel="stylesheet" href="../assets/css/style.css">
@@ -37,8 +37,8 @@
         <a class="barre__lien" href="nominal-gdp/"><span class="long">الناتج المحلي الإجمالي</span><span class="court">الناتج</span></a>
         <a class="barre__lien" href="gdp-per-capita/"><span class="long">نصيب الفرد من الناتج</span><span class="court">نصيب الفرد</span></a>
         <a class="barre__lien" href="gdp-growth/"><span class="long">النمو</span><span class="court">النمو</span></a>
-        <a class="barre__lien" href="gdp-peak-year/"><span class="long">سنة ذروة الناتج</span><span class="court">ذروة الناتج</span></a>
-        <a class="barre__lien" href="gdp-per-capita-peak-year/"><span class="long">سنة ذروة نصيب الفرد</span><span class="court">ذروة نصيب الفرد</span></a>
+        <a class="barre__lien" href="inflation/"><span class="long">التضخم</span><span class="court">التضخم</span></a>
+        <a class="barre__lien" href="population/"><span class="long">السكان</span><span class="court">السكان</span></a>
     </nav>
     <div class="barre__droite">
       <details class="langues">
@@ -60,45 +60,33 @@
         </div>
       </details>
       <button class="bouton-icone" id="bouton-theme" type="button"
-              aria-label="تغيير المظهر"
-              data-vers-clair="التبديل إلى المظهر الفاتح"
-              data-vers-sombre="التبديل إلى المظهر الداكن">☾</button>
+              aria-label="تغيير السمة"
+              data-vers-clair="التبديل إلى السمة الفاتحة"
+              data-vers-sombre="التبديل إلى السمة الداكنة">☾</button>
     </div>
   </header>
 
   <main class="accueil">
     <h1 class="accueil__titre">إحصاءات العالم، على الخريطة.</h1>
-    <p class="accueil__intro">يحوّل StatsMaps أبرز المؤشرات العالمية إلى خرائط تفاعلية، انطلاقًا من مصادر رسمية. نبدأ بالاقتصاد، ببيانات صندوق النقد الدولي: 197 بلدًا، من 1980 إلى 2031.</p>
+    <p class="accueil__intro">يحوّل StatsMaps أبرز المؤشرات العالمية إلى خرائط تفاعلية، انطلاقًا من مصادر رسمية. اختر فئة لترى خرائطها: اليوم الاقتصاد والسكان، ببيانات صندوق النقد الدولي — 197 بلدًا، من 1980 إلى 2031.</p>
 
     <div class="vignettes">
-      <a class="vignette" href="nominal-gdp/">
-        <div class="vignette__pastille">💰</div>
-        <div class="vignette__titre">الناتج المحلي الإجمالي</div>
-        <p class="vignette__texte">حجم كل اقتصاد، بمليارات الدولارات الجارية.</p>
+      <a class="vignette" href="economy/">
+        <div class="vignette__pastille">💶</div>
+        <div class="vignette__titre">الاقتصاد</div>
+        <p class="vignette__texte">الناتج المحلي، وثروة الفرد، والنمو، والتضخم.</p>
+        <div class="vignette__liste">الناتج المحلي الإجمالي · نصيب الفرد من الناتج · النمو · التضخم</div>
       </a>
-      <a class="vignette" href="gdp-per-capita/">
-        <div class="vignette__pastille">👤</div>
-        <div class="vignette__titre">نصيب الفرد من الناتج</div>
-        <p class="vignette__texte">الثروة المنتَجة لكل فرد، بالدولارات الجارية.</p>
-      </a>
-      <a class="vignette" href="gdp-growth/">
-        <div class="vignette__pastille">📈</div>
-        <div class="vignette__titre">نمو الناتج المحلي</div>
-        <p class="vignette__texte">تغيّر الناتج المحلي الحقيقي من سنة إلى أخرى، بالنسبة المئوية.</p>
-      </a>
-      <a class="vignette" href="gdp-peak-year/">
-        <div class="vignette__pastille">🏔️</div>
-        <div class="vignette__titre">سنة ذروة الناتج</div>
-        <p class="vignette__texte">السنة التي بلغ فيها كل بلد أقصاه — والبلدان التي لم تعد إليها أبدًا.</p>
-      </a>
-      <a class="vignette" href="gdp-per-capita-peak-year/">
-        <div class="vignette__pastille">⛰️</div>
-        <div class="vignette__titre">سنة ذروة نصيب الفرد</div>
-        <p class="vignette__texte">السنة التي كان فيها سكان كل بلد الأكثر ثراءً في المتوسط.</p>
+      <a class="vignette" href="demographics/">
+        <div class="vignette__pastille">👥</div>
+        <div class="vignette__titre">السكان</div>
+        <p class="vignette__texte">عدد الأشخاص الذين يعيشون في كل بلد، سنة بعد سنة.</p>
+        <div class="vignette__liste">السكان</div>
       </a>
     </div>
 
-    <p class="accueil__bientot">قريبًا: السكان، والبنية التحتية، والطاقة، والتعليم، والصحة.</p>
+    <p class="accueil__bientot">قريبًا: البنية التحتية، والطاقة، والتعليم، والصحة.</p>
+
   </main>
 
   <footer class="pied">البيانات: صندوق النقد الدولي (World Economic Outlook) · خلفية الخريطة: Natural Earth · بلا إعلانات ولا تتبّع.</footer>

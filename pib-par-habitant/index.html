@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>PIB par habitant par pays — carte mondiale interactive | StatsMaps</title>
-  <meta name="description" content="Carte interactive du PIB par habitant de 197 pays, de 1980 à 2031. Données officielles du FMI, classement mondial et niveau de richesse par personne.">
+  <title>PIB par habitant, par pays — carte mondiale interactive | StatsMaps</title>
+  <meta name="description" content="La richesse produite par personne, en dollars courants. Carte interactive de 197 pays, de 1980 à 2031, à partir des données officielles du FMI (World Economic Outlook) : classement mondial et évolution année par année.">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://statsmaps.com/pib-par-habitant/">
   <link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-par-habitant/">
@@ -22,8 +22,8 @@
   <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita/">
   <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant/">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="PIB par habitant par pays — carte mondiale interactive">
-  <meta property="og:description" content="Carte interactive du PIB par habitant de 197 pays, de 1980 à 2031. Données officielles du FMI, classement mondial et niveau de richesse par personne.">
+  <meta property="og:title" content="PIB par habitant, par pays — carte mondiale interactive">
+  <meta property="og:description" content="La richesse produite par personne, en dollars courants. Carte interactive de 197 pays, de 1980 à 2031, à partir des données officielles du FMI (World Economic Outlook) : classement mondial et évolution année par année.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://statsmaps.com/pib-par-habitant/">
   <link rel="preload" href="../data/pays.json" as="fetch" crossorigin>
@@ -36,11 +36,11 @@
   <header class="barre">
     <a class="barre__logo" href="../">Stats<span>Maps</span></a>
     <nav class="barre__nav" aria-label="Cartes">
-        <a class="barre__lien" href="../pib-nominal/"><span class="long">PIB nominal</span><span class="court">PIB</span></a>
+        <a class="barre__lien" href="../pib-nominal/"><span class="long">PIB</span><span class="court">PIB</span></a>
         <a class="barre__lien" href="../pib-par-habitant/" aria-current="page"><span class="long">PIB par habitant</span><span class="court">PIB/hab.</span></a>
         <a class="barre__lien" href="../croissance/"><span class="long">Croissance</span><span class="court">Croissance</span></a>
-        <a class="barre__lien" href="../annee-record-pib/"><span class="long">Année record du PIB</span><span class="court">Record PIB</span></a>
-        <a class="barre__lien" href="../annee-record-pib-par-habitant/"><span class="long">Année record du PIB par hab.</span><span class="court">Record PIB/hab.</span></a>
+        <a class="barre__lien" href="../inflation/"><span class="long">Inflation</span><span class="court">Inflation</span></a>
+        <a class="barre__lien" href="../population/"><span class="long">Population</span><span class="court">Population</span></a>
     </nav>
     <div class="barre__droite">
       <details class="langues">
@@ -77,6 +77,10 @@
       <div class="panneau__entete">
         <h1 class="panneau__titre" id="titre-panneau">PIB par habitant</h1>
         <div class="panneau__soustitre" id="compteur-pays"></div>
+        <div class="variantes" role="group" aria-label="Unité">
+          <a class="variante est-active" href="../pib-par-habitant/" aria-current="page">Dollars US</a>
+          <a class="variante" href="../pib-par-habitant-ppa/">Parité de pouvoir d’achat</a>
+        </div>
         <input class="panneau__recherche" id="recherche" type="search" autocomplete="off" spellcheck="false">
       </div>
       <ul class="classement" id="classement"></ul>

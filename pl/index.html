@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>StatsMaps — światowe statystyki na interaktywnych mapach</title>
-  <meta name="description" content="Interaktywne mapy gospodarki świata: PKB nominalne, PKB na mieszkańca, wzrost i rekordowe lata 197 krajów, od 1980 do 2031 roku, na podstawie oficjalnych danych MFW.">
+  <title>StatsMaps — mapy i statystyki świata</title>
+  <meta name="description" content="Interaktywne mapy statystyk świata: PKB, PKB na mieszkańca, wzrost, inflacja i ludność 197 krajów, od 1980 do 2031 roku, na oficjalnych danych MFW.">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://statsmaps.com/pl/">
   <link rel="alternate" hreflang="fr" href="https://statsmaps.com/">
@@ -22,8 +22,8 @@
   <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/">
   <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="StatsMaps — światowe statystyki na interaktywnych mapach">
-  <meta property="og:description" content="Interaktywne mapy gospodarki świata: PKB nominalne, PKB na mieszkańca, wzrost i rekordowe lata 197 krajów, od 1980 do 2031 roku, na podstawie oficjalnych danych MFW.">
+  <meta property="og:title" content="StatsMaps — mapy i statystyki świata">
+  <meta property="og:description" content="Interaktywne mapy statystyk świata: PKB, PKB na mieszkańca, wzrost, inflacja i ludność 197 krajów, od 1980 do 2031 roku, na oficjalnych danych MFW.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://statsmaps.com/pl/">
   <link rel="stylesheet" href="../assets/css/style.css">
@@ -34,11 +34,11 @@
   <header class="barre">
     <a class="barre__logo" href="./">Stats<span>Maps</span></a>
     <nav class="barre__nav" aria-label="Mapy">
-        <a class="barre__lien" href="pkb-nominalne/"><span class="long">PKB nominalne</span><span class="court">PKB</span></a>
+        <a class="barre__lien" href="pkb-nominalne/"><span class="long">PKB</span><span class="court">PKB</span></a>
         <a class="barre__lien" href="pkb-na-mieszkanca/"><span class="long">PKB na mieszkańca</span><span class="court">PKB/mieszk.</span></a>
         <a class="barre__lien" href="wzrost-pkb/"><span class="long">Wzrost</span><span class="court">Wzrost</span></a>
-        <a class="barre__lien" href="rekordowy-rok-pkb/"><span class="long">Rekordowy rok PKB</span><span class="court">Rekord PKB</span></a>
-        <a class="barre__lien" href="rekordowy-rok-pkb-na-mieszkanca/"><span class="long">Rekordowy rok PKB na mieszkańca</span><span class="court">Rekord PKB/mieszk.</span></a>
+        <a class="barre__lien" href="inflacja/"><span class="long">Inflacja</span><span class="court">Inflacja</span></a>
+        <a class="barre__lien" href="ludnosc/"><span class="long">Ludność</span><span class="court">Ludność</span></a>
     </nav>
     <div class="barre__droite">
       <details class="langues">
@@ -68,37 +68,25 @@
 
   <main class="accueil">
     <h1 class="accueil__titre">Statystyki świata na mapach.</h1>
-    <p class="accueil__intro">StatsMaps przedstawia najważniejsze światowe wskaźniki na interaktywnych mapach, w oparciu o oficjalne źródła. Zaczynamy od gospodarki, na podstawie danych Międzynarodowego Funduszu Walutowego: 197 krajów, od 1980 do 2031 roku.</p>
+    <p class="accueil__intro">StatsMaps przedstawia najważniejsze światowe wskaźniki na interaktywnych mapach, w oparciu o oficjalne źródła. Wybierz kategorię, aby zobaczyć jej mapy: dziś gospodarka i demografia, na danych Międzynarodowego Funduszu Walutowego — 197 krajów, od 1980 do 2031 roku.</p>
 
     <div class="vignettes">
-      <a class="vignette" href="pkb-nominalne/">
-        <div class="vignette__pastille">💰</div>
-        <div class="vignette__titre">PKB nominalne</div>
-        <p class="vignette__texte">Wielkość każdej gospodarki, w miliardach dolarów bieżących.</p>
+      <a class="vignette" href="gospodarka/">
+        <div class="vignette__pastille">💶</div>
+        <div class="vignette__titre">Gospodarka</div>
+        <p class="vignette__texte">PKB, bogactwo na mieszkańca, wzrost i inflacja.</p>
+        <div class="vignette__liste">PKB · PKB na mieszkańca · Wzrost · Inflacja</div>
       </a>
-      <a class="vignette" href="pkb-na-mieszkanca/">
-        <div class="vignette__pastille">👤</div>
-        <div class="vignette__titre">PKB na mieszkańca</div>
-        <p class="vignette__texte">Bogactwo wytworzone na osobę, w dolarach bieżących.</p>
-      </a>
-      <a class="vignette" href="wzrost-pkb/">
-        <div class="vignette__pastille">📈</div>
-        <div class="vignette__titre">Wzrost PKB</div>
-        <p class="vignette__texte">Zmiana realnego PKB z roku na rok, w procentach.</p>
-      </a>
-      <a class="vignette" href="rekordowy-rok-pkb/">
-        <div class="vignette__pastille">🏔️</div>
-        <div class="vignette__titre">Rekordowy rok PKB</div>
-        <p class="vignette__texte">Rok, w którym każdy kraj osiągnął maksimum — i te, które już do niego nie wróciły.</p>
-      </a>
-      <a class="vignette" href="rekordowy-rok-pkb-na-mieszkanca/">
-        <div class="vignette__pastille">⛰️</div>
-        <div class="vignette__titre">Rekordowy rok PKB na mieszkańca</div>
-        <p class="vignette__texte">Rok, w którym mieszkańcy każdego kraju byli średnio najzamożniejsi.</p>
+      <a class="vignette" href="demografia/">
+        <div class="vignette__pastille">👥</div>
+        <div class="vignette__titre">Demografia</div>
+        <p class="vignette__texte">Ilu ludzi mieszka w każdym kraju, rok po roku.</p>
+        <div class="vignette__liste">Ludność</div>
       </a>
     </div>
 
-    <p class="accueil__bientot">Wkrótce: demografia, infrastruktura, energetyka, edukacja i zdrowie.</p>
+    <p class="accueil__bientot">Wkrótce: infrastruktura, energetyka, edukacja i zdrowie.</p>
+
   </main>
 
   <footer class="pied">Dane: MFW (World Economic Outlook) · Podkład mapowy: Natural Earth · Bez reklam i śledzenia.</footer>

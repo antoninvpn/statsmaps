@@ -9,11 +9,24 @@ il appelle l'API publique du FMI (IMF DataMapper), garde uniquement les vrais pa
 
 À lancer :  python3 scripts/build_donnees.py
 Aucune installation nécessaire (bibliothèque standard de Python uniquement).
+
+Le vocabulaire des titres et des unités est RECOPIÉ du FMI
+(https://www.imf.org/external/datamapper/profile/AUT), pour que le site dise
+exactement la même chose que sa source. C'est pourquoi le PIB nominal et le PIB
+en parité de pouvoir d'achat portent le MÊME titre — « PIB, prix courants » —
+et ne se distinguent que par leur unité. C'est la façon de faire du FMI.
+
+Les cartes « année record » ne sont plus fabriquées ici : le navigateur les
+calcule tout seul à partir des chiffres de la carte affichée (voir la fonction
+donneesRecord() dans assets/js/carte.js). Cela évite de télécharger deux fois
+les mêmes données.
 """
 
 import datetime
 import json
 import os
+import shutil
+import subprocess
 import sys
 import time
 import urllib.error
@@ -23,192 +36,399 @@ import urllib.request
 
 API = "https://www.imf.org/external/datamapper/api/v1"
 
-# Les cartes du site. Pour en ajouter une, il suffit d'ajouter une ligne ici
-# (puis de créer la page HTML correspondante).
+# Les treize langues du site, écrites une fois pour toutes : cela évite de les
+# recopier dans chaque indicateur qui n'a qu'une seule unité (« % »).
+LANGUES = ("fr", "en", "uk", "de", "es", "it", "pt",
+           "pl", "ja", "ko", "tr", "hi", "ar")
+
+# « Variation annuelle en pourcentage », l'unité du FMI pour la croissance et
+# l'inflation. Elle sert deux fois, on l'écrit donc une seule.
+POURCENT_ANNUEL = {
+    "fr": "variation annuelle en pourcentage",
+    "en": "annual percent change",
+    "uk": "річна зміна у відсотках",
+    "de": "jährliche prozentuale Veränderung",
+    "es": "variación porcentual anual",
+    "it": "variazione percentuale annua",
+    "pt": "variação percentual anual",
+    "pl": "roczna zmiana procentowa",
+    "ja": "年間変化率",
+    "ko": "연간 변화율",
+    "tr": "yıllık yüzde değişim",
+    "hi": "वार्षिक प्रतिशत परिवर्तन",
+    "ar": "التغير السنوي بالنسبة المئوية",
+}
+
+# Les cartes du site.
+#
+#   fichier ....... le nom du fichier data/<fichier>.json, et l'identifiant de
+#                   la carte dans assets/js/carte.js et scripts/build_pages.py
+#   code_fmi ...... l'indicateur chez le FMI
+#   categorie ..... la rubrique de l'accueil (« economie », « demographie »)
+#   famille ....... les cartes d'une même famille sont deux VERSIONS d'une même
+#                   grandeur (le PIB en dollars courants et en parité de pouvoir
+#                   d'achat). Le site propose alors de passer de l'une à l'autre.
+#   variante ...... le nom de la version, pour le bouton de bascule
+#   record ........ cette carte a-t-elle un onglet « Records » ? (l'année record
+#                   d'un taux de croissance ou d'inflation n'aurait aucun sens)
+#   decimales ..... le nombre maximum de décimales affichées. Trois, c'est tout
+#                   ce que contiennent les fichiers : le site montre donc toute
+#                   la précision disponible. Les zéros inutiles ne sont pas
+#                   écrits (« 2,3 % » et non « 2,300 % »).
+#   titre ......... le titre du FMI, traduit
+#   unite ......... l'unité COURTE, pour la colonne étroite du classement
+#   unite_longue .. l'unité du FMI en toutes lettres, sous le titre de la légende
 INDICATEURS = [
     {
         "fichier": "pib-nominal",
         "code_fmi": "NGDPD",
-    "unite": {
-        "fr": "Md$",
-        "en": "bn$",
-        "uk": "млрд $",
-        "de": "Mrd. $",
-        "es": "mm$",
-        "it": "mld $",
-        "pt": "mM$",
-        "pl": "mld $",
-        "ja": "十億ドル",
-        "ko": "십억 $",
-        "tr": "milyar $",
-        "hi": "अरब $",
-        "ar": "مليار $",
+        "categorie": "economie",
+        "famille": "pib",
+        "variante": "nominal",
+        "record": True,
+        "decimales": 3,
+        "titre": {
+            "fr": "PIB, prix courants",
+            "en": "GDP, current prices",
+            "uk": "ВВП, поточні ціни",
+            "de": "BIP, jeweilige Preise",
+            "es": "PIB, precios corrientes",
+            "it": "PIL, prezzi correnti",
+            "pt": "PIB, preços correntes",
+            "pl": "PKB, ceny bieżące",
+            "ja": "GDP、現行価格",
+            "ko": "GDP, 경상가격",
+            "tr": "GSYİH, cari fiyatlar",
+            "hi": "जीडीपी, वर्तमान मूल्य",
+            "ar": "الناتج المحلي الإجمالي، الأسعار الجارية",
+        },
+        "unite": {
+            "fr": "Md$", "en": "bn$", "uk": "млрд $", "de": "Mrd. $",
+            "es": "mm$", "it": "mld $", "pt": "mM$", "pl": "mld $",
+            "ja": "十億ドル", "ko": "십억 $", "tr": "milyar $",
+            "hi": "अरब $", "ar": "مليار $",
+        },
+        "unite_longue": {
+            "fr": "milliards de dollars US",
+            "en": "billions of U.S. dollars",
+            "uk": "мільярди доларів США",
+            "de": "Milliarden US-Dollar",
+            "es": "miles de millones de dólares de EE. UU.",
+            "it": "miliardi di dollari USA",
+            "pt": "mil milhões de dólares dos EUA",
+            "pl": "miliardy dolarów amerykańskich",
+            "ja": "十億米ドル",
+            "ko": "십억 미국 달러",
+            "tr": "milyar ABD doları",
+            "hi": "अरब अमेरिकी डॉलर",
+            "ar": "مليارات الدولارات الأمريكية",
+        },
     },
-    "titre": {
-        "fr": "PIB nominal",
-        "en": "Nominal GDP",
-        "uk": "Номінальний ВВП",
-        "de": "Nominales BIP",
-        "es": "PIB nominal",
-        "it": "PIL nominale",
-        "pt": "PIB nominal",
-        "pl": "PKB nominalne",
-        "ja": "名目GDP",
-        "ko": "명목 GDP",
-        "tr": "Nominal GSYİH",
-        "hi": "नाममात्र जीडीपी",
-        "ar": "الناتج المحلي الإجمالي الاسمي",
-    },
-        "decimales": 0,
+    {
+        "fichier": "pib-ppa",
+        "code_fmi": "PPPGDP",
+        "categorie": "economie",
+        "famille": "pib",
+        "variante": "ppa",
+        "record": True,
+        "decimales": 3,
+        # Même titre que le PIB nominal : c'est ainsi que le FMI les présente.
+        # Seule l'unité les distingue.
+        "titre": {
+            "fr": "PIB, prix courants",
+            "en": "GDP, current prices",
+            "uk": "ВВП, поточні ціни",
+            "de": "BIP, jeweilige Preise",
+            "es": "PIB, precios corrientes",
+            "it": "PIL, prezzi correnti",
+            "pt": "PIB, preços correntes",
+            "pl": "PKB, ceny bieżące",
+            "ja": "GDP、現行価格",
+            "ko": "GDP, 경상가격",
+            "tr": "GSYİH, cari fiyatlar",
+            "hi": "जीडीपी, वर्तमान मूल्य",
+            "ar": "الناتج المحلي الإجمالي، الأسعار الجارية",
+        },
+        "unite": {
+            "fr": "Md $ int.", "en": "bn int$", "uk": "млрд міжн. $",
+            "de": "Mrd. int. $", "es": "mm $ int.", "it": "mld $ int.",
+            "pt": "mM $ int.", "pl": "mld $ międz.", "ja": "十億国際ドル",
+            "ko": "십억 국제 $", "tr": "milyar ulus. $", "hi": "अरब अंत. $",
+            "ar": "مليار $ دولي",
+        },
+        "unite_longue": {
+            "fr": "parité de pouvoir d’achat ; milliards de dollars internationaux",
+            "en": "purchasing power parity; billions of international dollars",
+            "uk": "паритет купівельної спроможності; мільярди міжнародних доларів",
+            "de": "Kaufkraftparität; Milliarden internationale Dollar",
+            "es": "paridad de poder adquisitivo; miles de millones de dólares internacionales",
+            "it": "parità di potere d’acquisto; miliardi di dollari internazionali",
+            "pt": "paridade de poder de compra; mil milhões de dólares internacionais",
+            "pl": "parytet siły nabywczej; miliardy dolarów międzynarodowych",
+            "ja": "購買力平価、十億国際ドル",
+            "ko": "구매력 평가; 십억 국제 달러",
+            "tr": "satın alma gücü paritesi; milyar uluslararası dolar",
+            "hi": "क्रय शक्ति समता; अरब अंतर्राष्ट्रीय डॉलर",
+            "ar": "تعادل القوة الشرائية؛ مليارات الدولارات الدولية",
+        },
     },
     {
         "fichier": "pib-par-habitant",
         "code_fmi": "NGDPDPC",
-    "unite": {
-        "fr": "$/hab.",
-        "en": "$/capita",
-        "uk": "$/особу",
-        "de": "$/Kopf",
-        "es": "$/hab.",
-        "it": "$/ab.",
-        "pt": "$/hab.",
-        "pl": "$/mieszk.",
-        "ja": "ドル／人",
-        "ko": "$/인",
-        "tr": "$/kişi",
-        "hi": "$/व्यक्ति",
-        "ar": "$/فرد",
+        "categorie": "economie",
+        "famille": "pib-par-habitant",
+        "variante": "nominal",
+        "record": True,
+        "decimales": 3,
+        "titre": {
+            "fr": "PIB par habitant, prix courants",
+            "en": "GDP per capita, current prices",
+            "uk": "ВВП на душу населення, поточні ціни",
+            "de": "BIP pro Kopf, jeweilige Preise",
+            "es": "PIB per cápita, precios corrientes",
+            "it": "PIL pro capite, prezzi correnti",
+            "pt": "PIB per capita, preços correntes",
+            "pl": "PKB na mieszkańca, ceny bieżące",
+            "ja": "一人当たりGDP、現行価格",
+            "ko": "1인당 GDP, 경상가격",
+            "tr": "Kişi başına GSYİH, cari fiyatlar",
+            "hi": "प्रति व्यक्ति जीडीपी, वर्तमान मूल्य",
+            "ar": "نصيب الفرد من الناتج المحلي الإجمالي، الأسعار الجارية",
+        },
+        "unite": {
+            "fr": "$/hab.", "en": "$/capita", "uk": "$/особу", "de": "$/Kopf",
+            "es": "$/hab.", "it": "$/ab.", "pt": "$/hab.", "pl": "$/mieszk.",
+            "ja": "ドル／人", "ko": "$/인", "tr": "$/kişi",
+            "hi": "$/व्यक्ति", "ar": "$/فرد",
+        },
+        "unite_longue": {
+            "fr": "dollars US par habitant",
+            "en": "U.S. dollars per capita",
+            "uk": "доларів США на душу населення",
+            "de": "US-Dollar pro Kopf",
+            "es": "dólares de EE. UU. per cápita",
+            "it": "dollari USA pro capite",
+            "pt": "dólares dos EUA per capita",
+            "pl": "dolary amerykańskie na mieszkańca",
+            "ja": "一人当たり米ドル",
+            "ko": "1인당 미국 달러",
+            "tr": "kişi başına ABD doları",
+            "hi": "प्रति व्यक्ति अमेरिकी डॉलर",
+            "ar": "دولار أمريكي للفرد",
+        },
     },
-    "titre": {
-        "fr": "PIB par habitant",
-        "en": "GDP per capita",
-        "uk": "ВВП на душу населення",
-        "de": "BIP pro Kopf",
-        "es": "PIB per cápita",
-        "it": "PIL pro capite",
-        "pt": "PIB per capita",
-        "pl": "PKB na mieszkańca",
-        "ja": "一人当たりGDP",
-        "ko": "1인당 GDP",
-        "tr": "Kişi başına GSYİH",
-        "hi": "प्रति व्यक्ति जीडीपी",
-        "ar": "نصيب الفرد من الناتج المحلي",
-    },
-        "decimales": 0,
+    {
+        "fichier": "pib-par-habitant-ppa",
+        "code_fmi": "PPPPC",
+        "categorie": "economie",
+        "famille": "pib-par-habitant",
+        "variante": "ppa",
+        "record": True,
+        "decimales": 3,
+        "titre": {
+            "fr": "PIB par habitant, prix courants",
+            "en": "GDP per capita, current prices",
+            "uk": "ВВП на душу населення, поточні ціни",
+            "de": "BIP pro Kopf, jeweilige Preise",
+            "es": "PIB per cápita, precios corrientes",
+            "it": "PIL pro capite, prezzi correnti",
+            "pt": "PIB per capita, preços correntes",
+            "pl": "PKB na mieszkańca, ceny bieżące",
+            "ja": "一人当たりGDP、現行価格",
+            "ko": "1인당 GDP, 경상가격",
+            "tr": "Kişi başına GSYİH, cari fiyatlar",
+            "hi": "प्रति व्यक्ति जीडीपी, वर्तमान मूल्य",
+            "ar": "نصيب الفرد من الناتج المحلي الإجمالي، الأسعار الجارية",
+        },
+        "unite": {
+            "fr": "$ int./hab.", "en": "int$/capita", "uk": "міжн. $/особу",
+            "de": "int. $/Kopf", "es": "$ int./hab.", "it": "$ int./ab.",
+            "pt": "$ int./hab.", "pl": "$ międz./mieszk.", "ja": "国際ドル／人",
+            "ko": "국제 $/인", "tr": "ulus. $/kişi", "hi": "अंत. $/व्यक्ति",
+            "ar": "$ دولي/فرد",
+        },
+        "unite_longue": {
+            "fr": "parité de pouvoir d’achat ; dollars internationaux par habitant",
+            "en": "purchasing power parity; international dollars per capita",
+            "uk": "паритет купівельної спроможності; міжнародних доларів на душу населення",
+            "de": "Kaufkraftparität; internationale Dollar pro Kopf",
+            "es": "paridad de poder adquisitivo; dólares internacionales per cápita",
+            "it": "parità di potere d’acquisto; dollari internazionali pro capite",
+            "pt": "paridade de poder de compra; dólares internacionais per capita",
+            "pl": "parytet siły nabywczej; dolary międzynarodowe na mieszkańca",
+            "ja": "購買力平価、一人当たり国際ドル",
+            "ko": "구매력 평가; 1인당 국제 달러",
+            "tr": "satın alma gücü paritesi; kişi başına uluslararası dolar",
+            "hi": "क्रय शक्ति समता; प्रति व्यक्ति अंतर्राष्ट्रीय डॉलर",
+            "ar": "تعادل القوة الشرائية؛ دولار دولي للفرد",
+        },
     },
     {
         "fichier": "croissance",
         "code_fmi": "NGDP_RPCH",
-        "unite": {langue: "%" for langue in (
-            "fr", "en", "uk", "de", "es", "it", "pt", "pl", "ja", "ko", "tr", "hi", "ar")},
-    "titre": {
-        "fr": "Croissance du PIB réel",
-        "en": "Real GDP growth",
-        "uk": "Зростання реального ВВП",
-        "de": "Reales BIP-Wachstum",
-        "es": "Crecimiento del PIB real",
-        "it": "Crescita del PIL reale",
-        "pt": "Crescimento do PIB real",
-        "pl": "Wzrost realnego PKB",
-        "ja": "実質GDP成長率",
-        "ko": "실질 GDP 성장률",
-        "tr": "Reel GSYİH büyümesi",
-        "hi": "वास्तविक जीडीपी वृद्धि",
-        "ar": "نمو الناتج المحلي الحقيقي",
-    },
-        "decimales": 1,
-    },
-]
-
-# --- Les cartes « année record » -----------------------------------------
-# Celles-ci ne sont PAS téléchargées : elles se calculent à partir des chiffres
-# déjà récupérés juste au-dessus. La question qu'elles posent est : « en quelle
-# année ce pays a-t-il été à son maximum ? »
-#
-# Le curseur des années garde son rôle : posé sur 2008, il montre le record
-# atteint « à cette date ». On voit donc la crise de 2008, puis le Covid,
-# arriver en faisant glisser le curseur — et, au-delà de la dernière année
-# constatée, les projections du FMI jusqu'en 2031.
-INDICATEURS_RECORD = [
-    {
-        "fichier": "annee-record-pib",
-        "depuis": "pib-nominal",
-    "titre": {
-        "fr": "Année record du PIB",
-        "en": "When GDP peaked",
-        "uk": "Рекордний рік ВВП",
-        "de": "BIP-Höchststand",
-        "es": "Año récord del PIB",
-        "it": "Anno record del PIL",
-        "pt": "Ano recorde do PIB",
-        "pl": "Rekordowy rok PKB",
-        "ja": "GDPの最高年",
-        "ko": "GDP 최고 연도",
-        "tr": "GSYİH zirve yılı",
-        "hi": "जीडीपी का शिखर वर्ष",
-        "ar": "سنة ذروة الناتج المحلي",
-    },
-    "legende_unite": {
-        "fr": "années écoulées depuis le record",
-        "en": "years since the peak",
-        "uk": "років від рекорду",
-        "de": "Jahre seit dem Höchststand",
-        "es": "años desde el récord",
-        "it": "anni dal record",
-        "pt": "anos desde o recorde",
-        "pl": "lat od rekordu",
-        "ja": "最高年からの経過年数",
-        "ko": "최고 연도 이후 경과 연수",
-        "tr": "zirveden bu yana geçen yıl",
-        "hi": "शिखर वर्ष से बीते वर्ष",
-        "ar": "سنوات منذ الذروة",
-    },
+        "categorie": "economie",
+        "famille": None,
+        "variante": None,
+        "record": False,
+        "decimales": 3,
+        "titre": {
+            "fr": "Croissance du PIB réel",
+            "en": "Real GDP growth",
+            "uk": "Зростання реального ВВП",
+            "de": "Reales BIP-Wachstum",
+            "es": "Crecimiento del PIB real",
+            "it": "Crescita del PIL reale",
+            "pt": "Crescimento do PIB real",
+            "pl": "Wzrost realnego PKB",
+            "ja": "実質GDP成長率",
+            "ko": "실질 GDP 성장률",
+            "tr": "Reel GSYİH büyümesi",
+            "hi": "वास्तविक जीडीपी वृद्धि",
+            "ar": "نمو الناتج المحلي الإجمالي الحقيقي",
+        },
+        "unite": {langue: "%" for langue in LANGUES},
+        "unite_longue": POURCENT_ANNUEL,
     },
     {
-        "fichier": "annee-record-pib-par-habitant",
-        "depuis": "pib-par-habitant",
-    "titre": {
-        "fr": "Année record du PIB par habitant",
-        "en": "When GDP per capita peaked",
-        "uk": "Рекордний рік ВВП на душу населення",
-        "de": "Höchststand BIP pro Kopf",
-        "es": "Año récord del PIB per cápita",
-        "it": "Anno record del PIL pro capite",
-        "pt": "Ano recorde do PIB per capita",
-        "pl": "Rekordowy rok PKB na mieszkańca",
-        "ja": "一人当たりGDPの最高年",
-        "ko": "1인당 GDP 최고 연도",
-        "tr": "Kişi başına GSYİH zirve yılı",
-        "hi": "प्रति व्यक्ति जीडीपी का शिखर वर्ष",
-        "ar": "سنة ذروة نصيب الفرد",
+        "fichier": "inflation",
+        "code_fmi": "PCPIPCH",
+        "categorie": "economie",
+        "famille": None,
+        "variante": None,
+        "record": False,
+        "decimales": 3,
+        "titre": {
+            "fr": "Taux d’inflation, prix à la consommation",
+            "en": "Inflation rate, average consumer prices",
+            "uk": "Рівень інфляції, споживчі ціни",
+            "de": "Inflationsrate, Verbraucherpreise",
+            "es": "Tasa de inflación, precios al consumidor",
+            "it": "Tasso d’inflazione, prezzi al consumo",
+            "pt": "Taxa de inflação, preços no consumidor",
+            "pl": "Stopa inflacji, ceny konsumpcyjne",
+            "ja": "インフレ率、消費者物価",
+            "ko": "물가상승률, 소비자물가",
+            "tr": "Enflasyon oranı, tüketici fiyatları",
+            "hi": "मुद्रास्फीति दर, उपभोक्ता मूल्य",
+            "ar": "معدل التضخم، أسعار المستهلك",
+        },
+        "unite": {langue: "%" for langue in LANGUES},
+        "unite_longue": POURCENT_ANNUEL,
     },
-    "legende_unite": {
-        "fr": "années écoulées depuis le record",
-        "en": "years since the peak",
-        "uk": "років від рекорду",
-        "de": "Jahre seit dem Höchststand",
-        "es": "años desde el récord",
-        "it": "anni dal record",
-        "pt": "anos desde o recorde",
-        "pl": "lat od rekordu",
-        "ja": "最高年からの経過年数",
-        "ko": "최고 연도 이후 경과 연수",
-        "tr": "zirveden bu yana geçen yıl",
-        "hi": "शिखर वर्ष से बीते वर्ष",
-        "ar": "سنوات منذ الذروة",
-    },
+    {
+        "fichier": "population",
+        "code_fmi": "LP",
+        "categorie": "demographie",
+        "famille": None,
+        "variante": None,
+        "record": True,
+        "decimales": 3,
+        "titre": {
+            "fr": "Population",
+            "en": "Population",
+            "uk": "Населення",
+            "de": "Bevölkerung",
+            "es": "Población",
+            "it": "Popolazione",
+            "pt": "População",
+            "pl": "Ludność",
+            "ja": "人口",
+            "ko": "인구",
+            "tr": "Nüfus",
+            "hi": "जनसंख्या",
+            "ar": "عدد السكان",
+        },
+        "unite": {
+            "fr": "M hab.", "en": "M people", "uk": "млн осіб", "de": "Mio.",
+            "es": "M hab.", "it": "mln ab.", "pt": "M hab.", "pl": "mln osób",
+            "ja": "百万人", "ko": "백만 명", "tr": "milyon kişi",
+            "hi": "मिलियन", "ar": "مليون نسمة",
+        },
+        "unite_longue": {
+            "fr": "millions d’habitants",
+            "en": "millions of people",
+            "uk": "мільйони осіб",
+            "de": "Millionen Menschen",
+            "es": "millones de personas",
+            "it": "milioni di persone",
+            "pt": "milhões de pessoas",
+            "pl": "miliony osób",
+            "ja": "百万人",
+            "ko": "백만 명",
+            "tr": "milyon kişi",
+            "hi": "मिलियन लोग",
+            "ar": "ملايين النسمة",
+        },
     },
 ]
-
-# Certaines entrées de la liste « pays » du FMI ne sont pas des pays souverains
-# ou n'apparaissent pas sur la carte ; on ne les exclut pas ici, la carte
-# les ignorera simplement si elle n'a pas leur frontière.
 
 RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOSSIER_DATA = os.path.join(RACINE, "data")
 
+# Les fichiers d'une version précédente du site, que ce script ne fabrique plus.
+# On les efface pour ne pas laisser traîner des chiffres que plus personne
+# n'affiche : les cartes « année record » sont maintenant calculées par le
+# navigateur à partir de la carte affichée.
+FICHIERS_ABANDONNES = [
+    "annee-record-pib.json",
+    "annee-record-pib-par-habitant.json",
+]
+
 
 # --- Outils ---------------------------------------------------------------
+
+# Depuis 2025, le FMI filtre les requêtes qui ne viennent pas d'un vrai
+# navigateur : on reçoit « 403 Access Denied ». Deux filtres se cumulent.
+#
+#   1. Les en-têtes. Une simple ligne « User-Agent: StatsMaps » ne passe plus ;
+#      il faut se présenter comme un navigateur, avec le même jeu d'en-têtes.
+#      C'est le rôle de EN_TETES ci-dessous.
+#   2. La poignée de main TLS elle-même. Le serveur reconnaît le logiciel qui
+#      se connecte à la FORME de sa négociation chiffrée, avant même de lire
+#      la moindre en-tête. Python a une signature reconnaissable, et se fait
+#      refouler quels que soient ses en-têtes. curl, lui, passe.
+#
+# D'où la façon de faire : on appelle curl, présent partout (macOS, Linux,
+# les serveurs de GitHub), et on ne se rabat sur Python que s'il manque.
+EN_TETES = {
+    "User-Agent": (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+    ),
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Referer": "https://www.imf.org/external/datamapper/profile/AUT",
+    "sec-ch-ua": '"Chromium";v="124", "Google Chrome";v="124"',
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": '"macOS"',
+    "Sec-Fetch-Mode": "cors",
+    "Sec-Fetch-Site": "same-origin",
+    "Sec-Fetch-Dest": "empty",
+}
+
+CURL = shutil.which("curl")
+
+
+def _telecharger(url):
+    """Rapporte le texte de la page, par curl si possible, sinon par Python."""
+    if CURL:
+        commande = [CURL, "--silent", "--show-error", "--fail", "--compressed",
+                    "--max-time", "90", "--location"]
+        for nom, valeur in EN_TETES.items():
+            commande += ["-H", "%s: %s" % (nom, valeur)]
+        commande.append(url)
+        fini = subprocess.run(commande, capture_output=True)
+        if fini.returncode != 0:
+            raise RuntimeError(
+                "curl a échoué (code %d) : %s"
+                % (fini.returncode, fini.stderr.decode("utf-8", "replace").strip())
+            )
+        return fini.stdout.decode("utf-8")
+
+    requete = urllib.request.Request(url, headers=EN_TETES)
+    with urllib.request.urlopen(requete, timeout=90) as reponse:
+        return reponse.read().decode("utf-8")
+
 
 def appeler_api(chemin, essais=3):
     """Appelle l'API du FMI et renvoie le JSON. Réessaie si le serveur bafouille."""
@@ -216,12 +436,8 @@ def appeler_api(chemin, essais=3):
     derniere_erreur = None
     for numero in range(1, essais + 1):
         try:
-            requete = urllib.request.Request(
-                url, headers={"User-Agent": "StatsMaps/1.0 (+https://statsmaps.com)"}
-            )
-            with urllib.request.urlopen(requete, timeout=90) as reponse:
-                return json.loads(reponse.read().decode("utf-8"))
-        except (urllib.error.URLError, ValueError) as erreur:
+            return json.loads(_telecharger(url))
+        except (urllib.error.URLError, RuntimeError, ValueError) as erreur:
             derniere_erreur = erreur
             print("    tentative %d/%d échouée (%s)" % (numero, essais, erreur))
             if numero < essais:
@@ -244,37 +460,6 @@ def edition_weo(aujourd_hui):
     if (aujourd_hui.month, aujourd_hui.day) >= (4, 15):
         return aujourd_hui.year, 4
     return aujourd_hui.year - 1, 10
-
-
-def annees_record(valeurs):
-    """Calcule, pour chaque pays et chaque année, l'année de son record.
-
-    On avance année par année en gardant en mémoire le plus haut chiffre vu
-    jusque-là. Exemple pour la Grèce : en 2007 le record est 2007, en 2008 il
-    devient 2008, et il reste 2008 pour toutes les années suivantes, parce que
-    la Grèce n'a jamais retrouvé son niveau d'avant-crise.
-
-    Les projections du FMI comptent comme les autres années : au-delà de la
-    dernière année constatée, le curseur montre donc quels pays sont *prévus*
-    pour battre leur record, et lesquels ne le retrouveront toujours pas.
-
-    On n'écrit une valeur que pour les années où le pays a vraiment un chiffre :
-    ainsi la carte « record » affiche exactement les mêmes pays que la carte
-    d'origine, ni plus ni moins."""
-    resultat = {}
-    for code_pays, par_annee in valeurs.items():
-        record_annee = None
-        record_valeur = None
-        par_annee_record = {}
-        for annee in sorted(int(a) for a in par_annee):
-            valeur = par_annee[str(annee)]
-            if record_valeur is None or valeur > record_valeur:
-                record_valeur = valeur
-                record_annee = annee
-            par_annee_record[str(annee)] = record_annee
-        if par_annee_record:
-            resultat[code_pays] = par_annee_record
-    return resultat
 
 
 def ecrire_json(nom_fichier, contenu):
@@ -330,7 +515,6 @@ def main():
     }
 
     total_ko = 0
-    valeurs_par_fichier = {}  # sert ensuite à calculer les cartes « record »
 
     # 2. Un appel par indicateur.
     for indicateur in INDICATEURS:
@@ -360,13 +544,13 @@ def main():
             "code_fmi": code,
             "titre": indicateur["titre"],
             "unite": indicateur["unite"],
+            "unite_longue": indicateur["unite_longue"],
             "decimales": indicateur["decimales"],
+            "record": indicateur["record"],
             "annees": annees,
             "derniere_annee_reelle": derniere_annee_reelle,
             "valeurs": valeurs,
         }
-
-        valeurs_par_fichier[indicateur["fichier"]] = valeurs
 
         poids = ecrire_json("%s.json" % indicateur["fichier"], contenu)
         total_ko += poids
@@ -375,50 +559,25 @@ def main():
 
         meta["indicateurs"][indicateur["fichier"]] = {
             "code_fmi": code,
+            "categorie": indicateur["categorie"],
+            "famille": indicateur["famille"],
+            "variante": indicateur["variante"],
+            "record": indicateur["record"],
             "titre": indicateur["titre"],
             "unite": indicateur["unite"],
-            "annees": [annees[0], annees[-1]],
-            "nb_pays": len(valeurs),
-        }
-
-    # 3. Les deux cartes « année record », calculées et non téléchargées.
-    for indicateur in INDICATEURS_RECORD:
-        print("  Calcul de %s ..." % indicateur["titre"]["fr"])
-
-        valeurs = annees_record(valeurs_par_fichier[indicateur["depuis"]])
-        annees = sorted({int(a) for par_annee in valeurs.values() for a in par_annee})
-
-        contenu = {
-            "indicateur": indicateur["fichier"],
-            "code_fmi": meta["indicateurs"][indicateur["depuis"]]["code_fmi"],
-            "titre": indicateur["titre"],
-            # La valeur affichée est une année : elle n'a pas d'unité, et le site
-            # doit l'écrire « 2008 » et non « 2 008 ». C'est ce que dit "format".
-            "unite": {langue: "" for langue in (
-                "fr", "en", "uk", "de", "es", "it", "pt",
-                "pl", "ja", "ko", "tr", "hi", "ar")},
-            "legende_unite": indicateur["legende_unite"],
-            "format": "annee",
-            "decimales": 0,
-            "annees": annees,
-            "derniere_annee_reelle": derniere_annee_reelle,
-            "valeurs": valeurs,
-        }
-
-        poids = ecrire_json("%s.json" % indicateur["fichier"], contenu)
-        total_ko += poids
-        print("    %d pays, années %d-%d, %d Ko"
-              % (len(valeurs), annees[0], annees[-1], round(poids)))
-
-        meta["indicateurs"][indicateur["fichier"]] = {
-            "code_fmi": contenu["code_fmi"],
-            "titre": indicateur["titre"],
-            "unite": contenu["unite"],
+            "unite_longue": indicateur["unite_longue"],
             "annees": [annees[0], annees[-1]],
             "nb_pays": len(valeurs),
         }
 
     total_ko += ecrire_json("meta.json", meta)
+
+    # 3. Le ménage : les fichiers d'une version précédente du site.
+    for nom in FICHIERS_ABANDONNES:
+        chemin = os.path.join(DOSSIER_DATA, nom)
+        if os.path.exists(chemin):
+            os.remove(chemin)
+            print("  Supprimé (calculé par le navigateur maintenant) : %s" % nom)
 
     print("-" * 55)
     print("  Total écrit : %d Ko dans data/" % round(total_ko))

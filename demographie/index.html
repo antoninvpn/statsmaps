@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Démographie — toutes les cartes | StatsMaps</title>
+  <meta name="description" content="Le nombre d’habitants de chaque pays, année par année. Carte interactive de 197 pays, de 1980 à 2031, à partir des données officielles du FMI (World Economic Outlook) : classement mondial et évolution année par année.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://statsmaps.com/demographie/">
+  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/demographie/">
+  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/demographics/">
+  <link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/demohrafiia/">
+  <link rel="alternate" hreflang="de" href="https://statsmaps.com/de/demografie/">
+  <link rel="alternate" hreflang="es" href="https://statsmaps.com/es/demografia/">
+  <link rel="alternate" hreflang="it" href="https://statsmaps.com/it/demografia/">
+  <link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/demografia/">
+  <link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/demografia/">
+  <link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/demographics/">
+  <link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/demographics/">
+  <link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/demografi/">
+  <link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/demographics/">
+  <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/demographics/">
+  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/demographie/">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="Démographie — toutes les cartes | StatsMaps">
+  <meta property="og:description" content="Le nombre d’habitants de chaque pays, année par année. Carte interactive de 197 pays, de 1980 à 2031, à partir des données officielles du FMI (World Economic Outlook) : classement mondial et évolution année par année.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://statsmaps.com/demographie/">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/theme.js"></script>
+</head>
+<body>
+
+  <header class="barre">
+    <a class="barre__logo" href="../">Stats<span>Maps</span></a>
+    <nav class="barre__nav" aria-label="Cartes">
+        <a class="barre__lien" href="../pib-nominal/"><span class="long">PIB</span><span class="court">PIB</span></a>
+        <a class="barre__lien" href="../pib-par-habitant/"><span class="long">PIB par habitant</span><span class="court">PIB/hab.</span></a>
+        <a class="barre__lien" href="../croissance/"><span class="long">Croissance</span><span class="court">Croissance</span></a>
+        <a class="barre__lien" href="../inflation/"><span class="long">Inflation</span><span class="court">Inflation</span></a>
+        <a class="barre__lien" href="../population/"><span class="long">Population</span><span class="court">Population</span></a>
+    </nav>
+    <div class="barre__droite">
+      <details class="langues">
+        <summary class="bouton-icone" title="Langue" aria-label="Langue">🇫🇷</summary>
+        <div class="langues__menu">
+          <a href="/demographie/" hreflang="fr" lang="fr" aria-current="true"><span class="drapeau" aria-hidden="true">🇫🇷</span>Français</a>
+          <a href="/en/demographics/" hreflang="en" lang="en"><span class="drapeau" aria-hidden="true">🇬🇧</span>English</a>
+          <a href="/ua/demohrafiia/" hreflang="uk" lang="uk"><span class="drapeau" aria-hidden="true">🇺🇦</span>Українська</a>
+          <a href="/de/demografie/" hreflang="de" lang="de"><span class="drapeau" aria-hidden="true">🇩🇪</span>Deutsch</a>
+          <a href="/es/demografia/" hreflang="es" lang="es"><span class="drapeau" aria-hidden="true">🇪🇸</span>Español</a>
+          <a href="/it/demografia/" hreflang="it" lang="it"><span class="drapeau" aria-hidden="true">🇮🇹</span>Italiano</a>
+          <a href="/pt/demografia/" hreflang="pt" lang="pt"><span class="drapeau" aria-hidden="true">🇵🇹</span>Português</a>
+          <a href="/pl/demografia/" hreflang="pl" lang="pl"><span class="drapeau" aria-hidden="true">🇵🇱</span>Polski</a>
+          <a href="/ja/demographics/" hreflang="ja" lang="ja"><span class="drapeau" aria-hidden="true">🇯🇵</span>日本語</a>
+          <a href="/ko/demographics/" hreflang="ko" lang="ko"><span class="drapeau" aria-hidden="true">🇰🇷</span>한국어</a>
+          <a href="/tr/demografi/" hreflang="tr" lang="tr"><span class="drapeau" aria-hidden="true">🇹🇷</span>Türkçe</a>
+          <a href="/hi/demographics/" hreflang="hi" lang="hi"><span class="drapeau" aria-hidden="true">🇮🇳</span>हिन्दी</a>
+          <a href="/ar/demographics/" hreflang="ar" lang="ar"><span class="drapeau" aria-hidden="true">🇸🇦</span>العربية</a>
+        </div>
+      </details>
+      <button class="bouton-icone" id="bouton-theme" type="button"
+              aria-label="Changer de thème"
+              data-vers-clair="Passer en thème clair"
+              data-vers-sombre="Passer en thème sombre">☾</button>
+    </div>
+  </header>
+
+  <main class="accueil">
+    <h1 class="accueil__titre">La démographie mondiale, en cartes.</h1>
+    <p class="accueil__intro">Le FMI publie aussi la population de chaque pays : 197 pays, de 1980 à 2031, projections comprises.</p>
+
+    <div class="vignettes">
+      <a class="vignette" href="../population/">
+        <div class="vignette__pastille">👥</div>
+        <div class="vignette__titre">Population</div>
+        <p class="vignette__texte">Le nombre d’habitants de chaque pays, en millions.</p>
+      </a>
+    </div>
+
+  </main>
+
+  <footer class="pied">Données : FMI (World Economic Outlook) · Fond de carte : Natural Earth · Site sans publicité ni traceur.</footer>
+
+  <script src="../assets/js/barre.js"></script>
+</body>
+</html>

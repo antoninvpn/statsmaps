@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>GDP per capita by country — interactive world map | StatsMaps</title>
-  <meta name="description" content="Interactive map of GDP per capita for 197 countries, from 1980 to 2031. Official IMF data, world ranking and wealth level per person.">
+  <meta name="description" content="Wealth produced per person, in current US dollars. An interactive map of 197 countries, from 1980 to 2031, built on official IMF data (World Economic Outlook): world ranking and year-by-year change.">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://statsmaps.com/en/gdp-per-capita/">
   <link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-par-habitant/">
@@ -23,7 +23,7 @@
   <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant/">
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
   <meta property="og:title" content="GDP per capita by country — interactive world map">
-  <meta property="og:description" content="Interactive map of GDP per capita for 197 countries, from 1980 to 2031. Official IMF data, world ranking and wealth level per person.">
+  <meta property="og:description" content="Wealth produced per person, in current US dollars. An interactive map of 197 countries, from 1980 to 2031, built on official IMF data (World Economic Outlook): world ranking and year-by-year change.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://statsmaps.com/en/gdp-per-capita/">
   <link rel="preload" href="../../data/pays.json" as="fetch" crossorigin>
@@ -36,11 +36,11 @@
   <header class="barre">
     <a class="barre__logo" href="../">Stats<span>Maps</span></a>
     <nav class="barre__nav" aria-label="Maps">
-        <a class="barre__lien" href="../gdp/"><span class="long">Nominal GDP</span><span class="court">GDP</span></a>
+        <a class="barre__lien" href="../gdp/"><span class="long">GDP</span><span class="court">GDP</span></a>
         <a class="barre__lien" href="../gdp-per-capita/" aria-current="page"><span class="long">GDP per capita</span><span class="court">GDP/cap.</span></a>
         <a class="barre__lien" href="../growth/"><span class="long">Growth</span><span class="court">Growth</span></a>
-        <a class="barre__lien" href="../when-gdp-peaked/"><span class="long">When GDP peaked</span><span class="court">GDP peak</span></a>
-        <a class="barre__lien" href="../when-gdp-per-capita-peaked/"><span class="long">When GDP per capita peaked</span><span class="court">GDP/cap. peak</span></a>
+        <a class="barre__lien" href="../inflation/"><span class="long">Inflation</span><span class="court">Inflation</span></a>
+        <a class="barre__lien" href="../population/"><span class="long">Population</span><span class="court">Population</span></a>
     </nav>
     <div class="barre__droite">
       <details class="langues">
@@ -62,7 +62,7 @@
         </div>
       </details>
       <button class="bouton-icone" id="bouton-theme" type="button"
-              aria-label="Change theme"
+              aria-label="Switch theme"
               data-vers-clair="Switch to light theme"
               data-vers-sombre="Switch to dark theme">☾</button>
     </div>
@@ -77,6 +77,10 @@
       <div class="panneau__entete">
         <h1 class="panneau__titre" id="titre-panneau">GDP per capita</h1>
         <div class="panneau__soustitre" id="compteur-pays"></div>
+        <div class="variantes" role="group" aria-label="Unit">
+          <a class="variante est-active" href="../gdp-per-capita/" aria-current="page">U.S. dollars</a>
+          <a class="variante" href="../gdp-per-capita-ppp/">Purchasing power parity</a>
+        </div>
         <input class="panneau__recherche" id="recherche" type="search" autocomplete="off" spellcheck="false">
       </div>
       <ul class="classement" id="classement"></ul>

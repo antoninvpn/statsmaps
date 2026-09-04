@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>BIP pro Kopf zu Kaufkraftparität nach Ländern — interaktive Weltkarte | StatsMaps</title>
+  <meta name="description" content="Die je Person erwirtschaftete Leistung, um die Lebenshaltungskosten bereinigt, in internationalen Dollar. Eine interaktive Karte mit 197 Ländern, von 1980 bis 2031, auf Grundlage offizieller IWF-Daten (World Economic Outlook): Weltrangliste und Entwicklung Jahr für Jahr.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://statsmaps.com/de/bip-pro-kopf-kkp/">
+  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-par-habitant-ppa/">
+  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-per-capita-ppp/">
+  <link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-na-osobu-pks/">
+  <link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-pro-kopf-kkp/">
+  <link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-per-capita-ppa/">
+  <link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-pro-capite-ppa/">
+  <link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-per-capita-ppc/">
+  <link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-na-mieszkanca-psn/">
+  <link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-per-capita-ppp/">
+  <link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-per-capita-ppp/">
+  <link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/kisi-basi-gsyih-sagp/">
+  <link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-per-capita-ppp/">
+  <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-per-capita-ppp/">
+  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-par-habitant-ppa/">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="BIP pro Kopf zu Kaufkraftparität nach Ländern — interaktive Weltkarte">
+  <meta property="og:description" content="Die je Person erwirtschaftete Leistung, um die Lebenshaltungskosten bereinigt, in internationalen Dollar. Eine interaktive Karte mit 197 Ländern, von 1980 bis 2031, auf Grundlage offizieller IWF-Daten (World Economic Outlook): Weltrangliste und Entwicklung Jahr für Jahr.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://statsmaps.com/de/bip-pro-kopf-kkp/">
+  <link rel="preload" href="../../data/pays.json" as="fetch" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.1/maplibre-gl.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <script src="../../assets/js/theme.js"></script>
+</head>
+<body class="page-carte" data-indicateur="pib-par-habitant-ppa" data-langue="de" data-base="../../">
+
+  <header class="barre">
+    <a class="barre__logo" href="../">Stats<span>Maps</span></a>
+    <nav class="barre__nav" aria-label="Karten">
+        <a class="barre__lien" href="../nominales-bip/"><span class="long">BIP</span><span class="court">BIP</span></a>
+        <a class="barre__lien" href="../bip-pro-kopf/" aria-current="page"><span class="long">BIP pro Kopf</span><span class="court">BIP/Kopf</span></a>
+        <a class="barre__lien" href="../bip-wachstum/"><span class="long">Wachstum</span><span class="court">Wachstum</span></a>
+        <a class="barre__lien" href="../inflation/"><span class="long">Inflation</span><span class="court">Inflation</span></a>
+        <a class="barre__lien" href="../bevoelkerung/"><span class="long">Bevölkerung</span><span class="court">Bevölkerung</span></a>
+    </nav>
+    <div class="barre__droite">
+      <details class="langues">
+        <summary class="bouton-icone" title="Sprache" aria-label="Sprache">🇩🇪</summary>
+        <div class="langues__menu">
+          <a href="/pib-par-habitant-ppa/" hreflang="fr" lang="fr"><span class="drapeau" aria-hidden="true">🇫🇷</span>Français</a>
+          <a href="/en/gdp-per-capita-ppp/" hreflang="en" lang="en"><span class="drapeau" aria-hidden="true">🇬🇧</span>English</a>
+          <a href="/ua/vvp-na-osobu-pks/" hreflang="uk" lang="uk"><span class="drapeau" aria-hidden="true">🇺🇦</span>Українська</a>
+          <a href="/de/bip-pro-kopf-kkp/" hreflang="de" lang="de" aria-current="true"><span class="drapeau" aria-hidden="true">🇩🇪</span>Deutsch</a>
+          <a href="/es/pib-per-capita-ppa/" hreflang="es" lang="es"><span class="drapeau" aria-hidden="true">🇪🇸</span>Español</a>
+          <a href="/it/pil-pro-capite-ppa/" hreflang="it" lang="it"><span class="drapeau" aria-hidden="true">🇮🇹</span>Italiano</a>
+          <a href="/pt/pib-per-capita-ppc/" hreflang="pt" lang="pt"><span class="drapeau" aria-hidden="true">🇵🇹</span>Português</a>
+          <a href="/pl/pkb-na-mieszkanca-psn/" hreflang="pl" lang="pl"><span class="drapeau" aria-hidden="true">🇵🇱</span>Polski</a>
+          <a href="/ja/gdp-per-capita-ppp/" hreflang="ja" lang="ja"><span class="drapeau" aria-hidden="true">🇯🇵</span>日本語</a>
+          <a href="/ko/gdp-per-capita-ppp/" hreflang="ko" lang="ko"><span class="drapeau" aria-hidden="true">🇰🇷</span>한국어</a>
+          <a href="/tr/kisi-basi-gsyih-sagp/" hreflang="tr" lang="tr"><span class="drapeau" aria-hidden="true">🇹🇷</span>Türkçe</a>
+          <a href="/hi/gdp-per-capita-ppp/" hreflang="hi" lang="hi"><span class="drapeau" aria-hidden="true">🇮🇳</span>हिन्दी</a>
+          <a href="/ar/gdp-per-capita-ppp/" hreflang="ar" lang="ar"><span class="drapeau" aria-hidden="true">🇸🇦</span>العربية</a>
+        </div>
+      </details>
+      <button class="bouton-icone" id="bouton-theme" type="button"
+              aria-label="Thema wechseln"
+              data-vers-clair="Zum hellen Thema wechseln"
+              data-vers-sombre="Zum dunklen Thema wechseln">☾</button>
+    </div>
+  </header>
+
+  <div class="zone-carte">
+    <div id="carte"></div>
+
+    <button class="bouton-icone bouton-panneau" id="bouton-panneau" type="button" aria-expanded="false" aria-controls="panneau"></button>
+
+    <aside class="panneau" id="panneau">
+      <div class="panneau__entete">
+        <h1 class="panneau__titre" id="titre-panneau">BIP pro Kopf zu Kaufkraftparität</h1>
+        <div class="panneau__soustitre" id="compteur-pays"></div>
+        <div class="variantes" role="group" aria-label="Einheit">
+          <a class="variante" href="../bip-pro-kopf/">US-Dollar</a>
+          <a class="variante est-active" href="../bip-pro-kopf-kkp/" aria-current="page">Kaufkraftparität</a>
+        </div>
+        <input class="panneau__recherche" id="recherche" type="search" autocomplete="off" spellcheck="false">
+      </div>
+      <ul class="classement" id="classement"></ul>
+      <div class="panneau__pied" id="source"></div>
+    </aside>
+
+    <div class="legende" id="legende"></div>
+
+    <div class="annees">
+      <div class="annees__haut">
+        <span class="annees__valeur nombre" id="annee-valeur">—</span>
+        <span class="annees__etiquette" id="annee-etiquette"></span>
+      </div>
+      <input type="range" id="curseur-annee" min="1980" max="2031" step="1" value="2025">
+      <div class="annees__bornes"><span id="annee-min"></span><span id="annee-max"></span></div>
+    </div>
+
+    <div class="chargement" id="chargement">…</div>
+  </div>
+
+  <script src="../../assets/js/i18n.js"></script>
+  <script src="../../assets/js/barre.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.1/maplibre-gl.js"></script>
+  <script src="../../assets/js/comparateur.js"></script>
+  <script src="../../assets/js/carte.js"></script>
+</body>
+</html>

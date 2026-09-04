@@ -54,13 +54,14 @@ window.StatsMapsTextes = {
     ecart_one: "il y a {n} an",
     ecart_other: "il y a {n} ans",
 
-    /* Comparaison entre pays : le bouton de la légende, l'écart affiché dans
-       la bulle et dans le classement. Les formulations évitent volontairement
-       toute préposition devant un nom de pays — « par rapport à la France » —
-       parce que la moitié des langues du site devraient alors le décliner. */
-    comparer: "Comparer à ce pays",
+    /* Comparaison entre pays. Il n'y a pas de bouton « comparer » : cliquer
+       sur un pays suffit à repeindre la carte en écarts avec lui. Ces textes
+       sont donc ceux de la SORTIE (la croix du panneau), et de l'écart affiché
+       dans la bulle et dans le classement. Les formulations évitent
+       volontairement toute préposition devant un nom de pays — « par rapport à
+       la France » — parce que la moitié des langues du site devraient alors le
+       décliner. */
     comparer_stop: "Revenir aux valeurs",
-    comparer_invite: "Clique d'abord sur un pays",
     ecart_titre: "Écart",
     reference_pays: "pays de référence",
     unite_points: "pt",
@@ -70,6 +71,19 @@ window.StatsMapsTextes = {
 
     /* L'onglet « Comparer » du panneau */
     onglet_comparer: "Comparer",
+
+    /* L'onglet « Records » du panneau : « en quelle année ce pays a-t-il été
+       à son maximum ? ». {carte} sera remplacé par le titre de la carte
+       ouverte, {annee} par l'année affichée. */
+    onglet_records: "Records",
+    record_titre: "Année record — {carte}",
+    record_unite: "années écoulées depuis le record",
+    record_valeur: "Record",
+    record_annee: "Année du record",
+    record_aujourdhui: "Écart au record en {annee}",
+    record_invite: "Clique sur un pays pour voir son record.",
+
+    /* L'onglet « Comparer » : deux pays face à face */
     comparateur_choisir: "Choisir un pays",
     comparateur_invite: "Choisis deux pays pour voir l'écart entre eux.",
     comparateur_sans_donnee: "Ces deux pays n'ont aucune année en commun.",
@@ -91,11 +105,6 @@ window.StatsMapsTextes = {
     weo_octobre: "octobre",
     voir_classement: "Classement",
     fermer: "Fermer",
-
-    /* Unités longues */
-    milliards_dollars: "milliards de dollars",
-    dollars_par_habitant: "dollars par habitant",
-    pourcent_an: "% par an",
   },
 
   en: {
@@ -123,9 +132,7 @@ window.StatsMapsTextes = {
     ecart_one: "{n} year ago",
     ecart_other: "{n} years ago",
 
-    comparer: "Compare with this country",
     comparer_stop: "Back to values",
-    comparer_invite: "Click a country first",
     ecart_titre: "Gap",
     reference_pays: "reference country",
     unite_points: "pts",
@@ -134,6 +141,14 @@ window.StatsMapsTextes = {
     an_other: "{n} years",
 
     onglet_comparer: "Compare",
+
+    onglet_records: "Records",
+    record_titre: "Peak year — {carte}",
+    record_unite: "years since the peak",
+    record_valeur: "Peak",
+    record_annee: "Peak year",
+    record_aujourdhui: "Gap to the peak in {annee}",
+    record_invite: "Click a country to see its peak.",
     comparateur_choisir: "Choose a country",
     comparateur_invite: "Pick two countries to see the gap between them.",
     comparateur_sans_donnee: "These two countries share no year of data.",
@@ -153,9 +168,6 @@ window.StatsMapsTextes = {
     voir_classement: "Ranking",
     fermer: "Close",
 
-    milliards_dollars: "billion US dollars",
-    dollars_par_habitant: "US dollars per capita",
-    pourcent_an: "% per year",
   },
 
   uk: {
@@ -186,9 +198,7 @@ window.StatsMapsTextes = {
     ecart_many: "{n} років тому",
     ecart_other: "{n} років тому",
 
-    comparer: "Порівняти з цією країною",
     comparer_stop: "Повернутися до значень",
-    comparer_invite: "Спершу натисніть на країну",
     ecart_titre: "Розрив",
     reference_pays: "країна порівняння",
     unite_points: "п.",
@@ -199,6 +209,14 @@ window.StatsMapsTextes = {
     an_other: "{n} років",
 
     onglet_comparer: "Порівняти",
+
+    onglet_records: "Рекорди",
+    record_titre: "Рекордний рік — {carte}",
+    record_unite: "років від рекорду",
+    record_valeur: "Рекорд",
+    record_annee: "Рік рекорду",
+    record_aujourdhui: "Відставання від рекорду у {annee}",
+    record_invite: "Натисніть на країну, щоб побачити її рекорд.",
     comparateur_choisir: "Обрати країну",
     comparateur_invite: "Оберіть дві країни, щоб побачити розрив між ними.",
     comparateur_sans_donnee: "Ці дві країни не мають спільних років даних.",
@@ -218,9 +236,6 @@ window.StatsMapsTextes = {
     voir_classement: "Рейтинг",
     fermer: "Закрити",
 
-    milliards_dollars: "мільярдів доларів",
-    dollars_par_habitant: "доларів на душу населення",
-    pourcent_an: "% на рік",
   },
 
   /* --- Allemand --- */
@@ -254,9 +269,7 @@ window.StatsMapsTextes = {
     ecart_other: "vor {n} Jahren",
 
     /* Comparaison entre pays */
-    comparer: "Mit diesem Land vergleichen",
     comparer_stop: "Zurück zu den Werten",
-    comparer_invite: "Zuerst ein Land anklicken",
     ecart_titre: "Unterschied",
     reference_pays: "Bezugsland",
     unite_points: "Pp",
@@ -266,6 +279,14 @@ window.StatsMapsTextes = {
 
     /* Onglet « Comparer » */
     onglet_comparer: "Vergleichen",
+
+    onglet_records: "Rekorde",
+    record_titre: "Höchststand — {carte}",
+    record_unite: "Jahre seit dem Höchststand",
+    record_valeur: "Höchstwert",
+    record_annee: "Jahr des Höchststands",
+    record_aujourdhui: "Abstand zum Höchststand {annee}",
+    record_invite: "Klicke auf ein Land, um seinen Höchststand zu sehen.",
     comparateur_choisir: "Land auswählen",
     comparateur_invite: "Zwei Länder auswählen, um den Unterschied zu sehen.",
     comparateur_sans_donnee: "Für diese beiden Länder gibt es kein gemeinsames Jahr.",
@@ -285,11 +306,6 @@ window.StatsMapsTextes = {
     weo_octobre: "Oktober",
     voir_classement: "Rangliste",
     fermer: "Schließen",
-
-    /* Unités longues */
-    milliards_dollars: "Milliarden US-Dollar",
-    dollars_par_habitant: "US-Dollar pro Kopf",
-    pourcent_an: "% pro Jahr",
   },
 
   /* --- Espagnol --- */
@@ -323,9 +339,7 @@ window.StatsMapsTextes = {
     ecart_other: "hace {n} años",
 
     /* Comparaison entre pays */
-    comparer: "Comparar con este país",
     comparer_stop: "Volver a los valores",
-    comparer_invite: "Haz clic primero en un país",
     ecart_titre: "Diferencia",
     reference_pays: "país de referencia",
     unite_points: "pp",
@@ -335,6 +349,14 @@ window.StatsMapsTextes = {
 
     /* Onglet « Comparer » */
     onglet_comparer: "Comparar",
+
+    onglet_records: "Récords",
+    record_titre: "Año récord — {carte}",
+    record_unite: "años desde el récord",
+    record_valeur: "Récord",
+    record_annee: "Año del récord",
+    record_aujourdhui: "Distancia al récord en {annee}",
+    record_invite: "Haz clic en un país para ver su récord.",
     comparateur_choisir: "Elegir un país",
     comparateur_invite: "Elige dos países para ver la diferencia entre ellos.",
     comparateur_sans_donnee: "Estos dos países no comparten ningún año con datos.",
@@ -354,11 +376,6 @@ window.StatsMapsTextes = {
     weo_octobre: "octubre",
     voir_classement: "Clasificación",
     fermer: "Cerrar",
-
-    /* Unités longues */
-    milliards_dollars: "miles de millones de dólares",
-    dollars_par_habitant: "dólares per cápita",
-    pourcent_an: "% al año",
   },
 
   /* --- Italien --- */
@@ -392,9 +409,7 @@ window.StatsMapsTextes = {
     ecart_other: "{n} anni fa",
 
     /* Comparaison entre pays */
-    comparer: "Confronta con questo paese",
     comparer_stop: "Torna ai valori",
-    comparer_invite: "Fai prima clic su un paese",
     ecart_titre: "Scarto",
     reference_pays: "paese di riferimento",
     unite_points: "p.p.",
@@ -404,6 +419,14 @@ window.StatsMapsTextes = {
 
     /* Onglet « Comparer » */
     onglet_comparer: "Confronta",
+
+    onglet_records: "Record",
+    record_titre: "Anno record — {carte}",
+    record_unite: "anni dal record",
+    record_valeur: "Record",
+    record_annee: "Anno del record",
+    record_aujourdhui: "Distanza dal record nel {annee}",
+    record_invite: "Clicca su un paese per vedere il suo record.",
     comparateur_choisir: "Scegli un paese",
     comparateur_invite: "Scegli due paesi per vedere lo scarto tra loro.",
     comparateur_sans_donnee: "Questi due paesi non hanno alcun anno in comune.",
@@ -423,11 +446,6 @@ window.StatsMapsTextes = {
     weo_octobre: "ottobre",
     voir_classement: "Classifica",
     fermer: "Chiudi",
-
-    /* Unités longues */
-    milliards_dollars: "miliardi di dollari",
-    dollars_par_habitant: "dollari pro capite",
-    pourcent_an: "% all'anno",
   },
 
   /* --- Portugais --- */
@@ -461,9 +479,7 @@ window.StatsMapsTextes = {
     ecart_other: "há {n} anos",
 
     /* Comparaison entre pays */
-    comparer: "Comparar com este país",
     comparer_stop: "Voltar aos valores",
-    comparer_invite: "Clica primeiro num país",
     ecart_titre: "Diferença",
     reference_pays: "país de referência",
     unite_points: "p.p.",
@@ -473,6 +489,14 @@ window.StatsMapsTextes = {
 
     /* Onglet « Comparer » */
     onglet_comparer: "Comparar",
+
+    onglet_records: "Recordes",
+    record_titre: "Ano recorde — {carte}",
+    record_unite: "anos desde o recorde",
+    record_valeur: "Recorde",
+    record_annee: "Ano do recorde",
+    record_aujourdhui: "Distância do recorde em {annee}",
+    record_invite: "Clica num país para ver o seu recorde.",
     comparateur_choisir: "Escolher um país",
     comparateur_invite: "Escolhe dois países para veres a diferença entre eles.",
     comparateur_sans_donnee: "Estes dois países não têm nenhum ano em comum.",
@@ -492,11 +516,6 @@ window.StatsMapsTextes = {
     weo_octobre: "outubro",
     voir_classement: "Classificação",
     fermer: "Fechar",
-
-    /* Unités longues */
-    milliards_dollars: "mil milhões de dólares",
-    dollars_par_habitant: "dólares per capita",
-    pourcent_an: "% ao ano",
   },
 
   /* --- Polonais — quatre formes de pluriel : 1 rok, 2-4 lata, 5+ lat --- */
@@ -532,9 +551,7 @@ window.StatsMapsTextes = {
     ecart_other: "{n} lat temu",
 
     /* Comparaison entre pays */
-    comparer: "Porównaj z tym krajem",
     comparer_stop: "Wróć do wartości",
-    comparer_invite: "Najpierw kliknij kraj",
     ecart_titre: "Różnica",
     reference_pays: "kraj odniesienia",
     unite_points: "pkt",
@@ -546,6 +563,14 @@ window.StatsMapsTextes = {
 
     /* Onglet « Comparer » */
     onglet_comparer: "Porównaj",
+
+    onglet_records: "Rekordy",
+    record_titre: "Rekordowy rok — {carte}",
+    record_unite: "lat od rekordu",
+    record_valeur: "Rekord",
+    record_annee: "Rok rekordu",
+    record_aujourdhui: "Odległość od rekordu w {annee}",
+    record_invite: "Kliknij kraj, aby zobaczyć jego rekord.",
     comparateur_choisir: "Wybierz kraj",
     comparateur_invite: "Wybierz dwa kraje, aby zobaczyć różnicę między nimi.",
     comparateur_sans_donnee: "Te dwa kraje nie mają wspólnego roku z danymi.",
@@ -565,11 +590,6 @@ window.StatsMapsTextes = {
     weo_octobre: "październik",
     voir_classement: "Ranking",
     fermer: "Zamknij",
-
-    /* Unités longues */
-    milliards_dollars: "miliardów dolarów",
-    dollars_par_habitant: "dolarów na mieszkańca",
-    pourcent_an: "% rocznie",
   },
 
   /* --- Japonais — une seule forme de pluriel --- */
@@ -602,9 +622,7 @@ window.StatsMapsTextes = {
     ecart_other: "{n}年前",
 
     /* Comparaison entre pays */
-    comparer: "この国と比較",
     comparer_stop: "数値表示に戻る",
-    comparer_invite: "先に国をクリック",
     ecart_titre: "差",
     reference_pays: "基準国",
     unite_points: "pt",
@@ -613,6 +631,14 @@ window.StatsMapsTextes = {
 
     /* Onglet « Comparer » */
     onglet_comparer: "比較",
+
+    onglet_records: "最高記録",
+    record_titre: "最高年 — {carte}",
+    record_unite: "最高年からの経過年数",
+    record_valeur: "最高値",
+    record_annee: "最高年",
+    record_aujourdhui: "{annee}年の最高値との差",
+    record_invite: "国をクリックすると、その最高記録が表示されます。",
     comparateur_choisir: "国を選ぶ",
     comparateur_invite: "2か国を選ぶと、その差が表示されます。",
     comparateur_sans_donnee: "この2か国に共通するデータの年がありません。",
@@ -632,11 +658,6 @@ window.StatsMapsTextes = {
     weo_octobre: "10月",
     voir_classement: "ランキング",
     fermer: "閉じる",
-
-    /* Unités longues */
-    milliards_dollars: "十億ドル",
-    dollars_par_habitant: "ドル／人",
-    pourcent_an: "％／年",
   },
 
   /* --- Coréen — une seule forme de pluriel --- */
@@ -669,9 +690,7 @@ window.StatsMapsTextes = {
     ecart_other: "{n}년 전",
 
     /* Comparaison entre pays */
-    comparer: "이 나라와 비교",
     comparer_stop: "값으로 돌아가기",
-    comparer_invite: "먼저 나라를 클릭하세요",
     ecart_titre: "격차",
     reference_pays: "기준 국가",
     unite_points: "%p",
@@ -680,6 +699,14 @@ window.StatsMapsTextes = {
 
     /* Onglet « Comparer » */
     onglet_comparer: "비교",
+
+    onglet_records: "최고 기록",
+    record_titre: "최고 연도 — {carte}",
+    record_unite: "최고 연도 이후 경과 연수",
+    record_valeur: "최고치",
+    record_annee: "최고 연도",
+    record_aujourdhui: "{annee}년 최고치와의 격차",
+    record_invite: "국가를 클릭하면 최고 기록이 표시됩니다.",
     comparateur_choisir: "나라 선택",
     comparateur_invite: "두 나라를 선택하면 격차가 표시됩니다.",
     comparateur_sans_donnee: "두 나라에 공통된 자료 연도가 없습니다.",
@@ -699,11 +726,6 @@ window.StatsMapsTextes = {
     weo_octobre: "10월",
     voir_classement: "순위",
     fermer: "닫기",
-
-    /* Unités longues */
-    milliards_dollars: "십억 달러",
-    dollars_par_habitant: "1인당 달러",
-    pourcent_an: "% / 년",
   },
 
   /* --- Turc --- */
@@ -737,9 +759,7 @@ window.StatsMapsTextes = {
     ecart_other: "{n} yıl önce",
 
     /* Comparaison entre pays */
-    comparer: "Bu ülkeyle karşılaştır",
     comparer_stop: "Değerlere dön",
-    comparer_invite: "Önce bir ülkeye tıkla",
     ecart_titre: "Fark",
     reference_pays: "referans ülke",
     unite_points: "puan",
@@ -749,6 +769,14 @@ window.StatsMapsTextes = {
 
     /* Onglet « Comparer » */
     onglet_comparer: "Karşılaştır",
+
+    onglet_records: "Rekorlar",
+    record_titre: "Zirve yılı — {carte}",
+    record_unite: "zirveden bu yana geçen yıl",
+    record_valeur: "Zirve",
+    record_annee: "Zirve yılı",
+    record_aujourdhui: "{annee} yılında zirveye uzaklık",
+    record_invite: "Zirvesini görmek için bir ülkeye tıkla.",
     comparateur_choisir: "Ülke seç",
     comparateur_invite: "Aradaki farkı görmek için iki ülke seç.",
     comparateur_sans_donnee: "Bu iki ülkenin ortak veri yılı yok.",
@@ -768,11 +796,6 @@ window.StatsMapsTextes = {
     weo_octobre: "Ekim",
     voir_classement: "Sıralama",
     fermer: "Kapat",
-
-    /* Unités longues */
-    milliards_dollars: "milyar dolar",
-    dollars_par_habitant: "kişi başına dolar",
-    pourcent_an: "% / yıl",
   },
 
   /* --- Hindi --- */
@@ -806,9 +829,7 @@ window.StatsMapsTextes = {
     ecart_other: "{n} वर्ष पहले",
 
     /* Comparaison entre pays */
-    comparer: "इस देश से तुलना करें",
     comparer_stop: "मानों पर लौटें",
-    comparer_invite: "पहले किसी देश पर क्लिक करें",
     ecart_titre: "अंतर",
     reference_pays: "संदर्भ देश",
     unite_points: "अंक",
@@ -818,6 +839,14 @@ window.StatsMapsTextes = {
 
     /* Onglet « Comparer » */
     onglet_comparer: "तुलना",
+
+    onglet_records: "रिकॉर्ड",
+    record_titre: "शिखर वर्ष — {carte}",
+    record_unite: "शिखर वर्ष से बीते वर्ष",
+    record_valeur: "शिखर",
+    record_annee: "शिखर वर्ष",
+    record_aujourdhui: "{annee} में शिखर से अंतर",
+    record_invite: "किसी देश पर क्लिक करके उसका शिखर देखें।",
     comparateur_choisir: "देश चुनें",
     comparateur_invite: "अंतर देखने के लिए दो देश चुनें।",
     comparateur_sans_donnee: "इन दोनों देशों का कोई साझा वर्ष नहीं है।",
@@ -837,11 +866,6 @@ window.StatsMapsTextes = {
     weo_octobre: "अक्तूबर",
     voir_classement: "क्रम",
     fermer: "बंद करें",
-
-    /* Unités longues */
-    milliards_dollars: "अरब डॉलर",
-    dollars_par_habitant: "डॉलर प्रति व्यक्ति",
-    pourcent_an: "% प्रति वर्ष",
   },
 
   /* --- Arabe — six formes de pluriel, et la page s'écrit de droite à gauche --- */
@@ -878,9 +902,7 @@ window.StatsMapsTextes = {
     ecart_other: "قبل {n} سنة",
 
     /* Comparaison entre pays */
-    comparer: "قارن بهذا البلد",
     comparer_stop: "العودة إلى القيم",
-    comparer_invite: "انقر على بلد أولًا",
     ecart_titre: "الفارق",
     reference_pays: "بلد المقارنة",
     unite_points: "نقطة",
@@ -894,6 +916,14 @@ window.StatsMapsTextes = {
 
     /* Onglet « Comparer » */
     onglet_comparer: "قارن",
+
+    onglet_records: "الأرقام القياسية",
+    record_titre: "سنة الذروة — {carte}",
+    record_unite: "سنوات منذ الذروة",
+    record_valeur: "الذروة",
+    record_annee: "سنة الذروة",
+    record_aujourdhui: "الفارق عن الذروة في {annee}",
+    record_invite: "انقر على بلد لعرض رقمه القياسي.",
     comparateur_choisir: "اختر بلدًا",
     comparateur_invite: "اختر بلدين لمعرفة الفارق بينهما.",
     comparateur_sans_donnee: "لا توجد سنة مشتركة بين هذين البلدين.",
@@ -913,11 +943,6 @@ window.StatsMapsTextes = {
     weo_octobre: "أكتوبر",
     voir_classement: "الترتيب",
     fermer: "إغلاق",
-
-    /* Unités longues */
-    milliards_dollars: "مليار دولار",
-    dollars_par_habitant: "دولار للفرد",
-    pourcent_an: "% سنويًا",
   },
 };
 

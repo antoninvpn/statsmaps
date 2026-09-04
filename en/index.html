@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>StatsMaps — world statistics on interactive maps</title>
-  <meta name="description" content="Interactive maps of world statistics: nominal GDP, GDP per capita, growth and peak years for 197 countries, from 1980 to 2031, based on official IMF data.">
+  <title>StatsMaps — world maps and statistics</title>
+  <meta name="description" content="Interactive maps of world statistics: GDP, GDP per capita, growth, inflation and population for 197 countries, from 1980 to 2031, from official IMF data.">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://statsmaps.com/en/">
   <link rel="alternate" hreflang="fr" href="https://statsmaps.com/">
@@ -22,8 +22,8 @@
   <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/">
   <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="StatsMaps — world statistics on interactive maps">
-  <meta property="og:description" content="Interactive maps of world statistics: nominal GDP, GDP per capita, growth and peak years for 197 countries, from 1980 to 2031, based on official IMF data.">
+  <meta property="og:title" content="StatsMaps — world maps and statistics">
+  <meta property="og:description" content="Interactive maps of world statistics: GDP, GDP per capita, growth, inflation and population for 197 countries, from 1980 to 2031, from official IMF data.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://statsmaps.com/en/">
   <link rel="stylesheet" href="../assets/css/style.css">
@@ -34,11 +34,11 @@
   <header class="barre">
     <a class="barre__logo" href="./">Stats<span>Maps</span></a>
     <nav class="barre__nav" aria-label="Maps">
-        <a class="barre__lien" href="gdp/"><span class="long">Nominal GDP</span><span class="court">GDP</span></a>
+        <a class="barre__lien" href="gdp/"><span class="long">GDP</span><span class="court">GDP</span></a>
         <a class="barre__lien" href="gdp-per-capita/"><span class="long">GDP per capita</span><span class="court">GDP/cap.</span></a>
         <a class="barre__lien" href="growth/"><span class="long">Growth</span><span class="court">Growth</span></a>
-        <a class="barre__lien" href="when-gdp-peaked/"><span class="long">When GDP peaked</span><span class="court">GDP peak</span></a>
-        <a class="barre__lien" href="when-gdp-per-capita-peaked/"><span class="long">When GDP per capita peaked</span><span class="court">GDP/cap. peak</span></a>
+        <a class="barre__lien" href="inflation/"><span class="long">Inflation</span><span class="court">Inflation</span></a>
+        <a class="barre__lien" href="population/"><span class="long">Population</span><span class="court">Population</span></a>
     </nav>
     <div class="barre__droite">
       <details class="langues">
@@ -60,7 +60,7 @@
         </div>
       </details>
       <button class="bouton-icone" id="bouton-theme" type="button"
-              aria-label="Change theme"
+              aria-label="Switch theme"
               data-vers-clair="Switch to light theme"
               data-vers-sombre="Switch to dark theme">☾</button>
     </div>
@@ -68,37 +68,25 @@
 
   <main class="accueil">
     <h1 class="accueil__titre">The world’s statistics, mapped.</h1>
-    <p class="accueil__intro">StatsMaps turns major global indicators into interactive maps, using official sources. Starting with the economy, based on International Monetary Fund data: 197 countries, from 1980 to 2031.</p>
+    <p class="accueil__intro">StatsMaps turns major global indicators into interactive maps, using official sources. Pick a category to see the maps inside it: for now the economy and demographics, based on International Monetary Fund data — 197 countries, from 1980 to 2031.</p>
 
     <div class="vignettes">
-      <a class="vignette" href="gdp/">
-        <div class="vignette__pastille">💰</div>
-        <div class="vignette__titre">Nominal GDP</div>
-        <p class="vignette__texte">The size of each economy, in billions of current US dollars.</p>
+      <a class="vignette" href="economy/">
+        <div class="vignette__pastille">💶</div>
+        <div class="vignette__titre">Economy</div>
+        <p class="vignette__texte">GDP, wealth per person, growth and inflation.</p>
+        <div class="vignette__liste">GDP · GDP per capita · Growth · Inflation</div>
       </a>
-      <a class="vignette" href="gdp-per-capita/">
-        <div class="vignette__pastille">👤</div>
-        <div class="vignette__titre">GDP per capita</div>
-        <p class="vignette__texte">Wealth produced per person, in current US dollars.</p>
-      </a>
-      <a class="vignette" href="growth/">
-        <div class="vignette__pastille">📈</div>
-        <div class="vignette__titre">GDP growth</div>
-        <p class="vignette__texte">Year-on-year change in real GDP, as a percentage.</p>
-      </a>
-      <a class="vignette" href="when-gdp-peaked/">
-        <div class="vignette__pastille">🏔️</div>
-        <div class="vignette__titre">When GDP peaked</div>
-        <p class="vignette__texte">The year each country hit its maximum — and those that never got back there.</p>
-      </a>
-      <a class="vignette" href="when-gdp-per-capita-peaked/">
-        <div class="vignette__pastille">⛰️</div>
-        <div class="vignette__titre">When GDP per capita peaked</div>
-        <p class="vignette__texte">The year each country’s people were at their richest, on average.</p>
+      <a class="vignette" href="demographics/">
+        <div class="vignette__pastille">👥</div>
+        <div class="vignette__titre">Demographics</div>
+        <p class="vignette__texte">How many people live in each country, year by year.</p>
+        <div class="vignette__liste">Population</div>
       </a>
     </div>
 
-    <p class="accueil__bientot">Coming soon: demographics, infrastructure, energy, education and health.</p>
+    <p class="accueil__bientot">Coming soon: infrastructure, energy, education and health.</p>
+
   </main>
 
   <footer class="pied">Data: IMF (World Economic Outlook) · Basemap: Natural Earth · No ads, no trackers.</footer>

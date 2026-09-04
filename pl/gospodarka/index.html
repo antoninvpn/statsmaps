@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gospodarka — wszystkie mapy | StatsMaps</title>
+  <meta name="description" content="PKB, bogactwo na mieszkańca, wzrost i inflacja. Interaktywna mapa 197 krajów, od 1980 do 2031 roku, na oficjalnych danych MFW (World Economic Outlook): ranking światowy i zmiany rok po roku.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://statsmaps.com/pl/gospodarka/">
+  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/economie/">
+  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/economy/">
+  <link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/ekonomika/">
+  <link rel="alternate" hreflang="de" href="https://statsmaps.com/de/wirtschaft/">
+  <link rel="alternate" hreflang="es" href="https://statsmaps.com/es/economia/">
+  <link rel="alternate" hreflang="it" href="https://statsmaps.com/it/economia/">
+  <link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/economia/">
+  <link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/gospodarka/">
+  <link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/economy/">
+  <link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/economy/">
+  <link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/ekonomi/">
+  <link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/economy/">
+  <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/economy/">
+  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/economie/">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="Gospodarka — wszystkie mapy | StatsMaps">
+  <meta property="og:description" content="PKB, bogactwo na mieszkańca, wzrost i inflacja. Interaktywna mapa 197 krajów, od 1980 do 2031 roku, na oficjalnych danych MFW (World Economic Outlook): ranking światowy i zmiany rok po roku.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://statsmaps.com/pl/gospodarka/">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <script src="../../assets/js/theme.js"></script>
+</head>
+<body>
+
+  <header class="barre">
+    <a class="barre__logo" href="../">Stats<span>Maps</span></a>
+    <nav class="barre__nav" aria-label="Mapy">
+        <a class="barre__lien" href="../pkb-nominalne/"><span class="long">PKB</span><span class="court">PKB</span></a>
+        <a class="barre__lien" href="../pkb-na-mieszkanca/"><span class="long">PKB na mieszkańca</span><span class="court">PKB/mieszk.</span></a>
+        <a class="barre__lien" href="../wzrost-pkb/"><span class="long">Wzrost</span><span class="court">Wzrost</span></a>
+        <a class="barre__lien" href="../inflacja/"><span class="long">Inflacja</span><span class="court">Inflacja</span></a>
+        <a class="barre__lien" href="../ludnosc/"><span class="long">Ludność</span><span class="court">Ludność</span></a>
+    </nav>
+    <div class="barre__droite">
+      <details class="langues">
+        <summary class="bouton-icone" title="Język" aria-label="Język">🇵🇱</summary>
+        <div class="langues__menu">
+          <a href="/economie/" hreflang="fr" lang="fr"><span class="drapeau" aria-hidden="true">🇫🇷</span>Français</a>
+          <a href="/en/economy/" hreflang="en" lang="en"><span class="drapeau" aria-hidden="true">🇬🇧</span>English</a>
+          <a href="/ua/ekonomika/" hreflang="uk" lang="uk"><span class="drapeau" aria-hidden="true">🇺🇦</span>Українська</a>
+          <a href="/de/wirtschaft/" hreflang="de" lang="de"><span class="drapeau" aria-hidden="true">🇩🇪</span>Deutsch</a>
+          <a href="/es/economia/" hreflang="es" lang="es"><span class="drapeau" aria-hidden="true">🇪🇸</span>Español</a>
+          <a href="/it/economia/" hreflang="it" lang="it"><span class="drapeau" aria-hidden="true">🇮🇹</span>Italiano</a>
+          <a href="/pt/economia/" hreflang="pt" lang="pt"><span class="drapeau" aria-hidden="true">🇵🇹</span>Português</a>
+          <a href="/pl/gospodarka/" hreflang="pl" lang="pl" aria-current="true"><span class="drapeau" aria-hidden="true">🇵🇱</span>Polski</a>
+          <a href="/ja/economy/" hreflang="ja" lang="ja"><span class="drapeau" aria-hidden="true">🇯🇵</span>日本語</a>
+          <a href="/ko/economy/" hreflang="ko" lang="ko"><span class="drapeau" aria-hidden="true">🇰🇷</span>한국어</a>
+          <a href="/tr/ekonomi/" hreflang="tr" lang="tr"><span class="drapeau" aria-hidden="true">🇹🇷</span>Türkçe</a>
+          <a href="/hi/economy/" hreflang="hi" lang="hi"><span class="drapeau" aria-hidden="true">🇮🇳</span>हिन्दी</a>
+          <a href="/ar/economy/" hreflang="ar" lang="ar"><span class="drapeau" aria-hidden="true">🇸🇦</span>العربية</a>
+        </div>
+      </details>
+      <button class="bouton-icone" id="bouton-theme" type="button"
+              aria-label="Zmień motyw"
+              data-vers-clair="Przełącz na jasny motyw"
+              data-vers-sombre="Przełącz na ciemny motyw">☾</button>
+    </div>
+  </header>
+
+  <main class="accueil">
+    <h1 class="accueil__titre">Gospodarka świata na mapach.</h1>
+    <p class="accueil__intro">Cztery mapy z raportu World Economic Outlook Międzynarodowego Funduszu Walutowego: 197 krajów, od 1980 do 2031 roku, wraz z prognozami.</p>
+
+    <div class="vignettes">
+      <a class="vignette" href="../pkb-nominalne/">
+        <div class="vignette__pastille">💰</div>
+        <div class="vignette__titre">PKB nominalne</div>
+        <p class="vignette__texte">Wielkość każdej gospodarki, w miliardach dolarów bieżących.</p>
+      </a>
+      <a class="vignette" href="../pkb-na-mieszkanca/">
+        <div class="vignette__pastille">👤</div>
+        <div class="vignette__titre">PKB na mieszkańca</div>
+        <p class="vignette__texte">Bogactwo wytworzone na osobę, w dolarach bieżących.</p>
+      </a>
+      <a class="vignette" href="../wzrost-pkb/">
+        <div class="vignette__pastille">📈</div>
+        <div class="vignette__titre">Wzrost PKB</div>
+        <p class="vignette__texte">Zmiana realnego PKB z roku na rok, w procentach.</p>
+      </a>
+      <a class="vignette" href="../inflacja/">
+        <div class="vignette__pastille">🔥</div>
+        <div class="vignette__titre">Inflacja</div>
+        <p class="vignette__texte">Wzrost cen konsumpcyjnych z roku na rok, w procentach.</p>
+      </a>
+    </div>
+
+  </main>
+
+  <footer class="pied">Dane: MFW (World Economic Outlook) · Podkład mapowy: Natural Earth · Bez reklam i śledzenia.</footer>
+
+  <script src="../../assets/js/barre.js"></script>
+</body>
+</html>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Номінальний ВВП за країнами — інтерактивна карта світу | StatsMaps</title>
-  <meta name="description" content="Інтерактивна карта номінального ВВП 197 країн, від 1980 до 2031 року. Офіційні дані МВФ (World Economic Outlook), світовий рейтинг і зміни рік за роком.">
+  <meta name="description" content="Розмір кожної економіки, у мільярдах доларів у поточних цінах. Інтерактивна карта 197 країн, від 1980 до 2031 року, за офіційними даними МВФ (World Economic Outlook): світовий рейтинг і зміни рік за роком.">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://statsmaps.com/ua/vvp/">
   <link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-nominal/">
@@ -23,7 +23,7 @@
   <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-nominal/">
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
   <meta property="og:title" content="Номінальний ВВП за країнами — інтерактивна карта світу">
-  <meta property="og:description" content="Інтерактивна карта номінального ВВП 197 країн, від 1980 до 2031 року. Офіційні дані МВФ (World Economic Outlook), світовий рейтинг і зміни рік за роком.">
+  <meta property="og:description" content="Розмір кожної економіки, у мільярдах доларів у поточних цінах. Інтерактивна карта 197 країн, від 1980 до 2031 року, за офіційними даними МВФ (World Economic Outlook): світовий рейтинг і зміни рік за роком.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://statsmaps.com/ua/vvp/">
   <link rel="preload" href="../../data/pays.json" as="fetch" crossorigin>
@@ -36,11 +36,11 @@
   <header class="barre">
     <a class="barre__logo" href="../">Stats<span>Maps</span></a>
     <nav class="barre__nav" aria-label="Карти">
-        <a class="barre__lien" href="../vvp/" aria-current="page"><span class="long">Номінальний ВВП</span><span class="court">ВВП</span></a>
+        <a class="barre__lien" href="../vvp/" aria-current="page"><span class="long">ВВП</span><span class="court">ВВП</span></a>
         <a class="barre__lien" href="../vvp-na-osobu/"><span class="long">ВВП на душу населення</span><span class="court">ВВП/особу</span></a>
         <a class="barre__lien" href="../zrostannia/"><span class="long">Зростання</span><span class="court">Зростання</span></a>
-        <a class="barre__lien" href="../rekordnyi-rik-vvp/"><span class="long">Рекордний рік ВВП</span><span class="court">Рекорд ВВП</span></a>
-        <a class="barre__lien" href="../rekordnyi-rik-vvp-na-osobu/"><span class="long">Рекордний рік ВВП на особу</span><span class="court">Рекорд ВВП/особу</span></a>
+        <a class="barre__lien" href="../infliatsiia/"><span class="long">Інфляція</span><span class="court">Інфляція</span></a>
+        <a class="barre__lien" href="../naselennia/"><span class="long">Населення</span><span class="court">Населення</span></a>
     </nav>
     <div class="barre__droite">
       <details class="langues">
@@ -63,8 +63,8 @@
       </details>
       <button class="bouton-icone" id="bouton-theme" type="button"
               aria-label="Змінити тему"
-              data-vers-clair="Перемкнути на світлу тему"
-              data-vers-sombre="Перемкнути на темну тему">☾</button>
+              data-vers-clair="Перейти на світлу тему"
+              data-vers-sombre="Перейти на темну тему">☾</button>
     </div>
   </header>
 
@@ -77,6 +77,10 @@
       <div class="panneau__entete">
         <h1 class="panneau__titre" id="titre-panneau">Номінальний ВВП</h1>
         <div class="panneau__soustitre" id="compteur-pays"></div>
+        <div class="variantes" role="group" aria-label="Одиниця">
+          <a class="variante est-active" href="../vvp/" aria-current="page">Долари США</a>
+          <a class="variante" href="../vvp-pks/">Паритет купівельної спроможності</a>
+        </div>
         <input class="panneau__recherche" id="recherche" type="search" autocomplete="off" spellcheck="false">
       </div>
       <ul class="classement" id="classement"></ul>

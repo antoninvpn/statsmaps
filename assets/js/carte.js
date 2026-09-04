@@ -1,12 +1,17 @@
 /* ==========================================================================
    carte.js — le moteur des cartes de StatsMaps.
 
-   Ce SEUL fichier fait fonctionner les 65 pages de carte (5 cartes × 13 langues).
+   Ce SEUL fichier fait fonctionner les 91 pages de carte (7 cartes × 13 langues).
    Chaque page lui dit quoi faire grâce à 3 informations posées sur la balise
    <body> :
        data-indicateur="pib-nominal"   → quelle carte afficher
        data-langue="fr"                → dans quelle langue
        data-base="../"                 → où trouver le dossier data/
+
+   Deux choses arrivent sans qu'on ait à cliquer sur un bouton :
+     - CLIQUER SUR UN PAYS repeint aussitôt la carte en écarts avec lui ;
+     - l'onglet « Records » calcule les années record dans le navigateur,
+       à partir des chiffres déjà chargés. Rien n'est téléchargé pour lui.
 
    Déroulé du fichier :
      1. Réglages des cartes (couleurs et tranches)
@@ -15,8 +20,9 @@
      4. Fabrication de la carte
      5. Le classement à gauche
      6. La légende
+     8. La comparaison (« et par rapport à la France ? »)
+     8 bis. L'onglet « Records »
      7. Le curseur des années
-     8. Le mode comparaison (« et par rapport à la France ? »)
      9. Démarrage
    ========================================================================== */
 
@@ -25,7 +31,7 @@
 
   /* --- 1. Réglages des cartes -------------------------------------------
 
-     LA PALETTE DU SITE, écrite une seule fois pour les cinq cartes.
+     LA PALETTE DU SITE, écrite une seule fois pour toutes les cartes.
 
      Sept couleurs, du rouge sombre au vert sombre en passant par l'orange et
      le jaune : la famille de couleurs des cartes économiques de Wikipédia.
@@ -99,8 +105,20 @@
   };
 
   var CARTES = {
-    /* Plus l'économie est grosse, plus c'est vert. */
+    /* Plus l'économie est grosse, plus c'est vert.
+
+       Les DEUX versions du PIB — dollars courants et parité de pouvoir d'achat
+       — partagent volontairement les MÊMES tranches. C'est ce qui donne son
+       sens au bouton qui passe de l'une à l'autre : on voit alors les pays
+       changer de couleur, au lieu de voir l'échelle changer sous eux.
+       L'Inde, 4ᵉ économie en dollars, est 3ᵉ en pouvoir d'achat. */
     "pib-nominal": {
+      ecart: "ratio",
+      tranches: [10, 50, 200, 1000, 3000, 10000],
+      clair: PALETTE_CLAIR,
+      sombre: PALETTE_SOMBRE,
+    },
+    "pib-ppa": {
       ecart: "ratio",
       tranches: [10, 50, 200, 1000, 3000, 10000],
       clair: PALETTE_CLAIR,
@@ -108,10 +126,22 @@
     },
 
     /* Plus le pays est riche par habitant, plus c'est vert. C'est exactement
-       la lecture de la carte de Wikipédia sur le PIB par habitant. */
+       la lecture de la carte de Wikipédia sur le PIB par habitant.
+
+       Ici, en revanche, les deux versions ne peuvent PAS partager la même
+       échelle : la parité de pouvoir d'achat relève fortement les pays
+       pauvres — l'Inde passe de 2 900 à 12 800 dollars. Avec les tranches du
+       nominal, la moitié du monde basculerait d'un coup dans le vert et la
+       carte ne dirait plus rien. Les seuils sont donc décalés vers le haut. */
     "pib-par-habitant": {
       ecart: "ratio",
       tranches: [1500, 5000, 15000, 30000, 50000, 70000],
+      clair: PALETTE_CLAIR,
+      sombre: PALETTE_SOMBRE,
+    },
+    "pib-par-habitant-ppa": {
+      ecart: "ratio",
+      tranches: [2500, 8000, 20000, 40000, 60000, 90000],
       clair: PALETTE_CLAIR,
       sombre: PALETTE_SOMBRE,
     },
@@ -129,40 +159,76 @@
       sombre: PALETTE_SOMBRE,
     },
 
-    /* Les deux cartes « année record » fonctionnent différemment des trois
-       autres : le chiffre affiché est une ANNÉE (« 2008 »), mais la couleur
-       ne dépend pas de cette année — elle dépend du TEMPS ÉCOULÉ depuis.
-       Vu depuis 2025, un record de 2008 date de 17 ans : il sera rouge.
-       Vu depuis 2010, le même record date de 2 ans : il sera vert.
-       C'est le rôle du réglage "ecart_annees" ci-dessous.
+    /* L'inflation se lit À L'ENVERS de toutes les autres cartes : ici, un
+       PETIT chiffre est la bonne nouvelle. La palette est donc retournée —
+       vert = prix stables, rouge = prix qui s'envolent (Venezuela, Soudan,
+       Iran, Argentine, Turquie).
 
-       Les tranches se lisent donc en années écoulées :
-         0 = record battu cette année même (le pays va bien) ... vert sombre
-         26 et plus = le pays n'a jamais retrouvé son niveau .. rouge sombre
+       Les seuils suivent la lecture des banques centrales : autour de 2 % on
+       est à la cible, au-delà de 10 % le pays a un vrai problème, au-delà de
+       20 % l'inflation devient le sujet principal de son économie.
 
-       Ici « petit » veut dire « bon » : la palette est donc retournée, pour
-       que le vert reste du côté favorable comme sur toutes les autres cartes. */
-    "annee-record-pib": {
-      ecart: "annees",
-      ecart_annees: true,
-      /* Ici le classement se lit à l'envers des autres cartes : on met en
-         premier les pays dont le record est le PLUS ANCIEN, c'est-à-dire ceux
-         qui reculent depuis le plus longtemps. C'est là qu'est l'information ;
-         à l'endroit, il faudrait faire défiler 150 pays « 2025 » avant de
-         trouver quoi que ce soit d'intéressant. */
-      classement_croissant: true,
-      tranches: [1, 3, 6, 11, 16, 26],
+       Les rares pays en DÉFLATION (chiffre négatif) tombent dans la tranche
+       la plus verte. C'est une simplification assumée : la déflation n'est pas
+       une bonne nouvelle non plus, mais elle est trop rare — un ou deux pays
+       par an — pour mériter une couleur à elle sur les sept.              */
+    inflation: {
+      ecart: "points",
+      sens_inverse: true,
+      ecart_sens_inverse: true,
+      tranches: [0, 2, 4, 6, 10, 20],
       clair: inverser(PALETTE_CLAIR),
       sombre: inverser(PALETTE_SOMBRE),
     },
-    "annee-record-pib-par-habitant": {
-      ecart: "annees",
-      ecart_annees: true,
-      classement_croissant: true,
-      tranches: [1, 3, 6, 11, 16, 26],
-      clair: inverser(PALETTE_CLAIR),
-      sombre: inverser(PALETTE_SOMBRE),
+
+    /* La population n'a ni « bon » ni « mauvais » côté : personne ne dira
+       qu'un pays peuplé va mieux qu'un pays peu peuplé. La palette ne sert
+       donc ici qu'à mesurer une taille, du plus petit (rouge sombre) au plus
+       grand (vert sombre), comme sur la carte du PIB.                      */
+    population: {
+      ecart: "ratio",
+      tranches: [1, 5, 20, 50, 100, 300],
+      clair: PALETTE_CLAIR,
+      sombre: PALETTE_SOMBRE,
     },
+  };
+
+  /* L'ONGLET « RECORDS », commun à toutes les cartes qui s'y prêtent.
+
+     Il répond à la question : « en quelle année ce pays a-t-il été à son
+     maximum ? » Vert = le record date de l'année affichée, le pays va bien.
+     Rouge = le record est ancien et n'a jamais été retrouvé (Grèce 2008,
+     Japon 2012, Ukraine 1991…).
+
+     Ce n'est pas une carte à part : c'est un MODE d'affichage de la carte
+     ouverte. Rien n'est téléchargé — les années record se calculent dans le
+     navigateur à partir des chiffres déjà là (voir donneesRecord()).
+
+     Le chiffre affiché est une ANNÉE (« 2008 »), mais la couleur ne dépend pas
+     de cette année : elle dépend du TEMPS ÉCOULÉ depuis. Vu depuis 2025, un
+     record de 2008 date de 17 ans, il est rouge ; vu depuis 2010, le même
+     record date de 2 ans, il est vert. C'est le rôle de "ecart_annees".
+
+     Les tranches se lisent donc en années écoulées :
+       0 = record battu cette année même (le pays va bien) ...... vert sombre
+       26 et plus = le pays n'a jamais retrouvé son niveau ....... rouge sombre  */
+  var RECORD = {
+    ecart: "annees",
+    ecart_annees: true,
+    /* Ici le classement se lit à l'envers des autres cartes : on met en
+       premier les pays dont le record est le PLUS ANCIEN, c'est-à-dire ceux
+       qui reculent depuis le plus longtemps. C'est là qu'est l'information ;
+       à l'endroit, il faudrait faire défiler 150 pays « 2025 » avant de
+       trouver quoi que ce soit d'intéressant. */
+    classement_croissant: true,
+    sens_inverse: true,
+    /* En comparaison, en revanche, la palette revient à l'endroit : un écart
+       positif veut dire « son record est plus récent », donc une bonne
+       nouvelle. Voir couleursDEcart(). */
+    ecart_sens_inverse: false,
+    tranches: [1, 3, 6, 11, 16, 26],
+    clair: inverser(PALETTE_CLAIR),
+    sombre: inverser(PALETTE_SOMBRE),
   };
 
   /* --- 2. Petits outils --------------------------------------------------- */
@@ -185,14 +251,33 @@
     ja: "ja-JP", ko: "ko-KR", tr: "tr-TR", hi: "hi-IN",
     ar: "ar-u-nu-latn",
   }[langue] || "fr-FR";
-  var reglages = CARTES[idCarte];
+  /* Les réglages de la carte ouverte. "reglages" change quand on passe dans
+     l'onglet « Records » : la carte est alors peinte en années écoulées, avec
+     ses propres tranches et sa palette retournée. */
+  var reglagesBase = CARTES[idCarte];
+  var reglages = reglagesBase;
 
-  /* Écrit un nombre proprement : 3 368 au lieu de 3368.925 */
+  /* Écrit un nombre proprement : 32 383,92 au lieu de 32383.92.
+
+     Deux règles, toutes deux importantes :
+
+     1. On affiche jusqu'à trois décimales — toute la précision contenue dans
+        les fichiers du FMI — mais on n'écrit PAS les zéros inutiles derrière :
+        « 2,3 % » et non « 2,300 % », « 32 383,92 Md$ » et non « 32 383,920 ».
+
+     2. En français, le navigateur sépare les milliers par une ESPACE FINE
+        insécable (le caractère U+202F). Les polices d'Apple la dessinent si
+        étroite qu'on ne la voit pas : « 30 767 » finit par ressembler à
+        « 30767 ». On la remplace donc par une espace insécable ordinaire,
+        visible dans toutes les polices et qui n'autorise toujours pas la
+        coupure de ligne au milieu d'un nombre.                              */
   function formater(valeur, decimales) {
-    return valeur.toLocaleString(locale, {
-      minimumFractionDigits: decimales,
-      maximumFractionDigits: decimales,
-    });
+    return valeur
+      .toLocaleString(locale, {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: decimales === undefined ? 3 : decimales,
+      })
+      .replace(/[\u202f\u2009]/g, "\u00a0");
   }
 
   /* Version courte pour la légende : 10 000 devient "10 k" */
@@ -236,8 +321,13 @@
     if (donnees.format === "annee") return String(valeur);
     var unite = donnees.unite[langue] || donnees.unite.fr;
     var texte = formater(valeur, donnees.decimales);
+    /* Sur la croissance, le signe « + » porte de l'information : il distingue
+       d'un coup d'œil un pays qui avance d'un pays qui recule. Ailleurs il
+       n'apprendrait rien — une population ou une inflation sont positives. */
     if (idCarte === "croissance" && valeur > 0) texte = "+" + texte;
-    return texte + " " + unite;
+    /* Espace insécable : « 32 383,92 Md$ » ne doit jamais se couper en deux
+       entre le nombre et son unité, dans une colonne étroite comme ailleurs. */
+    return texte + "\u00a0" + unite;
   }
 
   function couleursActuelles() {
@@ -322,14 +412,29 @@
     return ligne ? ligne.valeur : null;
   }
 
-  /* La couleur d'un écart, sur la palette rouge → vert non retournée :
-     négatif (le pays fait moins bien) = rouge, positif = vert.             */
-  function couleurDeLEcart(ecart) {
+  /* LA PALETTE DE LA COMPARAISON.
+
+     Le signe d'un écart veut toujours dire la même chose : positif = ce pays a
+     un chiffre PLUS GRAND que la référence. Reste à savoir si « plus grand »
+     est une bonne ou une mauvaise nouvelle, et cela dépend de la carte :
+
+       PIB, PIB par habitant, croissance, population, records
+                        plus grand = mieux ....... la palette revient à l'endroit
+       inflation        plus grand = pire ........ la palette reste retournée
+
+     couleursActuelles() rend déjà la palette retournée pour les cartes qui se
+     lisent à l'envers ; on ne la remet à l'endroit que dans le premier cas. */
+  function couleursDEcart() {
     var couleurs = couleursActuelles();
-    /* Sur les cartes « année record », la palette du site est retournée pour
-       la lecture habituelle. Ici on la remet à l'endroit : l'écart se lit
-       toujours dans le même sens. */
-    if (reglages.classement_croissant) couleurs = inverser(couleurs);
+    if (reglages.sens_inverse && !reglages.ecart_sens_inverse) {
+      couleurs = inverser(couleurs);
+    }
+    return couleurs;
+  }
+
+  /* La couleur d'un écart : le côté défavorable d'abord, le favorable ensuite. */
+  function couleurDeLEcart(ecart) {
+    var couleurs = couleursDEcart();
     var tranches = reglagesEcart().tranches;
     var index = 0;
     for (var i = 0; i < tranches.length; i++) {
@@ -361,13 +466,14 @@
     return modele.replace("{n}", formater(nombre, 0));
   }
 
-  /* Les deux bouts de l'échelle d'écart : le rouge du côté « fait moins bien »
-     et le vert du côté « fait mieux ». Le comparateur s'en sert pour teinter
-     son graphique des mêmes couleurs que la carte. */
+  /* Les deux bouts de l'échelle d'écart, pour que le comparateur teinte son
+     graphique exactement des mêmes couleurs que la carte.
+     Ils sont nommés "bas" et "haut" — et non "rouge" et "vert" — parce que sur
+     la carte de l'inflation ils sont justement échangés : le bas de l'échelle
+     (moins d'inflation que la référence) y est la bonne nouvelle.          */
   function couleursExtremes() {
-    var couleurs = couleursActuelles();
-    if (reglages.classement_croissant) couleurs = inverser(couleurs);
-    return { rouge: couleurs[0], vert: couleurs[couleurs.length - 1] };
+    var couleurs = couleursDEcart();
+    return { bas: couleurs[0], haut: couleurs[couleurs.length - 1] };
   }
 
   /* Se placer sur une année, curseur compris. Le comparateur appelle ceci
@@ -391,7 +497,13 @@
 
   var carte = null;
   var geo = null;
+  /* donneesBase : les chiffres téléchargés (le PIB, l'inflation…).
+     donnees     : ce que la carte montre EN CE MOMENT. C'est le même objet,
+                   sauf dans l'onglet « Records », où c'est la table des années
+                   record calculée à partir du premier. */
+  var donneesBase = null;
   var donnees = null;
+  var modeRecord = false;
   var meta = null;
   var anneeAffichee = null;
   var classementActuel = []; // [{iso, nom, valeur, rang}, ...] — les 197 pays
@@ -434,7 +546,7 @@
        remise à l'endroit sur les cartes « année record ». */
     if (comparaisonPossible()) {
       tranches = reglagesEcart().tranches;
-      if (reglages.classement_croissant) couleurs = inverser(couleurs);
+      couleurs = couleursDEcart();
     }
 
     var etapes = ["step", ["to-number", ["feature-state", "valeur"], 0], couleurs[0]];
@@ -585,6 +697,16 @@
       if (!evenement.features.length) return;
       ouvrirInfobulle(evenement.features[0].properties.iso, evenement.lngLat);
     });
+
+    /* Un clic dans la mer : on relâche le pays de référence et la carte revient
+       à ses valeurs. C'est le geste que tout le monde fait spontanément pour
+       « annuler », et il évite d'avoir à chercher la croix. */
+    carte.on("click", function (evenement) {
+      var dessous = carte.queryRenderedFeatures(evenement.point, {
+        layers: ["pays-fond"],
+      });
+      if (!dessous.length) sortirComparaison();
+    });
   }
 
   function surligner(iso) {
@@ -682,19 +804,30 @@
       .setHTML(contenuInfobulle(iso))
       .addTo(carte);
 
-    /* Quand on ferme l'infobulle, le pays n'est plus « choisi ». */
+    /* Fermer la bulle, c'est relâcher le pays : il n'est plus ni « choisi »
+       ni pays de référence, et la carte revient à ses valeurs. */
     infobulle.on("close", function () {
       if (isoChoisi === iso) {
         isoChoisi = null;
+        isoReference = null;
         positionInfobulle = null;
         montrerDansClassement(null);
-        dessinerLegende();
+        majComparaison();
+        dessinerFicheRecord();
       }
     });
 
     isoChoisi = iso;
     montrerDansClassement(iso);
-    dessinerLegende();
+
+    /* LE CLIC SUFFIT. Le pays cliqué devient aussitôt le pays de référence :
+       la carte se repeint et montre, pour chaque autre pays, s'il fait mieux
+       (vert) ou moins bien (rouge) que lui. Il n'y a aucun bouton à trouver.
+       Pour revenir aux valeurs : refermer la bulle, cliquer sur la mer, ou la
+       croix de la ligne « pays de référence » dans le panneau. */
+    if (reglages.ecart) isoReference = iso;
+    majComparaison();
+    dessinerFicheRecord();
 
     /* Quand l'onglet « Comparer » est ouvert, un clic sur la carte remplit
        l'une de ses deux fentes plutôt que de rester sans suite. */
@@ -895,6 +1028,7 @@
        tout l'intérêt. On garde donc la bulle ouverte, à la même place, et on
        se contente d'y réécrire les chiffres de la nouvelle année. */
     rafraichirInfobulle();
+    dessinerFicheRecord();
     /* Son rang, lui, a pu bouger : on le suit du regard dans la liste. */
     if (isoChoisi) centrerSurLigne(isoChoisi);
     if (window.StatsMapsComparateur) window.StatsMapsComparateur.majAnnee(annee);
@@ -1023,6 +1157,100 @@
     }
   }
 
+  /* --- Les onglets du panneau de gauche ------------------------------------
+
+     Trois onglets, qui se partagent le même panneau :
+       Classement — la liste des 197 pays pour l'année affichée ;
+       Comparer   — deux pays face à face (assets/js/comparateur.js) ;
+       Records    — la carte des années record, et la fiche du pays choisi.
+
+     Le troisième n'apparaît que sur les cartes où il a un sens. Demander en
+     quelle année un pays a eu son plus fort taux d'inflation ne voudrait rien
+     dire : c'est le champ "record" du fichier de données qui le décide.     */
+
+  var ongletActif = "classement";
+  var boutonsOnglets = {};
+
+  function fabriquerOnglets() {
+    var panneau = document.getElementById("panneau");
+    var entete = panneau && panneau.querySelector(".panneau__entete");
+    var recherche = document.getElementById("recherche");
+    if (!entete) return;
+
+    var barre = document.createElement("div");
+    barre.className = "onglets";
+    barre.setAttribute("role", "tablist");
+
+    var liste = [
+      ["classement", t("classement")],
+      ["comparer", t("onglet_comparer")],
+    ];
+    if (donneesBase.record) liste.push(["records", t("onglet_records")]);
+
+    liste.forEach(function (paire) {
+      var bouton = document.createElement("button");
+      bouton.type = "button";
+      bouton.className = "onglet";
+      bouton.setAttribute("role", "tab");
+      bouton.setAttribute("aria-selected", paire[0] === ongletActif ? "true" : "false");
+      bouton.textContent = paire[1];
+      bouton.addEventListener("click", function () { ouvrirOnglet(paire[0]); });
+      boutonsOnglets[paire[0]] = bouton;
+      barre.appendChild(bouton);
+    });
+
+    /* Avant le champ de recherche : celui-ci appartient au classement et
+       disparaît avec lui. */
+    entete.insertBefore(barre, recherche || null);
+
+    /* La ligne « pays de référence », juste en dessous. */
+    var reference = document.createElement("div");
+    reference.className = "panneau__reference";
+    reference.id = "reference";
+    reference.hidden = true;
+    /* Le clic est écouté sur la ligne entière, et non sur la croix : la ligne
+       est réécrite à chaque changement, ce qui emporterait son écouteur. */
+    reference.addEventListener("click", function (evenement) {
+      if (evenement.target.closest &&
+          evenement.target.closest("#bouton-sortir-comparaison")) {
+        sortirComparaison();
+      }
+    });
+    entete.insertBefore(reference, recherche || null);
+
+    /* La fiche de l'onglet « Records », juste au-dessus de la liste. */
+    var fiche = document.createElement("div");
+    fiche.className = "fiche-record";
+    fiche.id = "fiche-record";
+    fiche.hidden = true;
+    panneau.insertBefore(fiche, document.getElementById("classement"));
+  }
+
+  function ouvrirOnglet(nom) {
+    ongletActif = nom;
+    Object.keys(boutonsOnglets).forEach(function (clef) {
+      boutonsOnglets[clef].setAttribute("aria-selected", clef === nom ? "true" : "false");
+    });
+
+    var comparer = nom === "comparer";
+    var liste = document.getElementById("classement");
+    var recherche = document.getElementById("recherche");
+    if (liste) liste.hidden = comparer;
+    if (recherche) recherche.hidden = comparer;
+    if (window.StatsMapsComparateur) window.StatsMapsComparateur.activer(comparer);
+
+    /* On n'entre et on ne sort du mode « Records » que par cet onglet. */
+    basculerRecord(nom === "records");
+    dessinerFicheRecord();
+  }
+
+  /* Le titre du panneau suit l'onglet : « PIB, prix courants » devient
+     « Année record — PIB, prix courants » dans l'onglet Records. */
+  function majTitrePanneau() {
+    var titre = document.getElementById("titre-panneau");
+    if (titre) titre.textContent = donnees.titre[langue] || donnees.titre.fr;
+  }
+
   /* Le cadrage utilisé quand on clique sur un pays.
 
      La zone à afficher est calculée une fois pour toutes par le script Python
@@ -1079,10 +1307,8 @@
     var titre, unite, etiquettes;
 
     if (comparaison) {
-      /* La palette est remise à l'endroit sur les cartes « année record »,
-         comme pour le fond de carte : en écart, le vert est toujours du côté
-         du pays qui fait mieux. */
-      if (reglages.classement_croissant) couleurs = inverser(couleurs);
+      /* La même palette que le fond de carte : voir couleursDEcart(). */
+      couleurs = couleursDEcart();
 
       titre = t("ecart_titre");
       unite =
@@ -1100,9 +1326,18 @@
       /* Ce qu'on écrit entre parenthèses sous le titre. Sur les cartes « année
          record » ce n'est pas l'unité de la valeur (une année n'en a pas) mais
          ce que mesurent les tranches : « années écoulées depuis le record ». */
-      unite = donnees.legende_unite
-        ? donnees.legende_unite[langue] || donnees.legende_unite.fr
-        : donnees.unite[langue] || donnees.unite.fr;
+      /* Sous le titre, l'unité EN TOUTES LETTRES, telle que l'écrit le FMI :
+         « milliards de dollars US », « parité de pouvoir d'achat ; dollars
+         internationaux par habitant ». C'est ce qui distingue les deux
+         versions du PIB, qui portent exactement le même titre chez lui.
+         L'onglet « Records », lui, n'affiche pas l'unité de la valeur — une
+         année n'en a pas — mais ce que mesurent les tranches. */
+      unite =
+        (donnees.legende_unite &&
+          (donnees.legende_unite[langue] || donnees.legende_unite.fr)) ||
+        (donnees.unite_longue &&
+          (donnees.unite_longue[langue] || donnees.unite_longue.fr)) ||
+        donnees.unite[langue] || donnees.unite.fr;
       etiquettes = reglages.tranches.map(formaterCourt);
     }
 
@@ -1130,90 +1365,70 @@
       })
       .join("");
 
+    /* Le titre et l'unité sur deux lignes. L'unité du FMI est parfois une
+       phrase entière — « parité de pouvoir d'achat ; dollars internationaux
+       par habitant » — qui ne tiendrait pas entre parenthèses derrière le
+       titre, et encore moins en majuscules. */
     boite.innerHTML =
-      '<div class="legende__titre">' + echapper(titre) +
-      " (" + echapper(unite) + ")</div>" +
+      '<div class="legende__titre">' + echapper(titre) + "</div>" +
+      '<div class="legende__unite">' + echapper(unite) + "</div>" +
       '<div class="legende__barre">' + cases + "</div>" +
       '<div class="legende__valeurs nombre"><span></span>' + reperes + "<span></span></div>" +
-      ligneDeReference() +
-      '<div class="legende__nd"><i></i>' + t("non_disponible") + "</div>" +
-      boutonComparaison();
+      '<div class="legende__nd"><i></i>' + t("non_disponible") + "</div>";
   }
 
-  /* « 🇫🇷 France — pays de référence », sous la barre de la légende.
-     Le nom reste au nominatif : aucune langue n'a à le décliner. */
-  function ligneDeReference() {
-    if (!enComparaison()) return "";
-    return (
-      '<div class="legende__reference">' +
-      '<span class="drapeau" aria-hidden="true">' +
-      echapper(drapeauxParIso[isoReference] || "") + "</span>" +
-      echapper((nomsParIso[isoReference] || isoReference) + " — " + t("reference_pays")) +
-      '<button type="button" class="legende__sortir" id="bouton-sortir-comparaison"' +
-      ' title="' + echapper(t("comparer_stop")) + '"' +
-      ' aria-label="' + echapper(t("comparer_stop")) + '">\u2715</button>' +
-      "</div>" +
-      /* Le pays est bien désigné, mais il n'a pas de chiffre cette année-là :
-         la carte est revenue à ses valeurs. Sans ce mot, le visiteur aurait
-         cliqué sur « Comparer » et rien ne se serait passé. */
-      (comparaisonPossible()
-        ? ""
-        : '<div class="legende__note">' + echapper(t("pas_de_donnee")) + "</div>")
-    );
-  }
+  /* --- 8. La comparaison ---------------------------------------------------
 
-  /* --- 8. Le mode comparaison ---------------------------------------------
+     Il n'y a PAS de bouton « comparer ». Cliquer sur un pays suffit : la carte
+     cesse aussitôt de montrer « combien », et montre « combien de plus ou de
+     moins que lui ». Rouge = ce pays fait moins bien que celui qu'on a cliqué,
+     vert = il fait mieux, jaune = ils sont au même niveau.
 
-     Un seul bouton, sous la légende, qui prend le sens de la situation :
-       - aucun pays choisi ............ grisé, avec l'invite « clique un pays » ;
-       - un pays choisi ............... « Comparer à ce pays » ;
-       - comparaison en cours, sur ce
-         pays-là même ................. « Revenir aux valeurs » (on arrête) ;
-       - comparaison en cours, mais un
-         AUTRE pays est choisi ........ « Comparer à ce pays » (on change de
-                                        référence, sans repasser par l'arrêt).
+     Pour revenir aux valeurs, trois chemins, tous naturels : refermer la bulle
+     du pays, cliquer sur la mer, ou la croix de la ligne « pays de référence »
+     dans le panneau de gauche.
 
      Les cartes « année record » comparées à un pays donné gardent tout leur
      sens : l'écart se lit alors en années entre deux records.               */
 
-  function boutonComparaison() {
-    /* Les cartes sans mesure d'écart — il n'y en a pas aujourd'hui, mais une
-       future carte pourrait s'en passer — n'affichent pas le bouton. */
-    if (!reglages.ecart) return "";
+  /* « 🇫🇷 France — pays de référence ✕ », dans le panneau de gauche.
+     Elle est là, et non sous la légende : c'est du côté du panneau que le
+     visiteur va chercher les commandes.
+     Le nom reste au nominatif : aucune langue n'a à le décliner. */
+  function dessinerReference() {
+    var boite = document.getElementById("reference");
+    if (!boite) return;
 
-    /* Le bouton ne fait qu'une chose : désigner le pays choisi comme
-       référence. En sortir est le rôle de la croix, sur la ligne juste
-       au-dessus. Il est donc inutile quand le pays choisi EST déjà la
-       référence — dans ce cas on le grise, plutôt que de le voir proposer
-       une comparaison du pays avec lui-même. */
-    var utilisable = isoChoisi !== null && isoChoisi !== isoReference;
-    return (
-      '<button type="button" class="legende__comparer" id="bouton-comparer"' +
-      (utilisable ? "" : " disabled") +
-      (isoChoisi ? "" : ' title="' + echapper(t("comparer_invite")) + '"') +
-      ">" + echapper(t("comparer")) + "</button>"
-    );
+    if (!enComparaison()) {
+      boite.hidden = true;
+      boite.innerHTML = "";
+      return;
+    }
+
+    boite.hidden = false;
+    boite.innerHTML =
+      '<span class="drapeau" aria-hidden="true">' +
+      echapper(drapeauxParIso[isoReference] || "") + "</span>" +
+      '<span class="panneau__reference-nom">' +
+      echapper(nomsParIso[isoReference] || isoReference) + "</span>" +
+      '<span class="panneau__reference-mot">' + echapper(t("reference_pays")) + "</span>" +
+      '<button type="button" class="panneau__sortir" id="bouton-sortir-comparaison"' +
+      ' title="' + echapper(t("comparer_stop")) + '"' +
+      ' aria-label="' + echapper(t("comparer_stop")) + '">\u2715</button>' +
+      /* Le pays est bien désigné, mais il n'a pas de chiffre cette année-là :
+         la carte est revenue à ses valeurs. Sans ce mot, on ne comprendrait
+         pas pourquoi elle a cessé de montrer des écarts. */
+      (comparaisonPossible()
+        ? ""
+        : '<span class="panneau__reference-note">' +
+          echapper(t("pas_de_donnee")) + "</span>");
   }
 
-  /* Le clic est écouté sur la boîte de légende entière, et non sur le bouton :
-     la légende est réécrite à chaque année, ce qui remplacerait le bouton et
-     emporterait son écouteur avec lui. */
-  function brancherComparaison() {
-    var boite = document.getElementById("legende");
-    if (!boite) return;
-    boite.addEventListener("click", function (evenement) {
-      var cible = evenement.target;
-      if (!cible.closest) return;
-
-      if (cible.closest("#bouton-sortir-comparaison")) {
-        isoReference = null;
-      } else {
-        var bouton = cible.closest("#bouton-comparer");
-        if (!bouton || bouton.disabled || !isoChoisi) return;
-        isoReference = isoChoisi;
-      }
-      majComparaison();
-    });
+  /* Sortir de la comparaison, sans refermer la bulle du pays. */
+  function sortirComparaison() {
+    if (isoReference === null) return;
+    isoReference = null;
+    majComparaison();
   }
 
   /* Tout ce qu'il faut redessiner quand on entre ou sort de la comparaison :
@@ -1224,7 +1439,177 @@
     appliquerEtatsCarte();
     dessinerLegende();
     dessinerClassement();
+    dessinerReference();
     rafraichirInfobulle();
+  }
+
+  /* --- 8 bis. L'onglet « Records » -----------------------------------------
+
+     « En quelle année ce pays a-t-il été à son maximum ? »
+
+     Ce n'est pas une carte à part, mais un MODE d'affichage de la carte
+     ouverte : sur le PIB il montre l'année record du PIB, sur la population
+     l'année où le pays a été le plus peuplé. Rien n'est téléchargé — tout se
+     calcule ici, à partir des chiffres déjà chargés.
+
+     Le curseur des années garde son rôle habituel : posé sur 2008, il montre
+     le record atteint À CETTE DATE. On voit ainsi la crise de 2008, puis le
+     Covid, arriver en faisant glisser le curseur — et, au-delà de la dernière
+     année constatée, les projections du FMI jusqu'en 2031.                  */
+
+  var recordEnCache = null;   // { donnees: …, valeurs: … } — calculé une fois
+
+  /* On avance année par année en gardant en mémoire le plus haut chiffre vu
+     jusque-là. Exemple pour la Grèce : en 2007 le record est 2007, en 2008 il
+     devient 2008, et il reste 2008 pour toutes les années suivantes, parce que
+     la Grèce n'a jamais retrouvé son niveau d'avant-crise.
+
+     On n'écrit une valeur que pour les années où le pays a vraiment un
+     chiffre : l'onglet « Records » affiche donc exactement les mêmes pays que
+     la carte d'origine, ni plus ni moins.                                   */
+  function calculerRecords() {
+    if (recordEnCache) return recordEnCache;
+
+    var annees = {};   // iso → { année : année du record }
+    var sommets = {};  // iso → { année : valeur du record } — pour la fiche
+
+    Object.keys(donneesBase.valeurs).forEach(function (iso) {
+      var parAnnee = donneesBase.valeurs[iso];
+      var listeAnnees = Object.keys(parAnnee)
+        .map(Number)
+        .sort(function (a, b) { return a - b; });
+      if (!listeAnnees.length) return;
+
+      var meilleureAnnee = null;
+      var meilleureValeur = null;
+      var suite = {};
+      var valeurs = {};
+
+      listeAnnees.forEach(function (annee) {
+        var valeur = parAnnee[String(annee)];
+        if (meilleureValeur === null || valeur > meilleureValeur) {
+          meilleureValeur = valeur;
+          meilleureAnnee = annee;
+        }
+        suite[String(annee)] = meilleureAnnee;
+        valeurs[String(annee)] = meilleureValeur;
+      });
+
+      annees[iso] = suite;
+      sommets[iso] = valeurs;
+    });
+
+    /* Le jeu de données que la carte va afficher, taillé sur le même patron
+       que ceux du dossier data/ : elle ne verra pas la différence.
+       Le titre et l'unité n'existent que dans la langue de la page — c'est la
+       seule dont on ait besoin ici. */
+    var titre = {};
+    titre.fr = t("record_titre").replace(
+      "{carte}", donneesBase.titre[langue] || donneesBase.titre.fr);
+    titre[langue] = titre.fr;
+
+    var vide = { fr: "" };
+    vide[langue] = "";
+    var uniteLegende = { fr: t("record_unite") };
+    uniteLegende[langue] = t("record_unite");
+
+    recordEnCache = {
+      donnees: {
+        indicateur: donneesBase.indicateur + "-record",
+        titre: titre,
+        unite: vide,
+        legende_unite: uniteLegende,
+        /* La valeur affichée EST une année : on l'écrit « 2008 » et non
+           « 2 008 ». C'est ce que dit "format". */
+        format: "annee",
+        decimales: 0,
+        annees: donneesBase.annees,
+        derniere_annee_reelle: donneesBase.derniere_annee_reelle,
+        valeurs: annees,
+      },
+      sommets: sommets,
+    };
+    return recordEnCache;
+  }
+
+  /* Entre ou sort du mode « Records ». Tout le reste du fichier continue de
+     travailler sans rien savoir : il lit "donnees" et "reglages", qui viennent
+     de changer sous lui. */
+  function basculerRecord(actif) {
+    if (actif === modeRecord) return;
+    modeRecord = actif;
+
+    if (actif) {
+      donnees = calculerRecords().donnees;
+      reglages = RECORD;
+    } else {
+      donnees = donneesBase;
+      reglages = reglagesBase;
+    }
+
+    majTitrePanneau();
+    appliquerAnnee(anneeAffichee);
+    dessinerLegende();
+  }
+
+  /* La fiche du pays choisi, en haut de l'onglet : son record, l'année où il
+     l'a atteint, et le temps écoulé depuis. C'est la réponse en toutes lettres
+     à ce que la couleur ne fait que suggérer. */
+  function dessinerFicheRecord() {
+    var boite = document.getElementById("fiche-record");
+    if (!boite) return;
+
+    if (!modeRecord) { boite.hidden = true; return; }
+    boite.hidden = false;
+
+    if (!isoChoisi) {
+      boite.innerHTML = '<p class="fiche__invite">' + echapper(t("record_invite")) + "</p>";
+      return;
+    }
+
+    var sommets = calculerRecords().sommets[isoChoisi];
+    var anneeRecord = donnees.valeurs[isoChoisi]
+      && donnees.valeurs[isoChoisi][String(anneeAffichee)];
+    var valeurRecord = sommets && sommets[String(anneeAffichee)];
+
+    if (typeof anneeRecord !== "number" || typeof valeurRecord !== "number") {
+      boite.innerHTML =
+        '<div class="fiche__nom">' +
+        '<span class="drapeau" aria-hidden="true">' +
+        echapper(drapeauxParIso[isoChoisi] || "") + "</span>" +
+        echapper(nomsParIso[isoChoisi] || isoChoisi) + "</div>" +
+        '<p class="fiche__invite">' + echapper(t("pas_de_donnee")) + "</p>";
+      return;
+    }
+
+    var ecoule = anneeAffichee - anneeRecord;
+    /* Le chiffre de l'année affichée, pour mesurer le chemin qui reste à faire
+       à un pays qui n'a pas retrouvé son record. */
+    var actuelle = donneesBase.valeurs[isoChoisi]
+      && donneesBase.valeurs[isoChoisi][String(anneeAffichee)];
+
+    var lignes =
+      '<div class="fiche__ligne"><span>' + echapper(t("record_valeur")) + "</span>" +
+      '<b class="nombre">' + echapper(valeurLisible(valeurRecord, donneesBase)) + "</b></div>" +
+      '<div class="fiche__ligne"><span>' + echapper(t("record_annee")) + "</span>" +
+      '<b class="nombre">' + echapper(String(anneeRecord)) + "</b></div>";
+
+    if (ecoule > 0 && typeof actuelle === "number" && valeurRecord > 0) {
+      var manque = (actuelle / valeurRecord - 1) * 100;
+      lignes +=
+        '<div class="fiche__ligne"><span>' +
+        echapper(t("record_aujourdhui").replace("{annee}", anneeAffichee)) + "</span>" +
+        '<b class="nombre">' + echapper(formater(manque, 1) + " %") + "</b></div>";
+    }
+
+    boite.innerHTML =
+      '<div class="fiche__nom">' +
+      '<span class="drapeau" aria-hidden="true">' +
+      echapper(drapeauxParIso[isoChoisi] || "") + "</span>" +
+      echapper(nomsParIso[isoChoisi] || isoChoisi) + "</div>" +
+      '<div class="fiche__cle">' +
+      echapper(ecoule === 0 ? t("ecart_zero") : texteEcart(ecoule)) + "</div>" +
+      '<div class="fiche__lignes">' + lignes + "</div>";
   }
 
   /* --- 7. Le curseur des années ------------------------------------------- */
@@ -1285,6 +1670,7 @@
     carte.setPaintProperty("pays-contour", "line-color", regleContourCouleur());
     dessinerLegende();
     dessinerClassement();
+    dessinerFicheRecord();
     if (window.StatsMapsComparateur) window.StatsMapsComparateur.redessiner();
   });
 
@@ -1314,7 +1700,8 @@
     ])
       .then(function (resultats) {
         geo = resultats[0];
-        donnees = resultats[1];
+        donneesBase = resultats[1];
+        donnees = donneesBase;
         meta = resultats[2];
 
         geo.features.forEach(function (pays) {
@@ -1335,8 +1722,7 @@
         anneeAffichee = donnees.derniere_annee_reelle;
         if (annees.indexOf(anneeAffichee) === -1) anneeAffichee = annees[annees.length - 1];
 
-        var titre = document.getElementById("titre-panneau");
-        if (titre) titre.textContent = donnees.titre[langue] || donnees.titre.fr;
+        majTitrePanneau();
 
         var source = document.getElementById("source");
         if (source) {
@@ -1368,7 +1754,7 @@
 
         brancherClassement();
         brancherAnnees();
-        brancherComparaison();
+        fabriquerOnglets();
         dessinerLegende();
 
         /* L'onglet « Comparer » du panneau. Il ne sait rien du site : on lui
@@ -1376,7 +1762,7 @@
            dont il a besoin. Il fabrique lui-même son HTML. */
         if (window.StatsMapsComparateur) {
           window.StatsMapsComparateur.demarrer({
-            donnees: donnees,
+            donnees: donneesBase,
             locale: locale,
             anneeAffichee: anneeAffichee,
             pays: { noms: nomsParIso, drapeaux: drapeauxParIso },

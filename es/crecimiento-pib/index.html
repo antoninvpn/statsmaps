@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Crecimiento del PIB por país — mapa mundial interactivo | StatsMaps</title>
-  <meta name="description" content="Mapa interactivo del crecimiento del PIB real de 197 países, de 1980 a 2031. Datos oficiales del FMI: recesiones en rojo, expansiones en verde.">
+  <meta name="description" content="La variación del PIB real de un año a otro, en porcentaje. Mapa interactivo de 197 países, de 1980 a 2031, con datos oficiales del FMI (World Economic Outlook): clasificación mundial y evolución año a año.">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://statsmaps.com/es/crecimiento-pib/">
   <link rel="alternate" hreflang="fr" href="https://statsmaps.com/croissance/">
@@ -23,7 +23,7 @@
   <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/croissance/">
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
   <meta property="og:title" content="Crecimiento del PIB por país — mapa mundial interactivo">
-  <meta property="og:description" content="Mapa interactivo del crecimiento del PIB real de 197 países, de 1980 a 2031. Datos oficiales del FMI: recesiones en rojo, expansiones en verde.">
+  <meta property="og:description" content="La variación del PIB real de un año a otro, en porcentaje. Mapa interactivo de 197 países, de 1980 a 2031, con datos oficiales del FMI (World Economic Outlook): clasificación mundial y evolución año a año.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://statsmaps.com/es/crecimiento-pib/">
   <link rel="preload" href="../../data/pays.json" as="fetch" crossorigin>
@@ -36,11 +36,11 @@
   <header class="barre">
     <a class="barre__logo" href="../">Stats<span>Maps</span></a>
     <nav class="barre__nav" aria-label="Mapas">
-        <a class="barre__lien" href="../pib-nominal/"><span class="long">PIB nominal</span><span class="court">PIB</span></a>
+        <a class="barre__lien" href="../pib-nominal/"><span class="long">PIB</span><span class="court">PIB</span></a>
         <a class="barre__lien" href="../pib-per-capita/"><span class="long">PIB per cápita</span><span class="court">PIB/hab.</span></a>
         <a class="barre__lien" href="../crecimiento-pib/" aria-current="page"><span class="long">Crecimiento</span><span class="court">Crecimiento</span></a>
-        <a class="barre__lien" href="../ano-record-pib/"><span class="long">Año récord del PIB</span><span class="court">Récord PIB</span></a>
-        <a class="barre__lien" href="../ano-record-pib-per-capita/"><span class="long">Año récord del PIB per cápita</span><span class="court">Récord PIB/hab.</span></a>
+        <a class="barre__lien" href="../inflacion/"><span class="long">Inflación</span><span class="court">Inflación</span></a>
+        <a class="barre__lien" href="../poblacion/"><span class="long">Población</span><span class="court">Población</span></a>
     </nav>
     <div class="barre__droite">
       <details class="langues">
@@ -75,7 +75,7 @@
 
     <aside class="panneau" id="panneau">
       <div class="panneau__entete">
-        <h1 class="panneau__titre" id="titre-panneau">Crecimiento</h1>
+        <h1 class="panneau__titre" id="titre-panneau">Crecimiento del PIB</h1>
         <div class="panneau__soustitre" id="compteur-pays"></div>
         <input class="panneau__recherche" id="recherche" type="search" autocomplete="off" spellcheck="false">
       </div>

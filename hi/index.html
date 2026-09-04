@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>StatsMaps — इंटरैक्टिव मानचित्रों पर विश्व के आँकड़े</title>
-  <meta name="description" content="विश्व अर्थव्यवस्था के इंटरैक्टिव मानचित्र: नाममात्र जीडीपी, प्रति व्यक्ति जीडीपी, वृद्धि दर और शिखर वर्ष — 197 देश, 1980 से 2031 तक, IMF के आधिकारिक आँकड़ों पर आधारित।">
+  <title>StatsMaps — विश्व मानचित्र और आँकड़े</title>
+  <meta name="description" content="विश्व के आँकड़ों के इंटरैक्टिव मानचित्र: 197 देशों की जीडीपी, प्रति व्यक्ति जीडीपी, वृद्धि दर, मुद्रास्फीति और जनसंख्या, 1980 से 2031 तक, IMF के आधिकारिक आँकड़ों से।">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://statsmaps.com/hi/">
   <link rel="alternate" hreflang="fr" href="https://statsmaps.com/">
@@ -22,8 +22,8 @@
   <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/">
   <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="StatsMaps — इंटरैक्टिव मानचित्रों पर विश्व के आँकड़े">
-  <meta property="og:description" content="विश्व अर्थव्यवस्था के इंटरैक्टिव मानचित्र: नाममात्र जीडीपी, प्रति व्यक्ति जीडीपी, वृद्धि दर और शिखर वर्ष — 197 देश, 1980 से 2031 तक, IMF के आधिकारिक आँकड़ों पर आधारित।">
+  <meta property="og:title" content="StatsMaps — विश्व मानचित्र और आँकड़े">
+  <meta property="og:description" content="विश्व के आँकड़ों के इंटरैक्टिव मानचित्र: 197 देशों की जीडीपी, प्रति व्यक्ति जीडीपी, वृद्धि दर, मुद्रास्फीति और जनसंख्या, 1980 से 2031 तक, IMF के आधिकारिक आँकड़ों से।">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://statsmaps.com/hi/">
   <link rel="stylesheet" href="../assets/css/style.css">
@@ -34,11 +34,11 @@
   <header class="barre">
     <a class="barre__logo" href="./">Stats<span>Maps</span></a>
     <nav class="barre__nav" aria-label="मानचित्र">
-        <a class="barre__lien" href="nominal-gdp/"><span class="long">नाममात्र जीडीपी</span><span class="court">जीडीपी</span></a>
+        <a class="barre__lien" href="nominal-gdp/"><span class="long">जीडीपी</span><span class="court">जीडीपी</span></a>
         <a class="barre__lien" href="gdp-per-capita/"><span class="long">प्रति व्यक्ति जीडीपी</span><span class="court">जीडीपी/व्यक्ति</span></a>
         <a class="barre__lien" href="gdp-growth/"><span class="long">वृद्धि दर</span><span class="court">वृद्धि</span></a>
-        <a class="barre__lien" href="gdp-peak-year/"><span class="long">जीडीपी का शिखर वर्ष</span><span class="court">जीडीपी शिखर</span></a>
-        <a class="barre__lien" href="gdp-per-capita-peak-year/"><span class="long">प्रति व्यक्ति जीडीपी का शिखर वर्ष</span><span class="court">जीडीपी/व्यक्ति शिखर</span></a>
+        <a class="barre__lien" href="inflation/"><span class="long">मुद्रास्फीति</span><span class="court">मुद्रास्फीति</span></a>
+        <a class="barre__lien" href="population/"><span class="long">जनसंख्या</span><span class="court">जनसंख्या</span></a>
     </nav>
     <div class="barre__droite">
       <details class="langues">
@@ -68,37 +68,25 @@
 
   <main class="accueil">
     <h1 class="accueil__titre">दुनिया के आँकड़े, मानचित्र पर।</h1>
-    <p class="accueil__intro">StatsMaps आधिकारिक स्रोतों के आधार पर विश्व के प्रमुख संकेतकों को इंटरैक्टिव मानचित्रों में बदलता है। शुरुआत अर्थव्यवस्था से — अंतर्राष्ट्रीय मुद्रा कोष के आँकड़ों के साथ: 197 देश, 1980 से 2031 तक।</p>
+    <p class="accueil__intro">StatsMaps आधिकारिक स्रोतों के आधार पर विश्व के प्रमुख संकेतकों को इंटरैक्टिव मानचित्रों में बदलता है। किसी श्रेणी को चुनें और उसके मानचित्र देखें: फ़िलहाल अर्थव्यवस्था और जनसांख्यिकी, अंतर्राष्ट्रीय मुद्रा कोष के आँकड़ों से — 197 देश, 1980 से 2031 तक।</p>
 
     <div class="vignettes">
-      <a class="vignette" href="nominal-gdp/">
-        <div class="vignette__pastille">💰</div>
-        <div class="vignette__titre">नाममात्र जीडीपी</div>
-        <p class="vignette__texte">हर अर्थव्यवस्था का आकार, चालू अरब डॉलर में।</p>
+      <a class="vignette" href="economy/">
+        <div class="vignette__pastille">💶</div>
+        <div class="vignette__titre">अर्थव्यवस्था</div>
+        <p class="vignette__texte">जीडीपी, प्रति व्यक्ति संपत्ति, वृद्धि दर और मुद्रास्फीति।</p>
+        <div class="vignette__liste">जीडीपी · प्रति व्यक्ति जीडीपी · वृद्धि दर · मुद्रास्फीति</div>
       </a>
-      <a class="vignette" href="gdp-per-capita/">
-        <div class="vignette__pastille">👤</div>
-        <div class="vignette__titre">प्रति व्यक्ति जीडीपी</div>
-        <p class="vignette__texte">प्रति व्यक्ति उत्पादित संपत्ति, चालू डॉलर में।</p>
-      </a>
-      <a class="vignette" href="gdp-growth/">
-        <div class="vignette__pastille">📈</div>
-        <div class="vignette__titre">जीडीपी वृद्धि दर</div>
-        <p class="vignette__texte">वास्तविक जीडीपी में वर्ष-दर-वर्ष बदलाव, प्रतिशत में।</p>
-      </a>
-      <a class="vignette" href="gdp-peak-year/">
-        <div class="vignette__pastille">🏔️</div>
-        <div class="vignette__titre">जीडीपी का शिखर वर्ष</div>
-        <p class="vignette__texte">वह वर्ष जब हर देश अपने चरम पर था — और वे देश जो वहाँ कभी नहीं लौटे।</p>
-      </a>
-      <a class="vignette" href="gdp-per-capita-peak-year/">
-        <div class="vignette__pastille">⛰️</div>
-        <div class="vignette__titre">प्रति व्यक्ति जीडीपी का शिखर वर्ष</div>
-        <p class="vignette__texte">वह वर्ष जब हर देश के लोग औसतन सबसे समृद्ध थे।</p>
+      <a class="vignette" href="demographics/">
+        <div class="vignette__pastille">👥</div>
+        <div class="vignette__titre">जनसांख्यिकी</div>
+        <p class="vignette__texte">हर देश में कितने लोग रहते हैं, वर्ष-दर-वर्ष।</p>
+        <div class="vignette__liste">जनसंख्या</div>
       </a>
     </div>
 
-    <p class="accueil__bientot">जल्द ही: जनसांख्यिकी, बुनियादी ढाँचा, ऊर्जा, शिक्षा और स्वास्थ्य।</p>
+    <p class="accueil__bientot">जल्द ही: बुनियादी ढाँचा, ऊर्जा, शिक्षा और स्वास्थ्य।</p>
+
   </main>
 
   <footer class="pied">आँकड़े: IMF (World Economic Outlook) · आधार मानचित्र: Natural Earth · न विज्ञापन, न ट्रैकिंग।</footer>

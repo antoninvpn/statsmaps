@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>인구 통계 — 지도 전체 | StatsMaps</title>
+  <meta name="description" content="각 나라에 사는 사람 수를 해마다. 1980년부터 2031년까지 197개국의 인터랙티브 지도. IMF 공식 자료(World Economic Outlook)에 따른 세계 순위와 연도별 변화.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://statsmaps.com/ko/demographics/">
+  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/demographie/">
+  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/demographics/">
+  <link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/demohrafiia/">
+  <link rel="alternate" hreflang="de" href="https://statsmaps.com/de/demografie/">
+  <link rel="alternate" hreflang="es" href="https://statsmaps.com/es/demografia/">
+  <link rel="alternate" hreflang="it" href="https://statsmaps.com/it/demografia/">
+  <link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/demografia/">
+  <link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/demografia/">
+  <link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/demographics/">
+  <link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/demographics/">
+  <link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/demografi/">
+  <link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/demographics/">
+  <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/demographics/">
+  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/demographie/">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="인구 통계 — 지도 전체 | StatsMaps">
+  <meta property="og:description" content="각 나라에 사는 사람 수를 해마다. 1980년부터 2031년까지 197개국의 인터랙티브 지도. IMF 공식 자료(World Economic Outlook)에 따른 세계 순위와 연도별 변화.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://statsmaps.com/ko/demographics/">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <script src="../../assets/js/theme.js"></script>
+</head>
+<body>
+
+  <header class="barre">
+    <a class="barre__logo" href="../">Stats<span>Maps</span></a>
+    <nav class="barre__nav" aria-label="지도">
+        <a class="barre__lien" href="../nominal-gdp/"><span class="long">명목 GDP</span><span class="court">GDP</span></a>
+        <a class="barre__lien" href="../gdp-per-capita/"><span class="long">1인당 GDP</span><span class="court">GDP/인</span></a>
+        <a class="barre__lien" href="../gdp-growth/"><span class="long">성장률</span><span class="court">성장률</span></a>
+        <a class="barre__lien" href="../inflation/"><span class="long">물가상승률</span><span class="court">물가</span></a>
+        <a class="barre__lien" href="../population/"><span class="long">인구</span><span class="court">인구</span></a>
+    </nav>
+    <div class="barre__droite">
+      <details class="langues">
+        <summary class="bouton-icone" title="언어" aria-label="언어">🇰🇷</summary>
+        <div class="langues__menu">
+          <a href="/demographie/" hreflang="fr" lang="fr"><span class="drapeau" aria-hidden="true">🇫🇷</span>Français</a>
+          <a href="/en/demographics/" hreflang="en" lang="en"><span class="drapeau" aria-hidden="true">🇬🇧</span>English</a>
+          <a href="/ua/demohrafiia/" hreflang="uk" lang="uk"><span class="drapeau" aria-hidden="true">🇺🇦</span>Українська</a>
+          <a href="/de/demografie/" hreflang="de" lang="de"><span class="drapeau" aria-hidden="true">🇩🇪</span>Deutsch</a>
+          <a href="/es/demografia/" hreflang="es" lang="es"><span class="drapeau" aria-hidden="true">🇪🇸</span>Español</a>
+          <a href="/it/demografia/" hreflang="it" lang="it"><span class="drapeau" aria-hidden="true">🇮🇹</span>Italiano</a>
+          <a href="/pt/demografia/" hreflang="pt" lang="pt"><span class="drapeau" aria-hidden="true">🇵🇹</span>Português</a>
+          <a href="/pl/demografia/" hreflang="pl" lang="pl"><span class="drapeau" aria-hidden="true">🇵🇱</span>Polski</a>
+          <a href="/ja/demographics/" hreflang="ja" lang="ja"><span class="drapeau" aria-hidden="true">🇯🇵</span>日本語</a>
+          <a href="/ko/demographics/" hreflang="ko" lang="ko" aria-current="true"><span class="drapeau" aria-hidden="true">🇰🇷</span>한국어</a>
+          <a href="/tr/demografi/" hreflang="tr" lang="tr"><span class="drapeau" aria-hidden="true">🇹🇷</span>Türkçe</a>
+          <a href="/hi/demographics/" hreflang="hi" lang="hi"><span class="drapeau" aria-hidden="true">🇮🇳</span>हिन्दी</a>
+          <a href="/ar/demographics/" hreflang="ar" lang="ar"><span class="drapeau" aria-hidden="true">🇸🇦</span>العربية</a>
+        </div>
+      </details>
+      <button class="bouton-icone" id="bouton-theme" type="button"
+              aria-label="테마 바꾸기"
+              data-vers-clair="밝은 테마로"
+              data-vers-sombre="어두운 테마로">☾</button>
+    </div>
+  </header>
+
+  <main class="accueil">
+    <h1 class="accueil__titre">세계 인구를 지도로.</h1>
+    <p class="accueil__intro">IMF는 각국의 인구도 발표합니다. 197개국, 1980년부터 2031년까지, 전망 포함.</p>
+
+    <div class="vignettes">
+      <a class="vignette" href="../population/">
+        <div class="vignette__pastille">👥</div>
+        <div class="vignette__titre">인구</div>
+        <p class="vignette__texte">각 나라에 사는 사람 수를 백만 명 단위로.</p>
+      </a>
+    </div>
+
+  </main>
+
+  <footer class="pied">자료: IMF(World Economic Outlook) · 배경 지도: Natural Earth · 광고 없음, 추적 없음.</footer>
+
+  <script src="../../assets/js/barre.js"></script>
+</body>
+</html>

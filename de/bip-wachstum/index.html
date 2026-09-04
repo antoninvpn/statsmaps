@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>BIP-Wachstum nach Ländern — interaktive Weltkarte | StatsMaps</title>
-  <meta name="description" content="Interaktive Karte des realen BIP-Wachstums von 197 Ländern, von 1980 bis 2031. Offizielle IWF-Daten: Rezessionen in Rot, Aufschwünge in Grün.">
+  <meta name="description" content="Die Veränderung des realen BIP von Jahr zu Jahr, in Prozent. Eine interaktive Karte mit 197 Ländern, von 1980 bis 2031, auf Grundlage offizieller IWF-Daten (World Economic Outlook): Weltrangliste und Entwicklung Jahr für Jahr.">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://statsmaps.com/de/bip-wachstum/">
   <link rel="alternate" hreflang="fr" href="https://statsmaps.com/croissance/">
@@ -23,7 +23,7 @@
   <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/croissance/">
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
   <meta property="og:title" content="BIP-Wachstum nach Ländern — interaktive Weltkarte">
-  <meta property="og:description" content="Interaktive Karte des realen BIP-Wachstums von 197 Ländern, von 1980 bis 2031. Offizielle IWF-Daten: Rezessionen in Rot, Aufschwünge in Grün.">
+  <meta property="og:description" content="Die Veränderung des realen BIP von Jahr zu Jahr, in Prozent. Eine interaktive Karte mit 197 Ländern, von 1980 bis 2031, auf Grundlage offizieller IWF-Daten (World Economic Outlook): Weltrangliste und Entwicklung Jahr für Jahr.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://statsmaps.com/de/bip-wachstum/">
   <link rel="preload" href="../../data/pays.json" as="fetch" crossorigin>
@@ -36,11 +36,11 @@
   <header class="barre">
     <a class="barre__logo" href="../">Stats<span>Maps</span></a>
     <nav class="barre__nav" aria-label="Karten">
-        <a class="barre__lien" href="../nominales-bip/"><span class="long">Nominales BIP</span><span class="court">BIP</span></a>
+        <a class="barre__lien" href="../nominales-bip/"><span class="long">BIP</span><span class="court">BIP</span></a>
         <a class="barre__lien" href="../bip-pro-kopf/"><span class="long">BIP pro Kopf</span><span class="court">BIP/Kopf</span></a>
         <a class="barre__lien" href="../bip-wachstum/" aria-current="page"><span class="long">Wachstum</span><span class="court">Wachstum</span></a>
-        <a class="barre__lien" href="../bip-hoechststand/"><span class="long">BIP-Höchststand</span><span class="court">BIP-Höchst.</span></a>
-        <a class="barre__lien" href="../bip-pro-kopf-hoechststand/"><span class="long">Höchststand BIP pro Kopf</span><span class="court">BIP/Kopf-Höchst.</span></a>
+        <a class="barre__lien" href="../inflation/"><span class="long">Inflation</span><span class="court">Inflation</span></a>
+        <a class="barre__lien" href="../bevoelkerung/"><span class="long">Bevölkerung</span><span class="court">Bevölkerung</span></a>
     </nav>
     <div class="barre__droite">
       <details class="langues">
@@ -62,9 +62,9 @@
         </div>
       </details>
       <button class="bouton-icone" id="bouton-theme" type="button"
-              aria-label="Design wechseln"
-              data-vers-clair="Zum hellen Design wechseln"
-              data-vers-sombre="Zum dunklen Design wechseln">☾</button>
+              aria-label="Thema wechseln"
+              data-vers-clair="Zum hellen Thema wechseln"
+              data-vers-sombre="Zum dunklen Thema wechseln">☾</button>
     </div>
   </header>
 
@@ -75,7 +75,7 @@
 
     <aside class="panneau" id="panneau">
       <div class="panneau__entete">
-        <h1 class="panneau__titre" id="titre-panneau">Wachstum</h1>
+        <h1 class="panneau__titre" id="titre-panneau">BIP-Wachstum</h1>
         <div class="panneau__soustitre" id="compteur-pays"></div>
         <input class="panneau__recherche" id="recherche" type="search" autocomplete="off" spellcheck="false">
       </div>

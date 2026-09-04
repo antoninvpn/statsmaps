@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>StatsMaps — estatísticas mundiais em mapas interativos</title>
-  <meta name="description" content="Mapas interativos da economia mundial: PIB nominal, PIB per capita, crescimento e anos recorde de 197 países, de 1980 a 2031, a partir dos dados oficiais do FMI.">
+  <title>StatsMaps — mapas e estatísticas mundiais</title>
+  <meta name="description" content="Mapas interativos das estatísticas mundiais: PIB, PIB per capita, crescimento, inflação e população de 197 países, de 1980 a 2031, com dados oficiais do FMI.">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://statsmaps.com/pt/">
   <link rel="alternate" hreflang="fr" href="https://statsmaps.com/">
@@ -22,8 +22,8 @@
   <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/">
   <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="StatsMaps — estatísticas mundiais em mapas interativos">
-  <meta property="og:description" content="Mapas interativos da economia mundial: PIB nominal, PIB per capita, crescimento e anos recorde de 197 países, de 1980 a 2031, a partir dos dados oficiais do FMI.">
+  <meta property="og:title" content="StatsMaps — mapas e estatísticas mundiais">
+  <meta property="og:description" content="Mapas interativos das estatísticas mundiais: PIB, PIB per capita, crescimento, inflação e população de 197 países, de 1980 a 2031, com dados oficiais do FMI.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://statsmaps.com/pt/">
   <link rel="stylesheet" href="../assets/css/style.css">
@@ -34,11 +34,11 @@
   <header class="barre">
     <a class="barre__logo" href="./">Stats<span>Maps</span></a>
     <nav class="barre__nav" aria-label="Mapas">
-        <a class="barre__lien" href="pib-nominal/"><span class="long">PIB nominal</span><span class="court">PIB</span></a>
+        <a class="barre__lien" href="pib-nominal/"><span class="long">PIB</span><span class="court">PIB</span></a>
         <a class="barre__lien" href="pib-per-capita/"><span class="long">PIB per capita</span><span class="court">PIB/hab.</span></a>
         <a class="barre__lien" href="crescimento-pib/"><span class="long">Crescimento</span><span class="court">Crescimento</span></a>
-        <a class="barre__lien" href="ano-recorde-pib/"><span class="long">Ano recorde do PIB</span><span class="court">Recorde PIB</span></a>
-        <a class="barre__lien" href="ano-recorde-pib-per-capita/"><span class="long">Ano recorde do PIB per capita</span><span class="court">Recorde PIB/hab.</span></a>
+        <a class="barre__lien" href="inflacao/"><span class="long">Inflação</span><span class="court">Inflação</span></a>
+        <a class="barre__lien" href="populacao/"><span class="long">População</span><span class="court">População</span></a>
     </nav>
     <div class="barre__droite">
       <details class="langues">
@@ -68,37 +68,25 @@
 
   <main class="accueil">
     <h1 class="accueil__titre">As estatísticas do mundo, em mapas.</h1>
-    <p class="accueil__intro">O StatsMaps transforma os grandes indicadores mundiais em mapas interativos, a partir de fontes oficiais. Começamos pela economia, com os dados do Fundo Monetário Internacional: 197 países, de 1980 a 2031.</p>
+    <p class="accueil__intro">O StatsMaps transforma os grandes indicadores mundiais em mapas interativos, a partir de fontes oficiais. Escolhe uma categoria para ver os seus mapas: hoje a economia e a demografia, com dados do Fundo Monetário Internacional — 197 países, de 1980 a 2031.</p>
 
     <div class="vignettes">
-      <a class="vignette" href="pib-nominal/">
-        <div class="vignette__pastille">💰</div>
-        <div class="vignette__titre">PIB nominal</div>
-        <p class="vignette__texte">O tamanho de cada economia, em mil milhões de dólares correntes.</p>
+      <a class="vignette" href="economia/">
+        <div class="vignette__pastille">💶</div>
+        <div class="vignette__titre">Economia</div>
+        <p class="vignette__texte">O PIB, a riqueza por habitante, o crescimento e a inflação.</p>
+        <div class="vignette__liste">PIB · PIB per capita · Crescimento · Inflação</div>
       </a>
-      <a class="vignette" href="pib-per-capita/">
-        <div class="vignette__pastille">👤</div>
-        <div class="vignette__titre">PIB per capita</div>
-        <p class="vignette__texte">A riqueza produzida por pessoa, em dólares correntes.</p>
-      </a>
-      <a class="vignette" href="crescimento-pib/">
-        <div class="vignette__pastille">📈</div>
-        <div class="vignette__titre">Crescimento do PIB</div>
-        <p class="vignette__texte">A variação do PIB real de um ano para o outro, em percentagem.</p>
-      </a>
-      <a class="vignette" href="ano-recorde-pib/">
-        <div class="vignette__pastille">🏔️</div>
-        <div class="vignette__titre">Ano recorde do PIB</div>
-        <p class="vignette__texte">O ano em que cada país atingiu o seu máximo — e aqueles que nunca lá voltaram.</p>
-      </a>
-      <a class="vignette" href="ano-recorde-pib-per-capita/">
-        <div class="vignette__pastille">⛰️</div>
-        <div class="vignette__titre">Ano recorde do PIB per capita</div>
-        <p class="vignette__texte">O ano em que os habitantes de cada país foram, em média, mais ricos.</p>
+      <a class="vignette" href="demografia/">
+        <div class="vignette__pastille">👥</div>
+        <div class="vignette__titre">Demografia</div>
+        <p class="vignette__texte">Quantas pessoas vivem em cada país, ano a ano.</p>
+        <div class="vignette__liste">População</div>
       </a>
     </div>
 
-    <p class="accueil__bientot">Em breve: demografia, infraestruturas, energia, educação e saúde.</p>
+    <p class="accueil__bientot">Em breve: infraestruturas, energia, educação e saúde.</p>
+
   </main>
 
   <footer class="pied">Dados: FMI (World Economic Outlook) · Mapa base: Natural Earth · Sem publicidade nem rastreadores.</footer>

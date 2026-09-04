@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>StatsMaps — 인터랙티브 지도로 보는 세계 통계</title>
-  <meta name="description" content="세계 경제를 보여 주는 인터랙티브 지도. 명목 GDP, 1인당 GDP, 성장률, 최고 연도를 197개국에 대해 1980년부터 2031년까지, IMF 공식 자료를 바탕으로 제공합니다.">
+  <title>StatsMaps — 세계 지도와 통계</title>
+  <meta name="description" content="세계 통계를 인터랙티브 지도로. 197개국의 GDP, 1인당 GDP, 성장률, 물가상승률, 인구를 1980년부터 2031년까지, IMF 공식 자료로.">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://statsmaps.com/ko/">
   <link rel="alternate" hreflang="fr" href="https://statsmaps.com/">
@@ -22,8 +22,8 @@
   <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/">
   <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="StatsMaps — 인터랙티브 지도로 보는 세계 통계">
-  <meta property="og:description" content="세계 경제를 보여 주는 인터랙티브 지도. 명목 GDP, 1인당 GDP, 성장률, 최고 연도를 197개국에 대해 1980년부터 2031년까지, IMF 공식 자료를 바탕으로 제공합니다.">
+  <meta property="og:title" content="StatsMaps — 세계 지도와 통계">
+  <meta property="og:description" content="세계 통계를 인터랙티브 지도로. 197개국의 GDP, 1인당 GDP, 성장률, 물가상승률, 인구를 1980년부터 2031년까지, IMF 공식 자료로.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://statsmaps.com/ko/">
   <link rel="stylesheet" href="../assets/css/style.css">
@@ -37,8 +37,8 @@
         <a class="barre__lien" href="nominal-gdp/"><span class="long">명목 GDP</span><span class="court">GDP</span></a>
         <a class="barre__lien" href="gdp-per-capita/"><span class="long">1인당 GDP</span><span class="court">GDP/인</span></a>
         <a class="barre__lien" href="gdp-growth/"><span class="long">성장률</span><span class="court">성장률</span></a>
-        <a class="barre__lien" href="gdp-peak-year/"><span class="long">GDP 최고 연도</span><span class="court">GDP 최고</span></a>
-        <a class="barre__lien" href="gdp-per-capita-peak-year/"><span class="long">1인당 GDP 최고 연도</span><span class="court">GDP/인 최고</span></a>
+        <a class="barre__lien" href="inflation/"><span class="long">물가상승률</span><span class="court">물가</span></a>
+        <a class="barre__lien" href="population/"><span class="long">인구</span><span class="court">인구</span></a>
     </nav>
     <div class="barre__droite">
       <details class="langues">
@@ -60,45 +60,33 @@
         </div>
       </details>
       <button class="bouton-icone" id="bouton-theme" type="button"
-              aria-label="테마 변경"
-              data-vers-clair="밝은 테마로 전환"
-              data-vers-sombre="어두운 테마로 전환">☾</button>
+              aria-label="테마 바꾸기"
+              data-vers-clair="밝은 테마로"
+              data-vers-sombre="어두운 테마로">☾</button>
     </div>
   </header>
 
   <main class="accueil">
     <h1 class="accueil__titre">세계의 통계를 지도로.</h1>
-    <p class="accueil__intro">StatsMaps는 공식 통계를 바탕으로 세계의 주요 지표를 지도로 보여 줍니다. 먼저 경제부터. 국제통화기금(IMF) 자료로 197개국, 1980년부터 2031년까지.</p>
+    <p class="accueil__intro">StatsMaps는 공식 통계를 바탕으로 세계의 주요 지표를 지도로 보여 줍니다. 범주를 고르면 그 안의 지도가 나옵니다. 지금은 경제와 인구 통계. 국제통화기금(IMF) 자료로 197개국, 1980년부터 2031년까지.</p>
 
     <div class="vignettes">
-      <a class="vignette" href="nominal-gdp/">
-        <div class="vignette__pastille">💰</div>
-        <div class="vignette__titre">명목 GDP</div>
-        <p class="vignette__texte">각국 경제의 규모를 경상 십억 달러로.</p>
+      <a class="vignette" href="economy/">
+        <div class="vignette__pastille">💶</div>
+        <div class="vignette__titre">경제</div>
+        <p class="vignette__texte">GDP, 1인당 부, 성장률, 물가상승률.</p>
+        <div class="vignette__liste">명목 GDP · 1인당 GDP · 성장률 · 물가상승률</div>
       </a>
-      <a class="vignette" href="gdp-per-capita/">
-        <div class="vignette__pastille">👤</div>
-        <div class="vignette__titre">1인당 GDP</div>
-        <p class="vignette__texte">한 사람이 만들어 내는 부를 경상 달러로.</p>
-      </a>
-      <a class="vignette" href="gdp-growth/">
-        <div class="vignette__pastille">📈</div>
-        <div class="vignette__titre">GDP 성장률</div>
-        <p class="vignette__texte">실질 GDP의 전년 대비 변화를 백분율로.</p>
-      </a>
-      <a class="vignette" href="gdp-peak-year/">
-        <div class="vignette__pastille">🏔️</div>
-        <div class="vignette__titre">GDP 최고 연도</div>
-        <p class="vignette__texte">각 나라가 최고치에 이른 해 — 그리고 다시 돌아가지 못한 나라들.</p>
-      </a>
-      <a class="vignette" href="gdp-per-capita-peak-year/">
-        <div class="vignette__pastille">⛰️</div>
-        <div class="vignette__titre">1인당 GDP 최고 연도</div>
-        <p class="vignette__texte">각 나라 사람들이 평균적으로 가장 부유했던 해.</p>
+      <a class="vignette" href="demographics/">
+        <div class="vignette__pastille">👥</div>
+        <div class="vignette__titre">인구 통계</div>
+        <p class="vignette__texte">각 나라에 사는 사람 수를 해마다.</p>
+        <div class="vignette__liste">인구</div>
       </a>
     </div>
 
-    <p class="accueil__bientot">곧 공개: 인구, 인프라, 에너지, 교육, 보건.</p>
+    <p class="accueil__bientot">곧 공개: 인프라, 에너지, 교육, 보건.</p>
+
   </main>
 
   <footer class="pied">자료: IMF(World Economic Outlook) · 배경 지도: Natural Earth · 광고 없음, 추적 없음.</footer>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>国別の購買力平価GDP — インタラクティブ世界地図 | StatsMaps</title>
+  <meta name="description" content="物価水準を補正した各国経済の規模を、国際ドルで。 1980年から2031年まで、197か国のインタラクティブ地図。IMFの公式データ（World Economic Outlook）による世界ランキングと年ごとの推移。">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://statsmaps.com/ja/gdp-ppp/">
+  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/pib-ppa/">
+  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/gdp-ppp/">
+  <link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/vvp-pks/">
+  <link rel="alternate" hreflang="de" href="https://statsmaps.com/de/bip-kkp/">
+  <link rel="alternate" hreflang="es" href="https://statsmaps.com/es/pib-ppa/">
+  <link rel="alternate" hreflang="it" href="https://statsmaps.com/it/pil-ppa/">
+  <link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/pib-ppc/">
+  <link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/pkb-psn/">
+  <link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/gdp-ppp/">
+  <link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/gdp-ppp/">
+  <link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/gsyih-sagp/">
+  <link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/gdp-ppp/">
+  <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/gdp-ppp/">
+  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/pib-ppa/">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="国別の購買力平価GDP — インタラクティブ世界地図">
+  <meta property="og:description" content="物価水準を補正した各国経済の規模を、国際ドルで。 1980年から2031年まで、197か国のインタラクティブ地図。IMFの公式データ（World Economic Outlook）による世界ランキングと年ごとの推移。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://statsmaps.com/ja/gdp-ppp/">
+  <link rel="preload" href="../../data/pays.json" as="fetch" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.1/maplibre-gl.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <script src="../../assets/js/theme.js"></script>
+</head>
+<body class="page-carte" data-indicateur="pib-ppa" data-langue="ja" data-base="../../">
+
+  <header class="barre">
+    <a class="barre__logo" href="../">Stats<span>Maps</span></a>
+    <nav class="barre__nav" aria-label="地図">
+        <a class="barre__lien" href="../nominal-gdp/" aria-current="page"><span class="long">名目GDP</span><span class="court">GDP</span></a>
+        <a class="barre__lien" href="../gdp-per-capita/"><span class="long">一人当たりGDP</span><span class="court">GDP/人</span></a>
+        <a class="barre__lien" href="../gdp-growth/"><span class="long">成長率</span><span class="court">成長率</span></a>
+        <a class="barre__lien" href="../inflation/"><span class="long">インフレ率</span><span class="court">インフレ</span></a>
+        <a class="barre__lien" href="../population/"><span class="long">人口</span><span class="court">人口</span></a>
+    </nav>
+    <div class="barre__droite">
+      <details class="langues">
+        <summary class="bouton-icone" title="言語" aria-label="言語">🇯🇵</summary>
+        <div class="langues__menu">
+          <a href="/pib-ppa/" hreflang="fr" lang="fr"><span class="drapeau" aria-hidden="true">🇫🇷</span>Français</a>
+          <a href="/en/gdp-ppp/" hreflang="en" lang="en"><span class="drapeau" aria-hidden="true">🇬🇧</span>English</a>
+          <a href="/ua/vvp-pks/" hreflang="uk" lang="uk"><span class="drapeau" aria-hidden="true">🇺🇦</span>Українська</a>
+          <a href="/de/bip-kkp/" hreflang="de" lang="de"><span class="drapeau" aria-hidden="true">🇩🇪</span>Deutsch</a>
+          <a href="/es/pib-ppa/" hreflang="es" lang="es"><span class="drapeau" aria-hidden="true">🇪🇸</span>Español</a>
+          <a href="/it/pil-ppa/" hreflang="it" lang="it"><span class="drapeau" aria-hidden="true">🇮🇹</span>Italiano</a>
+          <a href="/pt/pib-ppc/" hreflang="pt" lang="pt"><span class="drapeau" aria-hidden="true">🇵🇹</span>Português</a>
+          <a href="/pl/pkb-psn/" hreflang="pl" lang="pl"><span class="drapeau" aria-hidden="true">🇵🇱</span>Polski</a>
+          <a href="/ja/gdp-ppp/" hreflang="ja" lang="ja" aria-current="true"><span class="drapeau" aria-hidden="true">🇯🇵</span>日本語</a>
+          <a href="/ko/gdp-ppp/" hreflang="ko" lang="ko"><span class="drapeau" aria-hidden="true">🇰🇷</span>한국어</a>
+          <a href="/tr/gsyih-sagp/" hreflang="tr" lang="tr"><span class="drapeau" aria-hidden="true">🇹🇷</span>Türkçe</a>
+          <a href="/hi/gdp-ppp/" hreflang="hi" lang="hi"><span class="drapeau" aria-hidden="true">🇮🇳</span>हिन्दी</a>
+          <a href="/ar/gdp-ppp/" hreflang="ar" lang="ar"><span class="drapeau" aria-hidden="true">🇸🇦</span>العربية</a>
+        </div>
+      </details>
+      <button class="bouton-icone" id="bouton-theme" type="button"
+              aria-label="テーマを切り替える"
+              data-vers-clair="ライトテーマにする"
+              data-vers-sombre="ダークテーマにする">☾</button>
+    </div>
+  </header>
+
+  <div class="zone-carte">
+    <div id="carte"></div>
+
+    <button class="bouton-icone bouton-panneau" id="bouton-panneau" type="button" aria-expanded="false" aria-controls="panneau"></button>
+
+    <aside class="panneau" id="panneau">
+      <div class="panneau__entete">
+        <h1 class="panneau__titre" id="titre-panneau">購買力平価GDP</h1>
+        <div class="panneau__soustitre" id="compteur-pays"></div>
+        <div class="variantes" role="group" aria-label="単位">
+          <a class="variante" href="../nominal-gdp/">米ドル</a>
+          <a class="variante est-active" href="../gdp-ppp/" aria-current="page">購買力平価</a>
+        </div>
+        <input class="panneau__recherche" id="recherche" type="search" autocomplete="off" spellcheck="false">
+      </div>
+      <ul class="classement" id="classement"></ul>
+      <div class="panneau__pied" id="source"></div>
+    </aside>
+
+    <div class="legende" id="legende"></div>
+
+    <div class="annees">
+      <div class="annees__haut">
+        <span class="annees__valeur nombre" id="annee-valeur">—</span>
+        <span class="annees__etiquette" id="annee-etiquette"></span>
+      </div>
+      <input type="range" id="curseur-annee" min="1980" max="2031" step="1" value="2025">
+      <div class="annees__bornes"><span id="annee-min"></span><span id="annee-max"></span></div>
+    </div>
+
+    <div class="chargement" id="chargement">…</div>
+  </div>
+
+  <script src="../../assets/js/i18n.js"></script>
+  <script src="../../assets/js/barre.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.1/maplibre-gl.js"></script>
+  <script src="../../assets/js/comparateur.js"></script>
+  <script src="../../assets/js/carte.js"></script>
+</body>
+</html>
