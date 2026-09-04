@@ -69,8 +69,13 @@ POURCENT_ANNUEL = {
 #                   grandeur (le PIB en dollars courants et en parité de pouvoir
 #                   d'achat). Le site propose alors de passer de l'une à l'autre.
 #   variante ...... le nom de la version, pour le bouton de bascule
-#   record ........ cette carte a-t-elle un onglet « Records » ? (l'année record
-#                   d'un taux de croissance ou d'inflation n'aurait aucun sens)
+#   pic ........... cette carte a-t-elle un onglet « Pic » ? Il répond à la
+#                   question « en quelle année ce pays a-t-il été à son
+#                   maximum ? », et elle a un sens pour les sept cartes : le
+#                   pic du PIB, mais aussi le pic d'inflation (le Venezuela en
+#                   2018) ou le pic de population (le Japon en 2011). Une
+#                   future carte pourrait s'en passer — un indice sans unité,
+#                   par exemple — d'où le réglage.
 #   decimales ..... le nombre maximum de décimales affichées. Trois, c'est tout
 #                   ce que contiennent les fichiers : le site montre donc toute
 #                   la précision disponible. Les zéros inutiles ne sont pas
@@ -85,7 +90,7 @@ INDICATEURS = [
         "categorie": "economie",
         "famille": "pib",
         "variante": "nominal",
-        "record": True,
+        "pic": True,
         "decimales": 3,
         "titre": {
             "fr": "PIB, prix courants",
@@ -130,7 +135,7 @@ INDICATEURS = [
         "categorie": "economie",
         "famille": "pib",
         "variante": "ppa",
-        "record": True,
+        "pic": True,
         "decimales": 3,
         # Même titre que le PIB nominal : c'est ainsi que le FMI les présente.
         # Seule l'unité les distingue.
@@ -178,7 +183,7 @@ INDICATEURS = [
         "categorie": "economie",
         "famille": "pib-par-habitant",
         "variante": "nominal",
-        "record": True,
+        "pic": True,
         "decimales": 3,
         "titre": {
             "fr": "PIB par habitant, prix courants",
@@ -223,7 +228,7 @@ INDICATEURS = [
         "categorie": "economie",
         "famille": "pib-par-habitant",
         "variante": "ppa",
-        "record": True,
+        "pic": True,
         "decimales": 3,
         "titre": {
             "fr": "PIB par habitant, prix courants",
@@ -269,7 +274,7 @@ INDICATEURS = [
         "categorie": "economie",
         "famille": None,
         "variante": None,
-        "record": False,
+        "pic": True,
         "decimales": 3,
         "titre": {
             "fr": "Croissance du PIB réel",
@@ -295,7 +300,7 @@ INDICATEURS = [
         "categorie": "economie",
         "famille": None,
         "variante": None,
-        "record": False,
+        "pic": True,
         "decimales": 3,
         "titre": {
             "fr": "Taux d’inflation, prix à la consommation",
@@ -321,7 +326,7 @@ INDICATEURS = [
         "categorie": "demographie",
         "famille": None,
         "variante": None,
-        "record": True,
+        "pic": True,
         "decimales": 3,
         "titre": {
             "fr": "Population",
@@ -546,7 +551,7 @@ def main():
             "unite": indicateur["unite"],
             "unite_longue": indicateur["unite_longue"],
             "decimales": indicateur["decimales"],
-            "record": indicateur["record"],
+            "pic": indicateur["pic"],
             "annees": annees,
             "derniere_annee_reelle": derniere_annee_reelle,
             "valeurs": valeurs,
@@ -562,7 +567,7 @@ def main():
             "categorie": indicateur["categorie"],
             "famille": indicateur["famille"],
             "variante": indicateur["variante"],
-            "record": indicateur["record"],
+            "pic": indicateur["pic"],
             "titre": indicateur["titre"],
             "unite": indicateur["unite"],
             "unite_longue": indicateur["unite_longue"],

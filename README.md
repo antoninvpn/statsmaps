@@ -15,7 +15,7 @@ Trois étages, du général au particulier :
 ```
 l'accueil ............ les CATÉGORIES        Économie · Démographie
   une catégorie ...... ses CARTES            PIB · PIB/hab. · Croissance · Inflation
-    une carte ........ ses VARIANTES         Dollars US ⇄ Parité de pouvoir d'achat
+    une carte ........ ses VARIANTES         Nominal ⇄ Parité de pouvoir d'achat
 ```
 
 Une **variante** est une autre façon de mesurer la *même* chose : le PIB en
@@ -25,19 +25,41 @@ l'autre en haut du panneau de gauche. Comme les deux cartes du PIB partagent
 la même échelle de couleurs, on voit littéralement les pays changer de couleur
 en basculant : l'Inde, 4ᵉ économie en dollars, est 3ᵉ en pouvoir d'achat.
 
+### Le menu du haut ne montre jamais tout le site
+
+Il montre **l'étage où l'on se trouve**, et rien d'autre :
+
+| Où l'on est | Ce que montre le menu |
+|---|---|
+| l'accueil | les catégories — Économie · Démographie |
+| une page de catégorie | les catégories aussi : on est encore à cet étage, et on peut passer à la rubrique voisine |
+| une carte | les cartes de **sa** catégorie, et elles seules |
+
+Sur la carte de la population, le menu n'affiche donc pas le PIB ni l'inflation :
+ils appartiennent à une autre rubrique. En échange, le nom de la rubrique
+apparaît en pastille juste après le logo (« Économie ») — il dit où l'on est, et
+il ramène à la page de la rubrique, d'où l'on atteint les autres.
+
+Le menu ne montre que les cartes **principales** : la version en parité de
+pouvoir d'achat se choisit dans le panneau de gauche, une fois la carte ouverte.
+Mettre les deux ferait un menu où « PIB » apparaîtrait deux fois. Tout cela est
+décidé par la fonction `entete()` de `build_pages.py`.
+
 ### Les sept cartes
 
-| Carte | Indicateur du FMI | Variantes | Onglet Records |
+| Carte | Indicateur du FMI | Variantes | Onglet Pic |
 |---|---|---|:---:|
-| PIB | `NGDPD` / `PPPGDP` | dollars US · parité de pouvoir d'achat | ✅ |
-| PIB par habitant | `NGDPDPC` / `PPPPC` | dollars US · parité de pouvoir d'achat | ✅ |
-| Croissance du PIB | `NGDP_RPCH` | — | ❌ |
-| Inflation | `PCPIPCH` | — | ❌ |
+| PIB | `NGDPD` / `PPPGDP` | nominal · parité de pouvoir d'achat | ✅ |
+| PIB par habitant | `NGDPDPC` / `PPPPC` | nominal · parité de pouvoir d'achat | ✅ |
+| Croissance du PIB | `NGDP_RPCH` | — | ✅ |
+| Inflation | `PCPIPCH` | — | ✅ |
 | Population | `LP` | — | ✅ |
 
-Les deux cartes qui mesurent un **taux** n'ont pas d'onglet « Records » :
-demander en quelle année un pays a eu son plus fort taux d'inflation ne veut
-rien dire. C'est le champ `record` de `build_donnees.py` qui le décide.
+Les sept cartes ont un onglet « Pic » : la question « en quelle année ce pays
+a-t-il été à son maximum ? » a un sens partout — le pic du PIB, mais aussi le
+pic d'inflation (le Venezuela en 2018) ou le pic de population (le Japon en
+2011). C'est le champ `pic` de `build_donnees.py` qui le décide, au cas où une
+future carte s'y prêterait mal.
 
 ### Le vocabulaire est celui du FMI
 
@@ -169,10 +191,10 @@ dans `assets/js/carte.js` (`PALETTE_CLAIR` et `PALETTE_SOMBRE`) : la modifier
 change le site entier.
 
 Le sens de lecture est toujours le même : **le vert est le côté favorable**
-(pays riche, forte croissance, record tout récent), le rouge le côté
-défavorable. Les deux cartes qui se lisent à l'envers — l'inflation et l'onglet
-« Records », où un petit nombre est une bonne nouvelle — retournent la palette
-avec `inverser()` et portent la mention `sens_inverse`.
+(pays riche, forte croissance, pic tout récent), le rouge le côté défavorable.
+La carte qui se lit à l'envers — l'inflation, où un petit nombre est la bonne
+nouvelle — retourne la palette avec `inverser()` et porte la mention
+`ecart_inverse`.
 
 Ce que chaque carte règle de son côté, ce sont seulement ses `tranches` :
 les seuils qui séparent une couleur de la suivante.
@@ -206,27 +228,46 @@ années. Exemple, sur le PIB par habitant : le Royaume-Uni était 15 % en dessou
 de la France en 1980, l'a dépassée en 2012, et le FMI le voit 29 % au-dessus
 en 2031.
 
-**Records.** « En quelle année ce pays a-t-il été à son maximum ? » L'onglet
-fait deux choses en même temps :
+**Pic.** « En quelle année ce pays a-t-il été à son maximum ? » L'onglet fait
+deux choses en même temps :
 
-- il **repeint la carte** en années écoulées depuis le record — vert = le pays
-  est à son sommet cette année, rouge = il ne l'a jamais retrouvé (Ukraine 1991,
-  Grèce 2008, Japon 2012, Afrique du Sud 2011…) ;
-- il affiche la **fiche du pays choisi** : son record, l'année où il l'a
-  atteint, et le chemin qui lui reste à faire (le Japon est 30 % en dessous de
-  son record de 2012).
+- il **repeint la carte** en années écoulées depuis le pic ;
+- il affiche la **fiche du pays choisi** : son pic, l'année où il l'a atteint,
+  et le chemin qui lui reste à faire.
 
-Le curseur des années garde son rôle habituel : posé sur 2008, il montre le
-record **atteint à cette date**. On voit ainsi la crise de 2008, puis le Covid,
-arriver en faisant glisser le curseur — et, au-delà de 2025, les projections du
-FMI jusqu'en 2031. C'est la fin de la course qui est la plus parlante : en 2031,
-**11 pays** ne sont toujours pas prévus pour retrouver leur record de PIB, et
+Le point important, c'est que **le sens de lecture suit la carte** :
+
+| Carte | Un pic tout récent veut dire… | Couleur | En tête du classement |
+|---|---|---|---|
+| PIB, PIB/hab., croissance, population | le pays est à son sommet | 🟩 vert | les pics les plus **anciens** (Ukraine 1991, Grèce 2008, Japon 2012) |
+| Inflation | les prix s'envolent en ce moment | 🟥 rouge | les pics les plus **récents** (Burundi 2025, Iran 2025, Argentine 2024) |
+
+C'est calculé, et non écrit à la main : `reglagesPic()` dans `carte.js` part du
+réglage `ecart_inverse` de la carte ouverte et en déduit la palette, l'ordre du
+classement et le sens de la comparaison. Ajouter demain une carte du chômage
+donnerait automatiquement la bonne lecture.
+
+Le curseur des années garde son rôle habituel : posé sur 2008, il montre le pic
+**atteint à cette date**. On voit ainsi la crise de 2008, puis le Covid, arriver
+en faisant glisser le curseur — et, au-delà de 2025, les projections du FMI
+jusqu'en 2031. C'est la fin de la course qui est la plus parlante : en 2031,
+**11 pays** ne sont toujours pas prévus pour retrouver leur pic de PIB, et
 **26** pour le PIB par habitant.
 
-> Ces années record ne sont **pas téléchargées** : le navigateur les calcule à
-> partir des chiffres déjà chargés, à la première ouverture de l'onglet
-> (`calculerRecords()` dans `carte.js`). C'est pourquoi l'onglet marche sur
+La ligne « écart au pic » de la fiche se mesure dans l'unité de la carte de
+départ : en **pourcentage** pour le PIB (le Japon est 30 % en dessous de son pic
+de 2012), en **points** pour la croissance et l'inflation (la France est
+5,9 points en dessous de son pic de croissance de 2021). Comparer deux taux en
+pourcentage de pourcentage n'aurait aucun sens.
+
+> Ces années ne sont **pas téléchargées** : le navigateur les calcule à partir
+> des chiffres déjà chargés, à la première ouverture de l'onglet
+> (`calculerPics()` dans `carte.js`). C'est pourquoi l'onglet marche sur
 > n'importe quelle carte sans qu'il y ait un fichier de plus dans `data/`.
+
+> **Pourquoi « Pic » ?** Parce que « record » se dit d'une performance, et que
+> l'onglet parle aussi bien du pic d'inflation du Venezuela — qui n'a rien
+> d'un exploit. En anglais l'onglet s'appelle **Peaked**.
 
 ---
 
@@ -248,14 +289,14 @@ L'écart ne se mesure pas de la même façon selon la carte — c'est le réglag
 |---|---|---|
 | PIB, PIB par habitant, population | **pourcentage** de la référence | l'Allemagne est à `+24 %` de la France |
 | Croissance, inflation | **points** | l'Inde est à `+6,7 pt` de la France |
-| Records | **années** entre les deux records | l'Ukraine est à `−34 ans` de la France |
+| Onglet Pic | **années** entre les deux pics | l'Ukraine est à `−34 ans` de la France |
 
 Dans les trois cas, le signe dit toujours la même chose : **positif = ce pays a
 un chiffre plus grand que la référence**. Reste à savoir si « plus grand » est
 une bonne nouvelle, et cela dépend de la carte : sur le PIB oui, sur l'inflation
-non. C'est le rôle de `ecart_sens_inverse`, qui décide si la palette revient à
-l'endroit. Sur l'inflation, dépasser l'autre reste rouge — sur la carte comme
-dans le graphique du comparateur.
+non. C'est tout ce que dit `ecart_inverse`, le seul réglage de sens du fichier.
+Sur l'inflation, dépasser l'autre reste rouge — sur la carte comme dans le
+graphique du comparateur.
 
 Le comparateur vit dans son propre fichier, `assets/js/comparateur.js`, qui ne
 sait rien du reste du site : `carte.js` lui passe les données et les quelques
@@ -300,7 +341,7 @@ Où sont les textes, selon leur nature :
 |---|---|
 | les boutons, les onglets, la légende, les infobulles | `assets/js/i18n.js` |
 | les titres du FMI et leurs unités | `scripts/build_donnees.py` |
-| les noms courts, les adresses, les descriptions pour Google, les catégories | `scripts/build_pages.py` |
+| les noms courts, les adresses, les descriptions pour Google, les catégories, les libellés « nominal / parité de pouvoir d'achat » | `scripts/build_pages.py` |
 | les noms des 197 pays | personne : ils viennent de Natural Earth |
 
 ### Je veux changer…
@@ -415,7 +456,7 @@ la catégorie et le sitemap suivent tout seuls.
 
 > Le travail est celui de la **traduction**, pas de la recopie : l'étape 3
 > demande cinq courtes phrases par langue. Le reste (couleurs, classement,
-> légende, curseur, comparateur, records) est partagé.
+> légende, curseur, comparateur, pic) est partagé.
 
 **Pour ajouter une simple variante** à une carte existante — le PIB en euros,
 par exemple — c'est le même chemin, avec la même `famille` et une `variante`

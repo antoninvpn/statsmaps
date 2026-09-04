@@ -44,13 +44,13 @@ window.StatsMapsTextes = {
     pas_de_donnee: "Donnée non disponible pour cette année.",
     territoire: "territoire, hors classement",
 
-    /* Infobulle des cartes « année record ».
+    /* Infobulle de l'onglet « Pic ».
        Il y a plusieurs formes parce que les langues ne comptent pas pareil :
        le français dit « 1 an » puis « 5 ans », l'ukrainien dit « 1 рік »,
        « 3 роки » puis « 5 років ». Le navigateur choisit tout seul la bonne
        forme ; il suffit de remplir celles qui existent dans la langue.
        {n} sera remplacé par le nombre d'années.                            */
-    ecart_zero: "record de l'année en cours",
+    ecart_zero: "pic de l’année en cours",
     ecart_one: "il y a {n} an",
     ecart_other: "il y a {n} ans",
 
@@ -72,16 +72,17 @@ window.StatsMapsTextes = {
     /* L'onglet « Comparer » du panneau */
     onglet_comparer: "Comparer",
 
-    /* L'onglet « Records » du panneau : « en quelle année ce pays a-t-il été
-       à son maximum ? ». {carte} sera remplacé par le titre de la carte
-       ouverte, {annee} par l'année affichée. */
-    onglet_records: "Records",
-    record_titre: "Année record — {carte}",
-    record_unite: "années écoulées depuis le record",
-    record_valeur: "Record",
-    record_annee: "Année du record",
-    record_aujourdhui: "Écart au record en {annee}",
-    record_invite: "Clique sur un pays pour voir son record.",
+    /* L'onglet « Pic » du panneau : « en quelle année ce pays a-t-il été à son
+       maximum ? ». {carte} sera remplacé par le titre de la carte ouverte,
+       {annee} par l'année affichée.
+       En anglais l'onglet s'appelle « Peaked », le mot employé par le FMI. */
+    onglet_pic: "Pic",
+    pic_titre: "Pic — {carte}",
+    pic_unite: "années écoulées depuis le pic",
+    pic_valeur: "Pic",
+    pic_annee: "Année du pic",
+    pic_aujourdhui: "Écart au pic en {annee}",
+    pic_invite: "Clique sur un pays pour voir son pic.",
 
     /* L'onglet « Comparer » : deux pays face à face */
     comparateur_choisir: "Choisir un pays",
@@ -142,13 +143,13 @@ window.StatsMapsTextes = {
 
     onglet_comparer: "Compare",
 
-    onglet_records: "Records",
-    record_titre: "Peak year — {carte}",
-    record_unite: "years since the peak",
-    record_valeur: "Peak",
-    record_annee: "Peak year",
-    record_aujourdhui: "Gap to the peak in {annee}",
-    record_invite: "Click a country to see its peak.",
+    onglet_pic: "Peaked",
+    pic_titre: "Peak year — {carte}",
+    pic_unite: "years since the peak",
+    pic_valeur: "Peak",
+    pic_annee: "Peak year",
+    pic_aujourdhui: "Gap to the peak in {annee}",
+    pic_invite: "Click a country to see its peak.",
     comparateur_choisir: "Choose a country",
     comparateur_invite: "Pick two countries to see the gap between them.",
     comparateur_sans_donnee: "These two countries share no year of data.",
@@ -192,7 +193,7 @@ window.StatsMapsTextes = {
     territoire: "територія, поза рейтингом",
 
     /* L'ukrainien a trois formes de pluriel : 1 рік, 2-4 роки, 5+ років. */
-    ecart_zero: "рекорд цього року",
+    ecart_zero: "пік цього року",
     ecart_one: "{n} рік тому",
     ecart_few: "{n} роки тому",
     ecart_many: "{n} років тому",
@@ -210,13 +211,13 @@ window.StatsMapsTextes = {
 
     onglet_comparer: "Порівняти",
 
-    onglet_records: "Рекорди",
-    record_titre: "Рекордний рік — {carte}",
-    record_unite: "років від рекорду",
-    record_valeur: "Рекорд",
-    record_annee: "Рік рекорду",
-    record_aujourdhui: "Відставання від рекорду у {annee}",
-    record_invite: "Натисніть на країну, щоб побачити її рекорд.",
+    onglet_pic: "Пік",
+    pic_titre: "Пік — {carte}",
+    pic_unite: "років від піку",
+    pic_valeur: "Пік",
+    pic_annee: "Рік піку",
+    pic_aujourdhui: "Відставання від піку у {annee}",
+    pic_invite: "Натисніть на країну, щоб побачити її пік.",
     comparateur_choisir: "Обрати країну",
     comparateur_invite: "Оберіть дві країни, щоб побачити розрив між ними.",
     comparateur_sans_donnee: "Ці дві країни не мають спільних років даних.",
@@ -263,7 +264,7 @@ window.StatsMapsTextes = {
     pas_de_donnee: "Für dieses Jahr liegen keine Daten vor.",
     territoire: "Gebiet, nicht gewertet",
 
-    /* Cartes « année record » */
+    /* Onglet « Pic » */
     ecart_zero: "Höchststand im laufenden Jahr",
     ecart_one: "vor {n} Jahr",
     ecart_other: "vor {n} Jahren",
@@ -280,13 +281,13 @@ window.StatsMapsTextes = {
     /* Onglet « Comparer » */
     onglet_comparer: "Vergleichen",
 
-    onglet_records: "Rekorde",
-    record_titre: "Höchststand — {carte}",
-    record_unite: "Jahre seit dem Höchststand",
-    record_valeur: "Höchstwert",
-    record_annee: "Jahr des Höchststands",
-    record_aujourdhui: "Abstand zum Höchststand {annee}",
-    record_invite: "Klicke auf ein Land, um seinen Höchststand zu sehen.",
+    onglet_pic: "Höchststand",
+    pic_titre: "Höchststand — {carte}",
+    pic_unite: "Jahre seit dem Höchststand",
+    pic_valeur: "Höchstwert",
+    pic_annee: "Jahr des Höchststands",
+    pic_aujourdhui: "Abstand zum Höchststand {annee}",
+    pic_invite: "Klicke auf ein Land, um seinen Höchststand zu sehen.",
     comparateur_choisir: "Land auswählen",
     comparateur_invite: "Zwei Länder auswählen, um den Unterschied zu sehen.",
     comparateur_sans_donnee: "Für diese beiden Länder gibt es kein gemeinsames Jahr.",
@@ -333,8 +334,8 @@ window.StatsMapsTextes = {
     pas_de_donnee: "No hay datos disponibles para este año.",
     territoire: "territorio, sin clasificar",
 
-    /* Cartes « année record » */
-    ecart_zero: "récord en el año en curso",
+    /* Onglet « Pic » */
+    ecart_zero: "pico en el año en curso",
     ecart_one: "hace {n} año",
     ecart_other: "hace {n} años",
 
@@ -350,13 +351,13 @@ window.StatsMapsTextes = {
     /* Onglet « Comparer » */
     onglet_comparer: "Comparar",
 
-    onglet_records: "Récords",
-    record_titre: "Año récord — {carte}",
-    record_unite: "años desde el récord",
-    record_valeur: "Récord",
-    record_annee: "Año del récord",
-    record_aujourdhui: "Distancia al récord en {annee}",
-    record_invite: "Haz clic en un país para ver su récord.",
+    onglet_pic: "Pico",
+    pic_titre: "Pico — {carte}",
+    pic_unite: "años desde el pico",
+    pic_valeur: "Pico",
+    pic_annee: "Año del pico",
+    pic_aujourdhui: "Distancia al pico en {annee}",
+    pic_invite: "Haz clic en un país para ver su pico.",
     comparateur_choisir: "Elegir un país",
     comparateur_invite: "Elige dos países para ver la diferencia entre ellos.",
     comparateur_sans_donnee: "Estos dos países no comparten ningún año con datos.",
@@ -403,8 +404,8 @@ window.StatsMapsTextes = {
     pas_de_donnee: "Nessun dato disponibile per quest'anno.",
     territoire: "territorio, fuori classifica",
 
-    /* Cartes « année record » */
-    ecart_zero: "record nell'anno in corso",
+    /* Onglet « Pic » */
+    ecart_zero: "picco nell’anno in corso",
     ecart_one: "{n} anno fa",
     ecart_other: "{n} anni fa",
 
@@ -420,13 +421,13 @@ window.StatsMapsTextes = {
     /* Onglet « Comparer » */
     onglet_comparer: "Confronta",
 
-    onglet_records: "Record",
-    record_titre: "Anno record — {carte}",
-    record_unite: "anni dal record",
-    record_valeur: "Record",
-    record_annee: "Anno del record",
-    record_aujourdhui: "Distanza dal record nel {annee}",
-    record_invite: "Clicca su un paese per vedere il suo record.",
+    onglet_pic: "Picco",
+    pic_titre: "Picco — {carte}",
+    pic_unite: "anni dal picco",
+    pic_valeur: "Picco",
+    pic_annee: "Anno del picco",
+    pic_aujourdhui: "Distanza dal picco nel {annee}",
+    pic_invite: "Clicca su un paese per vedere il suo picco.",
     comparateur_choisir: "Scegli un paese",
     comparateur_invite: "Scegli due paesi per vedere lo scarto tra loro.",
     comparateur_sans_donnee: "Questi due paesi non hanno alcun anno in comune.",
@@ -473,8 +474,8 @@ window.StatsMapsTextes = {
     pas_de_donnee: "Não há dados disponíveis para este ano.",
     territoire: "território, fora da classificação",
 
-    /* Cartes « année record » */
-    ecart_zero: "recorde no ano em curso",
+    /* Onglet « Pic » */
+    ecart_zero: "pico no ano em curso",
     ecart_one: "há {n} ano",
     ecart_other: "há {n} anos",
 
@@ -490,13 +491,13 @@ window.StatsMapsTextes = {
     /* Onglet « Comparer » */
     onglet_comparer: "Comparar",
 
-    onglet_records: "Recordes",
-    record_titre: "Ano recorde — {carte}",
-    record_unite: "anos desde o recorde",
-    record_valeur: "Recorde",
-    record_annee: "Ano do recorde",
-    record_aujourdhui: "Distância do recorde em {annee}",
-    record_invite: "Clica num país para ver o seu recorde.",
+    onglet_pic: "Pico",
+    pic_titre: "Pico — {carte}",
+    pic_unite: "anos desde o pico",
+    pic_valeur: "Pico",
+    pic_annee: "Ano do pico",
+    pic_aujourdhui: "Distância do pico em {annee}",
+    pic_invite: "Clica num país para ver o seu pico.",
     comparateur_choisir: "Escolher um país",
     comparateur_invite: "Escolhe dois países para veres a diferença entre eles.",
     comparateur_sans_donnee: "Estes dois países não têm nenhum ano em comum.",
@@ -543,8 +544,8 @@ window.StatsMapsTextes = {
     pas_de_donnee: "Brak danych za ten rok.",
     territoire: "terytorium, poza rankingiem",
 
-    /* Cartes « année record » */
-    ecart_zero: "rekord w bieżącym roku",
+    /* Onglet « Pic » */
+    ecart_zero: "szczyt w bieżącym roku",
     ecart_one: "{n} rok temu",
     ecart_few: "{n} lata temu",
     ecart_many: "{n} lat temu",
@@ -564,13 +565,13 @@ window.StatsMapsTextes = {
     /* Onglet « Comparer » */
     onglet_comparer: "Porównaj",
 
-    onglet_records: "Rekordy",
-    record_titre: "Rekordowy rok — {carte}",
-    record_unite: "lat od rekordu",
-    record_valeur: "Rekord",
-    record_annee: "Rok rekordu",
-    record_aujourdhui: "Odległość od rekordu w {annee}",
-    record_invite: "Kliknij kraj, aby zobaczyć jego rekord.",
+    onglet_pic: "Szczyt",
+    pic_titre: "Szczyt — {carte}",
+    pic_unite: "lat od szczytu",
+    pic_valeur: "Szczyt",
+    pic_annee: "Rok szczytu",
+    pic_aujourdhui: "Odległość od szczytu w {annee}",
+    pic_invite: "Kliknij kraj, aby zobaczyć jego szczyt.",
     comparateur_choisir: "Wybierz kraj",
     comparateur_invite: "Wybierz dwa kraje, aby zobaczyć różnicę między nimi.",
     comparateur_sans_donnee: "Te dwa kraje nie mają wspólnego roku z danymi.",
@@ -617,8 +618,8 @@ window.StatsMapsTextes = {
     pas_de_donnee: "この年のデータはありません。",
     territoire: "地域、ランキング対象外",
 
-    /* Cartes « année record » */
-    ecart_zero: "今年が最高",
+    /* Onglet « Pic » */
+    ecart_zero: "今年がピーク",
     ecart_other: "{n}年前",
 
     /* Comparaison entre pays */
@@ -632,13 +633,13 @@ window.StatsMapsTextes = {
     /* Onglet « Comparer » */
     onglet_comparer: "比較",
 
-    onglet_records: "最高記録",
-    record_titre: "最高年 — {carte}",
-    record_unite: "最高年からの経過年数",
-    record_valeur: "最高値",
-    record_annee: "最高年",
-    record_aujourdhui: "{annee}年の最高値との差",
-    record_invite: "国をクリックすると、その最高記録が表示されます。",
+    onglet_pic: "ピーク",
+    pic_titre: "ピーク — {carte}",
+    pic_unite: "ピークからの経過年数",
+    pic_valeur: "ピーク値",
+    pic_annee: "ピークの年",
+    pic_aujourdhui: "{annee}年のピークとの差",
+    pic_invite: "国をクリックすると、そのピークが表示されます。",
     comparateur_choisir: "国を選ぶ",
     comparateur_invite: "2か国を選ぶと、その差が表示されます。",
     comparateur_sans_donnee: "この2か国に共通するデータの年がありません。",
@@ -685,8 +686,8 @@ window.StatsMapsTextes = {
     pas_de_donnee: "해당 연도의 자료가 없습니다.",
     territoire: "지역, 순위 제외",
 
-    /* Cartes « année record » */
-    ecart_zero: "올해가 최고치",
+    /* Onglet « Pic » */
+    ecart_zero: "올해가 정점",
     ecart_other: "{n}년 전",
 
     /* Comparaison entre pays */
@@ -700,13 +701,13 @@ window.StatsMapsTextes = {
     /* Onglet « Comparer » */
     onglet_comparer: "비교",
 
-    onglet_records: "최고 기록",
-    record_titre: "최고 연도 — {carte}",
-    record_unite: "최고 연도 이후 경과 연수",
-    record_valeur: "최고치",
-    record_annee: "최고 연도",
-    record_aujourdhui: "{annee}년 최고치와의 격차",
-    record_invite: "국가를 클릭하면 최고 기록이 표시됩니다.",
+    onglet_pic: "정점",
+    pic_titre: "정점 — {carte}",
+    pic_unite: "정점 이후 경과 연수",
+    pic_valeur: "정점 값",
+    pic_annee: "정점 연도",
+    pic_aujourdhui: "{annee}년 정점과의 격차",
+    pic_invite: "국가를 클릭하면 정점이 표시됩니다.",
     comparateur_choisir: "나라 선택",
     comparateur_invite: "두 나라를 선택하면 격차가 표시됩니다.",
     comparateur_sans_donnee: "두 나라에 공통된 자료 연도가 없습니다.",
@@ -753,7 +754,7 @@ window.StatsMapsTextes = {
     pas_de_donnee: "Bu yıl için veri yok.",
     territoire: "bölge, sıralama dışı",
 
-    /* Cartes « année record » */
+    /* Onglet « Pic » */
     ecart_zero: "zirve bu yıl",
     ecart_one: "{n} yıl önce",
     ecart_other: "{n} yıl önce",
@@ -770,13 +771,13 @@ window.StatsMapsTextes = {
     /* Onglet « Comparer » */
     onglet_comparer: "Karşılaştır",
 
-    onglet_records: "Rekorlar",
-    record_titre: "Zirve yılı — {carte}",
-    record_unite: "zirveden bu yana geçen yıl",
-    record_valeur: "Zirve",
-    record_annee: "Zirve yılı",
-    record_aujourdhui: "{annee} yılında zirveye uzaklık",
-    record_invite: "Zirvesini görmek için bir ülkeye tıkla.",
+    onglet_pic: "Zirve",
+    pic_titre: "Zirve — {carte}",
+    pic_unite: "zirveden bu yana geçen yıl",
+    pic_valeur: "Zirve",
+    pic_annee: "Zirve yılı",
+    pic_aujourdhui: "{annee} yılında zirveye uzaklık",
+    pic_invite: "Zirvesini görmek için bir ülkeye tıkla.",
     comparateur_choisir: "Ülke seç",
     comparateur_invite: "Aradaki farkı görmek için iki ülke seç.",
     comparateur_sans_donnee: "Bu iki ülkenin ortak veri yılı yok.",
@@ -823,7 +824,7 @@ window.StatsMapsTextes = {
     pas_de_donnee: "इस वर्ष के लिए आँकड़े उपलब्ध नहीं हैं।",
     territoire: "क्षेत्र, क्रम से बाहर",
 
-    /* Cartes « année record » */
+    /* Onglet « Pic » */
     ecart_zero: "शिखर इसी वर्ष",
     ecart_one: "{n} वर्ष पहले",
     ecart_other: "{n} वर्ष पहले",
@@ -840,13 +841,13 @@ window.StatsMapsTextes = {
     /* Onglet « Comparer » */
     onglet_comparer: "तुलना",
 
-    onglet_records: "रिकॉर्ड",
-    record_titre: "शिखर वर्ष — {carte}",
-    record_unite: "शिखर वर्ष से बीते वर्ष",
-    record_valeur: "शिखर",
-    record_annee: "शिखर वर्ष",
-    record_aujourdhui: "{annee} में शिखर से अंतर",
-    record_invite: "किसी देश पर क्लिक करके उसका शिखर देखें।",
+    onglet_pic: "शिखर",
+    pic_titre: "शिखर — {carte}",
+    pic_unite: "शिखर से बीते वर्ष",
+    pic_valeur: "शिखर",
+    pic_annee: "शिखर वर्ष",
+    pic_aujourdhui: "{annee} में शिखर से अंतर",
+    pic_invite: "किसी देश पर क्लिक करके उसका शिखर देखें।",
     comparateur_choisir: "देश चुनें",
     comparateur_invite: "अंतर देखने के लिए दो देश चुनें।",
     comparateur_sans_donnee: "इन दोनों देशों का कोई साझा वर्ष नहीं है।",
@@ -893,7 +894,7 @@ window.StatsMapsTextes = {
     pas_de_donnee: "لا تتوفر بيانات لهذه السنة.",
     territoire: "إقليم، خارج الترتيب",
 
-    /* Cartes « année record » */
+    /* Onglet « Pic » */
     ecart_zero: "الذروة في السنة الجارية",
     ecart_one: "قبل سنة",
     ecart_two: "قبل سنتين",
@@ -917,13 +918,13 @@ window.StatsMapsTextes = {
     /* Onglet « Comparer » */
     onglet_comparer: "قارن",
 
-    onglet_records: "الأرقام القياسية",
-    record_titre: "سنة الذروة — {carte}",
-    record_unite: "سنوات منذ الذروة",
-    record_valeur: "الذروة",
-    record_annee: "سنة الذروة",
-    record_aujourdhui: "الفارق عن الذروة في {annee}",
-    record_invite: "انقر على بلد لعرض رقمه القياسي.",
+    onglet_pic: "الذروة",
+    pic_titre: "الذروة — {carte}",
+    pic_unite: "سنوات منذ الذروة",
+    pic_valeur: "الذروة",
+    pic_annee: "سنة الذروة",
+    pic_aujourdhui: "الفارق عن الذروة في {annee}",
+    pic_invite: "انقر على بلد لعرض ذروته.",
     comparateur_choisir: "اختر بلدًا",
     comparateur_invite: "اختر بلدين لمعرفة الفارق بينهما.",
     comparateur_sans_donnee: "لا توجد سنة مشتركة بين هذين البلدين.",

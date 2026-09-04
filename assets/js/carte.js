@@ -10,8 +10,8 @@
 
    Deux choses arrivent sans qu'on ait à cliquer sur un bouton :
      - CLIQUER SUR UN PAYS repeint aussitôt la carte en écarts avec lui ;
-     - l'onglet « Records » calcule les années record dans le navigateur,
-       à partir des chiffres déjà chargés. Rien n'est téléchargé pour lui.
+     - l'onglet « Pic » calcule les années de pic dans le navigateur, à
+       partir des chiffres déjà chargés. Rien n'est téléchargé pour lui.
 
    Déroulé du fichier :
      1. Réglages des cartes (couleurs et tranches)
@@ -21,7 +21,7 @@
      5. Le classement à gauche
      6. La légende
      8. La comparaison (« et par rapport à la France ? »)
-     8 bis. L'onglet « Records »
+     8 bis. L'onglet « Pic »
      7. Le curseur des années
      9. Démarrage
    ========================================================================== */
@@ -38,7 +38,7 @@
 
      Le sens de lecture est TOUJOURS le même sur tout le site :
          le VERT est le côté favorable (pays riche, forte croissance,
-         record tout récent) et le ROUGE le côté défavorable.
+         pic tout récent) et le ROUGE le côté défavorable.
 
      Comme les cartes ne se lisent pas toutes dans le même sens, la palette est
      écrite ici une fois du rouge vers le vert, et les cartes qui en ont besoin
@@ -91,11 +91,11 @@
                 dépasse de 71 000 dollars, beaucoup moins.
        points — la simple soustraction, pour la croissance : deux taux en %
                 se comparent en POINTS, jamais en pourcentage de pourcentage.
-       annees — la simple soustraction aussi, pour les cartes « année record ».
+       annees — la simple soustraction aussi, pour l'onglet « Pic ».
 
      Dans les trois cas, le signe a toujours le même sens : POSITIF = le pays
      fait MIEUX que la référence. La palette n'est donc jamais retournée ici,
-     même sur les cartes « année record » : le vert reste du côté favorable.
+     même dans l'onglet « Pic » : le vert reste du côté favorable.
      Le milieu (jaune) est la zone « à peu près au même niveau ».            */
 
   var ECARTS = {
@@ -174,8 +174,9 @@
        par an — pour mériter une couleur à elle sur les sept.              */
     inflation: {
       ecart: "points",
-      sens_inverse: true,
-      ecart_sens_inverse: true,
+      /* Plus d'inflation que la référence n'est pas une bonne nouvelle :
+         en comparaison, la palette reste donc retournée. */
+      ecart_inverse: true,
       tranches: [0, 2, 4, 6, 10, 20],
       clair: inverser(PALETTE_CLAIR),
       sombre: inverser(PALETTE_SOMBRE),
@@ -193,43 +194,55 @@
     },
   };
 
-  /* L'ONGLET « RECORDS », commun à toutes les cartes qui s'y prêtent.
+  /* L'ONGLET « PIC », commun aux sept cartes.
 
      Il répond à la question : « en quelle année ce pays a-t-il été à son
-     maximum ? » Vert = le record date de l'année affichée, le pays va bien.
-     Rouge = le record est ancien et n'a jamais été retrouvé (Grèce 2008,
-     Japon 2012, Ukraine 1991…).
-
-     Ce n'est pas une carte à part : c'est un MODE d'affichage de la carte
-     ouverte. Rien n'est téléchargé — les années record se calculent dans le
-     navigateur à partir des chiffres déjà là (voir donneesRecord()).
+     maximum ? » Ce n'est pas une carte à part, mais un MODE d'affichage de la
+     carte ouverte, et rien n'est téléchargé pour lui : les années sont
+     calculées dans le navigateur à partir des chiffres déjà là (calculerPics()).
 
      Le chiffre affiché est une ANNÉE (« 2008 »), mais la couleur ne dépend pas
-     de cette année : elle dépend du TEMPS ÉCOULÉ depuis. Vu depuis 2025, un
-     record de 2008 date de 17 ans, il est rouge ; vu depuis 2010, le même
-     record date de 2 ans, il est vert. C'est le rôle de "ecart_annees".
+     de cette année : elle dépend du TEMPS ÉCOULÉ depuis. Vu depuis 2025, un pic
+     de 2008 date de 17 ans ; vu depuis 2010, le même pic date de 2 ans. C'est
+     le rôle de "ecart_annees".
 
-     Les tranches se lisent donc en années écoulées :
-       0 = record battu cette année même (le pays va bien) ...... vert sombre
-       26 et plus = le pays n'a jamais retrouvé son niveau ....... rouge sombre  */
-  var RECORD = {
-    ecart: "annees",
-    ecart_annees: true,
-    /* Ici le classement se lit à l'envers des autres cartes : on met en
-       premier les pays dont le record est le PLUS ANCIEN, c'est-à-dire ceux
-       qui reculent depuis le plus longtemps. C'est là qu'est l'information ;
-       à l'endroit, il faudrait faire défiler 150 pays « 2025 » avant de
-       trouver quoi que ce soit d'intéressant. */
-    classement_croissant: true,
-    sens_inverse: true,
-    /* En comparaison, en revanche, la palette revient à l'endroit : un écart
-       positif veut dire « son record est plus récent », donc une bonne
-       nouvelle. Voir couleursDEcart(). */
-    ecart_sens_inverse: false,
-    tranches: [1, 3, 6, 11, 16, 26],
-    clair: inverser(PALETTE_CLAIR),
-    sombre: inverser(PALETTE_SOMBRE),
-  };
+     LE SENS DE LECTURE SUIT LA CARTE, et c'est tout l'intérêt de le calculer
+     plutôt que de l'écrire une fois pour toutes :
+
+       PIB, PIB/habitant, croissance, population — un GRAND chiffre est une
+         bonne nouvelle. Un pic tout récent l'est donc aussi : vert. Un pic
+         ancien veut dire que le pays n'a jamais retrouvé son niveau : rouge
+         (Ukraine 1991, Grèce 2008, Japon 2012).
+         Le classement met en tête les pics les PLUS ANCIENS — les pays qui
+         reculent depuis le plus longtemps. C'est là qu'est l'information ; à
+         l'endroit, il faudrait faire défiler 150 pays « 2025 » avant de
+         trouver quoi que ce soit.
+
+       Inflation — un grand chiffre est une MAUVAISE nouvelle, et tout se
+         retourne. Un pic d'inflation atteint cette année même veut dire que
+         les prix s'envolent en ce moment : rouge. Un pic vieux de trente ans
+         veut dire que le pays a retrouvé le calme depuis longtemps : vert.
+         Le classement met donc en tête les pics les plus RÉCENTS, c'est-à-dire
+         les pays en crise aujourd'hui.
+
+     Les tranches, elles, sont les mêmes dans les deux cas : elles se lisent en
+     années écoulées, de 0 (pic atteint cette année) à 26 et plus.          */
+  function reglagesPic() {
+    /* « Un écart positif est-il une mauvaise nouvelle ? » sur la carte de
+       départ. C'est la seule chose à savoir pour tout déduire. */
+    var alEnvers = !!reglagesBase.ecart_inverse;
+    return {
+      ecart: "annees",
+      ecart_annees: true,
+      classement_croissant: !alEnvers,
+      /* Un pic plus récent que celui de la référence : bonne nouvelle sur le
+         PIB, mauvaise sur l'inflation. */
+      ecart_inverse: alEnvers,
+      tranches: [1, 3, 6, 11, 16, 26],
+      clair: alEnvers ? PALETTE_CLAIR : inverser(PALETTE_CLAIR),
+      sombre: alEnvers ? PALETTE_SOMBRE : inverser(PALETTE_SOMBRE),
+    };
+  }
 
   /* --- 2. Petits outils --------------------------------------------------- */
 
@@ -252,8 +265,8 @@
     ar: "ar-u-nu-latn",
   }[langue] || "fr-FR";
   /* Les réglages de la carte ouverte. "reglages" change quand on passe dans
-     l'onglet « Records » : la carte est alors peinte en années écoulées, avec
-     ses propres tranches et sa palette retournée. */
+     l'onglet « Pic » : la carte est alors peinte en années écoulées, avec
+     ses propres tranches (voir reglagesPic()). */
   var reglagesBase = CARTES[idCarte];
   var reglages = reglagesBase;
 
@@ -315,7 +328,7 @@
   }
 
   /* La valeur affichée partout (classement, infobulle) avec son unité.
-     Cas particulier : sur les cartes « année record », la valeur EST une année.
+     Cas particulier : dans l'onglet « Pic », la valeur EST une année.
      On l'écrit telle quelle, sinon l'ordinateur afficherait « 2 008 ».      */
   function valeurLisible(valeur, donnees) {
     if (donnees.format === "annee") return String(valeur);
@@ -345,8 +358,8 @@
 
   /* Ce qui décide de la couleur d'un pays.
      Sur presque toutes les cartes, c'est la valeur elle-même. Sur les cartes
-     « année record », c'est le nombre d'années écoulées depuis ce record :
-     un record de 2008 vaut 17 quand on regarde depuis 2025.                */
+     dans l'onglet « Pic », c'est le nombre d'années écoulées depuis ce pic :
+     un pic de 2008 vaut 17 quand on regarde depuis 2025.                   */
   function valeurDeCouleur(valeur) {
     return reglages.ecart_annees ? anneeAffichee - valeur : valeur;
   }
@@ -418,18 +431,23 @@
      un chiffre PLUS GRAND que la référence. Reste à savoir si « plus grand »
      est une bonne ou une mauvaise nouvelle, et cela dépend de la carte :
 
-       PIB, PIB par habitant, croissance, population, records
-                        plus grand = mieux ....... la palette revient à l'endroit
-       inflation        plus grand = pire ........ la palette reste retournée
+       PIB, PIB par habitant, croissance, population
+                        plus grand = mieux ....... rouge en bas, vert en haut
+       inflation        plus grand = pire ........ vert en bas, rouge en haut
 
-     couleursActuelles() rend déjà la palette retournée pour les cartes qui se
-     lisent à l'envers ; on ne la remet à l'endroit que dans le premier cas. */
+     L'onglet « Pic » suit la carte sur laquelle il est ouvert : un pic de PIB
+     plus récent que celui du voisin est une bonne nouvelle, un pic d'inflation
+     plus récent en est une mauvaise.
+
+     Un seul réglage suffit donc : ecart_inverse, qui vaut « oui » là où un
+     écart positif est une mauvaise nouvelle. */
   function couleursDEcart() {
-    var couleurs = couleursActuelles();
-    if (reglages.sens_inverse && !reglages.ecart_sens_inverse) {
-      couleurs = inverser(couleurs);
-    }
-    return couleurs;
+    var sombre =
+      window.StatsMapsTheme && window.StatsMapsTheme.actuel() === "dark";
+    /* On repart de la palette du site, toujours écrite du rouge au vert, sans
+       tenir compte du sens que la carte lui donne d'habitude. */
+    var base = sombre ? PALETTE_SOMBRE : PALETTE_CLAIR;
+    return reglages.ecart_inverse ? inverser(base) : base;
   }
 
   /* La couleur d'un écart : le côté défavorable d'abord, le favorable ensuite. */
@@ -499,11 +517,11 @@
   var geo = null;
   /* donneesBase : les chiffres téléchargés (le PIB, l'inflation…).
      donnees     : ce que la carte montre EN CE MOMENT. C'est le même objet,
-                   sauf dans l'onglet « Records », où c'est la table des années
-                   record calculée à partir du premier. */
+                   sauf dans l'onglet « Pic », où c'est la table des années
+                   de pic, calculée à partir du premier. */
   var donneesBase = null;
   var donnees = null;
-  var modeRecord = false;
+  var modePic = false;
   var meta = null;
   var anneeAffichee = null;
   var classementActuel = []; // [{iso, nom, valeur, rang}, ...] — les 197 pays
@@ -543,7 +561,7 @@
 
     /* En comparaison, la carte change d'échelle : ce ne sont plus les tranches
        de richesse (ou de croissance) mais celles de l'écart, et la palette est
-       remise à l'endroit sur les cartes « année record ». */
+       celle de l'écart (voir couleursDEcart()). */
     if (comparaisonPossible()) {
       tranches = reglagesEcart().tranches;
       couleurs = couleursDEcart();
@@ -749,9 +767,8 @@
       "</div>";
 
     if (ligne && ligne.valeur !== null) {
-      /* Sur les cartes « année record », le rang n'apprendrait rien : plus de
-         cent pays sont à égalité. On dit plutôt depuis combien de temps le
-         record tient. */
+      /* Dans l'onglet « Pic », le rang n'apprendrait rien : plus de cent pays
+         sont à égalité. On dit plutôt depuis combien de temps le pic tient. */
       var detail;
       if (reglages.ecart_annees) {
         var ecart = anneeAffichee - ligne.valeur;
@@ -813,7 +830,7 @@
         positionInfobulle = null;
         montrerDansClassement(null);
         majComparaison();
-        dessinerFicheRecord();
+        dessinerFichePic();
       }
     });
 
@@ -827,7 +844,7 @@
        croix de la ligne « pays de référence » dans le panneau. */
     if (reglages.ecart) isoReference = iso;
     majComparaison();
-    dessinerFicheRecord();
+    dessinerFichePic();
 
     /* Quand l'onglet « Comparer » est ouvert, un clic sur la carte remplit
        l'une de ses deux fentes plutôt que de rester sans suite. */
@@ -989,10 +1006,10 @@
       }
     });
 
-    /* Du plus grand au plus petit — sauf sur les cartes « année record », qui
-       demandent l'inverse (voir classement_croissant tout en haut du fichier).
-       En cas d'égalité — fréquent sur ces cartes-là, où plus de cent pays
-       battent leur record la même année — on départage par ordre alphabétique,
+    /* Du plus grand au plus petit — sauf dans l'onglet « Pic », qui demande
+       souvent l'inverse (voir classement_croissant dans reglagesPic()).
+       En cas d'égalité — fréquent dans cet onglet, où plus de cent pays
+       battent leur pic la même année — on départage par ordre alphabétique,
        sinon l'ordre serait au hasard. */
     avecChiffre.sort(function (a, b) {
       if (b.valeur !== a.valeur) {
@@ -1028,7 +1045,7 @@
        tout l'intérêt. On garde donc la bulle ouverte, à la même place, et on
        se contente d'y réécrire les chiffres de la nouvelle année. */
     rafraichirInfobulle();
-    dessinerFicheRecord();
+    dessinerFichePic();
     /* Son rang, lui, a pu bouger : on le suit du regard dans la liste. */
     if (isoChoisi) centrerSurLigne(isoChoisi);
     if (window.StatsMapsComparateur) window.StatsMapsComparateur.majAnnee(annee);
@@ -1162,11 +1179,10 @@
      Trois onglets, qui se partagent le même panneau :
        Classement — la liste des 197 pays pour l'année affichée ;
        Comparer   — deux pays face à face (assets/js/comparateur.js) ;
-       Records    — la carte des années record, et la fiche du pays choisi.
+       Pic        — la carte des années de pic, et la fiche du pays choisi.
 
-     Le troisième n'apparaît que sur les cartes où il a un sens. Demander en
-     quelle année un pays a eu son plus fort taux d'inflation ne voudrait rien
-     dire : c'est le champ "record" du fichier de données qui le décide.     */
+     Le troisième n'apparaît que sur les cartes où il a un sens : c'est le champ
+     "pic" du fichier de données qui le décide.                              */
 
   var ongletActif = "classement";
   var boutonsOnglets = {};
@@ -1185,7 +1201,7 @@
       ["classement", t("classement")],
       ["comparer", t("onglet_comparer")],
     ];
-    if (donneesBase.record) liste.push(["records", t("onglet_records")]);
+    if (donneesBase.pic) liste.push(["pic", t("onglet_pic")]);
 
     liste.forEach(function (paire) {
       var bouton = document.createElement("button");
@@ -1218,10 +1234,10 @@
     });
     entete.insertBefore(reference, recherche || null);
 
-    /* La fiche de l'onglet « Records », juste au-dessus de la liste. */
+    /* La fiche de l'onglet « Pic », juste au-dessus de la liste. */
     var fiche = document.createElement("div");
-    fiche.className = "fiche-record";
-    fiche.id = "fiche-record";
+    fiche.className = "fiche-pic";
+    fiche.id = "fiche-pic";
     fiche.hidden = true;
     panneau.insertBefore(fiche, document.getElementById("classement"));
   }
@@ -1239,13 +1255,13 @@
     if (recherche) recherche.hidden = comparer;
     if (window.StatsMapsComparateur) window.StatsMapsComparateur.activer(comparer);
 
-    /* On n'entre et on ne sort du mode « Records » que par cet onglet. */
-    basculerRecord(nom === "records");
-    dessinerFicheRecord();
+    /* On n'entre et on ne sort du mode « Pic » que par cet onglet. */
+    basculerPic(nom === "pic");
+    dessinerFichePic();
   }
 
   /* Le titre du panneau suit l'onglet : « PIB, prix courants » devient
-     « Année record — PIB, prix courants » dans l'onglet Records. */
+     « Pic — PIB, prix courants » dans l'onglet Pic. */
   function majTitrePanneau() {
     var titre = document.getElementById("titre-panneau");
     if (titre) titre.textContent = donnees.titre[langue] || donnees.titre.fr;
@@ -1323,14 +1339,11 @@
       });
     } else {
       titre = donnees.titre[langue] || donnees.titre.fr;
-      /* Ce qu'on écrit entre parenthèses sous le titre. Sur les cartes « année
-         record » ce n'est pas l'unité de la valeur (une année n'en a pas) mais
-         ce que mesurent les tranches : « années écoulées depuis le record ». */
       /* Sous le titre, l'unité EN TOUTES LETTRES, telle que l'écrit le FMI :
          « milliards de dollars US », « parité de pouvoir d'achat ; dollars
          internationaux par habitant ». C'est ce qui distingue les deux
          versions du PIB, qui portent exactement le même titre chez lui.
-         L'onglet « Records », lui, n'affiche pas l'unité de la valeur — une
+         L'onglet « Pic », lui, n'affiche pas l'unité de la valeur — une
          année n'en a pas — mais ce que mesurent les tranches. */
       unite =
         (donnees.legende_unite &&
@@ -1388,8 +1401,8 @@
      du pays, cliquer sur la mer, ou la croix de la ligne « pays de référence »
      dans le panneau de gauche.
 
-     Les cartes « année record » comparées à un pays donné gardent tout leur
-     sens : l'écart se lit alors en années entre deux records.               */
+     L'onglet « Pic » comparé à un pays donné garde tout son sens : l'écart
+     se lit alors en années entre les deux pics.                             */
 
   /* « 🇫🇷 France — pays de référence ✕ », dans le panneau de gauche.
      Elle est là, et non sous la légende : c'est du côté du panneau que le
@@ -1443,35 +1456,36 @@
     rafraichirInfobulle();
   }
 
-  /* --- 8 bis. L'onglet « Records » -----------------------------------------
+  /* --- 8 bis. L'onglet « Pic » ---------------------------------------------
 
      « En quelle année ce pays a-t-il été à son maximum ? »
 
      Ce n'est pas une carte à part, mais un MODE d'affichage de la carte
-     ouverte : sur le PIB il montre l'année record du PIB, sur la population
-     l'année où le pays a été le plus peuplé. Rien n'est téléchargé — tout se
-     calcule ici, à partir des chiffres déjà chargés.
+     ouverte : sur le PIB il montre l'année du pic de PIB, sur l'inflation
+     l'année où les prix se sont le plus emballés, sur la population l'année où
+     le pays a été le plus peuplé. Rien n'est téléchargé — tout se calcule ici,
+     à partir des chiffres déjà chargés.
 
-     Le curseur des années garde son rôle habituel : posé sur 2008, il montre
-     le record atteint À CETTE DATE. On voit ainsi la crise de 2008, puis le
-     Covid, arriver en faisant glisser le curseur — et, au-delà de la dernière
-     année constatée, les projections du FMI jusqu'en 2031.                  */
+     Le curseur des années garde son rôle habituel : posé sur 2008, il montre le
+     pic atteint À CETTE DATE. On voit ainsi la crise de 2008, puis le Covid,
+     arriver en faisant glisser le curseur — et, au-delà de la dernière année
+     constatée, les projections du FMI jusqu'en 2031.                        */
 
-  var recordEnCache = null;   // { donnees: …, valeurs: … } — calculé une fois
+  var picEnCache = null;   // { donnees: …, sommets: … } — calculé une seule fois
 
   /* On avance année par année en gardant en mémoire le plus haut chiffre vu
-     jusque-là. Exemple pour la Grèce : en 2007 le record est 2007, en 2008 il
+     jusque-là. Exemple pour la Grèce : en 2007 le pic est 2007, en 2008 il
      devient 2008, et il reste 2008 pour toutes les années suivantes, parce que
      la Grèce n'a jamais retrouvé son niveau d'avant-crise.
 
      On n'écrit une valeur que pour les années où le pays a vraiment un
-     chiffre : l'onglet « Records » affiche donc exactement les mêmes pays que
-     la carte d'origine, ni plus ni moins.                                   */
-  function calculerRecords() {
-    if (recordEnCache) return recordEnCache;
+     chiffre : l'onglet « Pic » affiche donc exactement les mêmes pays que la
+     carte d'origine, ni plus ni moins.                                      */
+  function calculerPics() {
+    if (picEnCache) return picEnCache;
 
-    var annees = {};   // iso → { année : année du record }
-    var sommets = {};  // iso → { année : valeur du record } — pour la fiche
+    var annees = {};   // iso → { année : année du pic }
+    var sommets = {};  // iso → { année : valeur du pic } — pour la fiche
 
     Object.keys(donneesBase.valeurs).forEach(function (iso) {
       var parAnnee = donneesBase.valeurs[iso];
@@ -1504,18 +1518,18 @@
        Le titre et l'unité n'existent que dans la langue de la page — c'est la
        seule dont on ait besoin ici. */
     var titre = {};
-    titre.fr = t("record_titre").replace(
+    titre.fr = t("pic_titre").replace(
       "{carte}", donneesBase.titre[langue] || donneesBase.titre.fr);
     titre[langue] = titre.fr;
 
     var vide = { fr: "" };
     vide[langue] = "";
-    var uniteLegende = { fr: t("record_unite") };
-    uniteLegende[langue] = t("record_unite");
+    var uniteLegende = { fr: t("pic_unite") };
+    uniteLegende[langue] = t("pic_unite");
 
-    recordEnCache = {
+    picEnCache = {
       donnees: {
-        indicateur: donneesBase.indicateur + "-record",
+        indicateur: donneesBase.indicateur + "-pic",
         titre: titre,
         unite: vide,
         legende_unite: uniteLegende,
@@ -1529,19 +1543,19 @@
       },
       sommets: sommets,
     };
-    return recordEnCache;
+    return picEnCache;
   }
 
-  /* Entre ou sort du mode « Records ». Tout le reste du fichier continue de
+  /* Entre ou sort du mode « Pic ». Tout le reste du fichier continue de
      travailler sans rien savoir : il lit "donnees" et "reglages", qui viennent
      de changer sous lui. */
-  function basculerRecord(actif) {
-    if (actif === modeRecord) return;
-    modeRecord = actif;
+  function basculerPic(actif) {
+    if (actif === modePic) return;
+    modePic = actif;
 
     if (actif) {
-      donnees = calculerRecords().donnees;
-      reglages = RECORD;
+      donnees = calculerPics().donnees;
+      reglages = reglagesPic();
     } else {
       donnees = donneesBase;
       reglages = reglagesBase;
@@ -1552,61 +1566,78 @@
     dessinerLegende();
   }
 
-  /* La fiche du pays choisi, en haut de l'onglet : son record, l'année où il
-     l'a atteint, et le temps écoulé depuis. C'est la réponse en toutes lettres
+  /* « −30 % » sur le PIB, « −5,7 pt » sur la croissance : de combien le pays
+     est-il en dessous de son pic, pour l'année affichée ?
+
+     La mesure est celle de la CARTE DE DÉPART, pas celle du mode « Pic » (qui
+     compte en années) : comparer deux taux de croissance en pourcentage de
+     pourcentage n'aurait aucun sens. */
+  function ecartAuPic(actuelle, sommet) {
+    var mesure = reglagesBase.ecart;
+    var decimales = ECARTS[mesure] ? ECARTS[mesure].decimales : 1;
+    if (mesure === "ratio") {
+      if (!sommet) return null;
+      return formater((actuelle / sommet - 1) * 100, decimales) + "\u00a0%";
+    }
+    return formater(actuelle - sommet, decimales) + "\u00a0" + t("unite_points");
+  }
+
+  /* La fiche du pays choisi, en haut de l'onglet : son pic, l'année où il l'a
+     atteint, et le chemin qui reste depuis. C'est la réponse en toutes lettres
      à ce que la couleur ne fait que suggérer. */
-  function dessinerFicheRecord() {
-    var boite = document.getElementById("fiche-record");
+  function dessinerFichePic() {
+    var boite = document.getElementById("fiche-pic");
     if (!boite) return;
 
-    if (!modeRecord) { boite.hidden = true; return; }
+    if (!modePic) { boite.hidden = true; return; }
     boite.hidden = false;
 
     if (!isoChoisi) {
-      boite.innerHTML = '<p class="fiche__invite">' + echapper(t("record_invite")) + "</p>";
+      boite.innerHTML = '<p class="fiche__invite">' + echapper(t("pic_invite")) + "</p>";
       return;
     }
 
-    var sommets = calculerRecords().sommets[isoChoisi];
-    var anneeRecord = donnees.valeurs[isoChoisi]
+    var sommets = calculerPics().sommets[isoChoisi];
+    var anneePic = donnees.valeurs[isoChoisi]
       && donnees.valeurs[isoChoisi][String(anneeAffichee)];
-    var valeurRecord = sommets && sommets[String(anneeAffichee)];
+    var valeurPic = sommets && sommets[String(anneeAffichee)];
 
-    if (typeof anneeRecord !== "number" || typeof valeurRecord !== "number") {
+    var entete =
+      '<div class="fiche__nom">' +
+      '<span class="drapeau" aria-hidden="true">' +
+      echapper(drapeauxParIso[isoChoisi] || "") + "</span>" +
+      echapper(nomsParIso[isoChoisi] || isoChoisi) + "</div>";
+
+    if (typeof anneePic !== "number" || typeof valeurPic !== "number") {
       boite.innerHTML =
-        '<div class="fiche__nom">' +
-        '<span class="drapeau" aria-hidden="true">' +
-        echapper(drapeauxParIso[isoChoisi] || "") + "</span>" +
-        echapper(nomsParIso[isoChoisi] || isoChoisi) + "</div>" +
-        '<p class="fiche__invite">' + echapper(t("pas_de_donnee")) + "</p>";
+        entete + '<p class="fiche__invite">' + echapper(t("pas_de_donnee")) + "</p>";
       return;
     }
 
-    var ecoule = anneeAffichee - anneeRecord;
+    var ecoule = anneeAffichee - anneePic;
     /* Le chiffre de l'année affichée, pour mesurer le chemin qui reste à faire
-       à un pays qui n'a pas retrouvé son record. */
+       à un pays qui n'a pas retrouvé son pic. */
     var actuelle = donneesBase.valeurs[isoChoisi]
       && donneesBase.valeurs[isoChoisi][String(anneeAffichee)];
 
     var lignes =
-      '<div class="fiche__ligne"><span>' + echapper(t("record_valeur")) + "</span>" +
-      '<b class="nombre">' + echapper(valeurLisible(valeurRecord, donneesBase)) + "</b></div>" +
-      '<div class="fiche__ligne"><span>' + echapper(t("record_annee")) + "</span>" +
-      '<b class="nombre">' + echapper(String(anneeRecord)) + "</b></div>";
+      '<div class="fiche__ligne"><span>' + echapper(t("pic_valeur")) + "</span>" +
+      '<b class="nombre">' + echapper(valeurLisible(valeurPic, donneesBase)) + "</b></div>" +
+      '<div class="fiche__ligne"><span>' + echapper(t("pic_annee")) + "</span>" +
+      '<b class="nombre">' + echapper(String(anneePic)) + "</b></div>";
 
-    if (ecoule > 0 && typeof actuelle === "number" && valeurRecord > 0) {
-      var manque = (actuelle / valeurRecord - 1) * 100;
-      lignes +=
-        '<div class="fiche__ligne"><span>' +
-        echapper(t("record_aujourdhui").replace("{annee}", anneeAffichee)) + "</span>" +
-        '<b class="nombre">' + echapper(formater(manque, 1) + " %") + "</b></div>";
+    if (ecoule > 0 && typeof actuelle === "number") {
+      var ecart = ecartAuPic(actuelle, valeurPic);
+      if (ecart !== null) {
+        lignes +=
+          '<div class="fiche__ligne"><span>' +
+          echapper(t("pic_aujourdhui").replace("{annee}", anneeAffichee)) + "</span>" +
+          '<b class="nombre">' + echapper(ecart) + "</b></div>";
+      }
     }
 
     boite.innerHTML =
-      '<div class="fiche__nom">' +
-      '<span class="drapeau" aria-hidden="true">' +
-      echapper(drapeauxParIso[isoChoisi] || "") + "</span>" +
-      echapper(nomsParIso[isoChoisi] || isoChoisi) + "</div>" +
+      entete +
       '<div class="fiche__cle">' +
       echapper(ecoule === 0 ? t("ecart_zero") : texteEcart(ecoule)) + "</div>" +
       '<div class="fiche__lignes">' + lignes + "</div>";
@@ -1670,7 +1701,7 @@
     carte.setPaintProperty("pays-contour", "line-color", regleContourCouleur());
     dessinerLegende();
     dessinerClassement();
-    dessinerFicheRecord();
+    dessinerFichePic();
     if (window.StatsMapsComparateur) window.StatsMapsComparateur.redessiner();
   });
 

@@ -132,6 +132,26 @@ h1, h2, h3 { line-height: 1.25; margin: 0 0 0.5em; letter-spacing: -0.015em; }
 .barre__logo:hover { text-decoration: none; }
 .barre__logo span { color: var(--accent); }
 
+/* Sur une carte, le nom de la rubrique où l'on se trouve, juste après le logo.
+   Il sert deux fois : il dit « tu es dans l'Économie », et il ramène à la page
+   de la rubrique — d'où l'on atteint les autres. Le menu, lui, ne montre que
+   les cartes de CETTE rubrique. */
+.barre__categorie {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--fond-doux);
+  border: 1px solid var(--bordure);
+  color: var(--texte-doux);
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.barre__categorie:hover {
+  color: var(--texte);
+  border-color: var(--accent);
+  text-decoration: none;
+}
+
 .barre__nav {
   display: flex;
   gap: 2px;
@@ -468,12 +488,12 @@ body.page-carte {
 }
 .panneau__sortir:hover { opacity: 1; }
 
-/* --- La fiche de l'onglet « Records » -------------------------------------
+/* --- La fiche de l'onglet « Pic » -----------------------------------------
 
-   Le record du pays choisi, l'année où il l'a atteint, et le chemin qui reste
-   à parcourir pour le retrouver. C'est en toutes lettres ce que la couleur de
+   Le pic du pays choisi, l'année où il l'a atteint, et le chemin qui reste à
+   parcourir pour le retrouver. C'est en toutes lettres ce que la couleur de
    la carte ne fait que suggérer.                                          */
-.fiche-record {
+.fiche-pic {
   padding: 12px 15px 13px;
   border-bottom: 1px solid var(--bordure);
   background: var(--fond-doux);
@@ -961,6 +981,7 @@ body.page-carte {
 @media (max-width: 860px) {
   .barre { padding: 0 12px; height: 52px; }
   .barre__lien { padding: 5px 9px; font-size: 13px; }
+  .barre__categorie { padding: 3px 8px; font-size: 11.5px; }
 
   /* Avec cinq cartes, le menu ne tient plus sur un téléphone : il défile
      horizontalement. Sans repère visuel, on ne devine pas qu'il continue.
@@ -1024,7 +1045,7 @@ body.page-carte {
   .variantes, .onglets { margin-top: 7px; }
   .variante, .onglet { padding: 4px 6px; }
   .panneau__recherche { margin-top: 8px; padding: 6px 10px; }
-  .fiche-record { padding: 10px 13px 11px; }
+  .fiche-pic { padding: 10px 13px 11px; }
 
   .legende__titre { font-size: 10px; margin-bottom: 6px; }
   .legende__unite { font-size: 9.5px; margin: -4px 0 7px; }

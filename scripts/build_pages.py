@@ -98,9 +98,20 @@ CATEGORIES = [
     ("demographie", "👥", ["population"]),
 ]
 
-# Le menu du haut, présent sur toutes les pages. Il ne montre que les cartes
-# principales : cinq entrées, une par grandeur mesurée.
-MENU = [identifiant for identifiant, _, _, _, principale in CARTES if principale]
+# Le menu du haut ne montre JAMAIS tout le site à la fois : il montre le niveau
+# où l'on se trouve.
+#
+#   sur l'accueil ................. les catégories (Économie · Démographie)
+#   sur une page de catégorie ..... les catégories aussi : on est encore à cet
+#                                   étage, et on peut passer à la rubrique voisine
+#   sur une carte ................. les cartes de SA catégorie, et elles seules
+#
+# Sans cela, la carte de la population affichait le PIB et l'inflation dans son
+# menu, alors qu'elles appartiennent à une autre rubrique.
+#
+# Seules les cartes PRINCIPALES y figurent : la version en parité de pouvoir
+# d'achat se choisit dans le panneau de gauche, une fois la carte ouverte.
+# Mettre les deux ferait un menu où « PIB » apparaîtrait deux fois.
 
 # Pour chaque famille, la liste de ses variantes, dans l'ordre d'affichage.
 FAMILLES = {}
@@ -116,6 +127,18 @@ FAMILLE_DE = {c[0]: c[2] for c in CARTES}
 
 # Les cartes de chaque catégorie, retrouvées par l'identifiant de celle-ci.
 CARTES_DE = {identifiant: cartes for identifiant, _, cartes in CATEGORIES}
+
+# Et l'inverse : la catégorie de chaque carte. Les variantes ne sont pas listées
+# dans CATEGORIES — on n'affiche pas deux vignettes pour le PIB — elles suivent
+# donc la catégorie de leur carte principale.
+CATEGORIE_DE = {}
+for _identifiant, _, _cartes in CATEGORIES:
+    for _carte in _cartes:
+        CATEGORIE_DE[_carte] = _identifiant
+for _identifiant, _, _famille, _, _principale in CARTES:
+    if not _principale and _famille:
+        _principales = [i for i, _, f, _, p in CARTES if f == _famille and p]
+        CATEGORIE_DE[_identifiant] = CATEGORIE_DE[_principales[0]]
 
 # La version de MapLibre, écrite une seule fois pour les 91 pages de carte.
 MAPLIBRE = "5.6.1"
@@ -173,7 +196,7 @@ LANGUES.append({
         "bientot": "Bientôt : infrastructures, énergie, éducation et santé.",
         "pied": "Données : FMI (World Economic Outlook) · Fond de carte : Natural Earth · Site sans publicité ni traceur.",
     },
-    "variantes": {"nominal": "Dollars US", "ppa": "Parité de pouvoir d’achat"},
+    "variantes": {"nominal": "Nominal", "ppa": "Parité de pouvoir d’achat"},
     "categories": {
         "economie": {
             "slug": "economie",
@@ -193,7 +216,7 @@ LANGUES.append({
     "cartes": {
         "pib-nominal": {
             "slug": "pib-nominal",
-            "nom": "PIB nominal",
+            "nom": "PIB",
             "nav": "PIB", "nav_court": "PIB",
             "texte": "La taille de chaque économie, en milliards de dollars courants.",
         },
@@ -256,7 +279,7 @@ LANGUES.append({
         "bientot": "Coming soon: infrastructure, energy, education and health.",
         "pied": "Data: IMF (World Economic Outlook) · Basemap: Natural Earth · No ads, no trackers.",
     },
-    "variantes": {"nominal": "U.S. dollars", "ppa": "Purchasing power parity"},
+    "variantes": {"nominal": "Nominal", "ppa": "Purchasing power parity"},
     "categories": {
         "economie": {
             "slug": "economy",
@@ -276,7 +299,7 @@ LANGUES.append({
     "cartes": {
         "pib-nominal": {
             "slug": "gdp",
-            "nom": "Nominal GDP",
+            "nom": "GDP",
             "nav": "GDP", "nav_court": "GDP",
             "texte": "The size of each economy, in billions of current US dollars.",
         },
@@ -339,7 +362,7 @@ LANGUES.append({
         "bientot": "Незабаром: інфраструктура, енергетика, освіта та охорона здоров’я.",
         "pied": "Дані: МВФ (World Economic Outlook) · Основа карти: Natural Earth · Без реклами та стеження.",
     },
-    "variantes": {"nominal": "Долари США", "ppa": "Паритет купівельної спроможності"},
+    "variantes": {"nominal": "Номінальний", "ppa": "Паритет купівельної спроможності"},
     "categories": {
         "economie": {
             "slug": "ekonomika",
@@ -359,7 +382,7 @@ LANGUES.append({
     "cartes": {
         "pib-nominal": {
             "slug": "vvp",
-            "nom": "Номінальний ВВП",
+            "nom": "ВВП",
             "nav": "ВВП", "nav_court": "ВВП",
             "texte": "Розмір кожної економіки, у мільярдах доларів у поточних цінах.",
         },
@@ -422,7 +445,7 @@ LANGUES.append({
         "bientot": "Demnächst: Infrastruktur, Energie, Bildung und Gesundheit.",
         "pied": "Daten: IWF (World Economic Outlook) · Kartengrundlage: Natural Earth · Ohne Werbung, ohne Tracker.",
     },
-    "variantes": {"nominal": "US-Dollar", "ppa": "Kaufkraftparität"},
+    "variantes": {"nominal": "Nominal", "ppa": "Kaufkraftparität"},
     "categories": {
         "economie": {
             "slug": "wirtschaft",
@@ -442,7 +465,7 @@ LANGUES.append({
     "cartes": {
         "pib-nominal": {
             "slug": "nominales-bip",
-            "nom": "Nominales BIP",
+            "nom": "BIP",
             "nav": "BIP", "nav_court": "BIP",
             "texte": "Die Größe jeder Volkswirtschaft, in Milliarden US-Dollar zu jeweiligen Preisen.",
         },
@@ -505,7 +528,7 @@ LANGUES.append({
         "bientot": "Próximamente: infraestructuras, energía, educación y salud.",
         "pied": "Datos: FMI (World Economic Outlook) · Mapa base: Natural Earth · Sin publicidad ni rastreadores.",
     },
-    "variantes": {"nominal": "Dólares de EE. UU.", "ppa": "Paridad de poder adquisitivo"},
+    "variantes": {"nominal": "Nominal", "ppa": "Paridad de poder adquisitivo"},
     "categories": {
         "economie": {
             "slug": "economia",
@@ -525,7 +548,7 @@ LANGUES.append({
     "cartes": {
         "pib-nominal": {
             "slug": "pib-nominal",
-            "nom": "PIB nominal",
+            "nom": "PIB",
             "nav": "PIB", "nav_court": "PIB",
             "texte": "El tamaño de cada economía, en miles de millones de dólares corrientes.",
         },
@@ -588,7 +611,7 @@ LANGUES.append({
         "bientot": "Prossimamente: infrastrutture, energia, istruzione e sanità.",
         "pied": "Dati: FMI (World Economic Outlook) · Mappa di base: Natural Earth · Senza pubblicità né tracciamento.",
     },
-    "variantes": {"nominal": "Dollari USA", "ppa": "Parità di potere d’acquisto"},
+    "variantes": {"nominal": "Nominale", "ppa": "Parità di potere d’acquisto"},
     "categories": {
         "economie": {
             "slug": "economia",
@@ -608,7 +631,7 @@ LANGUES.append({
     "cartes": {
         "pib-nominal": {
             "slug": "pil-nominale",
-            "nom": "PIL nominale",
+            "nom": "PIL",
             "nav": "PIL", "nav_court": "PIL",
             "texte": "La dimensione di ogni economia, in miliardi di dollari correnti.",
         },
@@ -671,7 +694,7 @@ LANGUES.append({
         "bientot": "Em breve: infraestruturas, energia, educação e saúde.",
         "pied": "Dados: FMI (World Economic Outlook) · Mapa base: Natural Earth · Sem publicidade nem rastreadores.",
     },
-    "variantes": {"nominal": "Dólares dos EUA", "ppa": "Paridade de poder de compra"},
+    "variantes": {"nominal": "Nominal", "ppa": "Paridade de poder de compra"},
     "categories": {
         "economie": {
             "slug": "economia",
@@ -691,7 +714,7 @@ LANGUES.append({
     "cartes": {
         "pib-nominal": {
             "slug": "pib-nominal",
-            "nom": "PIB nominal",
+            "nom": "PIB",
             "nav": "PIB", "nav_court": "PIB",
             "texte": "O tamanho de cada economia, em mil milhões de dólares correntes.",
         },
@@ -754,7 +777,7 @@ LANGUES.append({
         "bientot": "Wkrótce: infrastruktura, energetyka, edukacja i zdrowie.",
         "pied": "Dane: MFW (World Economic Outlook) · Podkład mapowy: Natural Earth · Bez reklam i śledzenia.",
     },
-    "variantes": {"nominal": "Dolary USA", "ppa": "Parytet siły nabywczej"},
+    "variantes": {"nominal": "Nominalne", "ppa": "Parytet siły nabywczej"},
     "categories": {
         "economie": {
             "slug": "gospodarka",
@@ -774,7 +797,7 @@ LANGUES.append({
     "cartes": {
         "pib-nominal": {
             "slug": "pkb-nominalne",
-            "nom": "PKB nominalne",
+            "nom": "PKB",
             "nav": "PKB", "nav_court": "PKB",
             "texte": "Wielkość każdej gospodarki, w miliardach dolarów bieżących.",
         },
@@ -837,7 +860,7 @@ LANGUES.append({
         "bientot": "近日公開：インフラ、エネルギー、教育、保健。",
         "pied": "データ：IMF（World Economic Outlook）· 地図：Natural Earth · 広告なし、追跡なし。",
     },
-    "variantes": {"nominal": "米ドル", "ppa": "購買力平価"},
+    "variantes": {"nominal": "名目", "ppa": "購買力平価"},
     "categories": {
         "economie": {
             "slug": "economy",
@@ -857,8 +880,8 @@ LANGUES.append({
     "cartes": {
         "pib-nominal": {
             "slug": "nominal-gdp",
-            "nom": "名目GDP",
-            "nav": "名目GDP", "nav_court": "GDP",
+            "nom": "GDP",
+            "nav": "GDP", "nav_court": "GDP",
             "texte": "各国経済の規模を、名目の十億ドルで。",
         },
         "pib-ppa": {
@@ -920,7 +943,7 @@ LANGUES.append({
         "bientot": "곧 공개: 인프라, 에너지, 교육, 보건.",
         "pied": "자료: IMF(World Economic Outlook) · 배경 지도: Natural Earth · 광고 없음, 추적 없음.",
     },
-    "variantes": {"nominal": "미국 달러", "ppa": "구매력 평가"},
+    "variantes": {"nominal": "명목", "ppa": "구매력 평가"},
     "categories": {
         "economie": {
             "slug": "economy",
@@ -940,8 +963,8 @@ LANGUES.append({
     "cartes": {
         "pib-nominal": {
             "slug": "nominal-gdp",
-            "nom": "명목 GDP",
-            "nav": "명목 GDP", "nav_court": "GDP",
+            "nom": "GDP",
+            "nav": "GDP", "nav_court": "GDP",
             "texte": "각국 경제의 규모를 경상 십억 달러로.",
         },
         "pib-ppa": {
@@ -1003,7 +1026,7 @@ LANGUES.append({
         "bientot": "Yakında: altyapı, enerji, eğitim ve sağlık.",
         "pied": "Veriler: IMF (World Economic Outlook) · Altlık harita: Natural Earth · Reklamsız, izlemesiz.",
     },
-    "variantes": {"nominal": "ABD doları", "ppa": "Satın alma gücü paritesi"},
+    "variantes": {"nominal": "Nominal", "ppa": "Satın alma gücü paritesi"},
     "categories": {
         "economie": {
             "slug": "ekonomi",
@@ -1023,7 +1046,7 @@ LANGUES.append({
     "cartes": {
         "pib-nominal": {
             "slug": "nominal-gsyih",
-            "nom": "Nominal GSYİH",
+            "nom": "GSYİH",
             "nav": "GSYİH", "nav_court": "GSYİH",
             "texte": "Her ekonominin büyüklüğü, cari milyar dolar olarak.",
         },
@@ -1086,7 +1109,7 @@ LANGUES.append({
         "bientot": "जल्द ही: बुनियादी ढाँचा, ऊर्जा, शिक्षा और स्वास्थ्य।",
         "pied": "आँकड़े: IMF (World Economic Outlook) · आधार मानचित्र: Natural Earth · न विज्ञापन, न ट्रैकिंग।",
     },
-    "variantes": {"nominal": "अमेरिकी डॉलर", "ppa": "क्रय शक्ति समता"},
+    "variantes": {"nominal": "नाममात्र", "ppa": "क्रय शक्ति समता"},
     "categories": {
         "economie": {
             "slug": "economy",
@@ -1106,7 +1129,7 @@ LANGUES.append({
     "cartes": {
         "pib-nominal": {
             "slug": "nominal-gdp",
-            "nom": "नाममात्र जीडीपी",
+            "nom": "जीडीपी",
             "nav": "जीडीपी", "nav_court": "जीडीपी",
             "texte": "हर अर्थव्यवस्था का आकार, चालू अरब डॉलर में।",
         },
@@ -1169,7 +1192,7 @@ LANGUES.append({
         "bientot": "قريبًا: البنية التحتية، والطاقة، والتعليم، والصحة.",
         "pied": "البيانات: صندوق النقد الدولي (World Economic Outlook) · خلفية الخريطة: Natural Earth · بلا إعلانات ولا تتبّع.",
     },
-    "variantes": {"nominal": "الدولار الأمريكي", "ppa": "تعادل القوة الشرائية"},
+    "variantes": {"nominal": "اسمي", "ppa": "تعادل القوة الشرائية"},
     "categories": {
         "economie": {
             "slug": "economy",
@@ -1189,7 +1212,7 @@ LANGUES.append({
     "cartes": {
         "pib-nominal": {
             "slug": "nominal-gdp",
-            "nom": "الناتج المحلي الإجمالي الاسمي",
+            "nom": "الناتج المحلي الإجمالي",
             "nav": "الناتج المحلي الإجمالي", "nav_court": "الناتج",
             "texte": "حجم كل اقتصاد، بمليارات الدولارات الجارية.",
         },
@@ -1354,7 +1377,7 @@ ACCUEIL_MOT = {
 
 MODELE_ENTETE = """  <header class="barre">
     <a class="barre__logo" href="{accueil}">Stats<span>Maps</span></a>
-    <nav class="barre__nav" aria-label="{nav_aria}">
+{categorie}    <nav class="barre__nav" aria-label="{nav_aria}">
 {liens}
     </nav>
     <div class="barre__droite">
@@ -1441,31 +1464,45 @@ def alternates(page):
 
 
 def entete(langue, page=ACCUEIL):
-    """La barre du haut : logo, menu des cartes, menu des langues, thème.
+    """La barre du haut : logo, menu, menu des langues, thème.
 
-    Le menu ne montre que les cartes PRINCIPALES — cinq entrées. La version en
-    parité de pouvoir d'achat n'y figure pas : on la choisit dans le panneau de
-    gauche, une fois la carte ouverte. Mettre les sept ferait un menu illisible
-    où « PIB » apparaîtrait deux fois."""
+    Le menu montre le niveau où l'on se trouve, et pas tout le site (voir le
+    commentaire de MENU plus haut) : les catégories sur l'accueil et sur une
+    page de rubrique, les cartes de sa rubrique sur une carte."""
+    genre, clef = page
     # Depuis l'accueil, un lien vers une carte s'écrit "croissance/" ; depuis
     # n'importe quelle autre page, on remonte d'un cran : "../croissance/".
     haut = "" if page == ACCUEIL else "../"
 
     liens = []
-    for identifiant in MENU:
-        carte = langue["cartes"][identifiant]
-        # La page de la VARIANTE d'une carte allume quand même son entrée de
-        # menu : sur /pib-ppa/, c'est bien « PIB » qu'on est en train de voir.
-        genre, clef = page
-        courante = ""
-        if genre == "carte" and (clef == identifiant or (
-                FAMILLE_DE[clef] and FAMILLE_DE[clef] == FAMILLE_DE[identifiant])):
-            courante = ' aria-current="page"'
-        liens.append(
-            '        <a class="barre__lien" href="%s%s/"%s>'
-            '<span class="long">%s</span><span class="court">%s</span></a>'
-            % (haut, carte["slug"], courante,
-               echapper(carte["nav"]), echapper(carte["nav_court"])))
+    categorie_ouverte = None
+
+    if genre == "carte":
+        # Les cartes de la catégorie de cette carte, et elles seules.
+        categorie_ouverte = CATEGORIE_DE[clef]
+        for identifiant in CARTES_DE[categorie_ouverte]:
+            carte = langue["cartes"][identifiant]
+            # La page de la VARIANTE d'une carte allume quand même son entrée :
+            # sur /pib-ppa/, c'est bien « PIB » qu'on est en train de voir.
+            meme = clef == identifiant or (
+                FAMILLE_DE[clef] and FAMILLE_DE[clef] == FAMILLE_DE[identifiant])
+            liens.append(lien_de_menu(haut + carte["slug"] + "/",
+                                      carte["nav"], carte["nav_court"], meme))
+    else:
+        # L'accueil et les pages de rubrique montrent les rubriques.
+        for identifiant, _, _ in CATEGORIES:
+            categorie = langue["categories"][identifiant]
+            liens.append(lien_de_menu(haut + categorie["slug"] + "/",
+                                      categorie["nom"], categorie["nom"],
+                                      genre == "categorie" and clef == identifiant))
+
+    # Sur une carte, le nom de la rubrique ouvre sa page : c'est à la fois le
+    # repère « où suis-je » et le chemin de retour vers les autres rubriques.
+    fil = ""
+    if categorie_ouverte:
+        fil = ('    <a class="barre__categorie" href="%s%s/">%s</a>\n'
+               % (haut, langue["categories"][categorie_ouverte]["slug"],
+                  echapper(langue["categories"][categorie_ouverte]["nom"])))
 
     # Le menu des langues pointe vers la MÊME page dans chaque langue, en
     # adresses absolues : c'est ce qui permet de changer de langue sans perdre
@@ -1485,6 +1522,7 @@ def entete(langue, page=ACCUEIL):
         # Ne pas confondre avec « base », qui vise la racine pour aller y
         # chercher assets/ et data/.
         accueil=haut or "./",
+        categorie=fil,
         nav_aria=echapper(langue["nav_aria"]),
         liens="\n".join(liens),
         langue_label=echapper(langue["langue_label"]),
@@ -1494,6 +1532,15 @@ def entete(langue, page=ACCUEIL):
         theme_clair=echapper(langue["theme_clair"]),
         theme_sombre=echapper(langue["theme_sombre"]),
     )
+
+
+def lien_de_menu(adresse_relative, long, court, courante):
+    """Une entrée du menu du haut. Deux libellés : le long sur grand écran,
+    le court sur téléphone (voir .barre__lien .long / .court dans le style)."""
+    return ('        <a class="barre__lien" href="%s"%s>'
+            '<span class="long">%s</span><span class="court">%s</span></a>'
+            % (adresse_relative, ' aria-current="page"' if courante else "",
+               echapper(long), echapper(court)))
 
 
 def bascule_variantes(langue, id_carte):
