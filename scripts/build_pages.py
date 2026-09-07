@@ -86,7 +86,30 @@ CARTES = [
     ("croissance",              "📈", None,               None,      True),
     ("inflation",               "🔥", None,               None,      True),
     ("population",              "👥", None,               None,      True),
+    ("metro",                   "🚇", None,               None,      True),
 ]
+
+# Une carte peut n'exister QUE DANS CERTAINES LANGUES, le temps d'être
+# traduite. C'est le cas d'une carte qui vient d'ouvrir : elle sort d'abord en
+# français, les douze autres langues suivent.
+#
+# Tant qu'une langue n'y figure pas, la carte n'y a ni page, ni entrée de menu,
+# ni vignette, ni ligne dans le sitemap — plutôt qu'une page à moitié en
+# français, qui desservirait le site auprès de Google comme du lecteur.
+#
+# Pour ouvrir la carte dans une langue : ajouter son bloc "cartes" dans
+# LANGUES, puis son code ici. Une carte absente de cette liste existe, comme
+# les sept premières, dans les treize langues.
+LANGUES_DE = {
+    "metro": ["fr"],
+}
+
+# Les cartes qui ne colorient pas des pays et ont donc leur propre moteur.
+# La carte des métros dessine des lignes sur des villes : ni curseur des
+# années, ni classement de pays coloriés, ni comparateur.
+MOTEURS = {
+    "metro": "metro.js",
+}
 
 # ----------------------------------------------------------- LES CATÉGORIES
 #
@@ -100,7 +123,7 @@ CARTES = [
 CATEGORIES = [
     ("economie", "💶", ["pib-nominal", "pib-par-habitant", "croissance", "inflation"]),
     ("demographie", "👥", ["population"]),
-    ("infrastructure", "🏗️", []),
+    ("infrastructure", "🏗️", ["metro"]),
     ("armee", "🛡️", []),
 ]
 
@@ -228,8 +251,11 @@ LANGUES.append({
             "intro": "Le FMI publie aussi la population de chaque pays : 197 pays, de 1980 à 2031, projections comprises.",
         },
         "infrastructure": {
+            "slug": "infrastructure",
             "nom": "Infrastructure",
-            "texte": "Routes, ports, électricité et réseaux.",
+            "texte": "Les réseaux qui font tenir une ville et un pays.",
+            "h1": "Les infrastructures du monde, en cartes.",
+            "intro": "Première carte de la rubrique : les métros du monde, ville par ville et ligne par ligne, dans leurs vraies couleurs.",
         },
         "armee": {
             "nom": "Armée",
@@ -278,6 +304,17 @@ LANGUES.append({
             "nom": "Population",
             "nav": "Population", "nav_court": "Population",
             "texte": "Le nombre d’habitants de chaque pays, en millions.",
+        },
+        # La carte des métros ne parle pas de pays mais de villes : ni le titre
+        # type (« …, par pays »), ni la description type (« 197 pays, de 1980 à
+        # 2031, données du FMI ») ne lui vont. Elle écrit donc les siens.
+        "metro": {
+            "slug": "metro",
+            "nom": "Métros du monde",
+            "nav": "Métro", "nav_court": "Métro",
+            "texte": "Toutes les villes du monde qui ont un métro, ligne par ligne et dans leurs vraies couleurs.",
+            "titre": "Les métros du monde — carte interactive de toutes les lignes | StatsMaps",
+            "description": "La carte de tous les métros du monde : 200 villes, chaque ligne dans sa couleur officielle, et les tronçons en construction. Classement des pays par nombre de réseaux, kilomètres, stations et lignes.",
         },
     },
 })
@@ -1442,6 +1479,69 @@ MODELE_CARTE = """<!DOCTYPE html>
 </html>
 """
 
+# La carte des métros a son propre modèle. Elle ressemble beaucoup aux autres —
+# même barre du haut, même panneau, même légende — mais trois choses en moins et
+# une en plus :
+#   · PAS de curseur des années : un réseau de métro n'a pas de série annuelle,
+#     il a un état, celui d'aujourd'hui ;
+#   · PAS de comparateur ni d'onglets « Pic » : on ne compare pas deux métros
+#     comme deux PIB ;
+#   · une rangée de CRITÈRES à la place, pour classer les pays de cinq façons ;
+#   · un bouton de retour, qui ramène de la fiche d'une ville au classement.
+MODELE_METRO = """<!DOCTYPE html>
+<html lang="{hreflang}"{rtl}>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{titre}</title>
+  <meta name="description" content="{description}">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="{url}">
+{alternates}
+  <link rel="icon" href="{base}favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="{og_titre}">
+  <meta property="og:description" content="{description}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{url}">
+  <link rel="preload" href="{base}data/metro/monde.json" as="fetch" crossorigin>
+  <link rel="preload" href="{base}data/pays.json" as="fetch" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/{maplibre}/maplibre-gl.css">
+  <link rel="stylesheet" href="{base}assets/css/style.css">
+  <script src="{base}assets/js/theme.js"></script>
+</head>
+<body class="page-carte" data-indicateur="{indicateur}" data-langue="{code}" data-base="{base}">
+
+{entete}
+  <div class="zone-carte">
+    <div id="carte"></div>
+
+    <button class="bouton-icone bouton-panneau" id="bouton-panneau" type="button" aria-expanded="false" aria-controls="panneau"></button>
+
+    <aside class="panneau" id="panneau">
+      <div class="panneau__entete">
+        <h1 class="panneau__titre" id="titre-panneau">{h1}</h1>
+        <div class="panneau__soustitre" id="compteur-pays"></div>
+        <div class="onglets onglets--criteres" id="criteres" role="group"></div>
+        <button class="panneau__retour" id="retour" type="button" hidden></button>
+        <input class="panneau__recherche" id="recherche" type="search" autocomplete="off" spellcheck="false">
+      </div>
+      <ul class="classement" id="classement"></ul>
+      <div class="panneau__pied" id="source"></div>
+    </aside>
+
+    <div class="legende" id="legende"></div>
+
+    <div class="chargement" id="chargement">…</div>
+  </div>
+
+  <script src="{base}assets/js/i18n.js"></script>
+  <script src="{base}assets/js/barre.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/{maplibre}/maplibre-gl.js"></script>
+  <script src="{base}assets/js/metro.js"></script>
+</body>
+</html>
+"""
+
 # L'accueil et les pages de catégorie partagent le même modèle : une phrase
 # d'introduction, puis une grille de vignettes. Seul ce qu'il y a DANS les
 # vignettes change — des catégories sur l'accueil, des cartes ailleurs.
@@ -1526,10 +1626,43 @@ MODELE_ENTETE = """  <header class="barre">
 
 ACCUEIL = ("accueil", None)
 
-# Toutes les pages d'une langue, dans l'ordre où elles comptent pour Google.
+# Toutes les pages du site, dans l'ordre où elles comptent pour Google.
+# Attention : une langue n'a pas forcément toutes ces pages — voir LANGUES_DE
+# et la fonction pages_de() juste en dessous.
 PAGES = ([ACCUEIL]
          + [("categorie", identifiant) for identifiant, _, _ in CATEGORIES_OUVERTES]
          + [("carte", identifiant) for identifiant, _, _, _, _ in CARTES])
+
+
+def carte_dans(id_carte, code_langue):
+    """Cette carte existe-t-elle dans cette langue ? (voir LANGUES_DE)"""
+    return code_langue in LANGUES_DE.get(id_carte, [l["code"] for l in LANGUES])
+
+
+def cartes_de(id_categorie, langue):
+    """Les cartes d'une rubrique qui existent DANS CETTE LANGUE."""
+    return [c for c in CARTES_DE[id_categorie] if carte_dans(c, langue["code"])]
+
+
+def categories_ouvertes_de(langue):
+    """Les rubriques qui ont au moins une carte dans cette langue.
+
+    Une rubrique dont l'unique carte n'est pas encore traduite reste donc
+    « Bientôt » dans cette langue, et ouverte dans les autres."""
+    return [c for c in CATEGORIES_OUVERTES if cartes_de(c[0], langue)]
+
+
+def pages_de(langue):
+    """Les pages qui existent réellement dans cette langue."""
+    return ([ACCUEIL]
+            + [("categorie", i) for i, _, _ in categories_ouvertes_de(langue)]
+            + [("carte", i) for i, _, _, _, _ in CARTES
+               if carte_dans(i, langue["code"])])
+
+
+def langues_de_la_page(page):
+    """Les langues dans lesquelles cette page existe."""
+    return [l for l in LANGUES if page in pages_de(l)]
 
 
 def echapper(texte):
@@ -1570,14 +1703,19 @@ def remonter(niveaux):
 
 def alternates(page):
     """Les balises qui disent à Google : « cette page existe aussi dans ces
-    douze autres langues ». Le français fait aussi office de x-default, la
-    version servie quand aucune langue du visiteur ne correspond."""
+    autres langues ». Le français fait aussi office de x-default, la version
+    servie quand aucune langue du visiteur ne correspond.
+
+    Seules les langues où la page existe VRAIMENT sont déclarées : annoncer à
+    Google une traduction qui n'existe pas est la meilleure façon de récolter
+    des erreurs 404 dans ses rapports."""
+    langues = langues_de_la_page(page)
     lignes = []
-    for langue in LANGUES:
+    for langue in langues:
         lignes.append('  <link rel="alternate" hreflang="%s" href="%s%s">'
                       % (langue["hreflang"], SITE, adresse(langue, page)))
     lignes.append('  <link rel="alternate" hreflang="x-default" href="%s%s">'
-                  % (SITE, adresse(LANGUES[0], page)))
+                  % (SITE, adresse(langues[0], page)))
     return "\n".join(lignes)
 
 
@@ -1598,7 +1736,7 @@ def entete(langue, page=ACCUEIL):
     if genre == "carte":
         # Les cartes de la catégorie de cette carte, et elles seules.
         categorie_ouverte = CATEGORIE_DE[clef]
-        for identifiant in CARTES_DE[categorie_ouverte]:
+        for identifiant in cartes_de(categorie_ouverte, langue):
             carte = langue["cartes"][identifiant]
             # La page de la VARIANTE d'une carte allume quand même son entrée :
             # sur /pib-ppa/, c'est bien « PIB » qu'on est en train de voir.
@@ -1608,7 +1746,7 @@ def entete(langue, page=ACCUEIL):
                                       carte["nav"], carte["nav_court"], meme))
     else:
         # L'accueil et les pages de rubrique montrent les rubriques ouvertes.
-        for identifiant, _, _ in CATEGORIES_OUVERTES:
+        for identifiant, _, _ in categories_ouvertes_de(langue):
             categorie = langue["categories"][identifiant]
             liens.append(lien_de_menu(haut + categorie["slug"] + "/",
                                       categorie["nom"], categorie["nom"],
@@ -1628,10 +1766,14 @@ def entete(langue, page=ACCUEIL):
     menu = []
     for autre in LANGUES:
         actuelle = ' aria-current="true"' if autre["code"] == langue["code"] else ""
+        # Si la page n'existe pas encore dans cette langue-là (une carte en
+        # cours de traduction), son drapeau mène à l'accueil de cette langue
+        # plutôt qu'à une adresse qui n'existe pas.
+        cible = page if page in pages_de(autre) else ACCUEIL
         menu.append(
             '          <a href="%s" hreflang="%s" lang="%s"%s>'
             '<span class="drapeau" aria-hidden="true">%s</span>%s</a>'
-            % (adresse(autre, page), autre["hreflang"], autre["hreflang"],
+            % (adresse(autre, cible), autre["hreflang"], autre["hreflang"],
                actuelle, autre["drapeau"], echapper(autre["nom"])))
 
     return MODELE_ENTETE.format(
@@ -1713,16 +1855,38 @@ def vignette(lien, pastille, titre, texte, liste="", bientot=""):
 def page_carte(langue, id_carte):
     carte = langue["cartes"][id_carte]
     base = remonter(profondeur(langue, ("carte", id_carte)))
-    titre = langue["modele_titre"].format(nom=carte["nom"])
+    # Les cartes des pays ont toutes le même titre type (« …, par pays ») ;
+    # celle des métros parle de villes et porte donc le sien, écrit en toutes
+    # lettres dans son bloc de langue.
+    titre = carte.get("titre") or langue["modele_titre"].format(nom=carte["nom"])
     # Le titre partagé sur les réseaux sociaux n'a pas besoin du « | StatsMaps »
     # final : le nom du site y est déjà affiché à part.
     og_titre = titre.split(" | StatsMaps")[0]
+    description = carte.get("description") or \
+        langue["modele_description"].format(texte=carte["texte"])
+
+    if id_carte in MOTEURS:
+        return MODELE_METRO.format(
+            hreflang=langue["hreflang"],
+            rtl=' dir="rtl"' if langue["sens"] == "rtl" else "",
+            titre=echapper(titre),
+            description=echapper(description),
+            url=SITE + adresse(langue, ("carte", id_carte)),
+            alternates=alternates(("carte", id_carte)),
+            base=base,
+            og_titre=echapper(og_titre),
+            maplibre=MAPLIBRE,
+            indicateur=id_carte,
+            code=langue["code"],
+            entete=entete(langue, ("carte", id_carte)),
+            h1=echapper(carte["nom"]),
+        )
 
     return MODELE_CARTE.format(
         hreflang=langue["hreflang"],
         rtl=' dir="rtl"' if langue["sens"] == "rtl" else "",
         titre=echapper(titre),
-        description=echapper(langue["modele_description"].format(texte=carte["texte"])),
+        description=echapper(description),
         url=SITE + adresse(langue, ("carte", id_carte)),
         alternates=alternates(("carte", id_carte)),
         base=base,
@@ -1742,8 +1906,9 @@ def page_accueil(langue):
     accueil = langue["accueil"]
 
     vignettes = []
-    for identifiant, pastille, cartes in CATEGORIES:
+    for identifiant, pastille, _ in CATEGORIES:
         categorie = langue["categories"][identifiant]
+        cartes = cartes_de(identifiant, langue)
         if cartes:
             vignettes.append(vignette(
                 categorie["slug"] + "/", pastille, categorie["nom"], categorie["texte"],
@@ -1773,7 +1938,7 @@ def page_accueil(langue):
 def page_categorie(langue, id_categorie):
     """La page d'une rubrique : ses cartes, et rien d'autre."""
     categorie = langue["categories"][id_categorie]
-    cartes = CARTES_DE[id_categorie]
+    cartes = cartes_de(id_categorie, langue)
     titre = langue["modele_titre_categorie"].format(nom=categorie["nom"])
 
     vignettes = []
@@ -1816,14 +1981,15 @@ def sitemap():
     priorites = {"accueil": "1.0", "categorie": "0.9", "carte": "0.8"}
 
     for page in PAGES:
-        for langue in LANGUES:
+        langues = langues_de_la_page(page)
+        for langue in langues:
             lignes.append("  <url>")
             lignes.append("    <loc>%s%s</loc>" % (SITE, adresse(langue, page)))
-            for autre in LANGUES:
+            for autre in langues:
                 lignes.append('    <xhtml:link rel="alternate" hreflang="%s" href="%s%s"/>'
                               % (autre["hreflang"], SITE, adresse(autre, page)))
             lignes.append('    <xhtml:link rel="alternate" hreflang="x-default" href="%s%s"/>'
-                          % (SITE, adresse(LANGUES[0], page)))
+                          % (SITE, adresse(langues[0], page)))
             lignes.append("    <priority>%s</priority>" % priorites[page[0]])
             lignes.append("  </url>")
 
@@ -1886,19 +2052,31 @@ def main():
     print("Fabrication des pages de StatsMaps")
     print("-" * 55)
 
-    # Contrôle : chaque langue doit décrire toutes les cartes et toutes les
-    # catégories, sans oubli.
+    # Contrôle : chaque langue doit décrire toutes les cartes qu'elle propose
+    # et toutes les catégories, sans oubli. Une carte pas encore traduite
+    # (LANGUES_DE) n'est évidemment pas exigée.
     for langue in LANGUES:
-        manquantes = [c[0] for c in CARTES if c[0] not in langue["cartes"]]
+        manquantes = [c[0] for c in CARTES
+                      if carte_dans(c[0], langue["code"]) and c[0] not in langue["cartes"]]
         manquantes += [c[0] for c in CATEGORIES if c[0] not in langue["categories"]]
         if manquantes:
             raise SystemExit("  ERREUR : la langue « %s » ne décrit pas %s"
                              % (langue["code"], ", ".join(manquantes)))
 
+    # Contrôle : une rubrique ouverte doit avoir son adresse et ses textes.
+    for langue in LANGUES:
+        for identifiant, _, _ in categories_ouvertes_de(langue):
+            categorie = langue["categories"][identifiant]
+            absents = [c for c in ("slug", "h1", "intro") if c not in categorie]
+            if absents:
+                raise SystemExit(
+                    "  ERREUR : la rubrique « %s » est ouverte en %s mais il lui "
+                    "manque %s" % (identifiant, langue["code"], ", ".join(absents)))
+
     # Contrôle : deux pages ne doivent jamais se retrouver à la même adresse.
     vues = {}
     for langue in LANGUES:
-        for page in PAGES:
+        for page in pages_de(langue):
             url = adresse(langue, page)
             if url in vues:
                 raise SystemExit("  ERREUR : l'adresse %s est utilisée deux fois "
@@ -1910,13 +2088,15 @@ def main():
     for langue in LANGUES:
         ecrire(os.path.join(langue["dossier"], "index.html"), page_accueil(langue))
         total += 1
-        for id_categorie, _, _ in CATEGORIES_OUVERTES:
+        for id_categorie, _, _ in categories_ouvertes_de(langue):
             nom = langue["categories"][id_categorie]["slug"]
             dossiers_attendus.add(nom)
             ecrire(os.path.join(langue["dossier"], nom, "index.html"),
                    page_categorie(langue, id_categorie))
             total += 1
         for id_carte, _, _, _, _ in CARTES:
+            if not carte_dans(id_carte, langue["code"]):
+                continue
             nom = langue["cartes"][id_carte]["slug"]
             dossiers_attendus.add(nom)
             ecrire(os.path.join(langue["dossier"], nom, "index.html"),
@@ -1924,7 +2104,7 @@ def main():
             total += 1
         print("  %-3s %-12s %d pages   %s…"
               % (langue["code"], "(" + (langue["dossier"] or "racine") + ")",
-                 len(PAGES), adresse(langue)))
+                 len(pages_de(langue)), adresse(langue)))
 
     # Les dossiers des autres langues ne sont pas des pages : on les protège.
     dossiers_attendus |= {l["dossier"] for l in LANGUES if l["dossier"]}

@@ -30,6 +30,10 @@
   --contour-pays: #aab5c0;
   --ombre: 0 1px 3px rgba(16, 24, 40, 0.08), 0 6px 20px rgba(16, 24, 40, 0.08);
   --rayon: 12px;
+  /* La houle : deux nuances à peine différentes de la mer, l'une un peu plus
+     claire (la crête), l'autre un peu plus foncée (le creux). Voir § 5. */
+  --houle-crete: rgba(255, 255, 255, 0.75);
+  --houle-creux: rgba(120, 150, 182, 0.20);
 }
 
 /* Thème sombre : soit choisi par le bouton, soit réglé sur le téléphone. */
@@ -49,6 +53,8 @@
   --pays-sans-donnee: #2b323b;
   --contour-pays: #0e1116;
   --ombre: 0 1px 3px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.4);
+  --houle-crete: rgba(88, 140, 196, 0.13);
+  --houle-creux: rgba(0, 0, 0, 0.30);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -68,6 +74,8 @@
     --pays-sans-donnee: #2b323b;
     --contour-pays: #0e1116;
     --ombre: 0 1px 3px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.4);
+    --houle-crete: rgba(88, 140, 196, 0.13);
+    --houle-creux: rgba(0, 0, 0, 0.30);
   }
 }
 
@@ -385,6 +393,66 @@ body.page-carte {
   position: relative;
   min-height: 0;
   background: var(--fond-carte);
+  overflow: hidden; /* la houle déborde volontairement : on la coupe ici */
+}
+
+/* --- La houle -------------------------------------------------------------
+
+   La mer n'est plus une couleur figée : elle respire.
+
+   Le principe, sans une ligne de JavaScript. Deux calques invisibles sont
+   posés SOUS la carte (::before et ::after ci-dessous). Chacun porte trois
+   grandes taches de lumière très floues — des dégradés ronds — dans des
+   nuances à peine différentes de la mer. Les deux calques dérivent lentement,
+   dans des directions opposées et à des vitesses qui ne tombent jamais juste
+   (41 s et 67 s) : leurs taches ne se recroisent donc jamais au même endroit,
+   et l'œil ne perçoit aucune boucle. Ce lent chevauchement suffit à donner
+   l'impression d'une houle.
+
+   C'est la carte MapLibre elle-même qui laisse voir tout ça : sa couche
+   « mer » a été retirée dans carte.js, son fond est donc transparent et ce
+   sont ces deux calques que l'on aperçoit à travers.
+
+   Le mouvement n'est qu'un transform : c'est la carte graphique qui s'en
+   occupe, pas le processeur. Aucun ralentissement, aucune batterie vidée.
+   Et le réglage « réduire les animations » du système l'arrête tout seul
+   (voir la toute fin du fichier).                                          */
+
+.zone-carte::before,
+.zone-carte::after {
+  content: "";
+  position: absolute;
+  /* On déborde largement de l'écran : en dérivant, les calques ne doivent
+     jamais laisser apparaître leur propre bord. */
+  inset: -35%;
+  pointer-events: none; /* on doit pouvoir cliquer la carte à travers */
+  will-change: transform;
+}
+
+.zone-carte::before {
+  background:
+    radial-gradient(38% 26% at 24% 28%, var(--houle-crete), transparent 70%),
+    radial-gradient(32% 22% at 71% 63%, var(--houle-crete), transparent 70%),
+    radial-gradient(44% 30% at 48% 88%, var(--houle-creux), transparent 70%);
+  animation: houle-lente 41s ease-in-out infinite alternate;
+}
+
+.zone-carte::after {
+  background:
+    radial-gradient(34% 24% at 78% 22%, var(--houle-crete), transparent 70%),
+    radial-gradient(40% 28% at 18% 72%, var(--houle-creux), transparent 70%),
+    radial-gradient(30% 20% at 56% 44%, var(--houle-crete), transparent 70%);
+  animation: houle-large 67s ease-in-out infinite alternate;
+}
+
+@keyframes houle-lente {
+  from { transform: translate3d(-2.5%, -1.5%, 0) scale(1); }
+  to   { transform: translate3d(2.5%, 2%, 0) scale(1.09); }
+}
+
+@keyframes houle-large {
+  from { transform: translate3d(2%, 2%, 0) scale(1.07); }
+  to   { transform: translate3d(-2.5%, -2%, 0) scale(1); }
 }
 
 #carte { position: absolute; inset: 0; }
@@ -1115,6 +1183,161 @@ body.page-carte {
    naturel, mais la ponctuation arabe doit rester du bon côté. */
 [dir="rtl"] .classement .valeur,
 [dir="rtl"] .cmp__valeur { direction: ltr; }
+
+/* ==========================================================================
+   LA CARTE DES MÉTROS
+
+   Elle réemploie le panneau, le classement et la légende des autres cartes.
+   Ne sont écrits ici que ses trois éléments propres : le classement à deux
+   étages (les pays, puis leurs villes), la fiche d'une ville, et la liste de
+   ses lignes avec la pastille de leur couleur officielle.
+   ========================================================================== */
+
+/* Cinq critères de classement au lieu de trois onglets : les libellés sont
+   plus courts et le texte plus petit, sinon la rangée déborde du panneau. */
+.onglets--criteres .onglet {
+  padding: 5px 4px;
+  font-size: 11px;
+  letter-spacing: -0.01em;
+}
+
+/* Les villes d'un pays déplié. Le décalage remplace le numéro de rang : dans
+   un pays, on ne classe pas les villes, on les énumère. */
+.classement .classement__ville {
+  padding-left: 30px;
+  background: var(--fond-doux);
+  font-size: 12.5px;
+}
+[dir="rtl"] .classement .classement__ville {
+  padding-left: 15px;
+  padding-right: 30px;
+}
+.classement .classement__ville .nom { color: var(--texte-doux); }
+.classement .classement__ville.est-choisi .nom { color: var(--texte); }
+
+/* --- La fiche d'une ville ------------------------------------------------- */
+
+.classement .fiche {
+  display: block;
+  padding: 13px 15px 14px;
+  cursor: default;
+}
+.classement .fiche:hover { background: none; }
+
+/* Les trois ou quatre chiffres de la ville, en ligne. */
+.fiche__chiffres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+.fiche__chiffre { display: flex; flex-direction: column; }
+.fiche__chiffre b {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+}
+.fiche__chiffre i {
+  font-style: normal;
+  font-size: 10.5px;
+  color: var(--texte-tres-doux);
+}
+/* Ce qui est en construction porte la couleur des chantiers, la même que sur
+   la carte et dans la légende. */
+.fiche__chiffre.est-chantier b { color: #c96a22; }
+[data-theme="dark"] .fiche__chiffre.est-chantier b { color: #e8934a; }
+
+.fiche__phrase {
+  margin: 0 0 3px;
+  font-size: 12px;
+  color: var(--texte-doux);
+}
+.fiche__reseau {
+  margin: 6px 0 0;
+  font-size: 12.5px;
+}
+.fiche__reseau--chantier { color: var(--texte-doux); }
+.fiche__annee {
+  margin-inline-start: 4px;
+  font-size: 11px;
+  color: var(--texte-tres-doux);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Une ligne de métro, dans sa couleur officielle ------------------------ */
+
+.classement .ligne-metro { gap: 9px; }
+
+/* La pastille porte le NUMÉRO de la ligne sur sa couleur officielle : c'est
+   exactement ce qu'on lit sur un plan de métro, et c'est la seule chose qui
+   distingue vraiment deux lignes l'une de l'autre.
+   Sa largeur minimale garde la colonne alignée du « 1 » au « 14 ». */
+.ligne-metro__pastille {
+  flex: 0 0 auto;
+  min-width: 22px;
+  padding: 2px 6px;
+  border-radius: 11px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.45;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  /* Un nom de ligne peut être long (« Docklands Light Railway ») : la
+     pastille ne doit pas pousser le reste hors du panneau. */
+  max-width: 108px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Le bouton qui ramène de la fiche d'une ville au classement des pays. */
+.panneau__retour {
+  align-self: flex-start;
+  margin-top: 9px;
+  padding: 4px 10px;
+  border: 1px solid var(--bordure);
+  border-radius: 20px;
+  background: var(--fond-doux);
+  color: var(--texte-doux);
+  font: inherit;
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.panneau__retour:hover { color: var(--texte); border-color: var(--bordure-forte); }
+
+/* --- La légende de la carte des métros ------------------------------------ */
+
+.legende__ligne {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 11.5px;
+  color: var(--texte-doux);
+}
+.legende__pastille {
+  flex: 0 0 auto;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+.legende__trait {
+  flex: 0 0 auto;
+  width: 18px;
+  border-top-width: 2.5px;
+  border-top-style: solid;
+}
+.legende__trait--pointille { border-top-style: dashed; }
+.legende__note {
+  margin-top: 9px;
+  padding-top: 8px;
+  border-top: 1px solid var(--bordure);
+  font-size: 10.5px;
+  line-height: 1.4;
+  color: var(--texte-tres-doux);
+}
 
 /* Respecte le réglage « réduire les animations » du système. */
 @media (prefers-reduced-motion: reduce) {

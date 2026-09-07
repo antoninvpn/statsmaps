@@ -538,18 +538,22 @@
 
   /* --- 4. Fabrication de la carte ----------------------------------------- */
 
+  /* Le style de départ de la carte : rien du tout, volontairement.
+
+     Avant, une couche « mer » peignait ici le fond en une couleur unie. Elle a
+     été retirée pour que la carte soit transparente : on voit alors à travers
+     elle la houle, ces grands dégradés qui dérivent lentement et que la
+     feuille de style anime sur .zone-carte (chercher « La houle » dans
+     assets/css/style.css). La couleur de la mer, elle, reste bien celle de
+     --fond-carte : c'est le fond de .zone-carte.
+
+     Les pays viennent se poser par-dessus dans carte.on("load"). */
   function styleDeBase() {
     return {
       version: 8,
       name: "StatsMaps",
       sources: {},
-      layers: [
-        {
-          id: "mer",
-          type: "background",
-          paint: { "background-color": couleurCSS("--fond-carte") },
-        },
-      ],
+      layers: [],
     };
   }
 
@@ -1722,7 +1726,9 @@
 
   window.addEventListener("statsmaps:theme", function () {
     if (!carte || !carte.isStyleLoaded()) return;
-    carte.setPaintProperty("mer", "background-color", couleurCSS("--fond-carte"));
+    /* La mer n'est plus dessinée par la carte mais par la feuille de style
+       (voir styleDeBase) : elle change de couleur toute seule avec le thème,
+       il n'y a donc plus rien à faire pour elle ici. */
     carte.setPaintProperty("pays-fond", "fill-color", regleDeCouleur());
     carte.setPaintProperty("pays-contour", "line-color", regleContourCouleur());
     dessinerLegende();

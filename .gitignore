@@ -3,3 +3,7 @@
 
 # Réglages locaux des outils (ne concernent pas le site)
 .claude/
+
+# Ce que build_metro.py a téléchargé chez OpenStreetMap et Wikipédia.
+# C'est gros, ça se retélécharge tout seul, et ce n'est pas le site.
+scripts/.cache-metro/

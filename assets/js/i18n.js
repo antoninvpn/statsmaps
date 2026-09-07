@@ -106,6 +106,45 @@ window.StatsMapsTextes = {
     weo_octobre: "octobre",
     voir_classement: "Classement",
     fermer: "Fermer",
+
+    /* --- La carte des métros ------------------------------------------------
+       C'est la seule carte du site qui ne classe pas des valeurs mais des
+       RÉSEAUX. Son panneau a donc son propre vocabulaire : cinq façons de
+       classer les pays, puis la fiche d'une ville et la liste de ses lignes.
+       Les cinq libellés des critères doivent rester TRÈS courts : ils
+       partagent une seule rangée de 320 px. */
+    metro_titre: "Les métros du monde",
+    metro_recherche: "Rechercher un pays, une ville…",
+    metro_rien_trouve: "Aucun pays ni aucune ville trouvés.",
+    metro_pays_avec_metro: "pays",
+    metro_villes: "villes",
+    metro_retour: "← Tous les pays",
+
+    /* Les cinq critères de classement */
+    metro_par_reseaux: "Réseaux",
+    metro_par_km: "Km",
+    metro_par_stations: "Stations",
+    metro_par_lignes: "Lignes",
+    metro_par_chantiers: "Chantiers",
+
+    /* La fiche d'une ville */
+    metro_km: "de lignes",
+    metro_stations: "stations",
+    metro_lignes: "lignes",
+    metro_chantier: "en construction",
+    metro_depuis: "Premier métro ouvert en {annee}.",
+    metro_voyageurs: "{n} millions de voyageurs par an.",
+    metro_prevu: "ouverture prévue en {annee}",
+    metro_en_construction: "en construction",
+    metro_ses_lignes: "Ses lignes, dans leur couleur officielle",
+    metro_ses_chantiers: "Des tronçons sont en construction (en pointillés sur la carte).",
+
+    /* La légende */
+    metro_leg_ville: "Ville avec un métro",
+    metro_leg_chantier: "Premier métro en construction",
+    metro_leg_pointilles: "Ligne en construction",
+    metro_leg_zoom: "La taille de la pastille suit la longueur du réseau. Zoome pour voir les lignes elles-mêmes.",
+    metro_source: "Réseaux : Wikipédia · Tracés et couleurs : OpenStreetMap",
   },
 
   en: {
