@@ -11,14 +11,17 @@
 
    DEUX ÉCHELLES DE LECTURE, et c'est tout le principe :
 
-     de loin ...... une ligne de 30 km fait deux pixels : on ne dessine donc
-                    que des PASTILLES, une par ville, d'autant plus grosses
-                    que le réseau est long. Le monde entier tient dans un
-                    fichier de quelques dizaines de kilo-octets.
-     de près ...... à partir du zoom 7, les LIGNES apparaissent, chacune dans
-                    sa couleur officielle, et les tronçons en construction en
-                    pointillés. Le tracé d'une ville n'est téléchargé qu'au
-                    moment où l'on s'en approche.
+     de loin ...... une PASTILLE par ville, d'autant plus grosse que le
+                    réseau est long, POSÉE SUR l'aperçu du monde entier :
+                    toutes les lignes de tous les métros, chacune dans sa
+                    couleur, dessinées au quart de kilomètre près. Cet aperçu
+                    est un seul fichier de quelques centaines de kilo-octets,
+                    chargé au démarrage : les lignes sont donc là dès l'arrivée
+                    sur la carte, sans rien cliquer ni attendre.
+     de près ...... à partir du zoom 7, l'aperçu s'efface et les VRAIS tracés
+                    prennent le relais, au mètre près, avec les tronçons en
+                    construction en pointillés. Le tracé détaillé d'une ville
+                    n'est téléchargé qu'au moment où l'on s'en approche.
 
    IL N'Y A AUCUN NOM ÉCRIT SUR LA CARTE, et c'est volontaire : afficher du
    texte dans MapLibre demande d'aller chercher des polices sur un serveur
@@ -43,9 +46,9 @@
 
   /* --- 1. Réglages --------------------------------------------------------- */
 
-  /* À partir de ce zoom, on cesse de ne montrer que des pastilles et on
-     dessine les vraies lignes. En dessous, elles seraient plus fines qu'un
-     cheveu et se chevaucheraient toutes. */
+  /* À partir de ce zoom, l'aperçu du monde s'efface et les tracés détaillés,
+     téléchargés ville par ville, prennent sa place. En dessous, le détail au
+     mètre près ne se verrait pas et coûterait plusieurs mégaoctets. */
   var ZOOM_LIGNES = 7;
 
   /* Le zoom auquel on arrive quand on choisit une ville. */
@@ -95,6 +98,14 @@
     /* Même correction que sur les autres cartes : l'espace fine insécable des
        polices d'Apple est si étroite qu'on ne la voit pas. */
     return texte.replace(/ /g, " ");
+  }
+
+  /* Une ANNÉE n'est pas un nombre à séparer par milliers : « 1900 » et non
+     « 1 900 ». C'est l'usage de toutes les langues du site, et l'espace
+     faisait lire « mille neuf cents » là où il fallait lire « dix-neuf
+     cents ». */
+  function annee(valeur) {
+    return valeur ? String(valeur) : "—";
   }
 
   function sansAccents(texte) {
@@ -147,6 +158,7 @@
   var monde = null;          /* data/metro/monde.json */
   var villeParSlug = {};     /* "paris" -> sa fiche */
   var paysParIso = {};       /* "FRA" -> {nom, drapeau} */
+  var apercu = null;         /* data/metro/apercu.json : le monde entier */
   var traces = {};           /* "paris" -> ses lignes, une fois téléchargées */
   var demandes = {};         /* les villes dont le tracé est en route */
   var critere = CRITERES[0];
@@ -191,17 +203,43 @@
      Sans cette racine, Shanghai ferait cent fois le diamètre de Lausanne et
      couvrirait la moitié de la Chine. */
   function rayonDesPastilles() {
-    return ["*",
-      ["interpolate", ["linear"], ["zoom"], 0.5, 0.62, 3, 0.85, 6, 1.25, 9, 1.6],
-      ["+", 2.4, ["*", 0.44, ["sqrt", ["max", ["coalesce", ["get", "km"], 8], 4]]]],
-    ];
+    /* MapLibre n'accepte « zoom » que comme entrée DIRECTE d'un interpolate :
+       le mettre sous une multiplication fait rejeter la couche entière, et
+       plus aucune pastille ne s'affiche. On écrit donc l'interpolation au
+       premier étage, et c'est le grossissement qui se répète à chaque palier. */
+    var rayon = ["+", 2.4,
+      ["*", 0.44, ["sqrt", ["max", ["coalesce", ["get", "km"], 8], 4]]]];
+    return ["interpolate", ["linear"], ["zoom"],
+      0.5, ["*", 0.62, rayon],
+      3, ["*", 0.85, rayon],
+      6, ["*", 1.25, rayon],
+      9, ["*", 1.6, rayon]];
   }
 
   /* Les lignes s'épaississent avec le zoom, mais moins vite que la carte : à
      l'échelle d'un quartier, un trait de 5 px suffit à se suivre du doigt. */
-  function epaisseurDesLignes() {
+  function epaisseurDesLignes(facteur) {
+    var f = facteur || 1;
     return ["interpolate", ["exponential", 1.5], ["zoom"],
-      ZOOM_LIGNES, 0.9, 10, 2.4, 13, 4.2, 16, 7];
+      ZOOM_LIGNES, 0.9 * f, 10, 2.4 * f, 13, 4.2 * f, 16, 7 * f];
+  }
+
+  /* L'aperçu du monde est dessiné très fin : à l'échelle du monde, un réseau
+     entier tient dans quelques pixels, et un trait épais ferait une tache. On
+     l'épaissit à mesure qu'on descend, jusqu'à rejoindre l'épaisseur des vrais
+     tracés au moment où ils prennent le relais. */
+  function epaisseurDeLApercu() {
+    return ["interpolate", ["exponential", 1.4], ["zoom"],
+      0.5, 0.7, 3, 1, 5, 1.5, ZOOM_LIGNES + 0.4, 2.6];
+  }
+
+  /* L'aperçu s'efface exactement là où les tracés détaillés apparaissent :
+     l'un monte pendant que l'autre descend, et l'œil ne voit aucune coupure.
+     Il reste un peu transparent de loin, pour que les pastilles des villes
+     restent lisibles par-dessus. */
+  function disparitionDeLApercu() {
+    return ["interpolate", ["linear"], ["zoom"],
+      0.5, 0.75, 4, 0.9, ZOOM_LIGNES - 0.6, 0.9, ZOOM_LIGNES + 0.4, 0];
   }
 
   /* Les lignes n'apparaissent pas d'un coup au zoom 7 : elles se dévoilent
@@ -231,7 +269,7 @@
       customAttribution:
         '<a href="https://www.naturalearthdata.com/">Natural Earth</a> · ' +
         '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · ' +
-        '<a href="https://en.wikipedia.org/wiki/List_of_metro_systems">Wikipedia</a>',
+        '<a href="https://www.wikidata.org/">Wikidata</a>',
     }), "bottom-right");
 
     carte.on("error", function (e) {
@@ -240,6 +278,7 @@
 
     carte.on("load", function () {
       carte.addSource("pays", { type: "geojson", data: geoPays, promoteId: "iso" });
+      carte.addSource("apercu", { type: "geojson", data: videGeoJSON() });
       carte.addSource("traces", { type: "geojson", data: videGeoJSON() });
       carte.addSource("chantiers", { type: "geojson", data: videGeoJSON() });
       carte.addSource("villes", { type: "geojson", data: villesGeoJSON(), promoteId: "s" });
@@ -253,6 +292,19 @@
       carte.addLayer({
         id: "pays-contour", type: "line", source: "pays",
         paint: { "line-color": couleurCSS("--contour-pays"), "line-width": 0.4 },
+      });
+
+      /* L'aperçu du monde entier : toutes les lignes de tous les métros, dans
+         leur couleur, visibles dès la vue du monde. Il passe sous les tracés
+         détaillés, auxquels il cède la place en fondu au zoom 7. */
+      carte.addLayer({
+        id: "apercu", type: "line", source: "apercu",
+        layout: { "line-cap": "round", "line-join": "round" },
+        paint: {
+          "line-color": ["get", "couleur"],
+          "line-width": epaisseurDeLApercu(),
+          "line-opacity": disparitionDeLApercu(),
+        },
       });
 
       /* Les chantiers passent SOUS les lignes en service : là où une extension
@@ -286,7 +338,7 @@
         layout: { "line-cap": "round", "line-join": "round" },
         paint: {
           "line-color": ["get", "couleur"],
-          "line-width": ["*", 2.4, epaisseurDesLignes()],
+          "line-width": epaisseurDesLignes(2.4),
           "line-opacity": 0.45,
         },
       });
@@ -297,10 +349,12 @@
           "circle-radius": rayonDesPastilles(),
           "circle-color": ["case",
             ["==", ["get", "enService"], 0], COULEUR_CHANTIER, couleurCSS("--accent")],
-          /* Les pastilles s'effacent quand les vraies lignes prennent le
-             relais : au zoom 11, elles cacheraient le centre-ville. */
+          /* Les pastilles s'effacent progressivement : de loin elles portent
+             le classement (leur taille suit la longueur du réseau), mais dès
+             qu'on descend elles cacheraient les lignes qui sont dessous, et au
+             zoom 11 elles cacheraient tout le centre-ville. */
           "circle-opacity": ["interpolate", ["linear"], ["zoom"],
-            ZOOM_LIGNES, 0.9, ZOOM_LIGNES + 3, 0.18],
+            0.5, 0.9, 3, 0.8, 5, 0.5, ZOOM_LIGNES, 0.35, ZOOM_LIGNES + 3, 0.12],
           "circle-stroke-width": ["case",
             ["boolean", ["feature-state", "choisie"], false], 2.6,
             [">", ["coalesce", ["get", "kmc"], 0], 0], 1.8, 1],
@@ -312,6 +366,8 @@
             ZOOM_LIGNES, 1, ZOOM_LIGNES + 3, 0.25],
         },
       });
+
+      if (apercu) carte.getSource("apercu").setData(apercu);
 
       brancherInteractions();
       chargerCeQuOnVoit();
@@ -335,6 +391,23 @@
             s: v.s, km: v.km, kmc: v.kmc, enService: v.enService, iso: v.iso,
           },
           geometry: { type: "Point", coordinates: [v.lon, v.lat] },
+        };
+      }),
+    };
+  }
+
+  /* L'aperçu est écrit au plus court — [couleur, [[lon,lat], ...]] — parce
+     qu'un GeoJSON complet, avec ses « type », « properties » et « geometry »
+     répétés cinq mille fois, pèserait le double pour le même dessin. On le
+     déplie ici, une fois, à l'arrivée. */
+  function apercuGeoJSON(donnees) {
+    return {
+      type: "FeatureCollection",
+      features: (donnees.l || []).map(function (trace) {
+        return {
+          type: "Feature",
+          properties: { couleur: trace[0], ville: trace[2] },
+          geometry: { type: "LineString", coordinates: trace[1] },
         };
       }),
     };
@@ -424,10 +497,22 @@
       var f = e.features && e.features[0];
       if (f && f.properties.ville !== villeChoisie) ouvrirVille(f.properties.ville, false);
     });
+    /* De loin, c'est l'aperçu qu'on a sous le doigt et non le tracé détaillé,
+       qui n'est pas encore téléchargé : il ouvre la même fiche, et cadre sur
+       la ville puisqu'on en est encore trop loin pour la voir. */
+    carte.on("click", "apercu", function (e) {
+      var f = e.features && e.features[0];
+      if (f && f.properties.ville && f.properties.ville !== villeChoisie) {
+        ouvrirVille(f.properties.ville, true);
+      }
+    });
     carte.on("click", function (e) {
-      var dessus = carte.queryRenderedFeatures(e.point, {
-        layers: ["villes", "lignes", "chantiers"],
-      });
+      /* MapLibre continue de « voir » une couche rendue totalement
+         transparente : sans ce tri, un clic dans le vide au-dessus d'un tracé
+         d'aperçu invisible ne refermerait jamais la fiche. */
+      var couches = ["villes", "lignes", "chantiers"];
+      if (carte.getZoom() < ZOOM_LIGNES + 0.4) couches.push("apercu");
+      var dessus = carte.queryRenderedFeatures(e.point, { layers: couches });
       if (!dessus.length) fermerVille();
     });
   }
@@ -629,7 +714,7 @@
 
     if (v.depuis) {
       h.push('<p class="fiche__phrase">' +
-        echapper(t("metro_depuis").replace("{annee}", formater(v.depuis))) + "</p>");
+        echapper(t("metro_depuis").replace("{annee}", annee(v.depuis))) + "</p>");
     }
     if (v.vy) {
       h.push('<p class="fiche__phrase">' +
@@ -638,14 +723,14 @@
 
     (v.sys || []).forEach(function (s) {
       h.push('<p class="fiche__reseau">' + echapper(nomTraduit(s.n)) +
-        (s.depuis ? ' <span class="fiche__annee">' + formater(s.depuis) + "</span>" : "") +
+        (s.depuis ? ' <span class="fiche__annee">' + annee(s.depuis) + "</span>" : "") +
         "</p>");
     });
     (v.futur || []).forEach(function (s) {
       h.push('<p class="fiche__reseau fiche__reseau--chantier">' +
         echapper(nomTraduit(s.n)) +
         (s.prevu ? ' <span class="fiche__annee">' +
-          echapper(t("metro_prevu").replace("{annee}", formater(s.prevu))) + "</span>" : "") +
+          echapper(t("metro_prevu").replace("{annee}", annee(s.prevu))) + "</span>" : "") +
         "</p>");
     });
     h.push("</li>");
@@ -741,6 +826,8 @@
     if (!legende) return;
     legende.innerHTML =
       '<div class="legende__titre">' + echapper(t("legende")) + "</div>" +
+      '<div class="legende__ligne"><span class="legende__trait legende__trait--couleurs"' +
+        '></span>' + echapper(t("metro_leg_couleurs")) + "</div>" +
       '<div class="legende__ligne"><span class="legende__pastille" style="background:' +
         couleurCSS("--accent") + '"></span>' + echapper(t("metro_leg_ville")) + "</div>" +
       '<div class="legende__ligne"><span class="legende__pastille" style="background:' +
@@ -756,6 +843,15 @@
   function demarrer() {
     var chargement = document.getElementById("chargement");
     chargement.textContent = t("chargement");
+
+    /* L'aperçu part en même temps que le reste mais ne bloque rien : la carte
+       s'affiche sans l'attendre, et il se pose dessus dès qu'il arrive. */
+    charger("data/metro/apercu.json")
+      .then(function (d) {
+        apercu = apercuGeoJSON(d);
+        if (carte && carte.getSource("apercu")) carte.getSource("apercu").setData(apercu);
+      })
+      .catch(function (e) { console.error("[StatsMaps] aperçu métro :", e); });
 
     Promise.all([charger("data/metro/monde.json"), charger("data/pays.json")])
       .then(function (r) {

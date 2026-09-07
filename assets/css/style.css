@@ -1343,3 +1343,13 @@ body.page-carte {
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
 }
+
+/* La ligne « chaque ligne dans sa couleur » de la légende du métro : un petit
+   arc-en-ciel plutôt qu'une couleur, puisqu'il n'y en a pas une seule. */
+.legende__trait--couleurs {
+  height: 2.5px;
+  border-top: 0;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #E4002B 0 25%, #FFCE00 25% 50%,
+                                     #007A53 50% 75%, #0057B8 75% 100%);
+}

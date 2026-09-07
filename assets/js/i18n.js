@@ -143,8 +143,9 @@ window.StatsMapsTextes = {
     metro_leg_ville: "Ville avec un métro",
     metro_leg_chantier: "Premier métro en construction",
     metro_leg_pointilles: "Ligne en construction",
-    metro_leg_zoom: "La taille de la pastille suit la longueur du réseau. Zoome pour voir les lignes elles-mêmes.",
-    metro_source: "Réseaux : Wikipédia · Tracés et couleurs : OpenStreetMap",
+    metro_leg_couleurs: "Chaque ligne dans sa couleur officielle",
+    metro_leg_zoom: "La taille de la pastille suit la longueur du réseau. Zoome pour voir les tracés au détail près, station par station.",
+    metro_source: "Tracés, couleurs, stations : OpenStreetMap · Noms, ouverture, fréquentation : Wikidata",
   },
 
   en: {
