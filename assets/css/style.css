@@ -309,7 +309,9 @@ h1, h2, h3 { line-height: 1.25; margin: 0 0 0.5em; letter-spacing: -0.015em; }
 .accueil__titre {
   font-size: clamp(30px, 5.5vw, 46px);
   font-weight: 800;
-  margin-bottom: 14px;
+  /* Plus de phrase d'introduction sous le titre : c'est lui qui laisse
+     l'espace avant les vignettes. */
+  margin-bottom: 32px;
 }
 
 .accueil__intro {
@@ -317,6 +319,23 @@ h1, h2, h3 { line-height: 1.25; margin: 0 0 0.5em; letter-spacing: -0.015em; }
   color: var(--texte-doux);
   max-width: 62ch;
   margin-bottom: 42px;
+}
+
+/* Un texte présent dans la page mais invisible à l'œil : Google et les
+   lecteurs d'écran le lisent, le visiteur ne le voit pas. C'est le cas du
+   grand titre de l'accueil, retiré de l'affichage le 20 novembre 2026.
+   (« display: none » ne conviendrait pas : il cacherait aussi le texte aux
+   lecteurs d'écran.) */
+.visuellement-cache {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .vignettes {

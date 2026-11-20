@@ -1290,8 +1290,8 @@
     dessinerFichePic();
   }
 
-  /* Le titre du panneau suit l'onglet : « PIB, prix courants » devient
-     « Pic — PIB, prix courants » dans l'onglet Pic. */
+  /* Le titre du panneau suit l'onglet : « PIB par habitant » devient
+     « Pic — PIB par habitant » dans l'onglet Pic. */
   function majTitrePanneau() {
     var titre = document.getElementById("titre-panneau");
     if (titre) titre.textContent = donnees.titre[langue] || donnees.titre.fr;

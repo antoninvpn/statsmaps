@@ -13,8 +13,13 @@ Aucune installation nécessaire (bibliothèque standard de Python uniquement).
 Le vocabulaire des titres et des unités est RECOPIÉ du FMI
 (https://www.imf.org/external/datamapper/profile/AUT), pour que le site dise
 exactement la même chose que sa source. C'est pourquoi le PIB nominal et le PIB
-en parité de pouvoir d'achat portent le MÊME titre — « PIB, prix courants » —
-et ne se distinguent que par leur unité. C'est la façon de faire du FMI.
+en parité de pouvoir d'achat portent le MÊME titre et ne se distinguent que par
+leur unité. C'est la façon de faire du FMI.
+
+Une exception : le FMI écrit « PIB, prix courants » et « PIB par habitant,
+prix courants ». Le site écrit « PIB » et « PIB par habitant » tout court
+(demande d'Antonin du 20 novembre 2026) : la précision n'apprenait rien au
+lecteur, l'unité dit déjà que ce sont des dollars de l'année.
 
 Les cartes « année record » ne sont plus fabriquées ici : le navigateur les
 calcule tout seul à partir des chiffres de la carte affichée (voir la fonction
@@ -93,19 +98,19 @@ INDICATEURS = [
         "pic": True,
         "decimales": 3,
         "titre": {
-            "fr": "PIB, prix courants",
-            "en": "GDP, current prices",
-            "uk": "ВВП, поточні ціни",
-            "de": "BIP, jeweilige Preise",
-            "es": "PIB, precios corrientes",
-            "it": "PIL, prezzi correnti",
-            "pt": "PIB, preços correntes",
-            "pl": "PKB, ceny bieżące",
-            "ja": "GDP、現行価格",
-            "ko": "GDP, 경상가격",
-            "tr": "GSYİH, cari fiyatlar",
-            "hi": "जीडीपी, वर्तमान मूल्य",
-            "ar": "الناتج المحلي الإجمالي، الأسعار الجارية",
+            "fr": "PIB",
+            "en": "GDP",
+            "uk": "ВВП",
+            "de": "BIP",
+            "es": "PIB",
+            "it": "PIL",
+            "pt": "PIB",
+            "pl": "PKB",
+            "ja": "GDP",
+            "ko": "GDP",
+            "tr": "GSYİH",
+            "hi": "जीडीपी",
+            "ar": "الناتج المحلي الإجمالي",
         },
         "unite": {
             "fr": "Md$", "en": "bn$", "uk": "млрд $", "de": "Mrd. $",
@@ -140,19 +145,19 @@ INDICATEURS = [
         # Même titre que le PIB nominal : c'est ainsi que le FMI les présente.
         # Seule l'unité les distingue.
         "titre": {
-            "fr": "PIB, prix courants",
-            "en": "GDP, current prices",
-            "uk": "ВВП, поточні ціни",
-            "de": "BIP, jeweilige Preise",
-            "es": "PIB, precios corrientes",
-            "it": "PIL, prezzi correnti",
-            "pt": "PIB, preços correntes",
-            "pl": "PKB, ceny bieżące",
-            "ja": "GDP、現行価格",
-            "ko": "GDP, 경상가격",
-            "tr": "GSYİH, cari fiyatlar",
-            "hi": "जीडीपी, वर्तमान मूल्य",
-            "ar": "الناتج المحلي الإجمالي، الأسعار الجارية",
+            "fr": "PIB",
+            "en": "GDP",
+            "uk": "ВВП",
+            "de": "BIP",
+            "es": "PIB",
+            "it": "PIL",
+            "pt": "PIB",
+            "pl": "PKB",
+            "ja": "GDP",
+            "ko": "GDP",
+            "tr": "GSYİH",
+            "hi": "जीडीपी",
+            "ar": "الناتج المحلي الإجمالي",
         },
         "unite": {
             "fr": "Md $ int.", "en": "bn int$", "uk": "млрд міжн. $",
@@ -186,19 +191,19 @@ INDICATEURS = [
         "pic": True,
         "decimales": 3,
         "titre": {
-            "fr": "PIB par habitant, prix courants",
-            "en": "GDP per capita, current prices",
-            "uk": "ВВП на душу населення, поточні ціни",
-            "de": "BIP pro Kopf, jeweilige Preise",
-            "es": "PIB per cápita, precios corrientes",
-            "it": "PIL pro capite, prezzi correnti",
-            "pt": "PIB per capita, preços correntes",
-            "pl": "PKB na mieszkańca, ceny bieżące",
-            "ja": "一人当たりGDP、現行価格",
-            "ko": "1인당 GDP, 경상가격",
-            "tr": "Kişi başına GSYİH, cari fiyatlar",
-            "hi": "प्रति व्यक्ति जीडीपी, वर्तमान मूल्य",
-            "ar": "نصيب الفرد من الناتج المحلي الإجمالي، الأسعار الجارية",
+            "fr": "PIB par habitant",
+            "en": "GDP per capita",
+            "uk": "ВВП на душу населення",
+            "de": "BIP pro Kopf",
+            "es": "PIB per cápita",
+            "it": "PIL pro capite",
+            "pt": "PIB per capita",
+            "pl": "PKB na mieszkańca",
+            "ja": "一人当たりGDP",
+            "ko": "1인당 GDP",
+            "tr": "Kişi başına GSYİH",
+            "hi": "प्रति व्यक्ति जीडीपी",
+            "ar": "نصيب الفرد من الناتج المحلي الإجمالي",
         },
         "unite": {
             "fr": "$/hab.", "en": "$/capita", "uk": "$/особу", "de": "$/Kopf",
@@ -231,19 +236,19 @@ INDICATEURS = [
         "pic": True,
         "decimales": 3,
         "titre": {
-            "fr": "PIB par habitant, prix courants",
-            "en": "GDP per capita, current prices",
-            "uk": "ВВП на душу населення, поточні ціни",
-            "de": "BIP pro Kopf, jeweilige Preise",
-            "es": "PIB per cápita, precios corrientes",
-            "it": "PIL pro capite, prezzi correnti",
-            "pt": "PIB per capita, preços correntes",
-            "pl": "PKB na mieszkańca, ceny bieżące",
-            "ja": "一人当たりGDP、現行価格",
-            "ko": "1인당 GDP, 경상가격",
-            "tr": "Kişi başına GSYİH, cari fiyatlar",
-            "hi": "प्रति व्यक्ति जीडीपी, वर्तमान मूल्य",
-            "ar": "نصيب الفرد من الناتج المحلي الإجمالي، الأسعار الجارية",
+            "fr": "PIB par habitant",
+            "en": "GDP per capita",
+            "uk": "ВВП на душу населення",
+            "de": "BIP pro Kopf",
+            "es": "PIB per cápita",
+            "it": "PIL pro capite",
+            "pt": "PIB per capita",
+            "pl": "PKB na mieszkańca",
+            "ja": "一人当たりGDP",
+            "ko": "1인당 GDP",
+            "tr": "Kişi başına GSYİH",
+            "hi": "प्रति व्यक्ति जीडीपी",
+            "ar": "نصيب الفرد من الناتج المحلي الإجمالي",
         },
         "unite": {
             "fr": "$ int./hab.", "en": "int$/capita", "uk": "міжн. $/особу",

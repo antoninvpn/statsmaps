@@ -683,8 +683,7 @@ MODELE_VIGNETTES = """<!DOCTYPE html>
 
 {entete}
   <main class="accueil">
-    <h1 class="accueil__titre">{h1}</h1>
-    <p class="accueil__intro">{intro}</p>
+{tete}
 
     <div class="vignettes">
 {vignettes}
@@ -949,11 +948,14 @@ def vignette(lien, pastille, titre, texte, liste="", bientot=""):
     if bientot:
         dedans = '        <div class="vignette__bientot">%s</div>\n' % echapper(bientot)
 
+    # Pas de phrase de description dans la vignette (demande d'Antonin du
+    # 20 novembre 2026) : le nom, et en dessous la liste des cartes, suffisent.
+    # La phrase (« texte ») sert encore ailleurs : elle ouvre la description
+    # que lit Google.
     corps = ('        <div class="vignette__pastille">%s</div>\n'
              '        <div class="vignette__titre">%s</div>\n'
-             '        <p class="vignette__texte">%s</p>\n'
              '%s'
-             % (pastille, echapper(titre), echapper(texte), dedans))
+             % (pastille, echapper(titre), dedans))
 
     if not lien:
         return '      <div class="vignette est-bientot">\n%s      </div>' % corps
@@ -1010,6 +1012,22 @@ def page_carte(langue, id_carte):
     )
 
 
+def nom_dans_la_liste(langue, id_carte):
+    """Le nom d'une carte dans la liste d'une vignette de l'accueil.
+
+    Une carte qui existe en plusieurs versions annonce ses versions entre
+    parenthèses : « PIB (Nominal/Parité de pouvoir d'achat) » plutôt que
+    « PIB » tout court (demande d'Antonin du 20 novembre 2026). On sait ainsi,
+    avant même de cliquer, qu'on trouvera les deux."""
+    nom = langue["cartes"][id_carte]["nav"]
+    famille = FAMILLE_DE[id_carte]
+    if famille and len(FAMILLES[famille]) > 1:
+        versions = "/".join(langue["variantes"][variante]
+                            for _, variante in FAMILLES[famille])
+        nom += " (%s)" % versions
+    return nom
+
+
 def page_accueil(langue):
     """L'accueil : les CATÉGORIES, et non les cartes. Chaque vignette annonce
     ce qu'elle contient, pour qu'on sache où l'on va avant de cliquer."""
@@ -1022,7 +1040,7 @@ def page_accueil(langue):
         if cartes:
             vignettes.append(vignette(
                 categorie["slug"] + "/", pastille, categorie["nom"], categorie["texte"],
-                liste=" · ".join(langue["cartes"][c]["nav"] for c in cartes)))
+                liste=" · ".join(nom_dans_la_liste(langue, c) for c in cartes)))
         else:
             # Rubrique annoncée, pas encore ouverte : ni lien, ni page.
             vignettes.append(vignette(
@@ -1038,8 +1056,12 @@ def page_accueil(langue):
         alternates=alternates(ACCUEIL),
         base=remonter(profondeur(langue)),
         entete=entete(langue),
-        h1=echapper(accueil["h1"]),
-        intro=echapper(accueil["intro"]),
+        # Sur l'accueil, ni grand titre ni phrase d'introduction (demande
+        # d'Antonin du 20 novembre 2026) : on arrive directement sur les
+        # rubriques. Le titre reste pourtant DANS la page, invisible à l'œil :
+        # Google et les lecteurs d'écran des personnes aveugles s'en servent
+        # pour savoir de quoi parle le site.
+        tete='    <h1 class="visuellement-cache">%s</h1>\n' % echapper(accueil["h1"]),
         vignettes="\n".join(vignettes),
         pied=echapper(accueil["pied"]),
     )
@@ -1067,8 +1089,10 @@ def page_categorie(langue, id_categorie):
         alternates=alternates(("categorie", id_categorie)),
         base=remonter(profondeur(langue, ("categorie", id_categorie))),
         entete=entete(langue, ("categorie", id_categorie)),
-        h1=echapper(categorie["h1"]),
-        intro=echapper(categorie["intro"]),
+        # Le titre de la rubrique, sans phrase d'introduction (demande
+        # d'Antonin du 20 novembre 2026). L'« intro » reste écrite dans chaque
+        # langue, au cas où on voudrait la remettre, mais n'est plus affichée.
+        tete='    <h1 class="accueil__titre">%s</h1>\n' % echapper(categorie["h1"]),
         vignettes="\n".join(vignettes),
         pied=echapper(langue["accueil"]["pied"]),
     )
