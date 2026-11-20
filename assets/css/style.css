@@ -321,23 +321,6 @@ h1, h2, h3 { line-height: 1.25; margin: 0 0 0.5em; letter-spacing: -0.015em; }
   margin-bottom: 42px;
 }
 
-/* Un texte présent dans la page mais invisible à l'œil : Google et les
-   lecteurs d'écran le lisent, le visiteur ne le voit pas. C'est le cas du
-   grand titre de l'accueil, retiré de l'affichage le 20 novembre 2026.
-   (« display: none » ne conviendrait pas : il cacherait aussi le texte aux
-   lecteurs d'écran.) */
-.visuellement-cache {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
-}
-
 .vignettes {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));

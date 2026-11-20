@@ -112,7 +112,7 @@ window.StatsMapsTextes = {
        classer les pays, puis la fiche d'une ville et la liste de ses lignes.
        Les cinq libellés des critères doivent rester TRÈS courts : ils
        partagent une seule rangée de 320 px. */
-    metro_titre: "Les métros du monde",
+    metro_titre: "Métros",
     metro_recherche: "Rechercher un pays, une ville…",
     metro_rien_trouve: "Aucun pays ni aucune ville trouvés.",
     metro_pays_avec_metro: "pays",
@@ -269,7 +269,7 @@ window.StatsMapsTextes = {
     fermer: "Close",
 
     /* La carte des métros */
-    metro_titre: "Metro systems of the world",
+    metro_titre: "Metros",
     metro_recherche: "Search a country, a city…",
     metro_rien_trouve: "No country or city found.",
     metro_pays_avec_metro: "countries",

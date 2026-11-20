@@ -328,7 +328,7 @@ LANGUES.append({
         # 2031, données du FMI ») ne lui vont. Elle écrit donc les siens.
         "metro": {
             "slug": "metro",
-            "nom": "Métros du monde",
+            "nom": "Métros",
             "nav": "Métro", "nav_court": "Métro",
             "texte": "Toutes les villes du monde qui ont un métro, ligne par ligne et dans leurs vraies couleurs.",
             "titre": "Les métros du monde — carte interactive de toutes les lignes | StatsMaps",
@@ -440,7 +440,7 @@ LANGUES.append({
         },
         "metro": {
             "slug": "metro",
-            "nom": "Metro systems of the world",
+            "nom": "Metros",
             "nav": "Metro", "nav_court": "Metro",
             "texte": "Every city in the world with a metro, line by line and in its real colours.",
             "titre": "Metro systems of the world — interactive map of every line | StatsMaps",
@@ -1058,10 +1058,9 @@ def page_accueil(langue):
         entete=entete(langue),
         # Sur l'accueil, ni grand titre ni phrase d'introduction (demande
         # d'Antonin du 20 novembre 2026) : on arrive directement sur les
-        # rubriques. Le titre reste pourtant DANS la page, invisible à l'œil :
-        # Google et les lecteurs d'écran des personnes aveugles s'en servent
-        # pour savoir de quoi parle le site.
-        tete='    <h1 class="visuellement-cache">%s</h1>\n' % echapper(accueil["h1"]),
+        # rubriques. Le « h1 » reste écrit dans le bloc de chaque langue, au
+        # cas où on voudrait le remettre, mais n'est plus mis dans la page.
+        tete="",
         vignettes="\n".join(vignettes),
         pied=echapper(accueil["pied"]),
     )
@@ -1089,10 +1088,11 @@ def page_categorie(langue, id_categorie):
         alternates=alternates(("categorie", id_categorie)),
         base=remonter(profondeur(langue, ("categorie", id_categorie))),
         entete=entete(langue, ("categorie", id_categorie)),
-        # Le titre de la rubrique, sans phrase d'introduction (demande
-        # d'Antonin du 20 novembre 2026). L'« intro » reste écrite dans chaque
-        # langue, au cas où on voudrait la remettre, mais n'est plus affichée.
-        tete='    <h1 class="accueil__titre">%s</h1>\n' % echapper(categorie["h1"]),
+        # Le titre de la rubrique est son simple nom (« Économie »), sans
+        # phrase d'introduction (demande d'Antonin du 20 novembre 2026). Le
+        # « h1 » long (« L'économie mondiale, en cartes. ») et l'« intro »
+        # restent écrits dans chaque langue, mais ne sont plus affichés.
+        tete='    <h1 class="accueil__titre">%s</h1>\n' % echapper(categorie["nom"]),
         vignettes="\n".join(vignettes),
         pied=echapper(langue["accueil"]["pied"]),
     )
