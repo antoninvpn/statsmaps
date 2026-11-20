@@ -176,7 +176,7 @@ window.StatsMapsTextes = {
     bourse_leg_exact: "Siège à l’adresse exacte",
     bourse_leg_ville: "Siège connu à la ville près (placé au centre-ville)",
     bourse_leg_zoom: "Zoome pour voir les logos. Clique sur un point pour ouvrir la fiche de l’entreprise.",
-    bourse_source: "Entreprises, sièges, secteurs, chiffres : Wikidata · Logos : Wikimedia Commons",
+    bourse_source: "Entreprises, sièges, secteurs, chiffres : Wikidata · Logos : Wikimedia Commons · Rues : OpenStreetMap, via OpenFreeMap",
     bourse_milliards: "{n} Md",
     bourse_millions: "{n} M",
 

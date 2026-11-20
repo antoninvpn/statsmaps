@@ -34,6 +34,14 @@
      claire (la crête), l'autre un peu plus foncée (le creux). Voir § 5. */
   --houle-crete: rgba(255, 255, 255, 0.75);
   --houle-creux: rgba(120, 150, 182, 0.20);
+  /* Le fond de rues de la carte des entreprises, visible quand on zoome sur
+     une ville : la terre, les rues (avec leur bordure), les bâtiments, l'eau. */
+  --rue-terre: #f1f3f5;
+  --rue: #ffffff;
+  --rue-bordure: #d3d9e0;
+  --rue-batiment: #e2e6eb;
+  --rue-eau: #cadcec;
+  --rue-nom: #5b636d;
 }
 
 /* Thème sombre : soit choisi par le bouton, soit réglé sur le téléphone. */
@@ -55,6 +63,12 @@
   --ombre: 0 1px 3px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.4);
   --houle-crete: rgba(88, 140, 196, 0.13);
   --houle-creux: rgba(0, 0, 0, 0.30);
+  --rue-terre: #151a20;
+  --rue: #2c333d;
+  --rue-bordure: #0e1116;
+  --rue-batiment: #1d232b;
+  --rue-eau: #0a1520;
+  --rue-nom: #9aa5b1;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -76,6 +90,12 @@
     --ombre: 0 1px 3px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.4);
     --houle-crete: rgba(88, 140, 196, 0.13);
     --houle-creux: rgba(0, 0, 0, 0.30);
+    --rue-terre: #151a20;
+    --rue: #2c333d;
+    --rue-bordure: #0e1116;
+    --rue-batiment: #1d232b;
+    --rue-eau: #0a1520;
+    --rue-nom: #9aa5b1;
   }
 }
 

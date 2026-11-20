@@ -56,6 +56,21 @@
   var ZOOM_EXACT = 14;
   var ZOOM_VILLE = 11;
 
+  /* LE FOND DE RUES. C'est la seule carte du site qui va chercher quelque
+     chose ailleurs pendant qu'on la regarde : les rues, les bâtiments et
+     l'eau, chez OpenFreeMap — un service gratuit, sans compte ni publicité,
+     qui redistribue les données d'OpenStreetMap. Il n'est appelé que quand on
+     zoome sur une ville (à partir du zoom 10) : la vue du monde, elle, reste
+     entièrement servie par le site. Si OpenFreeMap ne répond pas, la carte
+     marche quand même, simplement sans les rues.
+     Sans ce fond, un point « à l'adresse exacte » flotte sur du gris uni, et
+     on ne voit pas dans quelle rue il est. */
+  var RUES = "https://tiles.openfreemap.org/planet";
+  var POLICES = "https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf";
+  var ZOOM_RUES = 10;
+  /* Les noms des rues n'apparaissent qu'à l'échelle du quartier. */
+  var ZOOM_NOMS = 14;
+
   /* Combien de places boursières on montre avant le bouton « Voir les autres » :
      il y en a deux cents, dont la moitié n'ont qu'une ou deux entreprises. */
   var BOURSES_VISIBLES = 15;
@@ -191,13 +206,118 @@
     return {
       version: 8,
       name: "StatsMaps",
+      /* Les lettres des noms de rues. Rien n'est téléchargé tant qu'aucun nom
+         n'est à afficher, c'est-à-dire avant le zoom 14. */
+      glyphs: POLICES,
       sources: {},
       layers: [{
         id: "mer",
         type: "background",
-        paint: { "background-color": couleurCSS("--fond-carte") },
+        paint: { "background-color": couleurDuFond() },
       }],
     };
+  }
+
+  /* Le fond change de rôle avec le zoom. De loin, c'est la MER, et les pays
+     sont dessinés par-dessus. De près, c'est la TERRE, et c'est l'eau du fond
+     de rues qui est dessinée par-dessus : les contours des pays du site sont
+     simplifiés pour le monde entier, et à l'échelle d'une rue ils mettraient
+     la moitié de Hong Kong dans la mer. */
+  function couleurDuFond() {
+    return ["interpolate", ["linear"], ["zoom"],
+      ZOOM_RUES - 1, couleurCSS("--fond-carte"),
+      ZOOM_RUES, couleurCSS("--rue-terre")];
+  }
+
+  /* Le fond de rues apparaît en fondu entre les zooms 9 et 10, pendant que
+     les pays du site s'effacent : l'œil ne voit aucune coupure. */
+  function apparitionDesRues() {
+    return ["interpolate", ["linear"], ["zoom"], ZOOM_RUES - 1, 0, ZOOM_RUES, 1];
+  }
+
+  /* L'épaisseur d'une rue selon son importance : une autoroute est plus
+     large qu'une ruelle, et toutes s'élargissent quand on s'approche. */
+  function largeurDesRues(bordure) {
+    var plus = bordure ? 1.6 : 0;
+    function selon(grandes, moyennes, petites) {
+      return ["+", plus, ["match", ["get", "class"],
+        ["motorway", "trunk"], grandes,
+        ["primary", "secondary"], moyennes,
+        petites]];
+    }
+    return ["interpolate", ["exponential", 1.6], ["zoom"],
+      ZOOM_RUES, selon(1.4, 0.8, 0.2),
+      14, selon(5, 3.5, 1.8),
+      18, selon(18, 14, 9)];
+  }
+
+  function ajouterLesRues() {
+    carte.addSource("rues", { type: "vector", url: RUES });
+    var classes = ["motorway", "trunk", "primary", "secondary", "tertiary",
+                   "minor", "service"];
+    var filtreRues = ["match", ["get", "class"], classes, true, false];
+
+    carte.addLayer({
+      id: "rues-eau", type: "fill", source: "rues", "source-layer": "water",
+      minzoom: ZOOM_RUES - 1,
+      paint: { "fill-color": couleurCSS("--rue-eau"), "fill-opacity": apparitionDesRues() },
+    });
+    carte.addLayer({
+      id: "rues-batiments", type: "fill", source: "rues", "source-layer": "building",
+      minzoom: 13,
+      paint: {
+        "fill-color": couleurCSS("--rue-batiment"),
+        "fill-opacity": ["interpolate", ["linear"], ["zoom"], 13, 0, 14, 1],
+      },
+    });
+    carte.addLayer({
+      id: "rues-bordures", type: "line", source: "rues", "source-layer": "transportation",
+      minzoom: ZOOM_RUES - 1, filter: filtreRues,
+      layout: { "line-cap": "round", "line-join": "round" },
+      paint: {
+        "line-color": couleurCSS("--rue-bordure"),
+        "line-width": largeurDesRues(true),
+        "line-opacity": apparitionDesRues(),
+      },
+    });
+    carte.addLayer({
+      id: "rues-traits", type: "line", source: "rues", "source-layer": "transportation",
+      minzoom: ZOOM_RUES - 1, filter: filtreRues,
+      layout: { "line-cap": "round", "line-join": "round" },
+      paint: {
+        "line-color": couleurCSS("--rue"),
+        "line-width": largeurDesRues(false),
+        "line-opacity": apparitionDesRues(),
+      },
+    });
+    /* Le nom des rues, dans la langue du pays : c'est celui qu'on lit sur la
+       plaque, et celui qu'on retrouve dans l'adresse de la fiche. */
+    carte.addLayer({
+      id: "rues-noms", type: "symbol", source: "rues", "source-layer": "transportation_name",
+      minzoom: ZOOM_NOMS,
+      layout: {
+        "symbol-placement": "line",
+        "text-field": ["get", "name"],
+        "text-font": ["Noto Sans Regular"],
+        "text-size": ["interpolate", ["linear"], ["zoom"], ZOOM_NOMS, 10.5, 18, 13],
+        "text-max-angle": 30,
+      },
+      paint: {
+        "text-color": couleurCSS("--rue-nom"),
+        "text-halo-color": couleurCSS("--rue"),
+        "text-halo-width": 1.4,
+      },
+    });
+  }
+
+  function repeindreLesRues() {
+    if (!carte.getLayer("rues-eau")) return;
+    carte.setPaintProperty("rues-eau", "fill-color", couleurCSS("--rue-eau"));
+    carte.setPaintProperty("rues-batiments", "fill-color", couleurCSS("--rue-batiment"));
+    carte.setPaintProperty("rues-bordures", "line-color", couleurCSS("--rue-bordure"));
+    carte.setPaintProperty("rues-traits", "line-color", couleurCSS("--rue"));
+    carte.setPaintProperty("rues-noms", "text-color", couleurCSS("--rue-nom"));
+    carte.setPaintProperty("rues-noms", "text-halo-color", couleurCSS("--rue"));
   }
 
   function construireCarte(geoPays) {
@@ -219,6 +339,9 @@
       compact: true,
       customAttribution:
         '<a href="https://www.naturalearthdata.com/">Natural Earth</a> · ' +
+        '<a href="https://openfreemap.org/">OpenFreeMap</a> · ' +
+        '<a href="https://www.openmaptiles.org/">© OpenMapTiles</a> · ' +
+        '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap</a> · ' +
         '<a href="https://www.wikidata.org/">Wikidata</a> · ' +
         '<a href="https://commons.wikimedia.org/">Wikimedia Commons</a>',
     }), "bottom-right");
@@ -233,14 +356,26 @@
       carte.addSource("pays", { type: "geojson", data: geoPays });
       carte.addSource("entreprises", { type: "geojson", data: entreprisesGeoJSON() });
 
+      /* Les pays du site s'effacent quand le fond de rues prend le relais. */
       carte.addLayer({
         id: "pays-fond", type: "fill", source: "pays",
-        paint: { "fill-color": couleurCSS("--pays-sans-donnee"), "fill-opacity": 0.55 },
+        paint: {
+          "fill-color": couleurCSS("--pays-sans-donnee"),
+          "fill-opacity": ["interpolate", ["linear"], ["zoom"],
+            ZOOM_RUES - 1, 0.55, ZOOM_RUES, 0],
+        },
       });
       carte.addLayer({
         id: "pays-contour", type: "line", source: "pays",
-        paint: { "line-color": couleurCSS("--contour-pays"), "line-width": 0.4 },
+        paint: {
+          "line-color": couleurCSS("--contour-pays"),
+          "line-width": 0.4,
+          "line-opacity": ["interpolate", ["linear"], ["zoom"],
+            ZOOM_RUES - 1, 1, ZOOM_RUES, 0],
+        },
       });
+
+      ajouterLesRues();
 
       /* Les pastilles : toujours là, à tous les zooms. De près, elles restent
          sous les logos et ne se voient que là où un logo n'a pas trouvé de
@@ -773,9 +908,10 @@
   /* Le thème clair/sombre repeint la carte sans la reconstruire. */
   window.addEventListener("statsmaps:theme", function () {
     if (!carte || !carte.isStyleLoaded()) return;
-    carte.setPaintProperty("mer", "background-color", couleurCSS("--fond-carte"));
+    carte.setPaintProperty("mer", "background-color", couleurDuFond());
     carte.setPaintProperty("pays-fond", "fill-color", couleurCSS("--pays-sans-donnee"));
     carte.setPaintProperty("pays-contour", "line-color", couleurCSS("--contour-pays"));
+    repeindreLesRues();
     carte.setPaintProperty("points", "circle-stroke-color", couleurCSS("--panneau"));
     carte.setPaintProperty("choisie", "circle-stroke-color", couleurCSS("--texte"));
     dessinerLegende();
