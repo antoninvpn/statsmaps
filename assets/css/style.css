@@ -1353,3 +1353,137 @@ body.page-carte {
   background: linear-gradient(90deg, #E4002B 0 25%, #FFCE00 25% 50%,
                                      #007A53 50% 75%, #0057B8 75% 100%);
 }
+
+/* ==========================================================================
+   LA CARTE DES ENTREPRISES COTÉES
+
+   Elle réemploie le panneau, la fiche et la légende de la carte des métros.
+   Ne sont écrits ici que ses éléments propres : les cases à cocher des
+   filtres, les lignes d'entreprise avec leur pastille bleue ou jaune, et la
+   fiche d'une entreprise avec son logo.
+   ========================================================================== */
+
+/* L'en-tête d'un groupe de cases : « Secteurs   Tout · Rien ». */
+.classement .filtres__entete {
+  padding: 12px 15px 7px 11px;
+  background: var(--fond-doux);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--texte-doux);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  cursor: default;
+}
+.classement .filtres__entete:hover { background: var(--fond-doux); }
+.filtres__entete span { flex: 1; }
+.filtres__entete button,
+.filtres__plus button {
+  padding: 2px 8px;
+  border: 1px solid var(--bordure);
+  border-radius: 20px;
+  background: var(--panneau);
+  color: var(--texte-doux);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+.filtres__entete button:hover,
+.filtres__plus button:hover { color: var(--texte); border-color: var(--bordure-forte); }
+
+/* Une case à cocher : toute la ligne est cliquable, grâce au <label>. */
+.classement .filtre { padding-top: 5px; padding-bottom: 5px; }
+.filtre input {
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.classement .filtre label.nom { cursor: pointer; }
+.classement .filtre .valeur { color: var(--texte-tres-doux); font-size: 11.5px; }
+
+.classement .filtres__plus { justify-content: center; cursor: default; }
+.classement .filtres__plus:hover { background: none; }
+
+/* La pastille bleue ou jaune, la même que sur la carte. */
+.entreprise__point {
+  flex: 0 0 auto;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1.5px var(--panneau);
+}
+.classement .entreprise .valeur {
+  max-width: 40%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--texte-tres-doux);
+  font-size: 11.5px;
+}
+
+/* --- La fiche d'une entreprise -------------------------------------------- */
+
+/* Le logo sur un fond BLANC, même en thème sombre : les logos sont dessinés
+   pour un fond clair, et un logo noir disparaîtrait sur fond sombre. */
+.fiche-entreprise__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 84px;
+  margin-bottom: 12px;
+  padding: 10px;
+  border: 1px solid var(--bordure);
+  border-radius: 10px;
+  background: #ffffff;
+}
+.fiche-entreprise__logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.fiche-entreprise__logo span {
+  font-size: 30px;
+  font-weight: 700;
+  color: #3b4350;
+}
+
+.fiche-entreprise__precision {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--texte-doux);
+}
+.fiche-entreprise .fiche__chiffres { margin-top: 10px; }
+.fiche-entreprise .fiche__chiffre b { font-size: 15px; }
+
+.fiche-entreprise__ligne {
+  margin: 8px 0 0;
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+.fiche-entreprise__ligne b {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--texte-tres-doux);
+}
+.fiche-entreprise__symboles {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11.5px;
+  color: var(--texte-doux);
+}
+.fiche-entreprise__liens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 12px 0 0;
+  font-size: 12.5px;
+  font-weight: 600;
+}

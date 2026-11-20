@@ -87,6 +87,7 @@ CARTES = [
     ("inflation",               "🔥", None,               None,      True),
     ("population",              "👥", None,               None,      True),
     ("metro",                   "🚇", None,               None,      True),
+    ("entreprises",             "🏢", None,               None,      True),
 ]
 
 # Une carte peut n'exister QUE DANS CERTAINES LANGUES, le temps d'être
@@ -102,6 +103,7 @@ CARTES = [
 # les sept premières, dans les treize langues.
 LANGUES_DE = {
     "metro": ["fr"],
+    "entreprises": ["fr"],
 }
 
 # Les cartes qui ne colorient pas des pays et ont donc leur propre moteur.
@@ -109,6 +111,15 @@ LANGUES_DE = {
 # années, ni classement de pays coloriés, ni comparateur.
 MOTEURS = {
     "metro": "metro.js",
+    "entreprises": "bourse.js",
+}
+
+# Le gros fichier que chacune de ces cartes lit au démarrage. On le signale au
+# navigateur dès la première ligne de la page (« preload ») pour qu'il commence
+# à le télécharger sans attendre d'avoir lu tout le reste.
+PRECHARGES = {
+    "metro": "data/metro/monde.json",
+    "entreprises": "data/bourse/entreprises.json",
 }
 
 # ----------------------------------------------------------- LES CATÉGORIES
@@ -121,7 +132,8 @@ MOTEURS = {
 # mais n'a ni page, ni entrée de menu, ni ligne dans le sitemap. Le jour où on
 # lui ajoute une carte, tout cela apparaît tout seul.
 CATEGORIES = [
-    ("economie", "💶", ["pib-nominal", "pib-par-habitant", "croissance", "inflation"]),
+    ("economie", "💶", ["pib-nominal", "pib-par-habitant", "croissance", "inflation",
+                        "entreprises"]),
     ("demographie", "👥", ["population"]),
     ("infrastructure", "🏗️", ["metro"]),
     ("armee", "🛡️", []),
@@ -241,7 +253,7 @@ LANGUES.append({
             "nom": "Économie",
             "texte": "Le PIB, la richesse par habitant, la croissance et l’inflation.",
             "h1": "L’économie mondiale, en cartes.",
-            "intro": "Quatre cartes tirées du World Economic Outlook du Fonds monétaire international : 197 pays, de 1980 à 2031, projections comprises.",
+            "intro": "Quatre cartes tirées du World Economic Outlook du Fonds monétaire international — 197 pays, de 1980 à 2031, projections comprises — et la carte des entreprises cotées en bourse, chacune à l’adresse de son siège.",
         },
         "demographie": {
             "slug": "demographie",
@@ -315,6 +327,16 @@ LANGUES.append({
             "texte": "Toutes les villes du monde qui ont un métro, ligne par ligne et dans leurs vraies couleurs.",
             "titre": "Les métros du monde — carte interactive de toutes les lignes | StatsMaps",
             "description": "La carte de tous les métros du monde : 200 villes, chaque ligne dans sa couleur officielle, et les tronçons en construction. Classement des pays par nombre de réseaux, kilomètres, stations et lignes.",
+        },
+        # Comme les métros, les entreprises sont des POINTS et non des pays
+        # coloriés : elles ont leur propre titre et leur propre description.
+        "entreprises": {
+            "slug": "entreprises-cotees",
+            "nom": "Entreprises cotées en bourse",
+            "nav": "Entreprises", "nav_court": "Entreprises",
+            "texte": "Chaque entreprise cotée en bourse, à l’adresse de son siège, avec son logo.",
+            "titre": "Les entreprises cotées en bourse — carte mondiale de leurs sièges | StatsMaps",
+            "description": "La carte de plus de 10 000 entreprises cotées en bourse dans le monde, chacune à l’adresse de son siège social, avec son logo. Filtre par secteur (banque, médias, intelligence artificielle…) et par place boursière (New York, Paris, Tokyo…).",
         },
     },
 })
@@ -1503,7 +1525,7 @@ MODELE_METRO = """<!DOCTYPE html>
   <meta property="og:description" content="{description}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{url}">
-  <link rel="preload" href="{base}data/metro/monde.json" as="fetch" crossorigin>
+  <link rel="preload" href="{base}{precharge}" as="fetch" crossorigin>
   <link rel="preload" href="{base}data/pays.json" as="fetch" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/{maplibre}/maplibre-gl.css">
   <link rel="stylesheet" href="{base}assets/css/style.css">
@@ -1537,7 +1559,7 @@ MODELE_METRO = """<!DOCTYPE html>
   <script src="{base}assets/js/i18n.js"></script>
   <script src="{base}assets/js/barre.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/{maplibre}/maplibre-gl.js"></script>
-  <script src="{base}assets/js/metro.js"></script>
+  <script src="{base}assets/js/{moteur}"></script>
 </body>
 </html>
 """
@@ -1880,6 +1902,8 @@ def page_carte(langue, id_carte):
             code=langue["code"],
             entete=entete(langue, ("carte", id_carte)),
             h1=echapper(carte["nom"]),
+            moteur=MOTEURS[id_carte],
+            precharge=PRECHARGES[id_carte],
         )
 
     return MODELE_CARTE.format(

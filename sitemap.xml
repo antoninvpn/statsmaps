@@ -2353,4 +2353,10 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/metro/"/>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://statsmaps.com/entreprises-cotees/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/entreprises-cotees/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/entreprises-cotees/"/>
+    <priority>0.8</priority>
+  </url>
 </urlset>

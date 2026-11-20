@@ -7,3 +7,7 @@
 # Ce que build_metro.py a téléchargé chez OpenStreetMap et Wikidata.
 # C'est gros, ça se retélécharge tout seul, et ce n'est pas le site.
 scripts/.cache-metro/
+
+# Ce que build_bourse.py a téléchargé chez Wikidata (pas les logos, qui
+# eux font partie du site et sont dans data/bourse/logos/).
+scripts/.cache-bourse/
