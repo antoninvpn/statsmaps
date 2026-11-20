@@ -399,24 +399,35 @@ def choisir_siege(candidats, immeubles_connus):
 
 # --- Étape 3 : les noms ---------------------------------------------------
 
-# Le nom de l'entreprise en français s'il existe, sinon en anglais, sinon le
-# nom « multilingue » de Wikidata, sinon dans la première langue trouvée.
+# Chaque nom est gardé DEUX fois, pour les deux langues du site :
+#   pour la page française ... le nom français s'il existe, sinon l'anglais,
+#                              sinon le nom « multilingue » de Wikidata, sinon
+#                              la première langue trouvée ;
+#   pour la page anglaise .... le même ordre, mais l'anglais d'abord.
+# Le nom anglais n'est écrit dans le fichier (clef « ne », « ve ») que s'il
+# diffère du français : « Apple » n'a pas besoin d'être écrit deux fois.
 ORDRE_DES_LANGUES = ["fr", "en", "mul", "de", "es", "it", "pt", "nl", "sv",
                      "pl", "ru", "ja", "zh", "ko", "tr", "ar", "id", "he"]
 
 
 def noms(requete, nom_cache):
+    """Renvoie deux tableaux : les noms pour la page française, et ceux pour
+    la page anglaise."""
     lignes = sparql(requete, nom_cache)
-    meilleurs = {}
-    for l in lignes:
-        q = qid(val(l, "e"))
-        lg = val(l, "lg")
-        if not q or lg not in ORDRE_DES_LANGUES:
-            continue
-        rang = ORDRE_DES_LANGUES.index(lg)
-        if q not in meilleurs or rang < meilleurs[q][0]:
-            meilleurs[q] = (rang, val(l, "l"))
-    return {q: v[1] for q, v in meilleurs.items()}
+    ordre_en = ["en"] + [lg for lg in ORDRE_DES_LANGUES if lg != "en"]
+    resultats = []
+    for ordre in (ORDRE_DES_LANGUES, ordre_en):
+        meilleurs = {}
+        for l in lignes:
+            q = qid(val(l, "e"))
+            lg = val(l, "lg")
+            if not q or lg not in ordre:
+                continue
+            rang = ordre.index(lg)
+            if q not in meilleurs or rang < meilleurs[q][0]:
+                meilleurs[q] = (rang, val(l, "l"))
+        resultats.append({q: v[1] for q, v in meilleurs.items()})
+    return resultats
 
 
 LANGUES_SPARQL = ", ".join('"%s"' % lg for lg in ORDRE_DES_LANGUES)
@@ -666,8 +677,8 @@ def main():
     dit(f"  {len(candidats)} avec un siège · {len(batis)} sièges qui sont des immeubles")
 
     dit("→ Wikidata : les noms")
-    noms_e = noms_des_entreprises()
-    noms_l = noms_des_lieux()
+    noms_e, noms_e_en = noms_des_entreprises()
+    noms_l, noms_l_en = noms_des_lieux()
 
     dit("→ Wikidata : logos, sites, notoriété")
     logos, sites = logos_et_sites()
@@ -724,6 +735,12 @@ def main():
             "i": pays_du_point(position[0], position[1], pays),
             "r": renom.get(e, 0),
         }
+        # Les noms anglais, seulement quand ils diffèrent du français.
+        if noms_e_en.get(e) and noms_e_en[e] != ligne["n"]:
+            ligne["ne"] = noms_e_en[e]
+        ville_en = noms_l_en.get(siege["lieu"]) if siege else None
+        if ville_en and ville_en != ligne["v"]:
+            ligne["ve"] = ville_en
         symboles = sorted({s for liste in bourses.values() for s in liste})
         if symboles:
             ligne["t"] = symboles[:4]
@@ -753,11 +770,16 @@ def main():
         for b in x["b"]:
             compte[b] = compte.get(b, 0) + 1
     ordre = sorted(compte, key=lambda b: -compte[b])
-    noms_b = noms_des_bourses(ordre)
+    noms_b, noms_b_en = noms_des_bourses(ordre)
     numero = {b: n for n, b in enumerate(ordre)}
     for x in entreprises:
         x["b"] = sorted(numero[b] for b in x["b"])
-    bourses = [{"q": b, "n": noms_b.get(b, b), "c": compte[b]} for b in ordre]
+    bourses = []
+    for b in ordre:
+        bourse = {"q": b, "n": noms_b.get(b, b), "c": compte[b]}
+        if noms_b_en.get(b) and noms_b_en[b] != bourse["n"]:
+            bourse["ne"] = noms_b_en[b]
+        bourses.append(bourse)
 
     familles = {}
     for x in entreprises:

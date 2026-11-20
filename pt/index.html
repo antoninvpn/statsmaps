@@ -1,102 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>StatsMaps — mapas e estatísticas mundiais</title>
-  <meta name="description" content="Mapas interativos das estatísticas mundiais: PIB, PIB per capita, crescimento, inflação e população de 197 países, de 1980 a 2031, com dados oficiais do FMI.">
-  <meta name="theme-color" content="#ffffff">
-  <link rel="canonical" href="https://statsmaps.com/pt/">
-  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/">
-  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/">
-  <link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/">
-  <link rel="alternate" hreflang="de" href="https://statsmaps.com/de/">
-  <link rel="alternate" hreflang="es" href="https://statsmaps.com/es/">
-  <link rel="alternate" hreflang="it" href="https://statsmaps.com/it/">
-  <link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/">
-  <link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/">
-  <link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/">
-  <link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/">
-  <link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/">
-  <link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/">
-  <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/">
-  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/">
-  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="StatsMaps — mapas e estatísticas mundiais">
-  <meta property="og:description" content="Mapas interativos das estatísticas mundiais: PIB, PIB per capita, crescimento, inflação e população de 197 países, de 1980 a 2031, com dados oficiais do FMI.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://statsmaps.com/pt/">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <script src="../assets/js/theme.js"></script>
+  <title>StatsMaps</title>
+  <link rel="canonical" href="https://statsmaps.com/en/">
+  <meta http-equiv="refresh" content="0; url=/en/">
+  <script>location.replace("/en/");</script>
 </head>
 <body>
-
-  <header class="barre">
-    <a class="barre__logo" href="./">Stats<span>Maps</span></a>
-    <nav class="barre__nav" aria-label="Mapas">
-        <a class="barre__lien" href="economia/"><span class="long">Economia</span><span class="court">Economia</span></a>
-        <a class="barre__lien" href="demografia/"><span class="long">Demografia</span><span class="court">Demografia</span></a>
-    </nav>
-    <div class="barre__droite">
-      <details class="langues">
-        <summary class="bouton-icone" title="Idioma" aria-label="Idioma">🇵🇹</summary>
-        <div class="langues__menu">
-          <a href="/" hreflang="fr" lang="fr"><span class="drapeau" aria-hidden="true">🇫🇷</span>Français</a>
-          <a href="/en/" hreflang="en" lang="en"><span class="drapeau" aria-hidden="true">🇬🇧</span>English</a>
-          <a href="/ua/" hreflang="uk" lang="uk"><span class="drapeau" aria-hidden="true">🇺🇦</span>Українська</a>
-          <a href="/de/" hreflang="de" lang="de"><span class="drapeau" aria-hidden="true">🇩🇪</span>Deutsch</a>
-          <a href="/es/" hreflang="es" lang="es"><span class="drapeau" aria-hidden="true">🇪🇸</span>Español</a>
-          <a href="/it/" hreflang="it" lang="it"><span class="drapeau" aria-hidden="true">🇮🇹</span>Italiano</a>
-          <a href="/pt/" hreflang="pt" lang="pt" aria-current="true"><span class="drapeau" aria-hidden="true">🇵🇹</span>Português</a>
-          <a href="/pl/" hreflang="pl" lang="pl"><span class="drapeau" aria-hidden="true">🇵🇱</span>Polski</a>
-          <a href="/ja/" hreflang="ja" lang="ja"><span class="drapeau" aria-hidden="true">🇯🇵</span>日本語</a>
-          <a href="/ko/" hreflang="ko" lang="ko"><span class="drapeau" aria-hidden="true">🇰🇷</span>한국어</a>
-          <a href="/tr/" hreflang="tr" lang="tr"><span class="drapeau" aria-hidden="true">🇹🇷</span>Türkçe</a>
-          <a href="/hi/" hreflang="hi" lang="hi"><span class="drapeau" aria-hidden="true">🇮🇳</span>हिन्दी</a>
-          <a href="/ar/" hreflang="ar" lang="ar"><span class="drapeau" aria-hidden="true">🇸🇦</span>العربية</a>
-        </div>
-      </details>
-      <button class="bouton-icone" id="bouton-theme" type="button"
-              aria-label="Mudar de tema"
-              data-vers-clair="Mudar para o tema claro"
-              data-vers-sombre="Mudar para o tema escuro">☾</button>
-    </div>
-  </header>
-
-  <main class="accueil">
-    <h1 class="accueil__titre">As estatísticas do mundo, em mapas.</h1>
-    <p class="accueil__intro">O StatsMaps transforma os grandes indicadores mundiais em mapas interativos, a partir de fontes oficiais. Escolhe uma categoria para ver os seus mapas: hoje a economia e a demografia, com dados do Fundo Monetário Internacional — 197 países, de 1980 a 2031.</p>
-
-    <div class="vignettes">
-      <a class="vignette" href="economia/">
-        <div class="vignette__pastille">💶</div>
-        <div class="vignette__titre">Economia</div>
-        <p class="vignette__texte">O PIB, a riqueza por habitante, o crescimento e a inflação.</p>
-        <div class="vignette__liste">PIB · PIB per capita · Crescimento · Inflação</div>
-      </a>
-      <a class="vignette" href="demografia/">
-        <div class="vignette__pastille">👥</div>
-        <div class="vignette__titre">Demografia</div>
-        <p class="vignette__texte">Quantas pessoas vivem em cada país, ano a ano.</p>
-        <div class="vignette__liste">População</div>
-      </a>
-      <div class="vignette est-bientot">
-        <div class="vignette__pastille">🏗️</div>
-        <div class="vignette__titre">Infraestrutura</div>
-        <p class="vignette__texte">Estradas, portos, eletricidade e redes.</p>
-        <div class="vignette__bientot">Em breve</div>
-      </div>
-      <div class="vignette est-bientot">
-        <div class="vignette__pastille">🛡️</div>
-        <div class="vignette__titre">Exército</div>
-        <p class="vignette__texte">Efetivos, orçamentos e material militar.</p>
-        <div class="vignette__bientot">Em breve</div>
-      </div>
-    </div>
-  </main>
-
-  <footer class="pied">Dados: FMI (World Economic Outlook) · Mapa base: Natural Earth · Sem publicidade nem rastreadores.</footer>
-
-  <script src="../assets/js/barre.js"></script>
+  <a href="/en/">StatsMaps</a>
 </body>
 </html>

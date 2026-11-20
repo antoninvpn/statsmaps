@@ -338,10 +338,10 @@
     carte.addControl(new maplibregl.AttributionControl({
       compact: true,
       customAttribution:
+        /* OpenFreeMap, OpenMapTiles et OpenStreetMap n'ont pas à être écrits
+           ici : le fond de rues apporte lui-même sa mention, et MapLibre
+           l'ajoute tout seul à cette ligne. */
         '<a href="https://www.naturalearthdata.com/">Natural Earth</a> · ' +
-        '<a href="https://openfreemap.org/">OpenFreeMap</a> · ' +
-        '<a href="https://www.openmaptiles.org/">© OpenMapTiles</a> · ' +
-        '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap</a> · ' +
         '<a href="https://www.wikidata.org/">Wikidata</a> · ' +
         '<a href="https://commons.wikimedia.org/">Wikimedia Commons</a>',
     }), "bottom-right");
@@ -636,6 +636,7 @@
   function dessinerResultats(recherche) {
     var trouvees = donnees.entreprises.filter(function (e) {
       return sansAccents(e.n).indexOf(recherche) >= 0 ||
+        (e.na && sansAccents(e.na).indexOf(recherche) >= 0) ||
         (e.t || []).some(function (s) { return sansAccents(s) === recherche; });
     }).slice(0, RESULTATS_MAX);
     if (!trouvees.length) {
@@ -883,6 +884,20 @@
     Promise.all([charger("data/bourse/entreprises.json"), charger("data/pays.json")])
       .then(function (r) {
         donnees = r[0];
+        /* Les noms anglais (« ne », « ve ») ne sont écrits dans le fichier que
+           lorsqu'ils diffèrent du français. Sur la page anglaise, on les met à
+           la place des noms français une fois pour toutes, en gardant l'autre
+           nom de côté (« na ») : une recherche « Groupe Samsung » trouve ainsi
+           « Samsung Group », et inversement. */
+        if (langue === "en") {
+          donnees.entreprises.forEach(function (e) {
+            if (e.ne) { e.na = e.n; e.n = e.ne; }
+            if (e.ve) e.v = e.ve;
+          });
+          donnees.bourses.forEach(function (b) { if (b.ne) b.n = b.ne; });
+        } else {
+          donnees.entreprises.forEach(function (e) { if (e.ne) e.na = e.ne; });
+        }
         donnees.entreprises.forEach(function (e) { parQid[e.q] = e; });
         donnees.secteurs.forEach(function (s) { secteursCoches[s.id] = true; });
         donnees.bourses.forEach(function (b, n) { boursesCochees[n] = true; });

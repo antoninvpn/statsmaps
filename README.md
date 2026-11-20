@@ -48,7 +48,7 @@ C'est le fait d'avoir une liste de cartes **vide** qui les marque, dans
 
 Le jour où l'une reçoit sa première carte, la vignette devient cliquable, la
 page apparaît, le menu et le sitemap suivent — il faut alors seulement ajouter
-son `slug`, son `h1` et son `intro` dans les treize blocs de `LANGUES`.
+son `slug`, son `h1` et son `intro` dans les deux blocs de `LANGUES`.
 
 ### Le menu du haut ne montre jamais tout le site
 
@@ -109,47 +109,26 @@ vivent dans `build_pages.py`.
 
 ## 🌍 Les pages du site
 
-Le site existe en **treize langues**, soit **130 pages** : l'accueil, les deux
-catégories et les sept cartes, dans chacune. Le français est à la racine, les
-autres langues dans leur dossier.
+Le site existe en **deux langues**, le français et l'anglais. Le français est
+à la racine, l'anglais dans `/en/`.
 
 | | Langue | Dossier | Exemple d'adresse |
 |---|---|---|---|
 | 🇫🇷 | Français | *(racine)* | `/pib-par-habitant/` |
 | 🇬🇧 | English | `/en/` | `/en/gdp-per-capita/` |
-| 🇺🇦 | Українська | `/ua/` | `/ua/vvp-na-osobu/` |
-| 🇩🇪 | Deutsch | `/de/` | `/de/bip-pro-kopf/` |
-| 🇪🇸 | Español | `/es/` | `/es/pib-per-capita/` |
-| 🇮🇹 | Italiano | `/it/` | `/it/pil-pro-capite/` |
-| 🇵🇹 | Português | `/pt/` | `/pt/pib-per-capita/` |
-| 🇵🇱 | Polski | `/pl/` | `/pl/pkb-na-mieszkanca/` |
-| 🇯🇵 | 日本語 | `/ja/` | `/ja/gdp-per-capita/` |
-| 🇰🇷 | 한국어 | `/ko/` | `/ko/gdp-per-capita/` |
-| 🇹🇷 | Türkçe | `/tr/` | `/tr/kisi-basi-gsyih/` |
-| 🇮🇳 | हिन्दी | `/hi/` | `/hi/gdp-per-capita/` |
-| 🇸🇦 | العربية | `/ar/` | `/ar/gdp-per-capita/` |
 
-Deux détails d'apparence bizarre, tous deux volontaires :
+**Les anciennes langues.** Jusqu'au 20 novembre 2026, le site existait aussi en
+ukrainien, allemand, espagnol, italien, portugais, polonais, japonais, coréen,
+turc, hindi et arabe. Leurs dossiers (`ua/`, `de/`, `es/`…) existent toujours,
+mais ne contiennent plus que de petites **pages de renvoi** : quiconque ouvre
+`/de/bip-pro-kopf/` arrive aussitôt sur `/en/gdp-per-capita/`. Ainsi, ni les
+visiteurs venus de Google ni ceux qui avaient gardé un favori ne tombent sur
+une page d'erreur. La liste de ces adresses est dans `ANCIENNES_LANGUES`, en
+haut de `scripts/build_pages.py`.
 
-- le dossier ukrainien s'appelle `ua` parce que c'est ce qu'écrivent les
-  Ukrainiens, mais le code de langue déclaré à Google reste `uk`, l'officiel ;
-- les adresses sont **traduites** quand la langue s'écrit en alphabet latin
-  (`/de/bip-pro-kopf/`), mais restent en anglais pour le japonais, le coréen,
-  l'hindi et l'arabe. Une adresse en écriture native y deviendrait illisible
-  une fois encodée par le navigateur (`/ja/%E4%B8%80%E4%BA%BA...`), et « GDP »
-  est de toute façon la forme employée couramment dans ces langues.
-
-L'arabe s'écrit de droite à gauche : sur ces dix pages, **toute l'interface est
-inversée** — le panneau passe à droite, la légende à gauche. Seules trois
-choses gardent leur sens de lecture : la barre de couleurs de la légende,
-le curseur des années et le graphique du comparateur. Une échelle de valeurs et
-un axe du temps se lisent dans le même sens dans toutes les langues ; les
-retourner ferait dire à la légende l'inverse de ce que montre la carte.
-
-Les 130 pages ne s'écrivent pas à la main : elles sortent toutes de deux
+Les pages ne s'écrivent pas à la main : elles sortent toutes de quelques
 modèles, dans `scripts/build_pages.py`. Et les noms des 197 pays ne se
-traduisent pas non plus — Natural Earth les fournit déjà dans les treize
-langues.
+traduisent pas non plus — Natural Earth les fournit déjà.
 
 ### Les 197 pays du classement
 
@@ -332,7 +311,7 @@ sur les sept cartes, alors qu'un écart s'y mesure de trois façons différentes
 
 ## 📁 Où se trouve quoi ?
 
-> ⚠️ **Les 130 pages HTML et `sitemap.xml` ne se modifient pas à la main** :
+> ⚠️ **Les pages HTML et `sitemap.xml` ne se modifient pas à la main** :
 > elles sont fabriquées par `scripts/build_pages.py` et toute retouche
 > directe serait effacée à la prochaine exécution. Le dossier `data/` est
 > dans le même cas, avec les deux autres scripts.
@@ -340,14 +319,15 @@ sur les sept cartes, alors qu'un écart s'y mesure de trois façons différentes
 ```
 index.html               L'accueil en français ─────────┐
 economie/ demographie/   Les catégories en français     │
-pib-nominal/ pib-ppa/                                   ├─ 130 pages FABRIQUÉES
-pib-par-habitant/ ...    Les 7 cartes en français       │  par build_pages.py
-en/ ua/ de/ es/ it/ pt/                                 │
-pl/ ja/ ko/ tr/ hi/ ar/  Les douze autres langues ──────┘
+pib-nominal/ pib-ppa/                                   ├─ pages FABRIQUÉES     
+pib-par-habitant/ ...    Les cartes en français         │  par build_pages.py
+en/                      L'anglais                      │
+ua/ de/ es/ it/ pt/ pl/                                 │
+ja/ ko/ tr/ hi/ ar/      Renvois des anciennes langues ─┘
 sitemap.xml              La carte du site pour Google ──┘
 
 assets/css/style.css     TOUTES les couleurs et l'apparence du site
-assets/js/i18n.js        TOUS les textes des boutons, en 13 langues
+assets/js/i18n.js        TOUS les textes des boutons, en français et en anglais
 assets/js/theme.js       Le bouton soleil / lune
 assets/js/barre.js       Le menu déroulant des langues
 assets/js/carte.js       Le moteur des cartes (partagé par les 91 pages)
@@ -357,7 +337,7 @@ data/                    Les chiffres. FABRIQUÉS par les scripts.
 
 scripts/build_geojson.py Prépare le fond de carte (frontières, noms des pays)
 scripts/build_donnees.py Va chercher les chiffres chez le FMI
-scripts/build_pages.py   Fabrique les 130 pages, le sitemap et la page 404
+scripts/build_pages.py   Fabrique toutes les pages, le sitemap et la page 404
 ```
 
 Où sont les textes, selon leur nature :
@@ -422,7 +402,7 @@ Le fond de carte, lui, ne change quasiment jamais. Si besoin :
 python3 scripts/build_geojson.py
 ```
 
-Et pour refabriquer les 130 pages, après avoir touché à un titre, une adresse
+Et pour refabriquer les pages, après avoir touché à un titre, une adresse
 ou la liste des langues :
 
 ```bash
@@ -431,7 +411,7 @@ python3 scripts/build_pages.py
 
 Ce dernier ne dépend de rien : on peut le relancer autant de fois qu'on veut,
 il réécrit toujours exactement la même chose. Il fait aussi le ménage : si une
-carte disparaît de la liste, son dossier est effacé dans les treize langues,
+carte disparaît de la liste, son dossier est effacé dans les deux langues,
 pour qu'aucune page fantôme ne reste en ligne avec des chiffres périmés.
 
 Aucune installation n'est nécessaire : ces scripts n'utilisent que Python,
@@ -463,13 +443,13 @@ Le FMI propose **132 indicateurs** (chômage, dette publique, balance
 courante…). Pour en ajouter un :
 
 1. Dans `scripts/build_donnees.py`, ajouter un bloc dans la liste `INDICATEURS` :
-   son code FMI, sa catégorie, et son titre et ses unités dans les treize
-   langues (le titre **court** et le titre **long**, comme les écrit le FMI).
+   son code FMI, sa catégorie, et son titre et ses unités dans chaque
+   langue (le titre **court** et le titre **long**, comme les écrit le FMI).
 2. Dans `assets/js/carte.js`, ajouter ses tranches de couleur et sa façon de
    mesurer un écart dans `CARTES`.
 3. Dans `scripts/build_pages.py` : une ligne dans `CARTES`, l'identifiant dans
    la catégorie voulue de `CATEGORIES`, puis son entrée `"cartes"` dans
-   **chacun** des treize blocs de `LANGUES` (adresse, nom, libellés du menu et
+   **chacun** des deux blocs de `LANGUES` (adresse, nom, libellés du menu et
    phrase de présentation).
 4. Relancer :
 
@@ -477,7 +457,7 @@ courante…). Pour en ajouter un :
 python3 scripts/build_donnees.py && python3 scripts/build_pages.py
 ```
 
-Les 13 nouvelles pages, les liens du menu sur les 130 pages, les vignettes de
+Les deux nouvelles pages, les liens du menu sur toutes les pages, les vignettes de
 la catégorie et le sitemap suivent tout seuls.
 
 > Le travail est celui de la **traduction**, pas de la recopie : l'étape 3
@@ -503,12 +483,15 @@ et n'écrire que son `nom` et son `texte` : elle s'affichera en « Bientôt ».
    code de la langue et le champ où Natural Earth range les noms de pays
    (`"sv": "NAME_SV"` pour le suédois, par exemple). Les 197 noms viennent de
    là — il n'y a rien à traduire à la main.
-2. Dans `assets/js/i18n.js`, un bloc de textes, sur le modèle des treize autres.
+2. Dans `assets/js/i18n.js`, un bloc de textes, sur le modèle du français et de l'anglais.
 3. Dans `scripts/build_donnees.py`, la langue dans les `titre`, `unite` et
    `unite_longue` de chaque indicateur.
 4. Dans `scripts/build_pages.py`, son bloc dans `LANGUES` : les modèles de
    titre, les adresses, les catégories et les sept cartes.
 5. Relancer les trois scripts.
+6. Si c'est une des anciennes langues (voir « Les pages du site »), retirer son
+   dossier de `ANCIENNES_LANGUES` : ses pages de renvoi laissent alors la place
+   aux vraies pages.
 
 Si la langue s'écrit de droite à gauche, mettre `"sens": "rtl"` dans son bloc :
 le reste (panneau à droite, légende à gauche) se fait tout seul.

@@ -9,17 +9,6 @@
   <link rel="canonical" href="https://statsmaps.com/en/">
   <link rel="alternate" hreflang="fr" href="https://statsmaps.com/">
   <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/">
-  <link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/">
-  <link rel="alternate" hreflang="de" href="https://statsmaps.com/de/">
-  <link rel="alternate" hreflang="es" href="https://statsmaps.com/es/">
-  <link rel="alternate" hreflang="it" href="https://statsmaps.com/it/">
-  <link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/">
-  <link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/">
-  <link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/">
-  <link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/">
-  <link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/">
-  <link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/">
-  <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/">
   <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <meta property="og:title" content="StatsMaps — world maps and statistics">
@@ -36,6 +25,7 @@
     <nav class="barre__nav" aria-label="Maps">
         <a class="barre__lien" href="economy/"><span class="long">Economy</span><span class="court">Economy</span></a>
         <a class="barre__lien" href="demographics/"><span class="long">Demographics</span><span class="court">Demographics</span></a>
+        <a class="barre__lien" href="infrastructure/"><span class="long">Infrastructure</span><span class="court">Infrastructure</span></a>
     </nav>
     <div class="barre__droite">
       <details class="langues">
@@ -43,17 +33,6 @@
         <div class="langues__menu">
           <a href="/" hreflang="fr" lang="fr"><span class="drapeau" aria-hidden="true">🇫🇷</span>Français</a>
           <a href="/en/" hreflang="en" lang="en" aria-current="true"><span class="drapeau" aria-hidden="true">🇬🇧</span>English</a>
-          <a href="/ua/" hreflang="uk" lang="uk"><span class="drapeau" aria-hidden="true">🇺🇦</span>Українська</a>
-          <a href="/de/" hreflang="de" lang="de"><span class="drapeau" aria-hidden="true">🇩🇪</span>Deutsch</a>
-          <a href="/es/" hreflang="es" lang="es"><span class="drapeau" aria-hidden="true">🇪🇸</span>Español</a>
-          <a href="/it/" hreflang="it" lang="it"><span class="drapeau" aria-hidden="true">🇮🇹</span>Italiano</a>
-          <a href="/pt/" hreflang="pt" lang="pt"><span class="drapeau" aria-hidden="true">🇵🇹</span>Português</a>
-          <a href="/pl/" hreflang="pl" lang="pl"><span class="drapeau" aria-hidden="true">🇵🇱</span>Polski</a>
-          <a href="/ja/" hreflang="ja" lang="ja"><span class="drapeau" aria-hidden="true">🇯🇵</span>日本語</a>
-          <a href="/ko/" hreflang="ko" lang="ko"><span class="drapeau" aria-hidden="true">🇰🇷</span>한국어</a>
-          <a href="/tr/" hreflang="tr" lang="tr"><span class="drapeau" aria-hidden="true">🇹🇷</span>Türkçe</a>
-          <a href="/hi/" hreflang="hi" lang="hi"><span class="drapeau" aria-hidden="true">🇮🇳</span>हिन्दी</a>
-          <a href="/ar/" hreflang="ar" lang="ar"><span class="drapeau" aria-hidden="true">🇸🇦</span>العربية</a>
         </div>
       </details>
       <button class="bouton-icone" id="bouton-theme" type="button"
@@ -65,14 +44,14 @@
 
   <main class="accueil">
     <h1 class="accueil__titre">The world’s statistics, mapped.</h1>
-    <p class="accueil__intro">StatsMaps turns major global indicators into interactive maps, using official sources. Pick a category to see the maps inside it: for now the economy and demographics, based on International Monetary Fund data — 197 countries, from 1980 to 2031.</p>
+    <p class="accueil__intro">StatsMaps turns major global indicators into interactive maps, using official sources. Pick a category to see the maps inside it: the economy and demographics, based on International Monetary Fund data — 197 countries, from 1980 to 2031 — the world’s listed companies, and its metro systems.</p>
 
     <div class="vignettes">
       <a class="vignette" href="economy/">
         <div class="vignette__pastille">💶</div>
         <div class="vignette__titre">Economy</div>
         <p class="vignette__texte">GDP, wealth per person, growth and inflation.</p>
-        <div class="vignette__liste">GDP · GDP per capita · Growth · Inflation</div>
+        <div class="vignette__liste">GDP · GDP per capita · Growth · Inflation · Companies</div>
       </a>
       <a class="vignette" href="demographics/">
         <div class="vignette__pastille">👥</div>
@@ -80,12 +59,12 @@
         <p class="vignette__texte">How many people live in each country, year by year.</p>
         <div class="vignette__liste">Population</div>
       </a>
-      <div class="vignette est-bientot">
+      <a class="vignette" href="infrastructure/">
         <div class="vignette__pastille">🏗️</div>
         <div class="vignette__titre">Infrastructure</div>
-        <p class="vignette__texte">Roads, ports, electricity and networks.</p>
-        <div class="vignette__bientot">Coming soon</div>
-      </div>
+        <p class="vignette__texte">The networks that hold a city and a country together.</p>
+        <div class="vignette__liste">Metro</div>
+      </a>
       <div class="vignette est-bientot">
         <div class="vignette__pastille">🛡️</div>
         <div class="vignette__titre">Military</div>

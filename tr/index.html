@@ -1,102 +1,13 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>StatsMaps — dünya haritaları ve istatistikler</title>
-  <meta name="description" content="Dünya istatistiklerinin etkileşimli haritaları: 197 ülkenin GSYİH’si, kişi başına GSYİH’si, büyümesi, enflasyonu ve nüfusu; 1980’den 2031’e, IMF’nin resmî verileriyle.">
-  <meta name="theme-color" content="#ffffff">
-  <link rel="canonical" href="https://statsmaps.com/tr/">
-  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/">
-  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/">
-  <link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/">
-  <link rel="alternate" hreflang="de" href="https://statsmaps.com/de/">
-  <link rel="alternate" hreflang="es" href="https://statsmaps.com/es/">
-  <link rel="alternate" hreflang="it" href="https://statsmaps.com/it/">
-  <link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/">
-  <link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/">
-  <link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/">
-  <link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/">
-  <link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/">
-  <link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/">
-  <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/">
-  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/">
-  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="StatsMaps — dünya haritaları ve istatistikler">
-  <meta property="og:description" content="Dünya istatistiklerinin etkileşimli haritaları: 197 ülkenin GSYİH’si, kişi başına GSYİH’si, büyümesi, enflasyonu ve nüfusu; 1980’den 2031’e, IMF’nin resmî verileriyle.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://statsmaps.com/tr/">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <script src="../assets/js/theme.js"></script>
+  <title>StatsMaps</title>
+  <link rel="canonical" href="https://statsmaps.com/en/">
+  <meta http-equiv="refresh" content="0; url=/en/">
+  <script>location.replace("/en/");</script>
 </head>
 <body>
-
-  <header class="barre">
-    <a class="barre__logo" href="./">Stats<span>Maps</span></a>
-    <nav class="barre__nav" aria-label="Haritalar">
-        <a class="barre__lien" href="ekonomi/"><span class="long">Ekonomi</span><span class="court">Ekonomi</span></a>
-        <a class="barre__lien" href="demografi/"><span class="long">Demografi</span><span class="court">Demografi</span></a>
-    </nav>
-    <div class="barre__droite">
-      <details class="langues">
-        <summary class="bouton-icone" title="Dil" aria-label="Dil">🇹🇷</summary>
-        <div class="langues__menu">
-          <a href="/" hreflang="fr" lang="fr"><span class="drapeau" aria-hidden="true">🇫🇷</span>Français</a>
-          <a href="/en/" hreflang="en" lang="en"><span class="drapeau" aria-hidden="true">🇬🇧</span>English</a>
-          <a href="/ua/" hreflang="uk" lang="uk"><span class="drapeau" aria-hidden="true">🇺🇦</span>Українська</a>
-          <a href="/de/" hreflang="de" lang="de"><span class="drapeau" aria-hidden="true">🇩🇪</span>Deutsch</a>
-          <a href="/es/" hreflang="es" lang="es"><span class="drapeau" aria-hidden="true">🇪🇸</span>Español</a>
-          <a href="/it/" hreflang="it" lang="it"><span class="drapeau" aria-hidden="true">🇮🇹</span>Italiano</a>
-          <a href="/pt/" hreflang="pt" lang="pt"><span class="drapeau" aria-hidden="true">🇵🇹</span>Português</a>
-          <a href="/pl/" hreflang="pl" lang="pl"><span class="drapeau" aria-hidden="true">🇵🇱</span>Polski</a>
-          <a href="/ja/" hreflang="ja" lang="ja"><span class="drapeau" aria-hidden="true">🇯🇵</span>日本語</a>
-          <a href="/ko/" hreflang="ko" lang="ko"><span class="drapeau" aria-hidden="true">🇰🇷</span>한국어</a>
-          <a href="/tr/" hreflang="tr" lang="tr" aria-current="true"><span class="drapeau" aria-hidden="true">🇹🇷</span>Türkçe</a>
-          <a href="/hi/" hreflang="hi" lang="hi"><span class="drapeau" aria-hidden="true">🇮🇳</span>हिन्दी</a>
-          <a href="/ar/" hreflang="ar" lang="ar"><span class="drapeau" aria-hidden="true">🇸🇦</span>العربية</a>
-        </div>
-      </details>
-      <button class="bouton-icone" id="bouton-theme" type="button"
-              aria-label="Temayı değiştir"
-              data-vers-clair="Açık temaya geç"
-              data-vers-sombre="Koyu temaya geç">☾</button>
-    </div>
-  </header>
-
-  <main class="accueil">
-    <h1 class="accueil__titre">Dünyanın istatistikleri, haritada.</h1>
-    <p class="accueil__intro">StatsMaps, resmî kaynaklardan yola çıkarak dünyanın büyük göstergelerini haritaya döker. Haritalarını görmek için bir kategori seç: bugün ekonomi ve demografi, Uluslararası Para Fonu verileriyle — 197 ülke, 1980’den 2031’e.</p>
-
-    <div class="vignettes">
-      <a class="vignette" href="ekonomi/">
-        <div class="vignette__pastille">💶</div>
-        <div class="vignette__titre">Ekonomi</div>
-        <p class="vignette__texte">GSYİH, kişi başına zenginlik, büyüme ve enflasyon.</p>
-        <div class="vignette__liste">GSYİH · Kişi başına GSYİH · Büyüme · Enflasyon</div>
-      </a>
-      <a class="vignette" href="demografi/">
-        <div class="vignette__pastille">👥</div>
-        <div class="vignette__titre">Demografi</div>
-        <p class="vignette__texte">Her ülkede kaç kişi yaşadığı, yıl yıl.</p>
-        <div class="vignette__liste">Nüfus</div>
-      </a>
-      <div class="vignette est-bientot">
-        <div class="vignette__pastille">🏗️</div>
-        <div class="vignette__titre">Altyapı</div>
-        <p class="vignette__texte">Yollar, limanlar, elektrik ve ağlar.</p>
-        <div class="vignette__bientot">Yakında</div>
-      </div>
-      <div class="vignette est-bientot">
-        <div class="vignette__pastille">🛡️</div>
-        <div class="vignette__titre">Ordu</div>
-        <p class="vignette__texte">Asker sayısı, bütçeler ve teçhizat.</p>
-        <div class="vignette__bientot">Yakında</div>
-      </div>
-    </div>
-  </main>
-
-  <footer class="pied">Veriler: IMF (World Economic Outlook) · Altlık harita: Natural Earth · Reklamsız, izlemesiz.</footer>
-
-  <script src="../assets/js/barre.js"></script>
+  <a href="/en/">StatsMaps</a>
 </body>
 </html>

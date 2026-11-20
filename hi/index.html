@@ -1,102 +1,13 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>StatsMaps — विश्व मानचित्र और आँकड़े</title>
-  <meta name="description" content="विश्व के आँकड़ों के इंटरैक्टिव मानचित्र: 197 देशों की जीडीपी, प्रति व्यक्ति जीडीपी, वृद्धि दर, मुद्रास्फीति और जनसंख्या, 1980 से 2031 तक, IMF के आधिकारिक आँकड़ों से।">
-  <meta name="theme-color" content="#ffffff">
-  <link rel="canonical" href="https://statsmaps.com/hi/">
-  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/">
-  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/">
-  <link rel="alternate" hreflang="uk" href="https://statsmaps.com/ua/">
-  <link rel="alternate" hreflang="de" href="https://statsmaps.com/de/">
-  <link rel="alternate" hreflang="es" href="https://statsmaps.com/es/">
-  <link rel="alternate" hreflang="it" href="https://statsmaps.com/it/">
-  <link rel="alternate" hreflang="pt" href="https://statsmaps.com/pt/">
-  <link rel="alternate" hreflang="pl" href="https://statsmaps.com/pl/">
-  <link rel="alternate" hreflang="ja" href="https://statsmaps.com/ja/">
-  <link rel="alternate" hreflang="ko" href="https://statsmaps.com/ko/">
-  <link rel="alternate" hreflang="tr" href="https://statsmaps.com/tr/">
-  <link rel="alternate" hreflang="hi" href="https://statsmaps.com/hi/">
-  <link rel="alternate" hreflang="ar" href="https://statsmaps.com/ar/">
-  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/">
-  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="StatsMaps — विश्व मानचित्र और आँकड़े">
-  <meta property="og:description" content="विश्व के आँकड़ों के इंटरैक्टिव मानचित्र: 197 देशों की जीडीपी, प्रति व्यक्ति जीडीपी, वृद्धि दर, मुद्रास्फीति और जनसंख्या, 1980 से 2031 तक, IMF के आधिकारिक आँकड़ों से।">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://statsmaps.com/hi/">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <script src="../assets/js/theme.js"></script>
+  <title>StatsMaps</title>
+  <link rel="canonical" href="https://statsmaps.com/en/">
+  <meta http-equiv="refresh" content="0; url=/en/">
+  <script>location.replace("/en/");</script>
 </head>
 <body>
-
-  <header class="barre">
-    <a class="barre__logo" href="./">Stats<span>Maps</span></a>
-    <nav class="barre__nav" aria-label="मानचित्र">
-        <a class="barre__lien" href="economy/"><span class="long">अर्थव्यवस्था</span><span class="court">अर्थव्यवस्था</span></a>
-        <a class="barre__lien" href="demographics/"><span class="long">जनसांख्यिकी</span><span class="court">जनसांख्यिकी</span></a>
-    </nav>
-    <div class="barre__droite">
-      <details class="langues">
-        <summary class="bouton-icone" title="भाषा" aria-label="भाषा">🇮🇳</summary>
-        <div class="langues__menu">
-          <a href="/" hreflang="fr" lang="fr"><span class="drapeau" aria-hidden="true">🇫🇷</span>Français</a>
-          <a href="/en/" hreflang="en" lang="en"><span class="drapeau" aria-hidden="true">🇬🇧</span>English</a>
-          <a href="/ua/" hreflang="uk" lang="uk"><span class="drapeau" aria-hidden="true">🇺🇦</span>Українська</a>
-          <a href="/de/" hreflang="de" lang="de"><span class="drapeau" aria-hidden="true">🇩🇪</span>Deutsch</a>
-          <a href="/es/" hreflang="es" lang="es"><span class="drapeau" aria-hidden="true">🇪🇸</span>Español</a>
-          <a href="/it/" hreflang="it" lang="it"><span class="drapeau" aria-hidden="true">🇮🇹</span>Italiano</a>
-          <a href="/pt/" hreflang="pt" lang="pt"><span class="drapeau" aria-hidden="true">🇵🇹</span>Português</a>
-          <a href="/pl/" hreflang="pl" lang="pl"><span class="drapeau" aria-hidden="true">🇵🇱</span>Polski</a>
-          <a href="/ja/" hreflang="ja" lang="ja"><span class="drapeau" aria-hidden="true">🇯🇵</span>日本語</a>
-          <a href="/ko/" hreflang="ko" lang="ko"><span class="drapeau" aria-hidden="true">🇰🇷</span>한국어</a>
-          <a href="/tr/" hreflang="tr" lang="tr"><span class="drapeau" aria-hidden="true">🇹🇷</span>Türkçe</a>
-          <a href="/hi/" hreflang="hi" lang="hi" aria-current="true"><span class="drapeau" aria-hidden="true">🇮🇳</span>हिन्दी</a>
-          <a href="/ar/" hreflang="ar" lang="ar"><span class="drapeau" aria-hidden="true">🇸🇦</span>العربية</a>
-        </div>
-      </details>
-      <button class="bouton-icone" id="bouton-theme" type="button"
-              aria-label="थीम बदलें"
-              data-vers-clair="हल्की थीम पर जाएँ"
-              data-vers-sombre="गहरी थीम पर जाएँ">☾</button>
-    </div>
-  </header>
-
-  <main class="accueil">
-    <h1 class="accueil__titre">दुनिया के आँकड़े, मानचित्र पर।</h1>
-    <p class="accueil__intro">StatsMaps आधिकारिक स्रोतों के आधार पर विश्व के प्रमुख संकेतकों को इंटरैक्टिव मानचित्रों में बदलता है। किसी श्रेणी को चुनें और उसके मानचित्र देखें: फ़िलहाल अर्थव्यवस्था और जनसांख्यिकी, अंतर्राष्ट्रीय मुद्रा कोष के आँकड़ों से — 197 देश, 1980 से 2031 तक।</p>
-
-    <div class="vignettes">
-      <a class="vignette" href="economy/">
-        <div class="vignette__pastille">💶</div>
-        <div class="vignette__titre">अर्थव्यवस्था</div>
-        <p class="vignette__texte">जीडीपी, प्रति व्यक्ति संपत्ति, वृद्धि दर और मुद्रास्फीति।</p>
-        <div class="vignette__liste">जीडीपी · प्रति व्यक्ति जीडीपी · वृद्धि दर · मुद्रास्फीति</div>
-      </a>
-      <a class="vignette" href="demographics/">
-        <div class="vignette__pastille">👥</div>
-        <div class="vignette__titre">जनसांख्यिकी</div>
-        <p class="vignette__texte">हर देश में कितने लोग रहते हैं, वर्ष-दर-वर्ष।</p>
-        <div class="vignette__liste">जनसंख्या</div>
-      </a>
-      <div class="vignette est-bientot">
-        <div class="vignette__pastille">🏗️</div>
-        <div class="vignette__titre">बुनियादी ढाँचा</div>
-        <p class="vignette__texte">सड़कें, बंदरगाह, बिजली और नेटवर्क।</p>
-        <div class="vignette__bientot">जल्द ही</div>
-      </div>
-      <div class="vignette est-bientot">
-        <div class="vignette__pastille">🛡️</div>
-        <div class="vignette__titre">सेना</div>
-        <p class="vignette__texte">सैन्य संख्या, बजट और उपकरण।</p>
-        <div class="vignette__bientot">जल्द ही</div>
-      </div>
-    </div>
-  </main>
-
-  <footer class="pied">आँकड़े: IMF (World Economic Outlook) · आधार मानचित्र: Natural Earth · न विज्ञापन, न ट्रैकिंग।</footer>
-
-  <script src="../assets/js/barre.js"></script>
+  <a href="/en/">StatsMaps</a>
 </body>
 </html>

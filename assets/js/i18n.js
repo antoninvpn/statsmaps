@@ -1,22 +1,21 @@
 /* ==========================================================================
-   i18n.js — TOUS les textes du site, dans les treize langues.
+   i18n.js — TOUS les textes du site, en français et en anglais.
    Si tu veux corriger une formulation, c'est ICI et nulle part ailleurs.
    ("i18n" est l'abréviation habituelle de "internationalisation".)
 
    Les NOMS DE PAYS ne sont pas ici : ils viennent du fond de carte, préparé
-   par scripts/build_geojson.py. Natural Earth les fournit déjà dans les treize
-   langues, il n'y a donc rien à traduire à la main de ce côté-là.
+   par scripts/build_geojson.py. Natural Earth les fournit déjà traduits, il
+   n'y a donc rien à traduire à la main de ce côté-là.
 
    Ne sont pas ici non plus, et pour la même raison, tout ce qui est ÉCRIT DANS
    LES PAGES plutôt qu'affiché par le JavaScript : les titres, les descriptions
    pour Google, les adresses, les libellés du menu des cartes et le nom des
    langues. Tout cela vit dans scripts/build_pages.py.
 
-   Une remarque sur les pluriels : le français dit « 1 an » puis « 5 ans »,
-   le polonais « 1 rok », « 2 lata », « 5 lat », l'arabe a six formes, le
-   japonais une seule. On ne code aucune de ces règles : le navigateur les
-   connaît toutes (Intl.PluralRules). Il suffit de remplir les formes que la
-   langue utilise réellement, les autres retombent sur « _other ».
+   Une remarque sur les pluriels : « 1 an » puis « 5 ans ». On ne code pas
+   cette règle : le navigateur la connaît (Intl.PluralRules). Il suffit de
+   remplir les formes que la langue utilise, les autres retombent sur
+   « _other ».
    ========================================================================== */
 
 window.StatsMapsTextes = {
@@ -269,781 +268,90 @@ window.StatsMapsTextes = {
     voir_classement: "Ranking",
     fermer: "Close",
 
-  },
-
-  uk: {
-    classement: "Рейтинг",
-    recherche: "Пошук країни…",
-    aucun_resultat: "Країну не знайдено.",
-    pays_classes: "країн у рейтингу",
-    sans_donnee_compte: "без даних",
-    chargement: "Завантаження даних…",
-    erreur: "Не вдалося завантажити дані. Спробуйте ще раз за мить.",
-
-    legende: "Легенда",
-    non_disponible: "Немає даних",
-    annee: "Рік",
-    projection: "прогноз МВФ",
-    estimation: "оцінка МВФ",
-    donnee_reelle: "фактичні дані",
-
-    rang: "місце",
-    sur: "з",
-    pas_de_donnee: "Немає даних за цей рік.",
-    territoire: "територія, поза рейтингом",
-
-    /* L'ukrainien a trois formes de pluriel : 1 рік, 2-4 роки, 5+ років. */
-    ecart_zero: "пік цього року",
-    ecart_one: "{n} рік тому",
-    ecart_few: "{n} роки тому",
-    ecart_many: "{n} років тому",
-    ecart_other: "{n} років тому",
-
-    comparer_stop: "Повернутися до значень",
-    ecart_titre: "Розрив",
-    reference_pays: "країна порівняння",
-    unite_points: "п.",
-    unite_annees: "років",
-    an_one: "{n} рік",
-    an_few: "{n} роки",
-    an_many: "{n} років",
-    an_other: "{n} років",
-
-    onglet_comparer: "Порівняти",
-
-    onglet_pic: "Пік",
-    pic_titre: "Пік — {carte}",
-    pic_unite: "років від піку",
-    pic_valeur: "Пік",
-    pic_annee: "Рік піку",
-    pic_aujourdhui: "Відставання від піку у {annee}",
-    pic_invite: "Натисніть на країну, щоб побачити її пік.",
-    comparateur_choisir: "Обрати країну",
-    comparateur_invite: "Оберіть дві країни, щоб побачити розрив між ними.",
-    comparateur_sans_donnee: "Ці дві країни не мають спільних років даних.",
-    comparateur_choix_a: "Країна порівняння",
-    comparateur_choix_b: "Країна для порівняння",
-    reference_court: "основа",
-    ecart_en: "Розрив у {annee}",
-    ecart_max: "Найбільший розрив",
-    ecart_min: "Найменший розрив",
-    croisement: "Останній перетин",
-
-    source: "Джерело",
-    deux_points: ": ",
-    mis_a_jour: "оновлено",
-    weo_avril: "квітень",
-    weo_octobre: "жовтень",
-    voir_classement: "Рейтинг",
-    fermer: "Закрити",
-
-  },
-
-  /* --- Allemand --- */
-  de: {
-    /* Panneau de classement */
-    classement: "Rangliste",
-    recherche: "Land suchen…",
-    aucun_resultat: "Kein Land gefunden.",
-    pays_classes: "Länder gewertet",
-    sans_donnee_compte: "ohne Daten",
-    chargement: "Daten werden geladen…",
-    erreur: "Die Daten konnten nicht geladen werden. Bitte gleich noch einmal versuchen.",
-
-    /* Légende et années */
-    legende: "Legende",
-    non_disponible: "Keine Daten verfügbar",
-    annee: "Jahr",
-    projection: "IWF-Prognose",
-    estimation: "IWF-Schätzung",
-    donnee_reelle: "tatsächlicher Wert",
-
-    /* Infobulle */
-    rang: "Rang",
-    sur: "von",
-    pas_de_donnee: "Für dieses Jahr liegen keine Daten vor.",
-    territoire: "Gebiet, nicht gewertet",
-
-    /* Onglet « Pic » */
-    ecart_zero: "Höchststand im laufenden Jahr",
-    ecart_one: "vor {n} Jahr",
-    ecart_other: "vor {n} Jahren",
-
-    /* Comparaison entre pays */
-    comparer_stop: "Zurück zu den Werten",
-    ecart_titre: "Unterschied",
-    reference_pays: "Bezugsland",
-    unite_points: "Pp",
-    unite_annees: "Jahre",
-    an_one: "{n} Jahr",
-    an_other: "{n} Jahre",
-
-    /* Onglet « Comparer » */
-    onglet_comparer: "Vergleichen",
-
-    onglet_pic: "Höchststand",
-    pic_titre: "Höchststand — {carte}",
-    pic_unite: "Jahre seit dem Höchststand",
-    pic_valeur: "Höchstwert",
-    pic_annee: "Jahr des Höchststands",
-    pic_aujourdhui: "Abstand zum Höchststand {annee}",
-    pic_invite: "Klicke auf ein Land, um seinen Höchststand zu sehen.",
-    comparateur_choisir: "Land auswählen",
-    comparateur_invite: "Zwei Länder auswählen, um den Unterschied zu sehen.",
-    comparateur_sans_donnee: "Für diese beiden Länder gibt es kein gemeinsames Jahr.",
-    comparateur_choix_a: "Bezugsland",
-    comparateur_choix_b: "Verglichenes Land",
-    reference_court: "Bezug",
-    ecart_en: "Unterschied {annee}",
-    ecart_max: "Größter Unterschied",
-    ecart_min: "Kleinster Unterschied",
-    croisement: "Letzte Überschneidung",
-
-    /* Divers */
-    source: "Quelle",
-    deux_points: ": ",
-    mis_a_jour: "aktualisiert am",
-    weo_avril: "April",
-    weo_octobre: "Oktober",
-    voir_classement: "Rangliste",
-    fermer: "Schließen",
-  },
-
-  /* --- Espagnol --- */
-  es: {
-    /* Panneau de classement */
-    classement: "Clasificación",
-    recherche: "Buscar un país…",
-    aucun_resultat: "No se ha encontrado ningún país.",
-    pays_classes: "países clasificados",
-    sans_donnee_compte: "sin datos",
-    chargement: "Cargando los datos…",
-    erreur: "No se han podido cargar los datos. Inténtalo de nuevo en un momento.",
-
-    /* Légende et années */
-    legende: "Leyenda",
-    non_disponible: "Datos no disponibles",
-    annee: "Año",
-    projection: "proyección del FMI",
-    estimation: "estimación del FMI",
-    donnee_reelle: "dato observado",
-
-    /* Infobulle */
-    rang: "puesto",
-    sur: "de",
-    pas_de_donnee: "No hay datos disponibles para este año.",
-    territoire: "territorio, sin clasificar",
-
-    /* Onglet « Pic » */
-    ecart_zero: "pico en el año en curso",
-    ecart_one: "hace {n} año",
-    ecart_other: "hace {n} años",
-
-    /* Comparaison entre pays */
-    comparer_stop: "Volver a los valores",
-    ecart_titre: "Diferencia",
-    reference_pays: "país de referencia",
-    unite_points: "pp",
-    unite_annees: "años",
-    an_one: "{n} año",
-    an_other: "{n} años",
-
-    /* Onglet « Comparer » */
-    onglet_comparer: "Comparar",
-
-    onglet_pic: "Pico",
-    pic_titre: "Pico — {carte}",
-    pic_unite: "años desde el pico",
-    pic_valeur: "Pico",
-    pic_annee: "Año del pico",
-    pic_aujourdhui: "Distancia al pico en {annee}",
-    pic_invite: "Haz clic en un país para ver su pico.",
-    comparateur_choisir: "Elegir un país",
-    comparateur_invite: "Elige dos países para ver la diferencia entre ellos.",
-    comparateur_sans_donnee: "Estos dos países no comparten ningún año con datos.",
-    comparateur_choix_a: "País de referencia",
-    comparateur_choix_b: "País comparado",
-    reference_court: "referencia",
-    ecart_en: "Diferencia en {annee}",
-    ecart_max: "Diferencia máxima",
-    ecart_min: "Diferencia mínima",
-    croisement: "Último cruce",
-
-    /* Divers */
-    source: "Fuente",
-    deux_points: ": ",
-    mis_a_jour: "actualizado el",
-    weo_avril: "abril",
-    weo_octobre: "octubre",
-    voir_classement: "Clasificación",
-    fermer: "Cerrar",
-  },
-
-  /* --- Italien --- */
-  it: {
-    /* Panneau de classement */
-    classement: "Classifica",
-    recherche: "Cerca un paese…",
-    aucun_resultat: "Nessun paese trovato.",
-    pays_classes: "paesi in classifica",
-    sans_donnee_compte: "senza dati",
-    chargement: "Caricamento dei dati…",
-    erreur: "Impossibile caricare i dati. Riprova tra un istante.",
-
-    /* Légende et années */
-    legende: "Legenda",
-    non_disponible: "Dati non disponibili",
-    annee: "Anno",
-    projection: "proiezione FMI",
-    estimation: "stima FMI",
-    donnee_reelle: "dato effettivo",
-
-    /* Infobulle */
-    rang: "posizione",
-    sur: "su",
-    pas_de_donnee: "Nessun dato disponibile per quest'anno.",
-    territoire: "territorio, fuori classifica",
-
-    /* Onglet « Pic » */
-    ecart_zero: "picco nell’anno in corso",
-    ecart_one: "{n} anno fa",
-    ecart_other: "{n} anni fa",
-
-    /* Comparaison entre pays */
-    comparer_stop: "Torna ai valori",
-    ecart_titre: "Scarto",
-    reference_pays: "paese di riferimento",
-    unite_points: "p.p.",
-    unite_annees: "anni",
-    an_one: "{n} anno",
-    an_other: "{n} anni",
-
-    /* Onglet « Comparer » */
-    onglet_comparer: "Confronta",
-
-    onglet_pic: "Picco",
-    pic_titre: "Picco — {carte}",
-    pic_unite: "anni dal picco",
-    pic_valeur: "Picco",
-    pic_annee: "Anno del picco",
-    pic_aujourdhui: "Distanza dal picco nel {annee}",
-    pic_invite: "Clicca su un paese per vedere il suo picco.",
-    comparateur_choisir: "Scegli un paese",
-    comparateur_invite: "Scegli due paesi per vedere lo scarto tra loro.",
-    comparateur_sans_donnee: "Questi due paesi non hanno alcun anno in comune.",
-    comparateur_choix_a: "Paese di riferimento",
-    comparateur_choix_b: "Paese confrontato",
-    reference_court: "riferimento",
-    ecart_en: "Scarto nel {annee}",
-    ecart_max: "Scarto massimo",
-    ecart_min: "Scarto minimo",
-    croisement: "Ultimo sorpasso",
-
-    /* Divers */
-    source: "Fonte",
-    deux_points: ": ",
-    mis_a_jour: "aggiornato il",
-    weo_avril: "aprile",
-    weo_octobre: "ottobre",
-    voir_classement: "Classifica",
-    fermer: "Chiudi",
-  },
-
-  /* --- Portugais --- */
-  pt: {
-    /* Panneau de classement */
-    classement: "Classificação",
-    recherche: "Procurar um país…",
-    aucun_resultat: "Nenhum país encontrado.",
-    pays_classes: "países classificados",
-    sans_donnee_compte: "sem dados",
-    chargement: "A carregar os dados…",
-    erreur: "Não foi possível carregar os dados. Tenta novamente daqui a pouco.",
-
-    /* Légende et années */
-    legende: "Legenda",
-    non_disponible: "Dados não disponíveis",
-    annee: "Ano",
-    projection: "projeção do FMI",
-    estimation: "estimativa do FMI",
-    donnee_reelle: "dado observado",
-
-    /* Infobulle */
-    rang: "posição",
-    sur: "de",
-    pas_de_donnee: "Não há dados disponíveis para este ano.",
-    territoire: "território, fora da classificação",
-
-    /* Onglet « Pic » */
-    ecart_zero: "pico no ano em curso",
-    ecart_one: "há {n} ano",
-    ecart_other: "há {n} anos",
-
-    /* Comparaison entre pays */
-    comparer_stop: "Voltar aos valores",
-    ecart_titre: "Diferença",
-    reference_pays: "país de referência",
-    unite_points: "p.p.",
-    unite_annees: "anos",
-    an_one: "{n} ano",
-    an_other: "{n} anos",
-
-    /* Onglet « Comparer » */
-    onglet_comparer: "Comparar",
-
-    onglet_pic: "Pico",
-    pic_titre: "Pico — {carte}",
-    pic_unite: "anos desde o pico",
-    pic_valeur: "Pico",
-    pic_annee: "Ano do pico",
-    pic_aujourdhui: "Distância do pico em {annee}",
-    pic_invite: "Clica num país para ver o seu pico.",
-    comparateur_choisir: "Escolher um país",
-    comparateur_invite: "Escolhe dois países para veres a diferença entre eles.",
-    comparateur_sans_donnee: "Estes dois países não têm nenhum ano em comum.",
-    comparateur_choix_a: "País de referência",
-    comparateur_choix_b: "País comparado",
-    reference_court: "referência",
-    ecart_en: "Diferença em {annee}",
-    ecart_max: "Diferença máxima",
-    ecart_min: "Diferença mínima",
-    croisement: "Último cruzamento",
-
-    /* Divers */
-    source: "Fonte",
-    deux_points: ": ",
-    mis_a_jour: "atualizado a",
-    weo_avril: "abril",
-    weo_octobre: "outubro",
-    voir_classement: "Classificação",
-    fermer: "Fechar",
-  },
-
-  /* --- Polonais — quatre formes de pluriel : 1 rok, 2-4 lata, 5+ lat --- */
-  pl: {
-    /* Panneau de classement */
-    classement: "Ranking",
-    recherche: "Szukaj kraju…",
-    aucun_resultat: "Nie znaleziono kraju.",
-    pays_classes: "krajów w rankingu",
-    sans_donnee_compte: "bez danych",
-    chargement: "Wczytywanie danych…",
-    erreur: "Nie udało się wczytać danych. Spróbuj ponownie za chwilę.",
-
-    /* Légende et années */
-    legende: "Legenda",
-    non_disponible: "Brak danych",
-    annee: "Rok",
-    projection: "prognoza MFW",
-    estimation: "szacunek MFW",
-    donnee_reelle: "dane rzeczywiste",
-
-    /* Infobulle */
-    rang: "miejsce",
-    sur: "z",
-    pas_de_donnee: "Brak danych za ten rok.",
-    territoire: "terytorium, poza rankingiem",
-
-    /* Onglet « Pic » */
-    ecart_zero: "szczyt w bieżącym roku",
-    ecart_one: "{n} rok temu",
-    ecart_few: "{n} lata temu",
-    ecart_many: "{n} lat temu",
-    ecart_other: "{n} lat temu",
-
-    /* Comparaison entre pays */
-    comparer_stop: "Wróć do wartości",
-    ecart_titre: "Różnica",
-    reference_pays: "kraj odniesienia",
-    unite_points: "pkt",
-    unite_annees: "lat",
-    an_one: "{n} rok",
-    an_few: "{n} lata",
-    an_many: "{n} lat",
-    an_other: "{n} lat",
-
-    /* Onglet « Comparer » */
-    onglet_comparer: "Porównaj",
-
-    onglet_pic: "Szczyt",
-    pic_titre: "Szczyt — {carte}",
-    pic_unite: "lat od szczytu",
-    pic_valeur: "Szczyt",
-    pic_annee: "Rok szczytu",
-    pic_aujourdhui: "Odległość od szczytu w {annee}",
-    pic_invite: "Kliknij kraj, aby zobaczyć jego szczyt.",
-    comparateur_choisir: "Wybierz kraj",
-    comparateur_invite: "Wybierz dwa kraje, aby zobaczyć różnicę między nimi.",
-    comparateur_sans_donnee: "Te dwa kraje nie mają wspólnego roku z danymi.",
-    comparateur_choix_a: "Kraj odniesienia",
-    comparateur_choix_b: "Kraj porównywany",
-    reference_court: "odniesienie",
-    ecart_en: "Różnica w {annee}",
-    ecart_max: "Największa różnica",
-    ecart_min: "Najmniejsza różnica",
-    croisement: "Ostatnie przecięcie",
-
-    /* Divers */
-    source: "Źródło",
-    deux_points: ": ",
-    mis_a_jour: "zaktualizowano",
-    weo_avril: "kwiecień",
-    weo_octobre: "październik",
-    voir_classement: "Ranking",
-    fermer: "Zamknij",
-  },
-
-  /* --- Japonais — une seule forme de pluriel --- */
-  ja: {
-    /* Panneau de classement */
-    classement: "ランキング",
-    recherche: "国を検索…",
-    aucun_resultat: "該当する国がありません。",
-    pays_classes: "か国",
-    sans_donnee_compte: "データなし",
-    chargement: "データを読み込み中…",
-    erreur: "データを読み込めませんでした。しばらくしてからもう一度お試しください。",
-
-    /* Légende et années */
-    legende: "凡例",
-    non_disponible: "データなし",
-    annee: "年",
-    projection: "IMF予測",
-    estimation: "IMF推計",
-    donnee_reelle: "実績値",
-
-    /* Infobulle */
-    rang: "順位",
-    sur: "/",
-    pas_de_donnee: "この年のデータはありません。",
-    territoire: "地域、ランキング対象外",
-
-    /* Onglet « Pic » */
-    ecart_zero: "今年がピーク",
-    ecart_other: "{n}年前",
-
-    /* Comparaison entre pays */
-    comparer_stop: "数値表示に戻る",
-    ecart_titre: "差",
-    reference_pays: "基準国",
-    unite_points: "pt",
-    unite_annees: "年",
-    an_other: "{n}年",
-
-    /* Onglet « Comparer » */
-    onglet_comparer: "比較",
-
-    onglet_pic: "ピーク",
-    pic_titre: "ピーク — {carte}",
-    pic_unite: "ピークからの経過年数",
-    pic_valeur: "ピーク値",
-    pic_annee: "ピークの年",
-    pic_aujourdhui: "{annee}年のピークとの差",
-    pic_invite: "国をクリックすると、そのピークが表示されます。",
-    comparateur_choisir: "国を選ぶ",
-    comparateur_invite: "2か国を選ぶと、その差が表示されます。",
-    comparateur_sans_donnee: "この2か国に共通するデータの年がありません。",
-    comparateur_choix_a: "基準国",
-    comparateur_choix_b: "比較する国",
-    reference_court: "基準",
-    ecart_en: "{annee}年の差",
-    ecart_max: "最大の差",
-    ecart_min: "最小の差",
-    croisement: "直近の逆転",
-
-    /* Divers */
-    source: "出典",
-    deux_points: "：",
-    mis_a_jour: "更新日",
-    weo_avril: "4月",
-    weo_octobre: "10月",
-    voir_classement: "ランキング",
-    fermer: "閉じる",
-  },
-
-  /* --- Coréen — une seule forme de pluriel --- */
-  ko: {
-    /* Panneau de classement */
-    classement: "순위",
-    recherche: "국가 검색…",
-    aucun_resultat: "국가를 찾을 수 없습니다.",
-    pays_classes: "개국",
-    sans_donnee_compte: "자료 없음",
-    chargement: "데이터를 불러오는 중…",
-    erreur: "데이터를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.",
-
-    /* Légende et années */
-    legende: "범례",
-    non_disponible: "자료 없음",
-    annee: "연도",
-    projection: "IMF 전망",
-    estimation: "IMF 추정",
-    donnee_reelle: "실측치",
-
-    /* Infobulle */
-    rang: "순위",
-    sur: "/",
-    pas_de_donnee: "해당 연도의 자료가 없습니다.",
-    territoire: "지역, 순위 제외",
-
-    /* Onglet « Pic » */
-    ecart_zero: "올해가 정점",
-    ecart_other: "{n}년 전",
-
-    /* Comparaison entre pays */
-    comparer_stop: "값으로 돌아가기",
-    ecart_titre: "격차",
-    reference_pays: "기준 국가",
-    unite_points: "%p",
-    unite_annees: "년",
-    an_other: "{n}년",
-
-    /* Onglet « Comparer » */
-    onglet_comparer: "비교",
-
-    onglet_pic: "정점",
-    pic_titre: "정점 — {carte}",
-    pic_unite: "정점 이후 경과 연수",
-    pic_valeur: "정점 값",
-    pic_annee: "정점 연도",
-    pic_aujourdhui: "{annee}년 정점과의 격차",
-    pic_invite: "국가를 클릭하면 정점이 표시됩니다.",
-    comparateur_choisir: "나라 선택",
-    comparateur_invite: "두 나라를 선택하면 격차가 표시됩니다.",
-    comparateur_sans_donnee: "두 나라에 공통된 자료 연도가 없습니다.",
-    comparateur_choix_a: "기준 국가",
-    comparateur_choix_b: "비교 국가",
-    reference_court: "기준",
-    ecart_en: "{annee}년 격차",
-    ecart_max: "최대 격차",
-    ecart_min: "최소 격차",
-    croisement: "최근 역전",
-
-    /* Divers */
-    source: "출처",
-    deux_points: ": ",
-    mis_a_jour: "업데이트",
-    weo_avril: "4월",
-    weo_octobre: "10월",
-    voir_classement: "순위",
-    fermer: "닫기",
-  },
-
-  /* --- Turc --- */
-  tr: {
-    /* Panneau de classement */
-    classement: "Sıralama",
-    recherche: "Ülke ara…",
-    aucun_resultat: "Ülke bulunamadı.",
-    pays_classes: "ülke sıralandı",
-    sans_donnee_compte: "veri yok",
-    chargement: "Veriler yükleniyor…",
-    erreur: "Veriler yüklenemedi. Lütfen birazdan tekrar dene.",
-
-    /* Légende et années */
-    legende: "Gösterge",
-    non_disponible: "Veri yok",
-    annee: "Yıl",
-    projection: "IMF öngörüsü",
-    estimation: "IMF tahmini",
-    donnee_reelle: "gerçekleşen veri",
-
-    /* Infobulle */
-    rang: "sıra",
-    sur: "/",
-    pas_de_donnee: "Bu yıl için veri yok.",
-    territoire: "bölge, sıralama dışı",
-
-    /* Onglet « Pic » */
-    ecart_zero: "zirve bu yıl",
-    ecart_one: "{n} yıl önce",
-    ecart_other: "{n} yıl önce",
-
-    /* Comparaison entre pays */
-    comparer_stop: "Değerlere dön",
-    ecart_titre: "Fark",
-    reference_pays: "referans ülke",
-    unite_points: "puan",
-    unite_annees: "yıl",
-    an_one: "{n} yıl",
-    an_other: "{n} yıl",
-
-    /* Onglet « Comparer » */
-    onglet_comparer: "Karşılaştır",
-
-    onglet_pic: "Zirve",
-    pic_titre: "Zirve — {carte}",
-    pic_unite: "zirveden bu yana geçen yıl",
-    pic_valeur: "Zirve",
-    pic_annee: "Zirve yılı",
-    pic_aujourdhui: "{annee} yılında zirveye uzaklık",
-    pic_invite: "Zirvesini görmek için bir ülkeye tıkla.",
-    comparateur_choisir: "Ülke seç",
-    comparateur_invite: "Aradaki farkı görmek için iki ülke seç.",
-    comparateur_sans_donnee: "Bu iki ülkenin ortak veri yılı yok.",
-    comparateur_choix_a: "Referans ülke",
-    comparateur_choix_b: "Karşılaştırılan ülke",
-    reference_court: "referans",
-    ecart_en: "{annee} yılındaki fark",
-    ecart_max: "En büyük fark",
-    ecart_min: "En küçük fark",
-    croisement: "Son kesişme",
-
-    /* Divers */
-    source: "Kaynak",
-    deux_points: ": ",
-    mis_a_jour: "güncellendi",
-    weo_avril: "Nisan",
-    weo_octobre: "Ekim",
-    voir_classement: "Sıralama",
-    fermer: "Kapat",
-  },
-
-  /* --- Hindi --- */
-  hi: {
-    /* Panneau de classement */
-    classement: "क्रम",
-    recherche: "देश खोजें…",
-    aucun_resultat: "कोई देश नहीं मिला।",
-    pays_classes: "देश क्रम में",
-    sans_donnee_compte: "बिना आँकड़ों के",
-    chargement: "आँकड़े लोड हो रहे हैं…",
-    erreur: "आँकड़े लोड नहीं हो सके। कृपया थोड़ी देर बाद फिर कोशिश करें।",
-
-    /* Légende et années */
-    legende: "संकेत",
-    non_disponible: "आँकड़े उपलब्ध नहीं",
-    annee: "वर्ष",
-    projection: "IMF अनुमान",
-    estimation: "IMF आकलन",
-    donnee_reelle: "वास्तविक आँकड़ा",
-
-    /* Infobulle */
-    rang: "स्थान",
-    sur: "में से",
-    pas_de_donnee: "इस वर्ष के लिए आँकड़े उपलब्ध नहीं हैं।",
-    territoire: "क्षेत्र, क्रम से बाहर",
-
-    /* Onglet « Pic » */
-    ecart_zero: "शिखर इसी वर्ष",
-    ecart_one: "{n} वर्ष पहले",
-    ecart_other: "{n} वर्ष पहले",
-
-    /* Comparaison entre pays */
-    comparer_stop: "मानों पर लौटें",
-    ecart_titre: "अंतर",
-    reference_pays: "संदर्भ देश",
-    unite_points: "अंक",
-    unite_annees: "वर्ष",
-    an_one: "{n} वर्ष",
-    an_other: "{n} वर्ष",
-
-    /* Onglet « Comparer » */
-    onglet_comparer: "तुलना",
-
-    onglet_pic: "शिखर",
-    pic_titre: "शिखर — {carte}",
-    pic_unite: "शिखर से बीते वर्ष",
-    pic_valeur: "शिखर",
-    pic_annee: "शिखर वर्ष",
-    pic_aujourdhui: "{annee} में शिखर से अंतर",
-    pic_invite: "किसी देश पर क्लिक करके उसका शिखर देखें।",
-    comparateur_choisir: "देश चुनें",
-    comparateur_invite: "अंतर देखने के लिए दो देश चुनें।",
-    comparateur_sans_donnee: "इन दोनों देशों का कोई साझा वर्ष नहीं है।",
-    comparateur_choix_a: "संदर्भ देश",
-    comparateur_choix_b: "तुलना किया गया देश",
-    reference_court: "संदर्भ",
-    ecart_en: "{annee} में अंतर",
-    ecart_max: "सबसे बड़ा अंतर",
-    ecart_min: "सबसे छोटा अंतर",
-    croisement: "अंतिम क्रॉसिंग",
-
-    /* Divers */
-    source: "स्रोत",
-    deux_points: ": ",
-    mis_a_jour: "अद्यतन",
-    weo_avril: "अप्रैल",
-    weo_octobre: "अक्तूबर",
-    voir_classement: "क्रम",
-    fermer: "बंद करें",
-  },
-
-  /* --- Arabe — six formes de pluriel, et la page s'écrit de droite à gauche --- */
-  ar: {
-    /* Panneau de classement */
-    classement: "الترتيب",
-    recherche: "ابحث عن بلد…",
-    aucun_resultat: "لم يُعثر على أي بلد.",
-    pays_classes: "بلدًا في الترتيب",
-    sans_donnee_compte: "بلا بيانات",
-    chargement: "جارٍ تحميل البيانات…",
-    erreur: "تعذّر تحميل البيانات. حاول مرة أخرى بعد قليل.",
-
-    /* Légende et années */
-    legende: "المفتاح",
-    non_disponible: "لا تتوفر بيانات",
-    annee: "السنة",
-    projection: "توقعات صندوق النقد الدولي",
-    estimation: "تقدير صندوق النقد الدولي",
-    donnee_reelle: "بيانات فعلية",
-
-    /* Infobulle */
-    rang: "المرتبة",
-    sur: "من",
-    pas_de_donnee: "لا تتوفر بيانات لهذه السنة.",
-    territoire: "إقليم، خارج الترتيب",
-
-    /* Onglet « Pic » */
-    ecart_zero: "الذروة في السنة الجارية",
-    ecart_one: "قبل سنة",
-    ecart_two: "قبل سنتين",
-    ecart_few: "قبل {n} سنوات",
-    ecart_many: "قبل {n} سنة",
-    ecart_other: "قبل {n} سنة",
-
-    /* Comparaison entre pays */
-    comparer_stop: "العودة إلى القيم",
-    ecart_titre: "الفارق",
-    reference_pays: "بلد المقارنة",
-    unite_points: "نقطة",
-    unite_annees: "سنة",
-    an_zero: "{n} سنة",
-    an_one: "سنة",
-    an_two: "سنتان",
-    an_few: "{n} سنوات",
-    an_many: "{n} سنة",
-    an_other: "{n} سنة",
-
-    /* Onglet « Comparer » */
-    onglet_comparer: "قارن",
-
-    onglet_pic: "الذروة",
-    pic_titre: "الذروة — {carte}",
-    pic_unite: "سنوات منذ الذروة",
-    pic_valeur: "الذروة",
-    pic_annee: "سنة الذروة",
-    pic_aujourdhui: "الفارق عن الذروة في {annee}",
-    pic_invite: "انقر على بلد لعرض ذروته.",
-    comparateur_choisir: "اختر بلدًا",
-    comparateur_invite: "اختر بلدين لمعرفة الفارق بينهما.",
-    comparateur_sans_donnee: "لا توجد سنة مشتركة بين هذين البلدين.",
-    comparateur_choix_a: "بلد المقارنة",
-    comparateur_choix_b: "البلد المقارَن",
-    reference_court: "المرجع",
-    ecart_en: "الفارق في {annee}",
-    ecart_max: "أكبر فارق",
-    ecart_min: "أصغر فارق",
-    croisement: "آخر تقاطع",
-
-    /* Divers */
-    source: "المصدر",
-    deux_points: ": ",
-    mis_a_jour: "حُدِّث في",
-    weo_avril: "أبريل",
-    weo_octobre: "أكتوبر",
-    voir_classement: "الترتيب",
-    fermer: "إغلاق",
+    /* La carte des métros */
+    metro_titre: "Metro systems of the world",
+    metro_recherche: "Search a country, a city…",
+    metro_rien_trouve: "No country or city found.",
+    metro_pays_avec_metro: "countries",
+    metro_villes: "cities",
+    metro_retour: "← All countries",
+    metro_par_reseaux: "Systems",
+    metro_par_km: "Km",
+    metro_par_stations: "Stations",
+    metro_par_lignes: "Lines",
+    metro_par_chantiers: "Building",
+    metro_km: "of lines",
+    metro_stations: "stations",
+    metro_lignes: "lines",
+    metro_chantier: "under construction",
+    metro_depuis: "First metro opened in {annee}.",
+    metro_voyageurs: "{n} million passengers a year.",
+    metro_prevu: "opening planned for {annee}",
+    metro_en_construction: "under construction",
+    metro_ses_lignes: "Its lines, in their official colours",
+    metro_ses_chantiers: "Some sections are under construction (dotted on the map).",
+    metro_leg_ville: "City with a metro",
+    metro_leg_chantier: "First metro under construction",
+    metro_leg_pointilles: "Line under construction",
+    metro_leg_couleurs: "Each line in its official colour",
+    metro_leg_zoom: "The size of the dot follows the length of the network. Zoom in to see the lines in detail, station by station.",
+    metro_source: "Lines, colours, stations: OpenStreetMap · Names, opening, ridership: Wikidata",
+
+    /* La carte des entreprises cotées */
+    bourse_titre: "Listed companies",
+    bourse_recherche: "Search a company…",
+    bourse_rien_trouve: "No company found.",
+    bourse_entreprises: "companies",
+    bourse_affichees: "shown",
+    bourse_retour: "← Back to filters",
+    bourse_secteurs: "Sectors",
+    bourse_bourses: "Stock exchanges",
+    bourse_tout: "All",
+    bourse_rien: "None",
+    bourse_voir_plus: "Show the other {n} exchanges",
+    bourse_voir_moins: "Show fewer",
+    bourse_ici: "{n} companies at this spot",
+    bourse_exact: "Headquarters at the exact address",
+    bourse_ville: "Exact address unknown: placed in the centre of {ville}",
+    bourse_ville_seule: "Exact address unknown: placed in the city centre",
+    bourse_cotee: "Listed on",
+    bourse_secteur: "Sector",
+    bourse_ca: "revenue",
+    bourse_effectifs: "employees",
+    bourse_capi: "market value",
+    bourse_site: "Official website",
+    bourse_wikidata: "Wikidata entry",
+    bourse_leg_exact: "Headquarters at the exact address",
+    bourse_leg_ville: "Headquarters known to the city (placed in the centre)",
+    bourse_leg_zoom: "Zoom in to see the logos. Click a dot to open the company’s card.",
+    bourse_source: "Companies, headquarters, sectors, figures: Wikidata · Logos: Wikimedia Commons · Streets: OpenStreetMap, via OpenFreeMap",
+    bourse_milliards: "{n} bn",
+    bourse_millions: "{n} m",
+    bourse_sec_banque: "Banking & finance",
+    bourse_sec_assurance: "Insurance",
+    bourse_sec_immobilier: "Real estate",
+    bourse_sec_logiciel: "Software & internet",
+    bourse_sec_ia: "Artificial intelligence",
+    bourse_sec_electronique: "Electronics & semiconductors",
+    bourse_sec_telecom: "Telecoms",
+    bourse_sec_medias: "Media & entertainment",
+    bourse_sec_jeux: "Video games & gambling",
+    bourse_sec_sante: "Health & pharma",
+    bourse_sec_energie: "Energy",
+    bourse_sec_mines: "Mining & metals",
+    bourse_sec_chimie: "Chemicals & materials",
+    bourse_sec_industrie: "Industry & machinery",
+    bourse_sec_automobile: "Automotive",
+    bourse_sec_aeronautique: "Aerospace & defence",
+    bourse_sec_transport: "Transport & logistics",
+    bourse_sec_commerce: "Retail & distribution",
+    bourse_sec_alimentation: "Food & drink",
+    bourse_sec_consommation: "Fashion, beauty & consumer goods",
+    bourse_sec_tourisme: "Travel, hotels & restaurants",
+    bourse_sec_construction: "Construction",
+    bourse_sec_services: "Business services",
+    bourse_sec_conglomerat: "Conglomerates & holdings",
+    bourse_sec_autre: "Other or not specified",
   },
 };
 
