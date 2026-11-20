@@ -1011,14 +1011,16 @@ def page_carte(langue, id_carte):
     )
 
 
-def nom_dans_la_liste(langue, id_carte):
-    """Le nom d'une carte dans la liste d'une vignette de l'accueil.
+def nom_dans_la_liste(langue, id_carte, champ="nav"):
+    """Le nom d'une carte, dans la liste d'une vignette de l'accueil (son nom
+    court, « nav ») comme dans sa propre vignette sur la page de sa rubrique
+    (son nom complet, « nom »).
 
     Une carte qui existe en plusieurs versions annonce ses versions entre
     parenthèses : « PIB (Nominal/Parité de pouvoir d'achat) » plutôt que
     « PIB » tout court (demande d'Antonin du 20 novembre 2026). On sait ainsi,
     avant même de cliquer, qu'on trouvera les deux."""
-    nom = langue["cartes"][id_carte]["nav"]
+    nom = langue["cartes"][id_carte][champ]
     famille = FAMILLE_DE[id_carte]
     if famille and len(FAMILLES[famille]) > 1:
         versions = "/".join(langue["variantes"][variante]
@@ -1079,7 +1081,7 @@ def page_categorie(langue, id_categorie):
         carte = langue["cartes"][id_carte]
         vignettes.append(vignette(
             "../" + carte["slug"] + "/", PASTILLES[id_carte],
-            carte["nom"], carte["texte"]))
+            nom_dans_la_liste(langue, id_carte, "nom"), carte["texte"]))
 
     return MODELE_VIGNETTES.format(
         hreflang=langue["hreflang"],
