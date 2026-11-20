@@ -329,7 +329,7 @@ LANGUES.append({
         "metro": {
             "slug": "metro",
             "nom": "Métros",
-            "nav": "Métro", "nav_court": "Métro",
+            "nav": "Métros", "nav_court": "Métros",
             "texte": "Toutes les villes du monde qui ont un métro, ligne par ligne et dans leurs vraies couleurs.",
             "titre": "Les métros du monde — carte interactive de toutes les lignes | StatsMaps",
             "description": "La carte de tous les métros du monde : 200 villes, chaque ligne dans sa couleur officielle, et les tronçons en construction. Classement des pays par nombre de réseaux, kilomètres, stations et lignes.",
@@ -441,7 +441,7 @@ LANGUES.append({
         "metro": {
             "slug": "metro",
             "nom": "Metros",
-            "nav": "Metro", "nav_court": "Metro",
+            "nav": "Metros", "nav_court": "Metros",
             "texte": "Every city in the world with a metro, line by line and in its real colours.",
             "titre": "Metro systems of the world — interactive map of every line | StatsMaps",
             "description": "A map of every metro system in the world: 200 cities, each line in its official colour, and the sections under construction. Countries ranked by number of systems, kilometres, stations and lines.",
@@ -690,8 +690,7 @@ MODELE_VIGNETTES = """<!DOCTYPE html>
     </div>
   </main>
 
-  <footer class="pied">{pied}</footer>
-
+{pied}
   <script src="{base}assets/js/barre.js"></script>
 </body>
 </html>
@@ -1062,7 +1061,10 @@ def page_accueil(langue):
         # cas où on voudrait le remettre, mais n'est plus mis dans la page.
         tete="",
         vignettes="\n".join(vignettes),
-        pied=echapper(accueil["pied"]),
+        # Pas de ligne de bas de page, ni ici ni sur les pages de rubrique
+        # (demande d'Antonin du 20 novembre 2026). Les sources restent écrites
+        # sur chaque carte, sous son panneau.
+        pied="",
     )
 
 
@@ -1094,7 +1096,7 @@ def page_categorie(langue, id_categorie):
         # restent écrits dans chaque langue, mais ne sont plus affichés.
         tete='    <h1 class="accueil__titre">%s</h1>\n' % echapper(categorie["nom"]),
         vignettes="\n".join(vignettes),
-        pied=echapper(langue["accueil"]["pied"]),
+        pied="",
     )
 
 
