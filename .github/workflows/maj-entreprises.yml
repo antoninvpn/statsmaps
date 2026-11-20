@@ -1,0 +1,75 @@
+# ============================================================================
+# Mise à jour automatique de la carte des entreprises cotées.
+#
+# Ce fichier dit à GitHub : « chaque matin, relance le script Python qui
+# rassemble la liste des entreprises cotées — OpenFIGI pour la liste complète,
+# GLEIF pour l'adresse des sièges, Wikidata pour les logos et les secteurs —,
+# et si elle a changé (une entreprise vient d'entrer en bourse, une autre en
+# est sortie), enregistre-la. » Le site se met alors à jour tout seul.
+#
+# La clé OpenFIGI est lue dans les « secrets » du dépôt (OPENFIGI_KEY) :
+# personne ne la voit, pas même dans le journal du robot.
+#
+# On peut aussi le déclencher à la main : onglet "Actions" du dépôt GitHub,
+# puis "Mise à jour des entreprises cotées", puis le bouton "Run workflow".
+# ============================================================================
+
+name: Mise à jour des entreprises cotées
+
+on:
+  schedule:
+    # Tous les jours à 4h30 UTC (5h30 ou 6h30 en France selon la saison).
+    - cron: "30 4 * * *"
+  workflow_dispatch: # le bouton manuel
+
+permissions:
+  contents: write # autorise le robot à enregistrer la nouvelle liste
+
+jobs:
+  mettre-a-jour:
+    runs-on: ubuntu-latest
+    # OpenFIGI répond en une heure et demie (20 questions par minute), GLEIF
+    # et Wikidata en une demi-heure, les nouvelles adresses en quelques
+    # minutes. Au-delà de cinq heures, c'est qu'un serveur est en panne : on
+    # abandonne, on réessaiera demain.
+    timeout-minutes: 300
+
+    steps:
+      - name: Récupérer le site
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Rassembler les entreprises (OpenFIGI, GLEIF, Wikidata)
+        env:
+          OPENFIGI_KEY: ${{ secrets.OPENFIGI_KEY }}
+        run: python3 scripts/build_bourse.py --monde
+
+      - name: Enregistrer si quelque chose a changé
+        run: |
+          # La date de mise à jour, écrite dans le fichier, change tous les
+          # jours : on ne compte comme changement que les ENTREPRISES elles-mêmes.
+          # (Le petit programme répond « oui » — code 0 — s'il y a du nouveau.)
+          if ! python3 - <<'PY'
+          import json, subprocess, sys
+          ancien = subprocess.run(["git", "show", "HEAD:data/bourse/entreprises.json"],
+                                  capture_output=True, text=True).stdout
+          neuf = open("data/bourse/entreprises.json", encoding="utf-8").read()
+          sans_date = lambda texte: {k: v for k, v in json.loads(texte).items() if k != "maj"} if texte else None
+          sys.exit(0 if sans_date(ancien) != sans_date(neuf) else 1)
+          PY
+          then
+            echo "Aucun changement : pas d'entrée ni de sortie de bourse depuis hier."
+            exit 0
+          fi
+          git config user.name "StatsMaps (robot)"
+          git config user.email "actions@github.com"
+          git add data/bourse/ scripts/adresses.json
+          git commit -m "Entreprises cotées mises à jour ($(date +%d/%m/%Y))"
+          # Le robot du FMI peut avoir enregistré quelque chose entre-temps.
+          git pull --rebase
+          git push
+          echo "Nouvelle liste enregistrée."

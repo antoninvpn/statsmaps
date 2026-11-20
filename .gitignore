@@ -11,3 +11,8 @@ scripts/.cache-metro/
 # Ce que build_bourse.py a téléchargé chez Wikidata (pas les logos, qui
 # eux font partie du site et sont dans data/bourse/logos/).
 scripts/.cache-bourse/
+
+# La clé personnelle OpenFIGI (voir build_bourse.py). Elle ne doit JAMAIS
+# être publiée : ce fichier reste sur le Mac, et le robot de GitHub lit la
+# même clé dans ses « secrets » (Settings → Secrets and variables → Actions).
+scripts/.cle-openfigi

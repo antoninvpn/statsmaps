@@ -47,6 +47,15 @@
      pays en thème clair. */
   var BLEU = "#2563EB";
   var JAUNE = "#F2B705";
+  /* Le gris des entreprises dont on ne connaît PAS le siège : elles sont
+     posées au centre du pays de leur bourse (choix d'Antonin), pour qu'elles
+     existent sur la carte, mais leur point ne dit rien de leur adresse. */
+  var GRIS = "#8A94A6";
+
+  /* La couleur d'une entreprise : p = 1 adresse exacte, 0 ville, 2 inconnu. */
+  function couleurDe(e) {
+    return e.p === 1 ? BLEU : e.p === 2 ? GRIS : JAUNE;
+  }
 
   /* À partir de ce zoom, les logos remplacent les pastilles. */
   var ZOOM_LOGOS = 8;
@@ -56,20 +65,29 @@
   var ZOOM_EXACT = 14;
   var ZOOM_VILLE = 11;
 
-  /* LE FOND DE RUES. C'est la seule carte du site qui va chercher quelque
-     chose ailleurs pendant qu'on la regarde : les rues, les bâtiments et
-     l'eau, chez OpenFreeMap — un service gratuit, sans compte ni publicité,
-     qui redistribue les données d'OpenStreetMap. Il n'est appelé que quand on
-     zoome sur une ville (à partir du zoom 10) : la vue du monde, elle, reste
-     entièrement servie par le site. Si OpenFreeMap ne répond pas, la carte
-     marche quand même, simplement sans les rues.
-     Sans ce fond, un point « à l'adresse exacte » flotte sur du gris uni, et
-     on ne voit pas dans quelle rue il est. */
-  var RUES = "https://tiles.openfreemap.org/planet";
-  var POLICES = "https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf";
-  var ZOOM_RUES = 10;
-  /* Les noms des rues n'apparaissent qu'à l'échelle du quartier. */
-  var ZOOM_NOMS = 14;
+  /* LE FOND DE CARTE. Contrairement aux cartes du PIB, qui coloriaient des
+     pays, celle-ci doit montrer OÙ est un siège : les rues, les bâtiments, les
+     parcs, les noms des lieux. Elle utilise donc une carte détaillée tirée
+     d'OpenStreetMap, servie gratuitement, sans compte ni publicité, par
+     OpenFreeMap : « Liberty » en thème clair, « Dark » en thème sombre.
+     (Une vraie vue SATELLITE n'existe pas gratuitement : les photos aériennes
+     précises appartiennent à des entreprises privées.)
+     C'est la seule carte du site qui va chercher son fond ailleurs pendant
+     qu'on la regarde. Si OpenFreeMap ne répond pas, la carte s'affiche quand
+     même, avec les pays du site en gris. */
+  var STYLES = {
+    clair: "https://tiles.openfreemap.org/styles/liberty",
+    sombre: "https://tiles.openfreemap.org/styles/dark",
+  };
+
+  /* LES FRONTIÈRES. Le fond d'OpenFreeMap dessine celles d'OpenStreetMap, qui
+     ne sont pas celles que le site a choisies (Crimée ukrainienne ; Chypre du
+     Nord, Somaliland et Sahara occidental fondus dans leur pays, sans trait —
+     voir FUSIONS dans scripts/build_geojson.py). On efface donc les siennes, et
+     on dessine par-dessus celles du site. On retire aussi les NOMS de ces
+     territoires, qu'OpenStreetMap écrit comme des pays. */
+  var TERRITOIRES_SANS_NOM = ["Western Sahara", "Somaliland", "Northern Cyprus",
+    "Turkish Republic of Northern Cyprus", "Sahrawi Arab Democratic Republic"];
 
   /* Combien de places boursières on montre avant le bouton « Voir les autres » :
      il y en a deux cents, dont la moitié n'ont qu'une ou deux entreprises. */
@@ -202,128 +220,148 @@
     };
   }
 
-  function styleDeBase() {
-    return {
-      version: 8,
-      name: "StatsMaps",
-      /* Les lettres des noms de rues. Rien n'est téléchargé tant qu'aucun nom
-         n'est à afficher, c'est-à-dire avant le zoom 14. */
-      glyphs: POLICES,
-      sources: {},
-      layers: [{
-        id: "mer",
-        type: "background",
-        paint: { "background-color": couleurDuFond() },
-      }],
-    };
+  /* Le thème du moment, lu sur la couleur de fond de la page : c'est elle que
+     theme.js change, que le choix vienne du bouton ou du réglage du téléphone. */
+  function themeSombre() {
+    var m = /#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})/i.exec(couleurCSS("--fond"));
+    if (!m) return false;
+    return parseInt(m[1], 16) + parseInt(m[2], 16) + parseInt(m[3], 16) < 300;
   }
 
-  /* Le fond change de rôle avec le zoom. De loin, c'est la MER, et les pays
-     sont dessinés par-dessus. De près, c'est la TERRE, et c'est l'eau du fond
-     de rues qui est dessinée par-dessus : les contours des pays du site sont
-     simplifiés pour le monde entier, et à l'échelle d'une rue ils mettraient
-     la moitié de Hong Kong dans la mer. */
-  function couleurDuFond() {
-    return ["interpolate", ["linear"], ["zoom"],
-      ZOOM_RUES - 1, couleurCSS("--fond-carte"),
-      ZOOM_RUES, couleurCSS("--rue-terre")];
-  }
-
-  /* Le fond de rues apparaît en fondu entre les zooms 9 et 10, pendant que
-     les pays du site s'effacent : l'œil ne voit aucune coupure. */
-  function apparitionDesRues() {
-    return ["interpolate", ["linear"], ["zoom"], ZOOM_RUES - 1, 0, ZOOM_RUES, 1];
-  }
-
-  /* L'épaisseur d'une rue selon son importance : une autoroute est plus
-     large qu'une ruelle, et toutes s'élargissent quand on s'approche. */
-  function largeurDesRues(bordure) {
-    var plus = bordure ? 1.6 : 0;
-    function selon(grandes, moyennes, petites) {
-      return ["+", plus, ["match", ["get", "class"],
-        ["motorway", "trunk"], grandes,
-        ["primary", "secondary"], moyennes,
-        petites]];
+  /* Le style d'OpenFreeMap, téléchargé une fois par thème puis gardé. */
+  var stylesTelecharges = {};
+  function telechargerStyle(theme) {
+    if (!stylesTelecharges[theme]) {
+      stylesTelecharges[theme] = fetch(STYLES[theme])
+        .then(function (r) {
+          if (!r.ok) throw new Error(STYLES[theme] + " : " + r.status);
+          return r.json();
+        })
+        .catch(function (e) {
+          console.error("[StatsMaps] fond de carte :", e);
+          return null;  /* repli : la carte sans fond détaillé */
+        });
     }
-    return ["interpolate", ["exponential", 1.6], ["zoom"],
-      ZOOM_RUES, selon(1.4, 0.8, 0.2),
-      14, selon(5, 3.5, 1.8),
-      18, selon(18, 14, 9)];
+    return stylesTelecharges[theme];
   }
 
-  function ajouterLesRues() {
-    carte.addSource("rues", { type: "vector", url: RUES });
-    var classes = ["motorway", "trunk", "primary", "secondary", "tertiary",
-                   "minor", "service"];
-    var filtreRues = ["match", ["get", "class"], classes, true, false];
+  /* Dans une étiquette d'OpenFreeMap, le nom « latin » d'un lieu (souvent
+     dans la langue du pays : « Deutschland ») est remplacé par son nom dans
+     la langue de la page quand OpenStreetMap le connaît (« Allemagne »). */
+  function nomDansLaLangue(expression) {
+    if (Array.isArray(expression)) {
+      if (expression[0] === "get" && expression[1] === "name:latin") {
+        return ["coalesce", ["get", "name:" + langue], ["get", "name:latin"]];
+      }
+      return expression.map(nomDansLaLangue);
+    }
+    return expression;
+  }
 
-    carte.addLayer({
-      id: "rues-eau", type: "fill", source: "rues", "source-layer": "water",
-      minzoom: ZOOM_RUES - 1,
-      paint: { "fill-color": couleurCSS("--rue-eau"), "fill-opacity": apparitionDesRues() },
+  /* Le style complet de la carte : le fond d'OpenFreeMap, retouché, puis par-
+     dessus les couches du site (frontières et entreprises). On le refabrique
+     entièrement au changement de thème. */
+  function fabriquerStyle(fond, geoPays) {
+    var style = fond ? JSON.parse(JSON.stringify(fond)) : {
+      version: 8, sources: {},
+      layers: [{ id: "mer", type: "background",
+                 paint: { "background-color": couleurCSS("--fond-carte") } }],
+    };
+
+    style.layers = style.layers.filter(function (couche) {
+      return couche["source-layer"] !== "boundary";  /* leurs frontières */
+    }).map(function (couche) {
+      if (couche.layout && couche.layout["text-field"]) {
+        couche.layout["text-field"] = nomDansLaLangue(couche.layout["text-field"]);
+      }
+      if (couche["source-layer"] === "place") {
+        var sansTerritoires = ["!", ["in", ["coalesce", ["get", "name:en"], ""],
+                                     ["literal", TERRITOIRES_SANS_NOM]]];
+        couche.filter = couche.filter ? ["all", couche.filter, sansTerritoires]
+                                      : sansTerritoires;
+      }
+      return couche;
     });
-    carte.addLayer({
-      id: "rues-batiments", type: "fill", source: "rues", "source-layer": "building",
-      minzoom: 13,
+
+    style.sources.pays = { type: "geojson", data: geoPays };
+    style.sources.entreprises = { type: "geojson", data: entreprisesGeoJSON() };
+
+    if (!fond) {
+      style.layers.push({
+        id: "pays-fond", type: "fill", source: "pays",
+        paint: { "fill-color": couleurCSS("--pays-sans-donnee"), "fill-opacity": 0.55 },
+      });
+    }
+
+    /* Les frontières du site : un trait fin, discret, qui se fond un peu
+       quand on s'approche des rues. */
+    style.layers.push({
+      id: "pays-contour", type: "line", source: "pays",
       paint: {
-        "fill-color": couleurCSS("--rue-batiment"),
-        "fill-opacity": ["interpolate", ["linear"], ["zoom"], 13, 0, 14, 1],
+        "line-color": themeSombre() ? "#6b7685" : "#9aa3b5",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 1, 0.5, 6, 1.2, 12, 1.6],
+        "line-opacity": ["interpolate", ["linear"], ["zoom"], 1, 0.9, 12, 0.5],
       },
     });
-    carte.addLayer({
-      id: "rues-bordures", type: "line", source: "rues", "source-layer": "transportation",
-      minzoom: ZOOM_RUES - 1, filter: filtreRues,
-      layout: { "line-cap": "round", "line-join": "round" },
+
+    /* Les pastilles : toujours là, à tous les zooms. De près, elles restent
+       sous les logos et ne se voient que là où un logo n'a pas trouvé de
+       place. Les plus connues sont dessinées en dernier, donc par-dessus. */
+    style.layers.push({
+      id: "points", type: "circle", source: "entreprises",
+      layout: { "circle-sort-key": ["get", "r"] },
       paint: {
-        "line-color": couleurCSS("--rue-bordure"),
-        "line-width": largeurDesRues(true),
-        "line-opacity": apparitionDesRues(),
+        "circle-radius": ["interpolate", ["linear"], ["zoom"],
+          0.5, 2, 4, 2.8, 8, 4.4, 12, 6, 16, 7],
+        "circle-color": ["match", ["get", "p"], 1, BLEU, 2, GRIS, JAUNE],
+        "circle-opacity": 0.95,
+        "circle-stroke-width": ["interpolate", ["linear"], ["zoom"], 2, 0.5, 8, 1.2],
+        "circle-stroke-color": themeSombre() ? "#0e1116" : "#ffffff",
       },
     });
-    carte.addLayer({
-      id: "rues-traits", type: "line", source: "rues", "source-layer": "transportation",
-      minzoom: ZOOM_RUES - 1, filter: filtreRues,
-      layout: { "line-cap": "round", "line-join": "round" },
-      paint: {
-        "line-color": couleurCSS("--rue"),
-        "line-width": largeurDesRues(false),
-        "line-opacity": apparitionDesRues(),
-      },
-    });
-    /* Le nom des rues, dans la langue du pays : c'est celui qu'on lit sur la
-       plaque, et celui qu'on retrouve dans l'adresse de la fiche. */
-    carte.addLayer({
-      id: "rues-noms", type: "symbol", source: "rues", "source-layer": "transportation_name",
-      minzoom: ZOOM_NOMS,
+
+    /* Les logos, à partir du zoom 8. Le nom de l'image est « logo-Q312 » :
+       MapLibre ne l'a pas encore, il le demande à dessinerUnLogo(). Quand deux
+       logos se chevauchent, le plus connu gagne (la clef la plus PETITE passe
+       en premier, d'où le signe moins). */
+    style.layers.push({
+      id: "logos", type: "symbol", source: "entreprises",
+      minzoom: ZOOM_LOGOS - 0.5,
       layout: {
-        "symbol-placement": "line",
-        "text-field": ["get", "name"],
-        "text-font": ["Noto Sans Regular"],
-        "text-size": ["interpolate", ["linear"], ["zoom"], ZOOM_NOMS, 10.5, 18, 13],
-        "text-max-angle": 30,
+        "icon-image": ["concat", "logo-", ["get", "q"]],
+        "icon-size": ["interpolate", ["linear"], ["zoom"],
+          ZOOM_LOGOS - 0.5, 0.6, 12, 0.85, 15, 1],
+        "symbol-sort-key": ["-", 0, ["get", "r"]],
+        "icon-padding": 1,
       },
       paint: {
-        "text-color": couleurCSS("--rue-nom"),
-        "text-halo-color": couleurCSS("--rue"),
-        "text-halo-width": 1.4,
+        "icon-opacity": ["interpolate", ["linear"], ["zoom"],
+          ZOOM_LOGOS - 0.5, 0, ZOOM_LOGOS + 0.3, 1],
       },
     });
+
+    /* Le cercle autour de l'entreprise dont la fiche est ouverte. */
+    style.layers.push({
+      id: "choisie", type: "circle", source: "entreprises",
+      filter: ["==", ["get", "q"], choisie || ""],
+      paint: {
+        "circle-radius": ["interpolate", ["linear"], ["zoom"], 2, 8, ZOOM_LOGOS, 12, 14, 22],
+        "circle-color": "rgba(0,0,0,0)",
+        "circle-stroke-width": 2.5,
+        "circle-stroke-color": themeSombre() ? "#e6edf3" : "#16191d",
+      },
+    });
+
+    return style;
   }
 
-  function repeindreLesRues() {
-    if (!carte.getLayer("rues-eau")) return;
-    carte.setPaintProperty("rues-eau", "fill-color", couleurCSS("--rue-eau"));
-    carte.setPaintProperty("rues-batiments", "fill-color", couleurCSS("--rue-batiment"));
-    carte.setPaintProperty("rues-bordures", "line-color", couleurCSS("--rue-bordure"));
-    carte.setPaintProperty("rues-traits", "line-color", couleurCSS("--rue"));
-    carte.setPaintProperty("rues-noms", "text-color", couleurCSS("--rue-nom"));
-    carte.setPaintProperty("rues-noms", "text-halo-color", couleurCSS("--rue"));
-  }
+  var geoPaysGarde = null;
 
-  function construireCarte(geoPays) {
+  function construireCarte(geoPays, fond) {
+    geoPaysGarde = geoPays;
     carte = new maplibregl.Map({
       container: "carte",
-      style: styleDeBase(),
+      style: fabriquerStyle(fond, geoPays),
       bounds: CADRAGE_MONDE,
       fitBoundsOptions: { padding: margesDuCadrage() },
       minZoom: 0.5,
@@ -339,7 +377,7 @@
       compact: true,
       customAttribution:
         /* OpenFreeMap, OpenMapTiles et OpenStreetMap n'ont pas à être écrits
-           ici : le fond de rues apporte lui-même sa mention, et MapLibre
+           ici : le fond de carte apporte lui-même sa mention, et MapLibre
            l'ajoute tout seul à cette ligne. */
         '<a href="https://www.naturalearthdata.com/">Natural Earth</a> · ' +
         '<a href="https://www.wikidata.org/">Wikidata</a> · ' +
@@ -353,84 +391,8 @@
     carte.on("styleimagemissing", dessinerUnLogo);
 
     carte.on("load", function () {
-      carte.addSource("pays", { type: "geojson", data: geoPays });
-      carte.addSource("entreprises", { type: "geojson", data: entreprisesGeoJSON() });
-
-      /* Les pays du site s'effacent quand le fond de rues prend le relais. */
-      carte.addLayer({
-        id: "pays-fond", type: "fill", source: "pays",
-        paint: {
-          "fill-color": couleurCSS("--pays-sans-donnee"),
-          "fill-opacity": ["interpolate", ["linear"], ["zoom"],
-            ZOOM_RUES - 1, 0.55, ZOOM_RUES, 0],
-        },
-      });
-      carte.addLayer({
-        id: "pays-contour", type: "line", source: "pays",
-        paint: {
-          "line-color": couleurCSS("--contour-pays"),
-          "line-width": 0.4,
-          "line-opacity": ["interpolate", ["linear"], ["zoom"],
-            ZOOM_RUES - 1, 1, ZOOM_RUES, 0],
-        },
-      });
-
-      ajouterLesRues();
-
-      /* Les pastilles : toujours là, à tous les zooms. De près, elles restent
-         sous les logos et ne se voient que là où un logo n'a pas trouvé de
-         place. */
-      carte.addLayer({
-        id: "points", type: "circle", source: "entreprises",
-        layout: {
-          /* Les plus connues sont dessinées en dernier, donc par-dessus. */
-          "circle-sort-key": ["get", "r"],
-        },
-        paint: {
-          "circle-radius": ["interpolate", ["linear"], ["zoom"],
-            0.5, 1.8, 4, 2.6, 8, 4.2, 12, 6, 16, 7],
-          "circle-color": ["case", ["==", ["get", "p"], 1], BLEU, JAUNE],
-          "circle-opacity": 0.92,
-          "circle-stroke-width": ["interpolate", ["linear"], ["zoom"], 2, 0.3, 8, 1],
-          "circle-stroke-color": couleurCSS("--panneau"),
-        },
-      });
-
-      /* Les logos, à partir du zoom 8. Le nom de l'image est « logo-Q312 » :
-         MapLibre ne l'a pas encore, il le demande à dessinerUnLogo(). */
-      carte.addLayer({
-        id: "logos", type: "symbol", source: "entreprises",
-        minzoom: ZOOM_LOGOS - 0.5,
-        layout: {
-          "icon-image": ["concat", "logo-", ["get", "q"]],
-          "icon-size": ["interpolate", ["linear"], ["zoom"],
-            ZOOM_LOGOS - 0.5, 0.6, 12, 0.85, 15, 1],
-          /* Quand deux logos se chevauchent, le plus connu gagne (la clef la
-             plus PETITE passe en premier, d'où le signe moins). */
-          "symbol-sort-key": ["-", 0, ["get", "r"]],
-          "icon-padding": 1,
-        },
-        paint: {
-          "icon-opacity": ["interpolate", ["linear"], ["zoom"],
-            ZOOM_LOGOS - 0.5, 0, ZOOM_LOGOS + 0.3, 1],
-        },
-      });
-
-      /* Le cercle autour de l'entreprise dont la fiche est ouverte. */
-      carte.addLayer({
-        id: "choisie", type: "circle", source: "entreprises",
-        filter: ["==", ["get", "q"], ""],
-        paint: {
-          "circle-radius": ["interpolate", ["linear"], ["zoom"], 2, 8, ZOOM_LOGOS, 12, 14, 22],
-          "circle-color": "rgba(0,0,0,0)",
-          "circle-stroke-width": 2.5,
-          "circle-stroke-color": couleurCSS("--texte"),
-        },
-      });
-
       brancherInteractions();
       dessinerLegende();
-      if (choisie) marquerChoisie(choisie);
     });
   }
 
@@ -474,7 +436,7 @@
     c.fillStyle = "#ffffff";
     c.fill();
     c.lineWidth = epaisseur;
-    c.strokeStyle = e.p ? BLEU : JAUNE;
+    c.strokeStyle = couleurDe(e);
     c.stroke();
 
     if (image && image.width && image.height) {
@@ -620,7 +582,7 @@
      endroit. Chaque ligne porte la couleur de sa pastille sur la carte. */
   function ligneEntreprise(e) {
     return '<li class="entreprise" data-q="' + echapper(e.q) + '">' +
-      '<span class="entreprise__point" style="background:' + (e.p ? BLEU : JAUNE) + '"></span>' +
+      '<span class="entreprise__point" style="background:' + couleurDe(e) + '"></span>' +
       '<span class="nom">' + echapper(e.n) + "</span>" +
       '<span class="valeur">' + echapper(e.v || nomDuPays(e.i)) + "</span></li>";
   }
@@ -752,7 +714,11 @@
     if (voler) {
       carte.flyTo({
         center: [e.x, e.y],
-        zoom: Math.max(carte.getZoom(), e.p ? ZOOM_EXACT : ZOOM_VILLE),
+        /* La rue pour une adresse exacte, la ville pour un point jaune, et
+           le pays entier pour un point gris : zoomer sur le centre d'un pays
+           ne montrerait rien. */
+        zoom: e.p === 2 ? Math.max(carte.getZoom(), 4.5)
+            : Math.max(carte.getZoom(), e.p === 1 ? ZOOM_EXACT : ZOOM_VILLE),
         padding: margesDuCadrage(),
         speed: 1.4,
       });
@@ -779,10 +745,11 @@
            : "<span>" + echapper(initiales(e.n)) + "</span>") + "</div>");
 
     /* Où est le siège, et à quel point on en est sûr. */
-    var precision = e.p ? t("bourse_exact")
+    var precision = e.p === 1 ? t("bourse_exact")
+      : e.p === 2 ? t("bourse_inconnu")
       : (e.v ? t("bourse_ville").replace("{ville}", e.v) : t("bourse_ville_seule"));
     h.push('<p class="fiche-entreprise__precision"><span class="entreprise__point" style="background:' +
-      (e.p ? BLEU : JAUNE) + '"></span>' + echapper(precision) + "</p>");
+      couleurDe(e) + '"></span>' + echapper(precision) + "</p>");
     var adresse = [e.a, e.v].filter(Boolean);
     /* Pas deux fois la ville quand l'adresse la contient déjà. */
     if (e.a && e.v && sansAccents(e.a).indexOf(sansAccents(e.v)) >= 0) adresse = [e.a];
@@ -813,8 +780,18 @@
       liens.push('<a href="' + echapper(site) + '" target="_blank" rel="noopener">' +
         echapper(t("bourse_site")) + " ↗</a>");
     }
-    liens.push('<a href="https://www.wikidata.org/wiki/' + echapper(e.q) +
-      '" target="_blank" rel="noopener">' + echapper(t("bourse_wikidata")) + " ↗</a>");
+    /* Les entreprises connues de Wikidata ont un identifiant en « Q » ; celles
+       que seul OpenFIGI connaît, un identifiant en « F », sans fiche Wikidata. */
+    if (/^Q\d+$/.test(e.q)) {
+      liens.push('<a href="https://www.wikidata.org/wiki/' + echapper(e.q) +
+        '" target="_blank" rel="noopener">' + echapper(t("bourse_wikidata")) + " ↗</a>");
+    }
+    /* La fiche de l'entreprise au registre mondial GLEIF, d'où vient souvent
+       l'adresse de son siège. */
+    if (/^[A-Z0-9]{20}$/.test(e.g || "")) {
+      liens.push('<a href="https://search.gleif.org/#/record/' + echapper(e.g) +
+        '" target="_blank" rel="noopener">' + echapper(t("bourse_gleif")) + " ↗</a>");
+    }
     h.push('<p class="fiche-entreprise__liens">' + liens.join("") + "</p>");
 
     h.push("</li>");
@@ -871,6 +848,8 @@
         BLEU + '"></span>' + echapper(t("bourse_leg_exact")) + "</div>" +
       '<div class="legende__ligne"><span class="legende__pastille" style="background:' +
         JAUNE + '"></span>' + echapper(t("bourse_leg_ville")) + "</div>" +
+      '<div class="legende__ligne"><span class="legende__pastille" style="background:' +
+        GRIS + '"></span>' + echapper(t("bourse_leg_inconnu")) + "</div>" +
       '<div class="legende__note">' + echapper(t("bourse_leg_zoom")) + "</div>";
   }
 
@@ -881,7 +860,8 @@
     chargement.textContent = t("chargement");
     if (panneau.onglets) panneau.onglets.hidden = true;
 
-    Promise.all([charger("data/bourse/entreprises.json"), charger("data/pays.json")])
+    Promise.all([charger("data/bourse/entreprises.json"), charger("data/pays.json"),
+                 telechargerStyle(themeSombre() ? "sombre" : "clair")])
       .then(function (r) {
         donnees = r[0];
         /* Les noms anglais (« ne », « ve ») ne sont écrits dans le fichier que
@@ -911,7 +891,7 @@
 
         dessinerPanneau();
         brancherTiroir();
-        construireCarte(r[1]);
+        construireCarte(r[1], r[2]);
         chargement.hidden = true;
       })
       .catch(function (e) {
@@ -921,15 +901,15 @@
   }
 
   /* Le thème clair/sombre repeint la carte sans la reconstruire. */
+  /* Le thème clair/sombre change de fond de carte : « Liberty » ou « Dark ».
+     On refabrique le style entier ; les entreprises, les filtres et la fiche
+     ouverte sont gardés, et les logos se redessinent d'eux-mêmes. */
   window.addEventListener("statsmaps:theme", function () {
-    if (!carte || !carte.isStyleLoaded()) return;
-    carte.setPaintProperty("mer", "background-color", couleurDuFond());
-    carte.setPaintProperty("pays-fond", "fill-color", couleurCSS("--pays-sans-donnee"));
-    carte.setPaintProperty("pays-contour", "line-color", couleurCSS("--contour-pays"));
-    repeindreLesRues();
-    carte.setPaintProperty("points", "circle-stroke-color", couleurCSS("--panneau"));
-    carte.setPaintProperty("choisie", "circle-stroke-color", couleurCSS("--texte"));
-    dessinerLegende();
+    if (!carte || !geoPaysGarde) return;
+    telechargerStyle(themeSombre() ? "sombre" : "clair").then(function (fond) {
+      carte.setStyle(fabriquerStyle(fond, geoPaysGarde));
+      dessinerLegende();
+    });
   });
 
   if (document.readyState === "loading") {

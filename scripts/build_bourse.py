@@ -87,11 +87,13 @@ def cache_ecrire(nom, valeur):
         json.dump(valeur, f, ensure_ascii=False)
 
 
-def telecharger(url, essais=4, entetes=None, binaire=False):
-    """Télécharge une page. Réessaie si le serveur est occupé."""
+def telecharger(url, essais=4, entetes=None, binaire=False, corps=None):
+    """Télécharge une page. Réessaie si le serveur est occupé.
+    corps : ce qu'on envoie DANS le message plutôt que dans l'adresse (une
+    question trop longue ne tient pas dans une adresse web)."""
     for n in range(essais):
         try:
-            req = urllib.request.Request(url, headers=entetes or EN_TETES)
+            req = urllib.request.Request(url, data=corps, headers=entetes or EN_TETES)
             with urllib.request.urlopen(req, timeout=300) as r:
                 corps = r.read()
                 return corps if binaire else corps.decode("utf-8", "replace")
@@ -115,14 +117,21 @@ def sparql(requete, nom_cache):
     d = cache_lire(nom_cache)
     if d is not None:
         return d
-    url = WIKIDATA + "?format=json&query=" + urllib.parse.quote(requete)
+    # La question part dans le corps du message (POST), et non dans l'adresse :
+    # une liste de 500 villes ferait une adresse trop longue (erreur 414).
+    corps = urllib.parse.urlencode({"query": requete, "format": "json"}).encode()
     entetes = dict(EN_TETES)
     entetes["Accept"] = "application/sparql-results+json"
+    entetes["Content-Type"] = "application/x-www-form-urlencoded"
     # Quand une question prend trop de temps, Wikidata coupe sa réponse en
     # plein milieu : le texte reçu n'est alors pas lisible. On réessaie.
     for essai in range(3):
         try:
-            d = json.loads(telecharger(url, entetes=entetes))["results"]["bindings"]
+            # strict=False : certains noms de Wikidata contiennent des caractères
+            # invisibles (un retour à la ligne dans un nom de ville…) que la
+            # lecture stricte refuserait.
+            d = json.loads(telecharger(WIKIDATA, entetes=entetes, corps=corps),
+                           strict=False)["results"]["bindings"]
             break
         except ValueError:
             if essai == 2:
@@ -307,7 +316,7 @@ def sieges():
     elles sont notées sur le siège lui-même."""
     lignes = sparql("""
         SELECT ?e ?h ?rang ?cq ?adr ?ch ?fin WHERE {
-          ?e wdt:P414 ?x .
+          { ?e wdt:P414 [] } UNION { ?e wdt:P946 [] ; wdt:P1278 [] }
           ?e p:P159 ?s . ?s ps:P159 ?h ; wikibase:rank ?rang .
           OPTIONAL { ?s pq:P625 ?cq }
           OPTIONAL { ?s pq:P6375 ?adr }
@@ -340,7 +349,8 @@ def immeubles():
     # natures, lesquelles sont des bâtiments.
     lignes = sparql("""
         SELECT DISTINCT ?h ?t WHERE {
-          ?e wdt:P414 ?x ; wdt:P159 ?h .
+          { ?e wdt:P414 [] } UNION { ?e wdt:P946 [] ; wdt:P1278 [] }
+          ?e wdt:P159 ?h .
           ?h wdt:P31 ?t .
         }""", "natures_sieges.json")
     natures = {}
@@ -372,7 +382,7 @@ def coordonnees_propres():
     leur siège. Et parfois une adresse."""
     lignes = sparql("""
         SELECT ?e ?c ?adr WHERE {
-          ?e wdt:P414 ?x .
+          { ?e wdt:P414 [] } UNION { ?e wdt:P946 [] ; wdt:P1278 [] }
           { ?e wdt:P625 ?c } UNION { ?e wdt:P6375 ?adr }
         }""", "coordonnees.json")
     coords, adresses = {}, {}
@@ -436,18 +446,29 @@ LANGUES_SPARQL = ", ".join('"%s"' % lg for lg in ORDRE_DES_LANGUES)
 def noms_des_entreprises():
     return noms("""
         SELECT ?e ?l (LANG(?l) AS ?lg) WHERE {
-          ?e wdt:P414 ?x ; rdfs:label ?l .
+          { ?e wdt:P414 [] } UNION { ?e wdt:P946 [] ; wdt:P1278 [] }
+          ?e rdfs:label ?l .
           FILTER(LANG(?l) IN (%s))
         }""" % LANGUES_SPARQL, "noms_entreprises.json")
 
 
-def noms_des_lieux():
-    return noms("""
-        SELECT DISTINCT ?e ?l (LANG(?l) AS ?lg) WHERE {
-          ?x wdt:P414 ?b ; wdt:P159 ?e .
-          ?e rdfs:label ?l .
-          FILTER(LANG(?l) IN (%s))
-        }""" % LANGUES_SPARQL, "noms_lieux.json")
+def noms_des_lieux(lieux):
+    """Le nom de chaque ville (ou immeuble) de siège. Demandé par paquets de
+    500 lieux : d'un seul coup, la réponse dépasse la minute que Wikidata
+    accorde à une question, et arrive coupée en deux."""
+    lieux = sorted(lieux)
+    fr, en = {}, {}
+    for n in range(0, len(lieux), 500):
+        paquet = " ".join("wd:" + q for q in lieux[n:n + 500])
+        a, b = noms("""
+            SELECT ?e ?l (LANG(?l) AS ?lg) WHERE {
+              VALUES ?e { %s }
+              ?e rdfs:label ?l .
+              FILTER(LANG(?l) IN (%s))
+            }""" % (paquet, LANGUES_SPARQL), "noms_lieux_%d.json" % n)
+        fr.update(a)
+        en.update(b)
+    return fr, en
 
 
 def noms_des_bourses(qids):
@@ -465,7 +486,7 @@ def noms_des_bourses(qids):
 def logos_et_sites():
     lignes = sparql("""
         SELECT ?e ?logo ?site ?rang WHERE {
-          ?e wdt:P414 ?x .
+          { ?e wdt:P414 [] } UNION { ?e wdt:P946 [] ; wdt:P1278 [] }
           { ?e wdt:P154 ?logo }
           UNION
           { ?e p:P856 ?s . ?s ps:P856 ?site ; wikibase:rank ?rang .
@@ -493,7 +514,7 @@ def notoriete():
     alors que le chiffre d'affaires manque à la plupart. Sur la carte, c'est
     elle qui décide quel logo passe devant quand deux se chevauchent."""
     lignes = sparql("""
-        SELECT ?e ?n WHERE { ?e wdt:P414 ?x ; wikibase:sitelinks ?n . }""",
+        SELECT ?e ?n WHERE { { ?e wdt:P414 [] } UNION { ?e wdt:P946 [] ; wdt:P1278 [] } ?e wikibase:sitelinks ?n . }""",
         "notoriete.json")
     return {qid(val(l, "e")): int(val(l, "n", 0)) for l in lignes}
 
@@ -503,7 +524,8 @@ def notoriete():
 def secteurs_bruts():
     lignes = sparql("""
         SELECT ?e ?i ?en WHERE {
-          ?e wdt:P414 ?x ; wdt:P452 ?i .
+          { ?e wdt:P414 [] } UNION { ?e wdt:P946 [] ; wdt:P1278 [] }
+          ?e wdt:P452 ?i .
           OPTIONAL { ?i rdfs:label ?en FILTER(LANG(?en) = "en") }
         }""", "secteurs.json")
     par_entreprise, noms_anglais = {}, {}
@@ -558,7 +580,7 @@ def dernier_chiffre(propriete, nom_cache):
     capitalisation), avec son unité et son année."""
     lignes = sparql("""
         SELECT ?e ?v ?unite ?date WHERE {
-          ?e wdt:P414 ?x .
+          { ?e wdt:P414 [] } UNION { ?e wdt:P946 [] ; wdt:P1278 [] }
           ?e p:%s ?s . ?s psv:%s ?n ; wikibase:rank ?rang .
           FILTER(?rang != wikibase:DeprecatedRank)
           ?n wikibase:quantityAmount ?v .
@@ -665,6 +687,314 @@ def chiffre_ou_rien(chiffres, e, monnaies=None):
     return [v, code, annee or None]
 
 
+# --- Étape 9 : la liste complète, avec OpenFIGI et GLEIF -------------------
+#
+# Wikidata ne connaît qu'une partie des entreprises cotées (~10 000). OpenFIGI
+# les connaît toutes (~57 000 actions), et GLEIF donne l'adresse du siège de
+# beaucoup d'entre elles. Voir scripts/bourse_monde.py.
+#
+# Chaque action d'OpenFIGI est d'abord RELIÉE, quand c'est possible, à la
+# fiche Wikidata de son entreprise :
+#   · par le numéro LEI, que Wikidata connaît pour 53 000 entreprises ;
+#   · sinon par son symbole de cotation (« AAPL », « 7203 »), à la même bourse.
+# Une entreprise reliée garde tout ce que Wikidata sait d'elle (logo, secteur,
+# chiffres, nom en français) ; une entreprise que seul OpenFIGI connaît arrive
+# avec son nom officiel (celui de GLEIF), et dans le secteur « Autre ».
+#
+# Puis on décide où la poser, du plus précis au moins précis :
+#   1. bleu  : les coordonnées précises de Wikidata ;
+#   2. bleu  : l'adresse GLEIF du siège, retrouvée dans la rue ;
+#   3. jaune : la ville du siège, d'après Wikidata ;
+#   4. jaune : la ville du siège, d'après GLEIF ;
+#   5. GRIS  : rien de connu sur le siège — le point est posé au centre du pays
+#      de sa bourse (choix d'Antonin du 20 novembre 2026). « p » vaut alors 2.
+
+GRIS = 2
+
+
+def leis_wikidata():
+    """Le numéro LEI de toutes les fiches Wikidata qui en ont un."""
+    lignes = sparql("SELECT ?e ?lei WHERE { ?e wdt:P1278 ?lei }", "leis.json")
+    return {val(l, "lei"): qid(val(l, "e")) for l in lignes if qid(val(l, "e"))}
+
+
+def codes_pays():
+    """« FR » -> « FRA » : GLEIF parle en codes à deux lettres, le fond de
+    carte du site en codes à trois."""
+    lignes = sparql("""SELECT ?a ?b WHERE { ?c wdt:P297 ?a ; wdt:P298 ?b }""", "codes_pays.json")
+    return {val(l, "a"): val(l, "b") for l in lignes}
+
+
+def centres_des_pays(pays):
+    """Le centre de chaque pays : celui de son plus grand morceau de terre (le
+    centre du cadre des États-Unis tomberait au Canada, à cause de l'Alaska)."""
+    centres = {}
+    for p in pays:
+        meilleur, aire_max = None, 0
+        for anneau in p["anneaux"]:
+            aire = cx = cy = 0.0
+            for (x1, y1), (x2, y2) in zip(anneau, anneau[1:] + anneau[:1]):
+                f = x1 * y2 - x2 * y1
+                aire += f
+                cx += (x1 + x2) * f
+                cy += (y1 + y2) * f
+            if abs(aire) > aire_max and aire:
+                aire_max, meilleur = abs(aire), (cx / (3 * aire), cy / (3 * aire))
+        if meilleur:
+            centres[p["iso"]] = meilleur
+    return centres
+
+
+def joli_nom(nom):
+    """« DANGOTE CEMENT PLC » -> « Dangote Cement PLC ». Les noms officiels
+    sont souvent écrits tout en majuscules ; on ne retouche que ceux-là."""
+    if nom != nom.upper():
+        return nom
+    garder = {"PLC", "SA", "AG", "NV", "SE", "SPA", "AB", "ASA", "LLC", "LP", "BHD",
+              "TBK", "PT", "JSC", "PJSC", "PCL", "SAB", "CV", "KK", "INC", "LTD", "ABB",
+              "IBM", "HSBC", "BNP", "USA", "UK", "II", "III", "IV"}
+    mots = []
+    for m in nom.split(" "):
+        nu = re.sub(r"[^A-Z]", "", m)
+        mots.append(m if nu in garder or (len(nu) <= 3 and not re.search(r"[AEIOUY]", nu))
+                    else m.capitalize())
+    return " ".join(mots)
+
+
+NOMS_SOUS_PLACES = {
+    "US/N": ("New York Stock Exchange", "New York Stock Exchange"),
+    "US/Q": ("NASDAQ", "NASDAQ"),
+    "US/A": ("NYSE American", "NYSE American"),
+    "US/P": ("NYSE Arca", "NYSE Arca"),
+    "US/Z": ("Cboe BZX", "Cboe BZX"),
+    "US/V": ("IEX", "IEX"),
+    "CH/SH": ("bourse de Shanghai", "Shanghai Stock Exchange"),
+    "CH/SZ": ("bourse de Shenzhen", "Shenzhen Stock Exchange"),
+    "CH/BJ": ("bourse de Pékin", "Beijing Stock Exchange"),
+}
+
+
+def nom_de_place(place, pays):
+    """Le nom d'une bourse que Wikidata ne nous a pas appris à reconnaître :
+    « Bourse — Nigéria ». Les bourses américaines et chinoises ont leur nom."""
+    import bourse_monde as monde
+    if place in NOMS_SOUS_PLACES:
+        return NOMS_SOUS_PLACES[place]
+    iso3 = codes_pays().get(monde.PAYS_DES_PLACES.get(place.split("/")[0], ""), "")
+    noms = next((p for p in charger_noms_pays() if p.get("iso") == iso3), {})
+    return ("Bourse — " + noms.get("fr", place), "Stock exchange — " + noms.get("en", place))
+
+
+def charger_noms_pays():
+    with open(os.path.join(DOSSIER, "data", "pays.json"), encoding="utf-8") as f:
+        return [x["properties"] for x in json.load(f)["features"]]
+
+
+# La bourse de Wikidata qui correspond à chaque grande place d'OpenFIGI.
+BOURSES_DES_PLACES = {
+    "US/N": "Q13677",     # New York Stock Exchange
+    "US/Q": "Q82059",     # Nasdaq
+    "LN": "Q171240",      # bourse de Londres
+    "FP": "Q2385849",     # Euronext Paris
+    "NA": "Q478720",      # Euronext Amsterdam
+    "BB": "Q1146518",     # Euronext Bruxelles
+    "IM": "Q936563",      # Borsa Italiana
+    "SM": "Q617426",      # bourse de Madrid
+    "SW": "Q661834",      # SIX Swiss Exchange
+    "GR": "Q151139",      # bourse de Francfort
+    "SS": "Q1019992",     # bourse de Stockholm
+    "DC": "Q1019983",     # Copenhague
+    "FH": "Q581755",      # Helsinki
+    "NO": "Q909158",      # Oslo
+    "PW": "Q59551",       # Varsovie
+    "RM": "Q2632892",     # Moscou
+    "JP": "Q217475",      # bourse de Tokyo
+    "HK": "Q496672",      # bourse de Hong Kong
+    "CH/SH": "Q739514",   # Shanghai
+    "CH/SZ": "Q517750",   # Shenzhen
+    "TT": "Q548621",      # Taïwan
+    "KS": "Q495364",      # Korea Exchange
+    "IN": "Q638740",      # National Stock Exchange (Inde)
+    "MK": "Q43335",       # Bursa Malaysia
+    "TB": "Q1330208",     # Stock Exchange of Thailand
+    "IJ": "Q1661737",     # Indonesia Stock Exchange
+    "AU": "Q732670",      # Australian Securities Exchange
+    "CN": "Q818723",      # bourse de Toronto
+    "BZ": "Q796297",      # B3 (São Paulo)
+    "IT": "Q1507974",     # Tel-Aviv
+    "AB": "Q2006583",     # Tadawul (Arabie saoudite)
+}
+
+
+def fusionner_avec_le_monde(lignes, bourses_wd, pays):
+    import bourse_monde as monde
+    if "--monde" in sys.argv:
+        # Le robot de GitHub repart chaque matin de zéro : il retélécharge le
+        # registre GLEIF et la liste d'OpenFIGI. Sur le Mac, on réutilise ce qui
+        # est déjà dans scripts/.cache-bourse/ (ajouter --neuf pour tout refaire).
+        monde.telecharger_gleif()
+        actions = monde.lire("toutes.json")
+        if actions is None:
+            actions = monde.toutes_les_actions()
+            monde.garder("toutes.json", actions)
+        if monde.lire("gleif_candidats.json") is None:
+            monde.garder("gleif_candidats.json", monde.chercher_dans_gleif(actions))
+    actions = monde.lire("toutes.json")
+    candidats = monde.lire("gleif_candidats.json")
+    if not actions or candidats is None:
+        dit("  (pas de liste OpenFIGI : on garde Wikidata seul)")
+        return [l for l in lignes if l["x"] is not None and l["b"]]
+
+    lei2q = leis_wikidata()
+    q2lei = {q: lei for lei, q in lei2q.items()}
+    trouves = monde.choisir_dans_gleif(actions, candidats, set(lei2q))
+    us = monde.symboles_us()
+    a2a3 = codes_pays()
+    centres = centres_des_pays(pays)
+    par_q = {l["q"]: l for l in lignes}
+
+    # Reliure 1 : par le LEI.
+    lien = {}
+    for a in actions:
+        f = trouves.get(a["figi"])
+        if f and f["lei"] in lei2q and lei2q[f["lei"]] in par_q:
+            lien[a["figi"]] = lei2q[f["lei"]]
+
+    # Ce que les paires déjà reliées apprennent : à quelle bourse de Wikidata
+    # correspond chaque place d'OpenFIGI (« FP » -> Euronext Paris).
+    votes = {}
+    for a in actions:
+        q = lien.get(a["figi"])
+        if q:
+            sp = monde.sous_place(a, us)
+            for b in bourses_wd.get(q, {}):
+                votes.setdefault(sp, {}).setdefault(b, 0)
+                votes[sp][b] += 1
+    # Les grandes places sont écrites à la main (BOURSES_DES_PLACES) ; pour les
+    # autres, on retient la bourse de Wikidata qu'ont le plus souvent les
+    # entreprises déjà reliées — mais jamais le marché de gré à gré américain
+    # (OTC Markets) ni une bourse américaine pour une place étrangère : une
+    # entreprise italienne aussi échangée à New York reste italienne.
+    exclues_hors_us = {"Q1930860", "Q13677", "Q82059"}
+    bourse_de_place = dict(BOURSES_DES_PLACES)
+    for sp, v in votes.items():
+        if sp in bourse_de_place:
+            continue
+        v = {b: n for b, n in v.items()
+             if b != "Q1930860" and (sp.startswith("US") or b not in exclues_hors_us)}
+        if not v:
+            continue
+        b, n = max(v.items(), key=lambda x: x[1])
+        if n >= 3 and n >= 0.5 * sum(v.values()):
+            bourse_de_place[sp] = b
+    places_de_bourse = {}
+    for sp, b in bourse_de_place.items():
+        places_de_bourse.setdefault(b, set()).add(sp)
+
+    # Reliure 2 : par le symbole, à la même bourse.
+    par_symbole = {}
+    for a in actions:
+        if a["figi"] not in lien:
+            par_symbole.setdefault((monde.sous_place(a, us), a["symbole"].upper()), []).append(a)
+    deja = set(lien.values())
+    for q, bourses in bourses_wd.items():
+        if q in deja or q not in par_q:
+            continue
+        for b, symboles in bourses.items():
+            for sp in places_de_bourse.get(b, ()):
+                for sym in symboles:
+                    cands = par_symbole.get((sp, sym.upper()), [])
+                    if len(cands) == 1 and cands[0]["figi"] not in lien:
+                        lien[cands[0]["figi"]] = q
+    dit(f"  {len(set(lien.values()))} entreprises de Wikidata reliées à OpenFIGI")
+
+    # Les actions, regroupées par entreprise : une fiche Wikidata, ou un LEI,
+    # ou (à défaut) un même nom dans un même pays — les actions A et B d'une
+    # même société chinoise ne font qu'un point.
+    groupes = {}
+    for a in actions:
+        f = trouves.get(a["figi"])
+        if a["figi"] in lien:
+            clef = ("Q", lien[a["figi"]])
+        elif f:
+            clef = ("LEI", f["lei"])
+        else:
+            clef = ("NOM", monde.PAYS_DES_PLACES.get(a["places"][0]), monde.clef_de_nom(a["nom"]))
+        groupes.setdefault(clef, []).append(a)
+
+    resultat, reliees = [], set()
+    bilan = {"bleu": 0, "jaune": 0, "gris": 0}
+    for clef, groupe in groupes.items():
+        a0 = groupe[0]
+        fiche = next((trouves[a["figi"]] for a in groupe if a["figi"] in trouves), None)
+        if clef[0] == "Q":
+            ligne = dict(par_q[clef[1]])
+            reliees.add(clef[1])
+        else:
+            nom = joli_nom(fiche["nom"]) if fiche else joli_nom(a0["nom"])
+            ligne = {"q": "F" + a0["figi"][3:], "n": nom, "x": None, "y": None, "p": GRIS,
+                     "b": [], "s": [AUTRE], "v": None, "i": None, "r": 0}
+        if fiche and not ligne.get("g"):
+            ligne["g"] = fiche["lei"]
+        # Les bourses : celles de Wikidata, plus celles d'OpenFIGI.
+        bourses = list(ligne["b"])
+        for a in groupe:
+            sp = monde.sous_place(a, us)
+            b = bourse_de_place.get(sp, "P:" + sp)
+            if b not in bourses and not (b.startswith("P:") and bourses):
+                bourses.append(b)
+        ligne["b"] = bourses
+        symboles = list(ligne.get("t") or [])
+        for a in groupe:
+            if a["symbole"] and a["symbole"] not in symboles:
+                symboles.append(a["symbole"])
+        if symboles:
+            ligne["t"] = symboles[:4]
+
+        # Où la poser (voir l'ordre en tête de cette étape).
+        gleif = monde.placer(fiche["adresse"], hors_ligne="--hors-ligne" in sys.argv) if fiche else None
+        if ligne["x"] is not None and ligne["p"] == 1:
+            pass
+        elif gleif and gleif[2] == 1:
+            ligne["x"], ligne["y"], ligne["p"] = gleif[0], gleif[1], 1
+        elif ligne["x"] is not None:
+            pass
+        elif gleif:
+            ligne["x"], ligne["y"], ligne["p"] = gleif[0], gleif[1], 0
+        else:
+            code = (fiche or {}).get("pays") or monde.PAYS_DES_PLACES.get(a0["places"][0])
+            iso3 = a2a3.get(code)
+            if iso3 == "HKG" and "HKG" not in centres:
+                iso3 = "CHN"
+            centre = centres.get(iso3)
+            if not centre:
+                continue
+            ligne["x"], ligne["y"], ligne["p"] = round(centre[0], 4), round(centre[1], 4), GRIS
+        if fiche:
+            if not ligne.get("v") and fiche["adresse"].get("City"):
+                ligne["v"] = joli_nom(fiche["adresse"]["City"])
+            if not ligne.get("a") and ligne["p"] != GRIS and fiche["adresse"].get("FirstAddressLine"):
+                ligne["a"] = joli_nom(fiche["adresse"]["FirstAddressLine"])
+        if ligne["p"] == GRIS:
+            ligne["v"] = None
+        ligne["x"], ligne["y"] = arrondi(ligne["x"]), arrondi(ligne["y"])
+        if ligne.get("i") is None:
+            ligne["i"] = pays_du_point(ligne["x"], ligne["y"], pays)
+        bilan["bleu" if ligne["p"] == 1 else "jaune" if ligne["p"] == 0 else "gris"] += 1
+        resultat.append(ligne)
+
+    # Les entreprises de Wikidata qu'OpenFIGI ne connaît pas : gardées si
+    # Wikidata les dit cotées et sait les placer (comme avant).
+    for l in lignes:
+        if l["q"] not in reliees and l["x"] is not None and l["b"]:
+            resultat.append(l)
+            bilan["bleu" if l["p"] == 1 else "jaune"] += 1
+    monde.enregistrer_memoire()
+    dit(f"  {len(resultat)} entreprises : {bilan['bleu']} bleues, {bilan['jaune']} jaunes, "
+        f"{bilan['gris']} grises")
+    return resultat
+
+
 def main():
     dit("→ Wikidata : les entreprises cotées et leurs bourses")
     cotes = cotations()
@@ -678,7 +1008,7 @@ def main():
 
     dit("→ Wikidata : les noms")
     noms_e, noms_e_en = noms_des_entreprises()
-    noms_l, noms_l_en = noms_des_lieux()
+    noms_l, noms_l_en = noms_des_lieux({c["lieu"] for liste in candidats.values() for c in liste})
 
     dit("→ Wikidata : logos, sites, notoriété")
     logos, sites = logos_et_sites()
@@ -700,25 +1030,31 @@ def main():
     dit("→ Assemblage")
     pays = charger_pays()
     entreprises = []
-    for e, bourses in cotes.items():
+    bourses_wd = {}
+    # Toutes les fiches : celles que Wikidata dit cotées, et celles qui ont un
+    # code d'action et un LEI (Bonduelle) — OpenFIGI dira si elles le sont.
+    for e in sorted(set(cotes) | set(noms_e)):
+        bourses = cotes.get(e, {})
+        bourses_wd[e] = bourses
         siege = choisir_siege(candidats.get(e, []), batis)
         propre = coords_propres.get(e)
-        if not siege and not propre:
-            continue  # aucun moyen de la placer
 
-        # Où poser le point, et en quelle couleur.
+        # Où poser le point, et en quelle couleur. Une fiche sans siège connu
+        # reste sans position : l'étape 9 en trouvera peut-être une.
         centre = siege["centre"] if siege else None
         if siege and siege["precis"]:
             position, exact = siege["precis"], True
         elif propre:
             position, exact = propre, True
-        elif siege["lieu"] in batis:
+        elif siege and siege["lieu"] in batis:
             position, exact = centre, True
-        else:
+        elif siege:
             position, exact = centre, False
+        else:
+            position, exact = None, False
         # Des coordonnées « précises » qui tombent pile sur le centre de la
         # ville ne sont pas précises.
-        if exact and centre and siege["lieu"] not in batis \
+        if exact and centre and position and siege["lieu"] not in batis \
                 and distance_km(position, centre) < MEME_POINT_KM:
             exact = False
 
@@ -726,13 +1062,13 @@ def main():
         ligne = {
             "q": e,
             "n": noms_e.get(e, e),
-            "x": arrondi(position[0]),
-            "y": arrondi(position[1]),
+            "x": arrondi(position[0]) if position else None,
+            "y": arrondi(position[1]) if position else None,
             "p": 1 if exact else 0,
             "b": sorted(bourses),
             "s": familles or [AUTRE],
             "v": noms_l.get(siege["lieu"]) if siege else None,
-            "i": pays_du_point(position[0], position[1], pays),
+            "i": pays_du_point(position[0], position[1], pays) if position else None,
             "r": renom.get(e, 0),
         }
         # Les noms anglais, seulement quand ils diffèrent du français.
@@ -758,6 +1094,9 @@ def main():
                 ligne[clef] = valeur
         entreprises.append(ligne)
 
+    dit("→ OpenFIGI et GLEIF : la liste complète")
+    entreprises = fusionner_avec_le_monde(entreprises, bourses_wd, pays)
+
     # Les plus connues d'abord : c'est l'ordre dans lequel la carte les pose,
     # et celui de la liste quand on cherche un nom.
     entreprises.sort(key=lambda x: (-x["r"], x["n"]))
@@ -770,7 +1109,10 @@ def main():
         for b in x["b"]:
             compte[b] = compte.get(b, 0) + 1
     ordre = sorted(compte, key=lambda b: -compte[b])
-    noms_b, noms_b_en = noms_des_bourses(ordre)
+    noms_b, noms_b_en = noms_des_bourses([b for b in ordre if not b.startswith("P:")])
+    for b in ordre:
+        if b.startswith("P:"):
+            noms_b[b], noms_b_en[b] = nom_de_place(b[2:], pays)
     numero = {b: n for n, b in enumerate(ordre)}
     for x in entreprises:
         x["b"] = sorted(numero[b] for b in x["b"])
@@ -794,20 +1136,33 @@ def main():
         "bourses": bourses,
         "entreprises": entreprises,
     })
-    exactes = sum(x["p"] for x in entreprises)
-    dit(f"  {len(entreprises)} entreprises placées : {exactes} à l'adresse exacte (bleu), "
-        f"{len(entreprises) - exactes} au centre-ville (jaune)")
+    dit(f"  {len(entreprises)} entreprises : "
+        f"{sum(x['p'] == 1 for x in entreprises)} à l'adresse exacte (bleu), "
+        f"{sum(x['p'] == 0 for x in entreprises)} au centre-ville (jaune), "
+        f"{sum(x['p'] == GRIS for x in entreprises)} au centre du pays (gris)")
     dit(f"  {len(bourses)} bourses · {len(secteurs)} secteurs · "
         f"data/bourse/entreprises.json : {taille // 1024} Ko")
 
     if "--sans-logos" not in sys.argv:
         dit("→ Wikimedia Commons : les logos")
-        telecharger_les_logos({x["q"]: logos[x["q"]] for x in entreprises if x["q"] in logos})
+        telecharger_les_logos({x["q"]: logos[x["q"]] for x in entreprises
+                               if x["q"].startswith("Q") and x["q"] in logos})
         # Une entreprise dont le logo n'a pas pu être téléchargé perd sa marque
         # « a un logo » : la carte affichera ses initiales.
         for x in entreprises:
             if x.get("l") and not os.path.exists(nom_du_logo(x["q"])):
                 del x["l"]
+        # Et les logos des entreprises qui ne sont plus sur la carte (sorties
+        # de la bourse, disparues) sont effacés : sans ce ménage, le dossier
+        # grossirait chaque jour de logos que plus personne n'affiche.
+        gardes = {x["q"] + ".png" for x in entreprises}
+        effaces = 0
+        for nom in os.listdir(LOGOS):
+            if nom.endswith(".png") and nom not in gardes:
+                os.remove(os.path.join(LOGOS, nom))
+                effaces += 1
+        if effaces:
+            dit(f"  {effaces} logos d'entreprises disparues effacés")
         ecrire(os.path.join(SORTIE, "entreprises.json"), {
             "maj": time.strftime("%Y-%m-%d"),
             "secteurs": secteurs,
