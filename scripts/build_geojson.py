@@ -197,6 +197,9 @@ NOMS_COURTS = {
     "ATG": {"fr": "Antigua-et-Barbuda", "en": "Antigua & Barbuda", "uk": "Антигуа і Барбуда"},
     "TTO": {"fr": "Trinité-et-Tobago", "en": "Trinidad & Tobago", "uk": "Тринідад і Тобаго"},
     "MKD": {"fr": "Macédoine du Nord", "en": "North Macedonia", "uk": "Північна Македонія"},
+    # Choix d'Antonin : les noms officiels plutôt que les noms d'usage.
+    "BLR": {"fr": "Bélarus"},
+    "MMR": {"fr": "Myanmar"},
     "GNQ": {"fr": "Guinée équatoriale", "en": "Equatorial Guinea", "uk": "Екваторіальна Гвінея"},
     "IRN": {"fr": "Iran", "en": "Iran", "uk": "Іран"},
     "VEN": {"fr": "Venezuela", "en": "Venezuela", "uk": "Венесуела"},
