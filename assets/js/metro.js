@@ -51,6 +51,25 @@
      mètre près ne se verrait pas et coûterait plusieurs mégaoctets. */
   var ZOOM_LIGNES = 7;
 
+  /* LE FOND DE CARTE (demande d'Antonin du 21 novembre 2026) : le même que
+     sur la carte des entreprises cotées (voir assets/js/bourse.js), une carte
+     détaillée tirée d'OpenStreetMap, servie gratuitement, sans compte ni
+     publicité, par OpenFreeMap : « Liberty » en thème clair, « Dark » en
+     thème sombre. On voit ainsi les rues, les fleuves et les quartiers sous
+     les lignes de métro. Si OpenFreeMap ne répond pas, la carte s'affiche
+     quand même, avec les pays du site en gris, comme avant. */
+  var STYLES = {
+    clair: "https://tiles.openfreemap.org/styles/liberty",
+    sombre: "https://tiles.openfreemap.org/styles/dark",
+  };
+
+  /* Ses frontières sont celles d'OpenStreetMap, pas celles du site : on les
+     efface et on dessine les nôtres (data/frontieres.json), et on retire les
+     noms des territoires qu'OpenStreetMap écrit comme des pays. Mêmes règles
+     que bourse.js. */
+  var TERRITOIRES_SANS_NOM = ["Western Sahara", "Somaliland", "Northern Cyprus",
+    "Turkish Republic of Northern Cyprus", "Sahrawi Arab Democratic Republic"];
+
   /* Le zoom auquel on arrive quand on choisit une ville. */
   var ZOOM_VILLE = 10.4;
 
@@ -169,17 +188,76 @@
 
   /* --- 4. Fabrication de la carte ------------------------------------------ */
 
-  function styleDeBase() {
-    return {
-      version: 8,
-      name: "StatsMaps",
-      sources: {},
-      layers: [{
-        id: "mer",
-        type: "background",
-        paint: { "background-color": couleurCSS("--fond-carte") },
-      }],
-    };
+  /* Le thème du moment, lu sur la couleur de fond de la page (comme bourse.js). */
+  function themeSombre() {
+    var m = /#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})/i.exec(couleurCSS("--fond"));
+    if (!m) return false;
+    return parseInt(m[1], 16) + parseInt(m[2], 16) + parseInt(m[3], 16) < 300;
+  }
+
+  /* Le style d'OpenFreeMap, téléchargé une fois par thème puis gardé. */
+  var stylesTelecharges = {};
+  function telechargerStyle(theme) {
+    if (!stylesTelecharges[theme]) {
+      stylesTelecharges[theme] = fetch(STYLES[theme])
+        .then(function (r) {
+          if (!r.ok) throw new Error(STYLES[theme] + " : " + r.status);
+          return r.json();
+        })
+        .catch(function (e) {
+          console.error("[StatsMaps] fond de carte :", e);
+          return null;  /* repli : la carte sans fond détaillé */
+        });
+    }
+    return stylesTelecharges[theme];
+  }
+
+  /* Le nom d'un lieu dans la langue de la page quand OpenStreetMap le connaît
+     (« Allemagne » plutôt que « Deutschland »). */
+  function nomDansLaLangue(expression) {
+    if (Array.isArray(expression)) {
+      if (expression[0] === "get" && expression[1] === "name:latin") {
+        return ["coalesce", ["get", "name:" + langue], ["get", "name:latin"]];
+      }
+      return expression.map(nomDansLaLangue);
+    }
+    return expression;
+  }
+
+  /* Le fond seul : celui d'OpenFreeMap, retouché, ou à défaut une mer unie.
+     Les couches du site (pays, lignes, villes) sont posées par-dessus dans
+     ajouterCouches(). */
+  var fondActuel = null;
+  function fabriquerFond(fond) {
+    fondActuel = fond;
+    if (!fond) {
+      return {
+        version: 8,
+        name: "StatsMaps",
+        sources: {},
+        layers: [{
+          id: "mer",
+          type: "background",
+          paint: { "background-color": couleurCSS("--fond-carte") },
+        }],
+      };
+    }
+    var style = JSON.parse(JSON.stringify(fond));
+    style.layers = style.layers.filter(function (couche) {
+      return couche["source-layer"] !== "boundary";  /* leurs frontières */
+    }).map(function (couche) {
+      if (couche.layout && couche.layout["text-field"]) {
+        couche.layout["text-field"] = nomDansLaLangue(couche.layout["text-field"]);
+      }
+      if (couche["source-layer"] === "place") {
+        var sansTerritoires = ["!", ["in", ["coalesce", ["get", "name:en"], ""],
+                                     ["literal", TERRITOIRES_SANS_NOM]]];
+        couche.filter = couche.filter ? ["all", couche.filter, sansTerritoires]
+                                      : sansTerritoires;
+      }
+      return couche;
+    });
+    return style;
   }
 
   var CADRAGE_MONDE = [[-179, -56], [179, 81]];
@@ -249,10 +327,14 @@
       ZOOM_LIGNES - 0.6, 0, ZOOM_LIGNES + 0.4, 1];
   }
 
-  function construireCarte(geoPays) {
+  var geoPaysGarde = null, geoFrontieresGarde = null;
+
+  function construireCarte(geoPays, fond, geoFrontieres) {
+    geoPaysGarde = geoPays;
+    geoFrontieresGarde = geoFrontieres;
     carte = new maplibregl.Map({
       container: "carte",
-      style: styleDeBase(),
+      style: fabriquerFond(fond),
       bounds: CADRAGE_MONDE,
       fitBoundsOptions: { padding: margesDuCadrage() },
       minZoom: 0.5,
@@ -266,6 +348,9 @@
     carte.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
     carte.addControl(new maplibregl.AttributionControl({
       compact: true,
+      /* Avec le fond d'OpenFreeMap, MapLibre ajoute lui-même sa mention
+         (OpenFreeMap, OpenMapTiles, OpenStreetMap). On garde quand même
+         OpenStreetMap ici : les tracés des lignes en viennent aussi. */
       customAttribution:
         '<a href="https://www.naturalearthdata.com/">Natural Earth</a> · ' +
         '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · ' +
@@ -277,14 +362,42 @@
     });
 
     carte.on("load", function () {
-      carte.addSource("pays", { type: "geojson", data: geoPays, promoteId: "iso" });
-      carte.addSource("apercu", { type: "geojson", data: videGeoJSON() });
-      carte.addSource("traces", { type: "geojson", data: videGeoJSON() });
-      carte.addSource("chantiers", { type: "geojson", data: videGeoJSON() });
-      carte.addSource("villes", { type: "geojson", data: villesGeoJSON(), promoteId: "s" });
+      ajouterCouches();
+      brancherInteractions();
+      chargerCeQuOnVoit();
+      dessinerLegende();
+    });
 
-      /* Le fond : les pays, tous de la même couleur. Ici ils ne portent
-         aucune donnée, ils situent — c'est une toile de fond, pas la carte. */
+    carte.on("moveend", chargerCeQuOnVoit);
+  }
+
+  /* Les couches du site, posées sur le fond. Appelée au démarrage, puis de
+     nouveau à chaque changement de thème : changer de fond (« Liberty » ou
+     « Dark ») efface tout ce qui était posé dessus. On remet alors les
+     données déjà là (aperçu, tracés téléchargés, ville choisie). */
+  function ajouterCouches() {
+    var geoPays = geoPaysGarde;
+    carte.addSource("pays", { type: "geojson", data: geoPays, promoteId: "iso" });
+    carte.addSource("frontieres", { type: "geojson", data: geoFrontieresGarde || geoPays });
+    carte.addSource("apercu", { type: "geojson", data: videGeoJSON() });
+    carte.addSource("traces", { type: "geojson", data: videGeoJSON() });
+    carte.addSource("chantiers", { type: "geojson", data: videGeoJSON() });
+    carte.addSource("villes", { type: "geojson", data: villesGeoJSON(), promoteId: "s" });
+
+    if (fondActuel) {
+      /* Sur le fond d'OpenStreetMap : seulement les frontières du site, un
+         trait fin et discret, comme sur la carte des entreprises. */
+      carte.addLayer({
+        id: "pays-contour", type: "line", source: "frontieres",
+        paint: {
+          "line-color": themeSombre() ? "#7f8a9b" : "#7d8699",
+          "line-width": ["interpolate", ["linear"], ["zoom"], 1, 0.6, 6, 1.3, 12, 2],
+          "line-opacity": ["interpolate", ["linear"], ["zoom"], 1, 0.9, 12, 0.75],
+        },
+      });
+    } else {
+      /* Sans fond (OpenFreeMap injoignable) : les pays, tous de la même
+         couleur, qui situent — c'est une toile de fond, pas la carte. */
       carte.addLayer({
         id: "pays-fond", type: "fill", source: "pays",
         paint: { "fill-color": couleurCSS("--pays-sans-donnee"), "fill-opacity": 0.55 },
@@ -293,88 +406,86 @@
         id: "pays-contour", type: "line", source: "pays",
         paint: { "line-color": couleurCSS("--contour-pays"), "line-width": 0.4 },
       });
+    }
 
-      /* L'aperçu du monde entier : toutes les lignes de tous les métros, dans
-         leur couleur, visibles dès la vue du monde. Il passe sous les tracés
-         détaillés, auxquels il cède la place en fondu au zoom 7. */
-      carte.addLayer({
-        id: "apercu", type: "line", source: "apercu",
-        layout: { "line-cap": "round", "line-join": "round" },
-        paint: {
-          "line-color": ["get", "couleur"],
-          "line-width": epaisseurDeLApercu(),
-          "line-opacity": disparitionDeLApercu(),
-        },
-      });
-
-      /* Les chantiers passent SOUS les lignes en service : là où une extension
-         prolonge une ligne existante, c'est la ligne ouverte qu'on veut voir
-         en entier. */
-      carte.addLayer({
-        id: "chantiers", type: "line", source: "chantiers",
-        layout: { "line-cap": "butt", "line-join": "round" },
-        paint: {
-          "line-color": ["get", "couleur"],
-          "line-width": epaisseurDesLignes(),
-          "line-opacity": apparitionDesLignes(),
-          "line-dasharray": [1.5, 1.3],
-        },
-      });
-
-      carte.addLayer({
-        id: "lignes", type: "line", source: "traces",
-        layout: { "line-cap": "round", "line-join": "round" },
-        paint: {
-          "line-color": ["get", "couleur"],
-          "line-width": epaisseurDesLignes(),
-          "line-opacity": apparitionDesLignes(),
-        },
-      });
-
-      /* La ligne survolée dans le panneau : la même, en plus épais. */
-      carte.addLayer({
-        id: "ligne-surbrillance", type: "line", source: "traces",
-        filter: ["==", ["get", "id"], ""],
-        layout: { "line-cap": "round", "line-join": "round" },
-        paint: {
-          "line-color": ["get", "couleur"],
-          "line-width": epaisseurDesLignes(2.4),
-          "line-opacity": 0.45,
-        },
-      });
-
-      carte.addLayer({
-        id: "villes", type: "circle", source: "villes",
-        paint: {
-          "circle-radius": rayonDesPastilles(),
-          "circle-color": ["case",
-            ["==", ["get", "enService"], 0], COULEUR_CHANTIER, couleurCSS("--accent")],
-          /* Les pastilles s'effacent progressivement : de loin elles portent
-             le classement (leur taille suit la longueur du réseau), mais dès
-             qu'on descend elles cacheraient les lignes qui sont dessous, et au
-             zoom 11 elles cacheraient tout le centre-ville. */
-          "circle-opacity": ["interpolate", ["linear"], ["zoom"],
-            0.5, 0.9, 3, 0.8, 5, 0.5, ZOOM_LIGNES, 0.35, ZOOM_LIGNES + 3, 0.12],
-          "circle-stroke-width": ["case",
-            ["boolean", ["feature-state", "choisie"], false], 2.6,
-            [">", ["coalesce", ["get", "kmc"], 0], 0], 1.8, 1],
-          "circle-stroke-color": ["case",
-            ["boolean", ["feature-state", "choisie"], false], couleurCSS("--texte"),
-            [">", ["coalesce", ["get", "kmc"], 0], 0], COULEUR_CHANTIER,
-            couleurCSS("--panneau")],
-          "circle-stroke-opacity": ["interpolate", ["linear"], ["zoom"],
-            ZOOM_LIGNES, 1, ZOOM_LIGNES + 3, 0.25],
-        },
-      });
-
-      if (apercu) carte.getSource("apercu").setData(apercu);
-
-      brancherInteractions();
-      chargerCeQuOnVoit();
-      dessinerLegende();
+    /* L'aperçu du monde entier : toutes les lignes de tous les métros, dans
+       leur couleur, visibles dès la vue du monde. Il passe sous les tracés
+       détaillés, auxquels il cède la place en fondu au zoom 7. */
+    carte.addLayer({
+      id: "apercu", type: "line", source: "apercu",
+      layout: { "line-cap": "round", "line-join": "round" },
+      paint: {
+        "line-color": ["get", "couleur"],
+        "line-width": epaisseurDeLApercu(),
+        "line-opacity": disparitionDeLApercu(),
+      },
     });
 
-    carte.on("moveend", chargerCeQuOnVoit);
+    /* Les chantiers passent SOUS les lignes en service : là où une extension
+       prolonge une ligne existante, c'est la ligne ouverte qu'on veut voir
+       en entier. */
+    carte.addLayer({
+      id: "chantiers", type: "line", source: "chantiers",
+      layout: { "line-cap": "butt", "line-join": "round" },
+      paint: {
+        "line-color": ["get", "couleur"],
+        "line-width": epaisseurDesLignes(),
+        "line-opacity": apparitionDesLignes(),
+        "line-dasharray": [1.5, 1.3],
+      },
+    });
+
+    carte.addLayer({
+      id: "lignes", type: "line", source: "traces",
+      layout: { "line-cap": "round", "line-join": "round" },
+      paint: {
+        "line-color": ["get", "couleur"],
+        "line-width": epaisseurDesLignes(),
+        "line-opacity": apparitionDesLignes(),
+      },
+    });
+
+    /* La ligne survolée dans le panneau : la même, en plus épais. */
+    carte.addLayer({
+      id: "ligne-surbrillance", type: "line", source: "traces",
+      filter: ["==", ["get", "id"], ""],
+      layout: { "line-cap": "round", "line-join": "round" },
+      paint: {
+        "line-color": ["get", "couleur"],
+        "line-width": epaisseurDesLignes(2.4),
+        "line-opacity": 0.45,
+      },
+    });
+
+    carte.addLayer({
+      id: "villes", type: "circle", source: "villes",
+      paint: {
+        "circle-radius": rayonDesPastilles(),
+        "circle-color": ["case",
+          ["==", ["get", "enService"], 0], COULEUR_CHANTIER, couleurCSS("--accent")],
+        /* Les pastilles s'effacent progressivement : de loin elles portent
+           le classement (leur taille suit la longueur du réseau), mais dès
+           qu'on descend elles cacheraient les lignes qui sont dessous, et au
+           zoom 11 elles cacheraient tout le centre-ville. */
+        "circle-opacity": ["interpolate", ["linear"], ["zoom"],
+          0.5, 0.9, 3, 0.8, 5, 0.5, ZOOM_LIGNES, 0.35, ZOOM_LIGNES + 3, 0.12],
+        "circle-stroke-width": ["case",
+          ["boolean", ["feature-state", "choisie"], false], 2.6,
+          [">", ["coalesce", ["get", "kmc"], 0], 0], 1.8, 1],
+        "circle-stroke-color": ["case",
+          ["boolean", ["feature-state", "choisie"], false], couleurCSS("--texte"),
+          [">", ["coalesce", ["get", "kmc"], 0], 0], COULEUR_CHANTIER,
+          couleurCSS("--panneau")],
+        "circle-stroke-opacity": ["interpolate", ["linear"], ["zoom"],
+          ZOOM_LIGNES, 1, ZOOM_LIGNES + 3, 0.25],
+      },
+    });
+
+    if (apercu) carte.getSource("apercu").setData(apercu);
+    redessinerLesTraces();
+    if (villeChoisie) {
+      carte.setFeatureState({ source: "villes", id: villeChoisie }, { choisie: true });
+    }
   }
 
   function videGeoJSON() {
@@ -853,7 +964,9 @@
       })
       .catch(function (e) { console.error("[StatsMaps] aperçu métro :", e); });
 
-    Promise.all([charger("data/metro/monde.json"), charger("data/pays.json")])
+    Promise.all([charger("data/metro/monde.json"), charger("data/pays.json"),
+                 telechargerStyle(themeSombre() ? "sombre" : "clair"),
+                 charger("data/frontieres.json").catch(function () { return null; })])
       .then(function (r) {
         monde = r[0];
         r[0].villes.forEach(function (v) { villeParSlug[v.s] = v; });
@@ -870,7 +983,7 @@
         fabriquerOnglets();
         dessinerClassement();
         brancherTiroir();
-        construireCarte(r[1]);
+        construireCarte(r[1], r[2], r[3]);
         chargement.hidden = true;
       })
       .catch(function (e) {
@@ -880,12 +993,18 @@
   }
 
   /* Le thème clair/sombre repeint la carte sans la reconstruire. */
+  /* Le thème clair/sombre change de fond de carte : « Liberty » ou « Dark ».
+     Le nouveau fond efface les couches du site : on les repose dès qu'il est
+     prêt (« style.load »). La ville ouverte et les tracés sont gardés. */
   window.addEventListener("statsmaps:theme", function () {
-    if (!carte || !carte.isStyleLoaded()) return;
-    carte.setPaintProperty("mer", "background-color", couleurCSS("--fond-carte"));
-    carte.setPaintProperty("pays-fond", "fill-color", couleurCSS("--pays-sans-donnee"));
-    carte.setPaintProperty("pays-contour", "line-color", couleurCSS("--contour-pays"));
-    dessinerLegende();
+    if (!carte || !geoPaysGarde) return;
+    telechargerStyle(themeSombre() ? "sombre" : "clair").then(function (fond) {
+      carte.once("style.load", function () {
+        ajouterCouches();
+        dessinerLegende();
+      });
+      carte.setStyle(fabriquerFond(fond), { diff: false });
+    });
   });
 
   if (document.readyState === "loading") {

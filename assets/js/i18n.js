@@ -144,7 +144,7 @@ window.StatsMapsTextes = {
     metro_leg_pointilles: "Ligne en construction",
     metro_leg_couleurs: "Chaque ligne dans sa couleur officielle",
     metro_leg_zoom: "La taille de la pastille suit la longueur du réseau. Zoome pour voir les tracés au détail près, station par station.",
-    metro_source: "Tracés, couleurs, stations : OpenStreetMap · Noms, ouverture, fréquentation : Wikidata",
+    metro_source: "Tracés, couleurs, stations : OpenStreetMap · Noms, ouverture, fréquentation : Wikidata · Fond de carte : OpenStreetMap, via OpenFreeMap",
 
     /* --- La carte des entreprises cotées ------------------------------------
        Des points sur les sièges, et un panneau de cases à cocher : les
@@ -299,7 +299,7 @@ window.StatsMapsTextes = {
     metro_leg_pointilles: "Line under construction",
     metro_leg_couleurs: "Each line in its official colour",
     metro_leg_zoom: "The size of the dot follows the length of the network. Zoom in to see the lines in detail, station by station.",
-    metro_source: "Lines, colours, stations: OpenStreetMap · Names, opening, ridership: Wikidata",
+    metro_source: "Lines, colours, stations: OpenStreetMap · Names, opening, ridership: Wikidata · Map: OpenStreetMap, via OpenFreeMap",
 
     /* La carte des entreprises cotées */
     bourse_titre: "Listed companies",
