@@ -498,6 +498,65 @@ def appeler_api(chemin, essais=3):
     raise RuntimeError("Impossible de joindre le FMI pour %s : %s" % (chemin, derniere_erreur))
 
 
+# LA ROUE DE SECOURS : le nouveau service de données du FMI (21 novembre 2026)
+# Fin 2026, l'adresse habituelle (le « DataMapper », API ci-dessus) est restée
+# des jours « en maintenance ». Le FMI a un second service, plus récent, qui
+# sert exactement les mêmes chiffres du World Economic Outlook, au format
+# SDMX (une norme des statistiques publiques). On ne s'en sert que si le
+# DataMapper ne répond pas. Deux différences, que serie_sdmx() efface :
+#   - les nombres y sont en unités (2 645 806 344 000 $), là où le DataMapper
+#     les donne en milliards (2 645,806) ; l'échelle est fournie avec chaque
+#     série (« SCALE » : 9 = milliards, 6 = millions, 0 = unités) ;
+#   - le Kosovo s'y appelle KOS, et UVK au DataMapper (et sur nos cartes).
+API_SDMX = "https://api.imf.org/external/sdmx/3.0/data/dataflow/IMF.RES/WEO/%2B"
+CODES_SDMX = {"KOS": "UVK"}
+
+
+def serie_sdmx(code):
+    """Les valeurs d'un indicateur, par pays et par année, depuis le nouveau
+    service du FMI. Même forme que la réponse du DataMapper :
+    {"FRA": {"2020": 2645.806, ...}, ...}. Les groupes de pays (G110, G998...)
+    sont écartés : leur code n'est pas fait de trois lettres."""
+    url = "%s/*.%s.A?dimensionAtObservation=TIME_PERIOD&attributes=dsd&measures=all" % (API_SDMX, code)
+    derniere_erreur = None
+    for numero in range(1, 4):
+        try:
+            donnees = json.loads(_telecharger(url))["data"]
+            break
+        except (urllib.error.URLError, RuntimeError, ValueError) as erreur:
+            derniere_erreur = erreur
+            print("    tentative %d/3 échouée (%s)" % (numero, erreur))
+            time.sleep(3 * numero)
+    else:
+        raise RuntimeError("Impossible de joindre le FMI (nouveau service) pour %s : %s"
+                           % (code, derniere_erreur))
+
+    structure = donnees["structures"][0]
+    pays = [v["id"] for v in structure["dimensions"]["series"][0]["values"]]
+    annees = [v["value"] for v in structure["dimensions"]["observation"][0]["values"]]
+    attributs = structure["attributes"]["series"]
+    rang_echelle = [a["id"] for a in attributs].index("SCALE")
+    valeurs_echelle = attributs[rang_echelle]["values"]
+
+    resultat = {}
+    for clef, serie in donnees["dataSets"][0]["series"].items():
+        iso = pays[int(clef.split(":")[0])]
+        iso = CODES_SDMX.get(iso, iso)
+        if len(iso) != 3 or not iso.isalpha():
+            continue
+        rang = serie["attributes"][rang_echelle]
+        echelle = int(valeurs_echelle[rang]["id"]) if rang is not None else 0
+        par_annee = {}
+        for i, observation in serie.get("observations", {}).items():
+            try:
+                par_annee[annees[int(i)]] = float(observation[0]) / 10 ** echelle
+            except (TypeError, ValueError):
+                continue  # case vide
+        if par_annee:
+            resultat[iso] = par_annee
+    return resultat
+
+
 def edition_weo(aujourd_hui):
     """De quelle édition du rapport ces chiffres viennent-ils ?
 
@@ -532,9 +591,17 @@ def main():
     # 1. La liste officielle des pays du FMI. Elle sert de filtre : tout ce qui
     #    n'est pas dedans est un groupe (Monde, Zone euro, G7...) et on l'écarte.
     print("  Récupération de la liste des pays ...")
-    liste_pays = appeler_api("countries")["countries"]
-    codes_pays = set(liste_pays.keys())
-    print("  %d pays reconnus par le FMI." % len(codes_pays))
+    #    Si le DataMapper ne répond pas, on passe au nouveau service (voir
+    #    serie_sdmx), qui écarte lui-même les groupes de pays.
+    try:
+        liste_pays = appeler_api("countries")["countries"]
+        codes_pays = set(liste_pays.keys())
+        print("  %d pays reconnus par le FMI." % len(codes_pays))
+        secours = False
+    except RuntimeError:
+        print("  Le DataMapper du FMI ne répond pas : on passe au nouveau service.")
+        codes_pays = None
+        secours = True
 
     annee_courante = datetime.date.today().year
     # Le FMI publie des estimations pour l'année en cours et des projections
@@ -574,21 +641,49 @@ def main():
         code = indicateur["code_fmi"]
         print("  Récupération de %s (%s) ..." % (indicateur["titre"]["fr"], code))
 
-        brut = appeler_api(code)["values"][code]
+        brut = None
+        if not secours:
+            try:
+                brut = appeler_api(code)["values"][code]
+            except RuntimeError:
+                print("    Le DataMapper ne répond plus : on passe au nouveau service.")
+                secours = True
+        if brut is None:
+            brut = serie_sdmx(code)
 
         valeurs = {}
         annees_vues = set()
+        # Les pourcentages au dixième près (« 2,3 % »), comme le DataMapper
+        # les donne ; le reste à trois décimales. Le nouveau service, lui,
+        # donne tous les chiffres : sans cela, on lirait « 0,926 % ».
+        precision = 1 if indicateur["unite"]["fr"] == "%" else 3
 
         for code_pays, par_annee in brut.items():
-            if code_pays not in codes_pays:
+            if codes_pays is not None and code_pays not in codes_pays:
                 continue  # c'est un groupe ou une région : on écarte
             propres = {}
             for annee, valeur in par_annee.items():
                 if isinstance(valeur, (int, float)):
-                    propres[annee] = round(float(valeur), 3)
+                    propres[annee] = round(float(valeur), precision)
                     annees_vues.add(int(annee))
             if propres:
                 valeurs[code_pays] = propres
+
+        # Le nouveau service laisse vide une case qui vaut exactement zéro (une
+        # croissance de 0,0 %, par exemple) : en secours, on garde alors la
+        # valeur du fichier précédent pour ces cases-là, et pour elles seules.
+        if secours:
+            ancien = os.path.join(DOSSIER_DATA, "%s.json" % indicateur["fichier"])
+            if os.path.exists(ancien):
+                with open(ancien, encoding="utf-8") as f:
+                    anciennes = json.load(f).get("valeurs", {})
+                for code_pays, par_annee in anciennes.items():
+                    if code_pays not in valeurs:
+                        continue
+                    for annee, valeur in par_annee.items():
+                        if valeur == 0 and annee not in valeurs[code_pays]:
+                            valeurs[code_pays][annee] = valeur
+                    valeurs[code_pays] = dict(sorted(valeurs[code_pays].items()))
 
         annees = sorted(annees_vues)
 

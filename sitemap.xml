@@ -142,6 +142,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://statsmaps.com/dette-publique/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/dette-publique/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/public-debt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/dette-publique/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/en/public-debt/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/dette-publique/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/public-debt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/dette-publique/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://statsmaps.com/millionnaires/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/millionnaires/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/millionaires/"/>
