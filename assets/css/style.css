@@ -433,20 +433,24 @@ body.page-terre::before {
   position: fixed;
   inset: 0;
   z-index: -1;
-  /* Centrer l'Europe et l'Afrique (demande d'Antonin du 21 novembre 2026).
-     Les photos vont de 180° ouest à 180° est : leur milieu est l'Atlantique
-     au large du golfe de Guinée (0°), si bien que l'Europe et l'Afrique
-     partaient vers la droite. On décale la photo pour mettre 15° est au
-     milieu de l'écran, soit 54,17 % de sa largeur (0,5 + 15/360). Elle
-     couvre l'écran comme avant (sa largeur vaut deux fois sa hauteur), et
-     se répète sur les côtés : la Terre faisant le tour, aucun raccord ne
-     se voit. */
-  --largeur-terre: max(100vw, 200vh);
+  /* Rapprocher l'Europe et l'Afrique du milieu (demandes d'Antonin du
+     21 novembre 2026). Les photos vont de 180° ouest à 180° est : leur milieu
+     est 0°, l'Atlantique au large du golfe de Guinée, si bien que l'Europe et
+     l'Afrique partaient vers la droite. On met 8° est au milieu de l'écran,
+     soit 52,22 % de la largeur de la photo (0,5 + 8/360).
+     Pas de répétition sur les côtés : le raccord faisait une ligne blanche
+     et coupait l'Alaska en deux. La photo est donc juste assez large pour
+     déborder des deux côtés : au moins 104,65 % de l'écran, soit
+     1 / (2 × (1 − 0,5222)), et au moins deux fois la hauteur de l'écran
+     (elle est deux fois plus large que haute) pour le couvrir en hauteur.
+     Seule la pointe ouest de l'Alaska sort à gauche : c'est le compromis
+     choisi (15° est la coupait de moitié). */
+  --largeur-terre: max(104.65vw, 200vh);
   background-color: #06101d;
   background-image: var(--voile), var(--terre);
-  background-repeat: no-repeat, repeat-x;
+  background-repeat: no-repeat, no-repeat;
   background-size: 100% 100%, var(--largeur-terre) auto;
-  background-position: 0 0, calc(50vw - 0.5417 * var(--largeur-terre)) 50%;
+  background-position: 0 0, calc(50vw - 0.5222 * var(--largeur-terre)) 50%;
 }
 body.page-terre .vignette,
 body.page-terre .haut__langues > summary,
