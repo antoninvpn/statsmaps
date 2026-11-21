@@ -110,11 +110,16 @@ def demander(chemin, corps, essais=6):
     raise RuntimeError("OpenFIGI ne répond pas")
 
 
-def lire(nom):
+def lire(nom, secours=False):
+    """La mémoire. Pour le robot (--monde), ce qui a plus de 20 heures est
+    redemandé — sauf en secours, quand le serveur est en panne."""
     chemin = os.path.join(CACHE, nom)
-    if os.path.exists(chemin) and "--neuf" not in sys.argv:
-        return json.load(open(chemin, encoding="utf-8"))
-    return None
+    if not os.path.exists(chemin) or ("--neuf" in sys.argv and not secours):
+        return None
+    if ("--monde" in sys.argv and not secours
+            and time.time() - os.path.getmtime(chemin) > 20 * 3600):
+        return None
+    return json.load(open(chemin, encoding="utf-8"))
 
 
 def garder(nom, valeur):
@@ -160,6 +165,20 @@ def actions_du_pays(code):
     connu = lire(nom_cache)
     if connu is not None:
         return connu
+    try:
+        actions = _actions_du_pays(code)
+    except Exception as e:
+        # OpenFIGI en panne pour ce pays : la liste de la veille, s'il y en a une.
+        hier = lire(nom_cache, secours=True)
+        if hier is None:
+            raise
+        dit(f"    … OpenFIGI ne répond pas pour {code} ({type(e).__name__}) : liste précédente gardée")
+        return hier
+    garder(nom_cache, actions)
+    return actions
+
+
+def _actions_du_pays(code):
     actions = []
     for sorte in SORTES:
         suite = None
@@ -178,7 +197,6 @@ def actions_du_pays(code):
             suite = d.get("next")
             if not suite:
                 break
-    garder(nom_cache, actions)
     return actions
 
 
@@ -193,10 +211,34 @@ def symboles_us():
     chaque jour. Les fonds indiciels (ETF) et les titres d'essai sont exclus.
     Renvoie, pour chaque symbole, la lettre de sa bourse : Q pour le Nasdaq,
     N pour New York, A pour NYSE American, P pour NYSE Arca, Z pour Cboe."""
+    connu = lire("symboles_us.json")
+    if connu is not None:
+        return connu
+    try:
+        symboles = _symboles_us()
+    except Exception as e:
+        hier = lire("symboles_us.json", secours=True)
+        if hier is None:
+            raise
+        dit(f"    … liste du Nasdaq injoignable ({type(e).__name__}) : liste précédente gardée")
+        return hier
+    garder("symboles_us.json", symboles)
+    return symboles
+
+
+def _symboles_us():
     symboles = {}
     for fichier, colonne in (("nasdaqlisted.txt", "Symbol"), ("otherlisted.txt", "ACT Symbol")):
-        req = urllib.request.Request(NASDAQ + fichier, headers={"User-Agent": EN_TETES["User-Agent"]})
-        texte = urllib.request.urlopen(req, timeout=120).read().decode("utf-8", "replace")
+        texte = None
+        for n in range(5):
+            try:
+                req = urllib.request.Request(NASDAQ + fichier, headers={"User-Agent": EN_TETES["User-Agent"]})
+                texte = urllib.request.urlopen(req, timeout=120).read().decode("utf-8", "replace")
+                break
+            except Exception:
+                if n == 4:
+                    raise
+                time.sleep(20 * (n + 1))
         for ligne in csv.DictReader(io.StringIO(texte), delimiter="|"):
             if not ligne.get("Test Issue") or ligne["Test Issue"] == "Y" or ligne.get("ETF") == "Y":
                 continue
@@ -289,17 +331,36 @@ def telecharger_gleif():
     for chemin, api, adresse in taches:
         if not vieux(chemin):
             continue
-        req = urllib.request.Request(api, headers={"User-Agent": EN_TETES["User-Agent"]})
-        url = adresse(json.loads(urllib.request.urlopen(req, timeout=120).read().decode()))
-        dit(f"  téléchargement de {os.path.basename(chemin)}…")
-        req = urllib.request.Request(url, headers={"User-Agent": EN_TETES["User-Agent"]})
-        with urllib.request.urlopen(req, timeout=1800) as r, open(chemin + ".tmp", "wb") as f:
-            while True:
-                bloc = r.read(1 << 20)
-                if not bloc:
-                    break
-                f.write(bloc)
-        os.replace(chemin + ".tmp", chemin)
+        try:
+            _telecharger_un_fichier_gleif(chemin, api, adresse)
+        except Exception as e:
+            if not os.path.exists(chemin):
+                raise
+            dit(f"    … GLEIF injoignable ({type(e).__name__}) : fichier précédent gardé")
+
+
+def _telecharger_un_fichier_gleif(chemin, api, adresse):
+    for n in range(4):
+        try:
+            return _telecharger_un_fichier_gleif_une_fois(chemin, api, adresse)
+        except Exception:
+            if n == 3:
+                raise
+            time.sleep(60 * (n + 1))
+
+
+def _telecharger_un_fichier_gleif_une_fois(chemin, api, adresse):
+    req = urllib.request.Request(api, headers={"User-Agent": EN_TETES["User-Agent"]})
+    url = adresse(json.loads(urllib.request.urlopen(req, timeout=120).read().decode()))
+    dit(f"  téléchargement de {os.path.basename(chemin)}…")
+    req = urllib.request.Request(url, headers={"User-Agent": EN_TETES["User-Agent"]})
+    with urllib.request.urlopen(req, timeout=1800) as r, open(chemin + ".tmp", "wb") as f:
+        while True:
+            bloc = r.read(1 << 20)
+            if not bloc:
+                break
+            f.write(bloc)
+    os.replace(chemin + ".tmp", chemin)
 
 # Un mot -> sa forme unique. Les abréviations de Bloomberg à gauche de la
 # flèche, ce qu'elles veulent dire à droite, sont ramenées au même mot.

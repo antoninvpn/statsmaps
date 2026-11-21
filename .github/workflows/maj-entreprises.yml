@@ -43,10 +43,30 @@ jobs:
         with:
           python-version: "3.12"
 
+      # La mémoire de travail de la veille (réponses de Wikidata, d'OpenFIGI,
+      # registre GLEIF). Le script redemande quand même tout ce qui a plus de
+      # 20 heures ; la veille ne sert que de secours si un serveur est en panne
+      # ce jour-là — Wikidata l'est souvent quelques minutes.
+      - name: Reprendre la mémoire de la veille
+        uses: actions/cache/restore@v4
+        with:
+          path: scripts/.cache-bourse
+          key: memoire-bourse-${{ github.run_id }}
+          restore-keys: memoire-bourse-
+
       - name: Rassembler les entreprises (OpenFIGI, GLEIF, Wikidata)
         env:
           OPENFIGI_KEY: ${{ secrets.OPENFIGI_KEY }}
         run: python3 scripts/build_bourse.py --monde
+
+      # Gardée même si l'étape d'avant a échoué : ce qui a été obtenu servira
+      # demain.
+      - name: Garder la mémoire pour demain
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: scripts/.cache-bourse
+          key: memoire-bourse-${{ github.run_id }}
 
       - name: Enregistrer si quelque chose a changé
         run: |

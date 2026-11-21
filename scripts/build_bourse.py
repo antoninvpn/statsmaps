@@ -73,12 +73,21 @@ def dit(*a):
     print(*a, flush=True)
 
 
-def cache_lire(nom):
+# Le robot de GitHub (--monde) garde sa mémoire d'un jour sur l'autre, mais
+# redemande tout ce qui a plus de 20 heures. Si un serveur est en panne ce
+# jour-là, il se rabat sur la réponse de la veille plutôt que d'échouer.
+PERIME = 20 * 3600
+
+
+def cache_lire(nom, secours=False):
     chemin = os.path.join(CACHE, nom)
-    if os.path.exists(chemin) and "--neuf" not in sys.argv:
-        with open(chemin, encoding="utf-8") as f:
-            return json.load(f)
-    return None
+    if not os.path.exists(chemin) or ("--neuf" in sys.argv and not secours):
+        return None
+    if ("--monde" in sys.argv and not secours
+            and time.time() - os.path.getmtime(chemin) > PERIME):
+        return None
+    with open(chemin, encoding="utf-8") as f:
+        return json.load(f)
 
 
 def cache_ecrire(nom, valeur):
@@ -87,7 +96,7 @@ def cache_ecrire(nom, valeur):
         json.dump(valeur, f, ensure_ascii=False)
 
 
-def telecharger(url, essais=4, entetes=None, binaire=False, corps=None):
+def telecharger(url, essais=6, entetes=None, binaire=False, corps=None):
     """Télécharge une page. Réessaie si le serveur est occupé.
     corps : ce qu'on envoie DANS le message plutôt que dans l'adresse (une
     question trop longue ne tient pas dans une adresse web)."""
@@ -101,13 +110,13 @@ def telecharger(url, essais=4, entetes=None, binaire=False, corps=None):
             # 404 : le fichier n'existe pas, inutile d'insister.
             if e.code == 404 or n == essais - 1:
                 raise
-            attente = 15 * (n + 1)
+            attente = 20 * (n + 1)
             dit(f"    … erreur {e.code} ; nouvel essai dans {attente} s")
             time.sleep(attente)
         except Exception as e:
             if n == essais - 1:
                 raise
-            attente = 15 * (n + 1)
+            attente = 20 * (n + 1)
             dit(f"    … {type(e).__name__} ; nouvel essai dans {attente} s")
             time.sleep(attente)
 
@@ -125,7 +134,7 @@ def sparql(requete, nom_cache):
     entetes["Content-Type"] = "application/x-www-form-urlencoded"
     # Quand une question prend trop de temps, Wikidata coupe sa réponse en
     # plein milieu : le texte reçu n'est alors pas lisible. On réessaie.
-    for essai in range(3):
+    for essai in range(4):
         try:
             # strict=False : certains noms de Wikidata contiennent des caractères
             # invisibles (un retour à la ligne dans un nom de ville…) que la
@@ -133,11 +142,17 @@ def sparql(requete, nom_cache):
             d = json.loads(telecharger(WIKIDATA, entetes=entetes, corps=corps),
                            strict=False)["results"]["bindings"]
             break
-        except ValueError:
-            if essai == 2:
+        except Exception as e:
+            if essai < 3 and isinstance(e, ValueError):
+                dit("    … réponse coupée ; nouvel essai dans 30 s")
+                time.sleep(30)
+                continue
+            # Wikidata est en panne : la réponse de la veille, s'il y en a une.
+            hier = cache_lire(nom_cache, secours=True)
+            if hier is None:
                 raise
-            dit("    … réponse coupée ; nouvel essai dans 30 s")
-            time.sleep(30)
+            dit(f"    … Wikidata ne répond pas : on garde la réponse précédente ({nom_cache})")
+            return hier
     cache_ecrire(nom_cache, d)
     time.sleep(1)
     return d
