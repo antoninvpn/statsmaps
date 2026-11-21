@@ -261,7 +261,7 @@
   /* Le style complet de la carte : le fond d'OpenFreeMap, retouché, puis par-
      dessus les couches du site (frontières et entreprises). On le refabrique
      entièrement au changement de thème. */
-  function fabriquerStyle(fond, geoPays) {
+  function fabriquerStyle(fond, geoPays, geoFrontieres) {
     var style = fond ? JSON.parse(JSON.stringify(fond)) : {
       version: 8, sources: {},
       layers: [{ id: "mer", type: "background",
@@ -284,6 +284,9 @@
     });
 
     style.sources.pays = { type: "geojson", data: geoPays };
+    /* Les frontières précises (1:10m), sans les côtes : celles-ci sont
+       dessinées par le fond OpenStreetMap, bien plus finement. */
+    style.sources.frontieres = { type: "geojson", data: geoFrontieres || geoPays };
     style.sources.entreprises = { type: "geojson", data: entreprisesGeoJSON() };
 
     if (!fond) {
@@ -296,11 +299,11 @@
     /* Les frontières du site : un trait fin, discret, qui se fond un peu
        quand on s'approche des rues. */
     style.layers.push({
-      id: "pays-contour", type: "line", source: "pays",
+      id: "pays-contour", type: "line", source: "frontieres",
       paint: {
-        "line-color": themeSombre() ? "#6b7685" : "#9aa3b5",
-        "line-width": ["interpolate", ["linear"], ["zoom"], 1, 0.5, 6, 1.2, 12, 1.6],
-        "line-opacity": ["interpolate", ["linear"], ["zoom"], 1, 0.9, 12, 0.5],
+        "line-color": themeSombre() ? "#7f8a9b" : "#7d8699",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 1, 0.6, 6, 1.3, 12, 2],
+        "line-opacity": ["interpolate", ["linear"], ["zoom"], 1, 0.9, 12, 0.75],
       },
     });
 
@@ -355,13 +358,14 @@
     return style;
   }
 
-  var geoPaysGarde = null;
+  var geoPaysGarde = null, geoFrontieresGarde = null;
 
-  function construireCarte(geoPays, fond) {
+  function construireCarte(geoPays, fond, geoFrontieres) {
     geoPaysGarde = geoPays;
+    geoFrontieresGarde = geoFrontieres;
     carte = new maplibregl.Map({
       container: "carte",
-      style: fabriquerStyle(fond, geoPays),
+      style: fabriquerStyle(fond, geoPays, geoFrontieres),
       bounds: CADRAGE_MONDE,
       fitBoundsOptions: { padding: margesDuCadrage() },
       minZoom: 0.5,
@@ -861,7 +865,8 @@
     if (panneau.onglets) panneau.onglets.hidden = true;
 
     Promise.all([charger("data/bourse/entreprises.json"), charger("data/pays.json"),
-                 telechargerStyle(themeSombre() ? "sombre" : "clair")])
+                 telechargerStyle(themeSombre() ? "sombre" : "clair"),
+                 charger("data/frontieres.json")])
       .then(function (r) {
         donnees = r[0];
         /* Les noms anglais (« ne », « ve ») ne sont écrits dans le fichier que
@@ -891,7 +896,7 @@
 
         dessinerPanneau();
         brancherTiroir();
-        construireCarte(r[1], r[2]);
+        construireCarte(r[1], r[2], r[3]);
         chargement.hidden = true;
       })
       .catch(function (e) {
@@ -907,7 +912,7 @@
   window.addEventListener("statsmaps:theme", function () {
     if (!carte || !geoPaysGarde) return;
     telechargerStyle(themeSombre() ? "sombre" : "clair").then(function (fond) {
-      carte.setStyle(fabriquerStyle(fond, geoPaysGarde));
+      carte.setStyle(fabriquerStyle(fond, geoPaysGarde, geoFrontieresGarde));
       dessinerLegende();
     });
   });

@@ -402,6 +402,14 @@ Le fond de carte, lui, ne change quasiment jamais. Si besoin :
 python3 scripts/build_geojson.py
 ```
 
+Les cartes détaillées (entreprises cotées) utilisent en plus
+`data/frontieres.json` : les seules frontières terrestres, très précises
+(Natural Earth 1:10m), sans les côtes, avec les mêmes choix de frontières.
+
+```bash
+python3 scripts/build_geojson.py --precis
+```
+
 Et pour refabriquer les pages, après avoir touché à un titre, une adresse
 ou la liste des langues :
 

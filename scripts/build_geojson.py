@@ -8,6 +8,11 @@ il télécharge les frontières des pays du monde, les allège, et les range
 dans data/pays.json pour que la carte s'affiche très vite.
 
 À lancer :  python3 scripts/build_geojson.py
+
+Avec  --precis  il fabrique à la place data/frontieres.json : les seules
+frontières terrestres entre pays (sans les côtes), au niveau de détail le plus
+fin de Natural Earth (1:10m), pour les cartes détaillées où l'on zoome jusqu'à
+la rue (entreprises cotées). Mêmes choix de frontières que data/pays.json.
 Aucune installation nécessaire (bibliothèque standard de Python uniquement).
 """
 
@@ -723,12 +728,149 @@ def rattacher_crimee_a_ukraine(pays):
 
 # --- Programme principal --------------------------------------------------
 
+FICHIER_FRONTIERES = os.path.join(RACINE, "data", "frontieres.json")
+
+
+# Sur les cartes précises, quelques morceaux de plus apparaissent au 1:10m :
+# ils sont rendus au pays dont ils font partie, sans trait entre les deux.
+FUSIONS_PRECISES = {
+    "CNM": "CYP",  # zone tampon de l'ONU à Chypre
+    "KAB": "KAZ",  # Baïkonour : louée à la Russie, territoire kazakh
+    "USG": "CUB",  # Guantánamo : louée aux États-Unis, territoire cubain
+    "BRI": "BRA",  # « île brésilienne », administrée par le Brésil
+}
+
+
+def frontieres_precises(brut, disputes):
+    """Ne garde que les traits partagés par deux pays : les frontières
+    terrestres. Les côtes, dessinées par un seul pays, disparaissent — sur les
+    cartes détaillées, ce sont celles d'OpenStreetMap, bien plus fines.
+
+    Natural Earth dessine une frontière avec les mêmes points des deux côtés :
+    un segment [A, B] qui appartient à deux pays différents est donc une
+    frontière. Chaque morceau est d'abord rendu à son pays selon les mêmes
+    choix que data/pays.json (fusions, territoires, Crimée, Golan)."""
+    groupe = {}
+    for code_absorbe, code_hote, _ in FUSIONS:
+        groupe[code_absorbe] = code_hote
+    for code_hote, codes in TERRITOIRES_RATTACHES.items():
+        for code in codes:
+            groupe[code] = code_hote
+    groupe.update(FUSIONS_PRECISES)
+
+    def clef(a, b):
+        return (a, b) if a < b else (b, a)
+
+    proprietaires = {}
+
+    def ajouter(anneau, code):
+        for a, b in zip(anneau, anneau[1:]):
+            a, b = tuple(a), tuple(b)
+            if a != b:
+                proprietaires.setdefault(clef(a, b), set()).add(code)
+
+    lon_min, lat_min, lon_max, lat_max = CRIMEE_BOITE
+    for element in brut["features"]:
+        code = element["properties"].get("ADM0_A3")
+        if not code or code == "-99" or code in PAYS_EXCLUS:
+            continue
+        code = CORRECTIONS_CODES.get(code, code)
+        code = groupe.get(code, code)
+        geometrie = {"type": element["geometry"]["type"],
+                     "coordinates": arrondir(element["geometry"]["coordinates"])}
+        for polygone in liste_des_polygones(geometrie):
+            proprio = code
+            if code == "RUS":
+                lons = [pt[0] for pt in polygone[0]]
+                lats = [pt[1] for pt in polygone[0]]
+                if (lon_min <= min(lons) and max(lons) <= lon_max
+                        and lat_min <= min(lats) and max(lats) <= lat_max):
+                    proprio = "UKR"  # la Crimée (résolution ONU 68/262)
+            for anneau in polygone:
+                ajouter(anneau, proprio)
+
+    # Le Golan (résolution ONU 497) : Natural Earth le dessine dans Israël.
+    # Tout son pourtour devient syrien ; la ligne de 1967, à l'intérieur du
+    # contour israélien, devient la frontière Israël–Syrie ; et la ligne de
+    # cessez-le-feu, entre le Golan et le reste de la Syrie, disparaît.
+    golan = contour_dispute(disputes, NOM_GOLAN)
+    if golan:
+        for a, b in zip(golan, golan[1:]):
+            a, b = tuple(a), tuple(b)
+            if a == b:
+                continue
+            codes = proprietaires.setdefault(clef(a, b), set())
+            if "ISR" in codes:
+                codes.discard("ISR")   # au bord du Golan : plus israélien
+            else:
+                codes.add("ISR")       # ligne de 1967 : Israël d'un côté
+            codes.add("SYR")
+        print("  Golan rendu à la Syrie (résolution ONU 497).")
+    else:
+        print("  ATTENTION : Golan introuvable dans le fichier des zones disputées.")
+
+    segments = [s for s, codes in proprietaires.items() if len(codes) >= 2]
+
+    # Raboutage : on part des bouts (points qui ne touchent pas exactement
+    # deux segments), puis on referme les boucles restantes (îles partagées).
+    voisins = {}
+    for a, b in segments:
+        voisins.setdefault(a, []).append(b)
+        voisins.setdefault(b, []).append(a)
+    vus = set()
+
+    def suivre(depart, suivant):
+        ligne = [depart, suivant]
+        vus.add((depart, suivant) if depart < suivant else (suivant, depart))
+        while len(voisins[ligne[-1]]) == 2:
+            prochain = next((p for p in voisins[ligne[-1]]
+                             if ((ligne[-1], p) if ligne[-1] < p else (p, ligne[-1])) not in vus), None)
+            if prochain is None:
+                break
+            vus.add((ligne[-1], prochain) if ligne[-1] < prochain else (prochain, ligne[-1]))
+            ligne.append(prochain)
+        return ligne
+
+    lignes = []
+    for point in voisins:
+        if len(voisins[point]) != 2:
+            for v in voisins[point]:
+                if ((point, v) if point < v else (v, point)) not in vus:
+                    lignes.append(suivre(point, v))
+    for a, b in segments:
+        if (a, b) not in vus:
+            lignes.append(suivre(a, b))
+
+    resultat = {"type": "FeatureCollection", "features": [{
+        "type": "Feature", "properties": {},
+        "geometry": {"type": "MultiLineString",
+                     "coordinates": [[list(p) for p in l] for l in lignes]},
+    }]}
+    with open(FICHIER_FRONTIERES, "w", encoding="utf-8") as fichier:
+        json.dump(resultat, fichier, separators=(",", ":"))
+    print("-" * 55)
+    print("  %d segments de frontière, raboutés en %d lignes."
+          % (len(segments), len(lignes)))
+    print("  Écrit dans data/frontieres.json  (%d Ko)"
+          % round(os.path.getsize(FICHIER_FRONTIERES) / 1024))
+
+
 def main():
-    print("Préparation du fond de carte StatsMaps")
+    global DECIMALES
+    precis = "--precis" in sys.argv
+    print("Préparation du fond de carte StatsMaps" + (" (frontières précises)" if precis else ""))
     print("-" * 55)
 
-    brut = telecharger(SOURCE_URL)
-    disputes = telecharger(SOURCE_DISPUTES)
+    if precis:
+        # 4 décimales ≈ 10 m : le 1:10m n'est de toute façon pas plus fin.
+        DECIMALES = 4
+        brut = telecharger(SOURCE_URL.replace("_50m_", "_10m_"))
+        disputes = telecharger(SOURCE_DISPUTES.replace("_50m_admin_0_breakaway_disputed_areas", "_10m_admin_0_disputed_areas"))
+        frontieres_precises(brut, disputes)
+        return
+    else:
+        brut = telecharger(SOURCE_URL)
+        disputes = telecharger(SOURCE_DISPUTES)
     pays_entrants = brut["features"]
     print("  %d pays trouvés dans le fichier source." % len(pays_entrants))
 
