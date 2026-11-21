@@ -89,6 +89,7 @@ CARTES = [
     ("pib-par-habitant-ppa",    "👤", "pib-par-habitant", "ppa",     False),
     ("croissance",              "📈", None,               None,      True),
     ("inflation",               "🔥", None,               None,      True),
+    ("dette-publique",          "🏛️", None,               None,      True),
     ("population",              "👥", None,               None,      True),
     ("metro",                   "🚇", None,               None,      True),
     ("entreprises",             "🏢", None,               None,      True),
@@ -134,7 +135,7 @@ PRECHARGES = {
 # mais n'a ni page, ni entrée de menu, ni ligne dans le sitemap. Le jour où on
 # lui ajoute une carte, tout cela apparaît tout seul.
 CATEGORIES = [
-    ("economie", "💶", ["pib-nominal", "pib-par-habitant", "croissance", "inflation",
+    ("economie", "💶", ["pib-nominal", "pib-par-habitant", "croissance", "inflation", "dette-publique",
                         "entreprises"]),
     ("demographie", "👥", ["population"]),
     ("infrastructure", "🏗️", ["metro"]),
@@ -317,6 +318,12 @@ LANGUES.append({
             "nav": "Inflation", "nav_court": "Inflation",
             "texte": "La hausse des prix à la consommation d’une année sur l’autre, en pourcentage.",
         },
+        "dette-publique": {
+            "slug": "dette-publique",
+            "nom": "Dette publique",
+            "nav": "Dette publique", "nav_court": "Dette",
+            "texte": "La dette de l’État, en pourcentage du PIB.",
+        },
         "population": {
             "slug": "population",
             "nom": "Population",
@@ -431,6 +438,12 @@ LANGUES.append({
             "nom": "Inflation",
             "nav": "Inflation", "nav_court": "Inflation",
             "texte": "Year-on-year rise in consumer prices, as a percentage.",
+        },
+        "dette-publique": {
+            "slug": "public-debt",
+            "nom": "Public debt",
+            "nav": "Public debt", "nav_court": "Debt",
+            "texte": "Government debt, as a percentage of GDP.",
         },
         "population": {
             "slug": "population",
@@ -739,9 +752,23 @@ PAGES = ([ACCUEIL]
          + [("carte", identifiant) for identifiant, _, _, _, _ in CARTES])
 
 
+# Les cartes qui ont leurs propres données, hors du FMI.
+CARTES_HORS_FMI = {"metro", "entreprises"}
+
+
+def chiffres_presents(id_carte):
+    """Une carte du FMI n'a de page que si ses chiffres sont arrivés
+    (data/<carte>.json). Une nouvelle carte — la dette publique, ajoutée un
+    jour où le FMI était en panne — n'apparaît donc sur le site qu'au premier
+    passage réussi du robot, jamais sous forme de page vide."""
+    return id_carte in CARTES_HORS_FMI or os.path.exists(
+        os.path.join(RACINE, "data", id_carte + ".json"))
+
+
 def carte_dans(id_carte, code_langue):
     """Cette carte existe-t-elle dans cette langue ? (voir LANGUES_DE)"""
-    return code_langue in LANGUES_DE.get(id_carte, [l["code"] for l in LANGUES])
+    return (chiffres_presents(id_carte)
+            and code_langue in LANGUES_DE.get(id_carte, [l["code"] for l in LANGUES]))
 
 
 def cartes_de(id_categorie, langue):

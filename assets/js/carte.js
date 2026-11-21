@@ -182,6 +182,24 @@
       sombre: inverser(PALETTE_SOMBRE),
     },
 
+    /* La dette publique, en % du PIB. Comme l'inflation, elle se lit à
+       l'envers : peu de dette = vert, beaucoup = rouge (Japon, Soudan,
+       Grèce, Italie, États-Unis).
+
+       Les seuils sont les repères habituels : 60 % est la limite du traité
+       de Maastricht en Europe, 90 % celle au-delà de laquelle les
+       économistes s'inquiètent, 120 % et plus est réservé à une poignée de
+       pays. En comparaison, deux pays diffèrent de dizaines de points : les
+       tranches de l'écart sont donc plus larges que sur la croissance. */
+    "dette-publique": {
+      ecart: "points",
+      ecart_inverse: true,
+      ecart_tranches: [-50, -25, -10, 10, 25, 50],
+      tranches: [20, 40, 60, 90, 120, 150],
+      clair: inverser(PALETTE_CLAIR),
+      sombre: inverser(PALETTE_SOMBRE),
+    },
+
     /* La population n'a ni « bon » ni « mauvais » côté : personne ne dira
        qu'un pays peuplé va mieux qu'un pays peu peuplé. La palette ne sert
        donc ici qu'à mesurer une taille, du plus petit (rouge sombre) au plus
@@ -403,7 +421,11 @@
 
   /* Les réglages de l'écart pour la carte affichée (tranches, décimales). */
   function reglagesEcart() {
-    return ECARTS[reglages.ecart];
+    var base = ECARTS[reglages.ecart];
+    /* Une carte peut avoir ses propres tranches d'écart : sur la dette, deux
+       pays diffèrent de dizaines de points, pas de 0,5 comme sur la croissance. */
+    if (!reglages.ecart_tranches) return base;
+    return { tranches: reglages.ecart_tranches, decimales: base.decimales };
   }
 
   /* L'écart entre un pays et la référence, dans l'unité de la carte.

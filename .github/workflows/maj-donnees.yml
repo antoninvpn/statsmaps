@@ -36,15 +36,20 @@ jobs:
       - name: Aller chercher les chiffres chez le FMI
         run: python3 scripts/build_donnees.py
 
+      # Les pages aussi : une carte toute neuve (la dette publique) n'a de page
+      # que lorsque ses chiffres sont là. C'est donc ici qu'elle naît.
+      - name: Refaire les pages
+        run: python3 scripts/build_pages.py
+
       - name: Enregistrer si quelque chose a changé
         run: |
-          if git diff --quiet -- data/; then
+          if [ -z "$(git status --porcelain)" ]; then
             echo "Aucun changement : le FMI n'a rien publié de nouveau."
             exit 0
           fi
           git config user.name "StatsMaps (robot)"
           git config user.email "actions@github.com"
-          git add data/
+          git add -A
           git commit -m "Données FMI mises à jour ($(date +%d/%m/%Y))"
           git push
           echo "Nouveaux chiffres enregistrés."
