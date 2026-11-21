@@ -433,7 +433,20 @@ body.page-terre::before {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: var(--voile), var(--terre) center / cover no-repeat, #06101d;
+  /* Centrer l'Europe et l'Afrique (demande d'Antonin du 21 novembre 2026).
+     Les photos vont de 180° ouest à 180° est : leur milieu est l'Atlantique
+     au large du golfe de Guinée (0°), si bien que l'Europe et l'Afrique
+     partaient vers la droite. On décale la photo pour mettre 15° est au
+     milieu de l'écran, soit 54,17 % de sa largeur (0,5 + 15/360). Elle
+     couvre l'écran comme avant (sa largeur vaut deux fois sa hauteur), et
+     se répète sur les côtés : la Terre faisant le tour, aucun raccord ne
+     se voit. */
+  --largeur-terre: max(100vw, 200vh);
+  background-color: #06101d;
+  background-image: var(--voile), var(--terre);
+  background-repeat: no-repeat, repeat-x;
+  background-size: 100% 100%, var(--largeur-terre) auto;
+  background-position: 0 0, calc(50vw - 0.5417 * var(--largeur-terre)) 50%;
 }
 body.page-terre .vignette,
 body.page-terre .haut__langues > summary,
