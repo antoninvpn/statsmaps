@@ -957,7 +957,11 @@
     /* L'échelle de couleurs et les valeurs envoyées à chaque pays doivent
        toujours parler de la même chose. On les pose donc au même endroit,
        plutôt que de laisser deux fonctions décider chacune de son côté. */
-    if (carte.isStyleLoaded()) {
+    /* On teste la présence de la couche, et non isStyleLoaded() : celle-ci
+       répond « non » pendant un court instant après chaque changement (par
+       exemple quand un second clic referme puis rouvre la bulle), et
+       l'échelle n'était alors pas changée — tous les pays viraient au rouge. */
+    if (carte.getLayer("pays-fond")) {
       carte.setPaintProperty("pays-fond", "fill-color", regleDeCouleur());
     }
 
@@ -1725,7 +1729,7 @@
   /* --- Réaction au changement de thème ------------------------------------ */
 
   window.addEventListener("statsmaps:theme", function () {
-    if (!carte || !carte.isStyleLoaded()) return;
+    if (!carte || !carte.getLayer("pays-fond")) return;
     /* La mer n'est plus dessinée par la carte mais par la feuille de style
        (voir styleDeBase) : elle change de couleur toute seule avec le thème,
        il n'y a donc plus rien à faire pour elle ici. */
