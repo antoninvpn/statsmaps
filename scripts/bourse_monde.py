@@ -487,6 +487,9 @@ def titres_par_lei(leis):
     return compte
 
 
+FILIALE = re.compile(r"\bL\.?\s?L\.?\s?C\b|\bL\.?\s?L\.?\s?P\b|,?\s\bL\.?P\.?$", re.I)
+
+
 def choisir_dans_gleif(actions, candidats, leis_connus=()):
     """Pour chaque action, LA bonne entreprise de GLEIF, ou aucune.
 
@@ -523,6 +526,10 @@ def choisir_dans_gleif(actions, candidats, leis_connus=()):
         for c, fiche in par_premier_mot.get(clef.split()[0], []):
             if c == clef or (coupe and c.startswith(clef)):
                 bons[fiche["lei"]] = fiche
+        # Une « LLC » ou une « LP » américaine n'émet pas d'actions cotées :
+        # c'est une filiale (« GLOBANT, LLC » n'est pas « GLOBANT SA »).
+        if not FILIALE.search(a["nom"]):
+            bons = {k: f for k, f in bons.items() if not FILIALE.search(f["nom"])}
         if not bons:
             continue
         pays = {PAYS_DES_PLACES.get(p) for p in a["places"]}

@@ -953,6 +953,15 @@ def fusionner_avec_le_monde(lignes, bourses_wd, pays):
 
         # Où la poser (voir l'ordre en tête de cette étape).
         gleif = monde.placer(fiche["adresse"], hors_ligne="--hors-ligne" in sys.argv) if fiche else None
+        # Quand Wikidata place déjà le siège dans un pays, une adresse GLEIF
+        # d'un AUTRE pays est celle d'une société écran ou d'une filiale
+        # (Globant : Buenos Aires pour Wikidata, Luxembourg ou San Francisco
+        # pour GLEIF) : on garde Wikidata.
+        if gleif and ligne["x"] is not None and ligne.get("i") \
+                and pays_du_point(arrondi(gleif[0]), arrondi(gleif[1]), pays) != ligne["i"]:
+            gleif, fiche_ailleurs = None, True
+        else:
+            fiche_ailleurs = False
         if ligne["x"] is not None and ligne["p"] == 1:
             pass
         elif gleif and gleif[2] == 1:
@@ -970,7 +979,7 @@ def fusionner_avec_le_monde(lignes, bourses_wd, pays):
             if not centre:
                 continue
             ligne["x"], ligne["y"], ligne["p"] = round(centre[0], 4), round(centre[1], 4), GRIS
-        if fiche:
+        if fiche and not fiche_ailleurs:
             if not ligne.get("v") and fiche["adresse"].get("City"):
                 ligne["v"] = joli_nom(fiche["adresse"]["City"])
             if not ligne.get("a") and ligne["p"] != GRIS and fiche["adresse"].get("FirstAddressLine"):
