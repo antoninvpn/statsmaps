@@ -527,7 +527,7 @@ sur « octobre 2026 » dès le 15 octobre. Il n'y a rien à modifier à la main.
 
 ## 🧾 Sources et licences
 
-- **Données** : [FMI — World Economic Outlook](https://www.imf.org/external/datamapper/datasets/WEO)
+- **Données** : [FMI — World Economic Outlook](https://www.imf.org/external/datamapper/profile)
 - **Frontières** : [Natural Earth](https://www.naturalearthdata.com/), échelle 1:50 m (domaine public)
 
   Natural Earth dessine le monde « tel qu'il est contrôlé sur le terrain ».

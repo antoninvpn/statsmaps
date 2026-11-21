@@ -562,7 +562,7 @@ def main():
             "hi": "IMF, World Economic Outlook",
             "ar": "صندوق النقد الدولي، World Economic Outlook",
         },
-        "source_url": "https://www.imf.org/external/datamapper/datasets/WEO",
+        "source_url": "https://www.imf.org/external/datamapper/profile",
         "derniere_annee_reelle": derniere_annee_reelle,
         "indicateurs": {},
     }
