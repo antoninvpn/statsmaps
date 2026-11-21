@@ -1,0 +1,6346 @@
+{
+ "explication": "Chiffres recopiés à la main (par programme) depuis les rapports, tels quels. Voir scripts/build_millionnaires.py.",
+ "credit_suisse": {
+  "source": "Credit Suisse, Global Wealth Databook (éditions 2011 à 2022), tableaux « Wealth pattern within countries » (part des adultes au-dessus d'un million de dollars, × nombre d'adultes) et « High net worth individuals by country » (nombre exact, pour une cinquantaine de pays). Retrouvés sur web.archive.org. En 2011, le tableau des parts s'arrête à « plus de 100 000 dollars » : seuls les nombres exacts sont gardés.",
+  "annees": {
+   "2011": {
+    "Argentina": [
+     31208,
+     "exact"
+    ],
+    "Australia": [
+     1080528,
+     "exact"
+    ],
+    "Austria": [
+     159806,
+     "exact"
+    ],
+    "Belgium": [
+     351596,
+     "exact"
+    ],
+    "Brazil": [
+     318886,
+     "exact"
+    ],
+    "Canada": [
+     941677,
+     "exact"
+    ],
+    "Chile": [
+     28323,
+     "exact"
+    ],
+    "China": [
+     1017166,
+     "exact"
+    ],
+    "China, Taiwan": [
+     343882,
+     "exact"
+    ],
+    "Colombia": [
+     36845,
+     "exact"
+    ],
+    "Cyprus": [
+     10349,
+     "exact"
+    ],
+    "Czech Republic": [
+     25155,
+     "exact"
+    ],
+    "Denmark": [
+     295980,
+     "exact"
+    ],
+    "Egypt": [
+     31464,
+     "exact"
+    ],
+    "Finland": [
+     80660,
+     "exact"
+    ],
+    "France": [
+     2605997,
+     "exact"
+    ],
+    "Germany": [
+     1754130,
+     "exact"
+    ],
+    "Greece": [
+     85717,
+     "exact"
+    ],
+    "Hong Kong SAR, China": [
+     90032,
+     "exact"
+    ],
+    "India": [
+     203832,
+     "exact"
+    ],
+    "Indonesia": [
+     112246,
+     "exact"
+    ],
+    "Ireland": [
+     67053,
+     "exact"
+    ],
+    "Israel": [
+     121216,
+     "exact"
+    ],
+    "Italy": [
+     1544558,
+     "exact"
+    ],
+    "Japan": [
+     3122460,
+     "exact"
+    ],
+    "Kazakhstan": [
+     7367,
+     "exact"
+    ],
+    "Korea, Rep.": [
+     217598,
+     "exact"
+    ],
+    "Kuwait": [
+     31010,
+     "exact"
+    ],
+    "Lebanon": [
+     10677,
+     "exact"
+    ],
+    "Malaysia": [
+     39496,
+     "exact"
+    ],
+    "Mexico": [
+     174693,
+     "exact"
+    ],
+    "Netherlands": [
+     356786,
+     "exact"
+    ],
+    "New Zealand": [
+     63344,
+     "exact"
+    ],
+    "Nigeria": [
+     5079,
+     "exact"
+    ],
+    "Northern America": [
+     11007126,
+     "exact"
+    ],
+    "Norway": [
+     253875,
+     "exact"
+    ],
+    "Philippines": [
+     18171,
+     "exact"
+    ],
+    "Poland": [
+     48316,
+     "exact"
+    ],
+    "Portugal": [
+     71536,
+     "exact"
+    ],
+    "Romania": [
+     16528,
+     "exact"
+    ],
+    "Russian Federation": [
+     94505,
+     "exact"
+    ],
+    "Saudi Arabia": [
+     44109,
+     "exact"
+    ],
+    "Singapore": [
+     183596,
+     "exact"
+    ],
+    "South Africa": [
+     71286,
+     "exact"
+    ],
+    "Spain": [
+     400516,
+     "exact"
+    ],
+    "Sweden": [
+     484784,
+     "exact"
+    ],
+    "Switzerland": [
+     622483,
+     "exact"
+    ],
+    "Thailand": [
+     16740,
+     "exact"
+    ],
+    "Turkey": [
+     98470,
+     "exact"
+    ],
+    "Ukraine": [
+     9265,
+     "exact"
+    ],
+    "United Arab Emirates": [
+     41324,
+     "exact"
+    ],
+    "United Kingdom": [
+     1648319,
+     "exact"
+    ],
+    "United States of America": [
+     10060658,
+     "exact"
+    ],
+    "Venezuela": [
+     9499,
+     "exact"
+    ]
+   },
+   "2012": {
+    "Africa": [
+     0,
+     "pct"
+    ],
+    "Albania": [
+     0,
+     "pct"
+    ],
+    "Algeria": [
+     0,
+     "pct"
+    ],
+    "Argentina": [
+     28646,
+     "exact"
+    ],
+    "Armenia": [
+     0,
+     "pct"
+    ],
+    "Asia-Pacific": [
+     5431705,
+     "pct"
+    ],
+    "Australia": [
+     905172,
+     "exact"
+    ],
+    "Austria": [
+     137364,
+     "exact"
+    ],
+    "Azerbaijan": [
+     0,
+     "pct"
+    ],
+    "Bahamas": [
+     237,
+     "pct"
+    ],
+    "Bahrain": [
+     556,
+     "pct"
+    ],
+    "Bangladesh": [
+     0,
+     "pct"
+    ],
+    "Barbados": [
+     0,
+     "pct"
+    ],
+    "Belarus": [
+     0,
+     "pct"
+    ],
+    "Belgium": [
+     269333,
+     "exact"
+    ],
+    "Belize": [
+     182,
+     "pct"
+    ],
+    "Benin": [
+     0,
+     "pct"
+    ],
+    "Bolivia": [
+     0,
+     "pct"
+    ],
+    "Bosnia and Herzegovina": [
+     0,
+     "pct"
+    ],
+    "Botswana": [
+     0,
+     "pct"
+    ],
+    "Brazil": [
+     226657,
+     "exact"
+    ],
+    "Brunei Darussalam": [
+     278,
+     "pct"
+    ],
+    "Bulgaria": [
+     0,
+     "pct"
+    ],
+    "Burkina Faso": [
+     0,
+     "pct"
+    ],
+    "Burundi": [
+     0,
+     "pct"
+    ],
+    "Cambodia": [
+     0,
+     "pct"
+    ],
+    "Cameroon": [
+     0,
+     "pct"
+    ],
+    "Canada": [
+     841951,
+     "exact"
+    ],
+    "Cape Verde": [
+     0,
+     "pct"
+    ],
+    "Central African Republic": [
+     0,
+     "pct"
+    ],
+    "Chad": [
+     0,
+     "pct"
+    ],
+    "Chile": [
+     42174,
+     "exact"
+    ],
+    "China": [
+     963984,
+     "exact"
+    ],
+    "China, Taiwan": [
+     253619,
+     "exact"
+    ],
+    "Colombia": [
+     46137,
+     "exact"
+    ],
+    "Comoros": [
+     0,
+     "pct"
+    ],
+    "Congo, Dem. Rep.": [
+     0,
+     "pct"
+    ],
+    "Congo, Rep.": [
+     0,
+     "pct"
+    ],
+    "Costa Rica": [
+     3176,
+     "pct"
+    ],
+    "Croatia": [
+     0,
+     "pct"
+    ],
+    "Cyprus": [
+     8678,
+     "exact"
+    ],
+    "Czech Republic": [
+     24325,
+     "exact"
+    ],
+    "Côte d'Ivoire": [
+     0,
+     "pct"
+    ],
+    "Denmark": [
+     117528,
+     "exact"
+    ],
+    "Djibouti": [
+     0,
+     "pct"
+    ],
+    "Dominica": [
+     49,
+     "pct"
+    ],
+    "Ecuador": [
+     0,
+     "pct"
+    ],
+    "Egypt": [
+     24615,
+     "exact"
+    ],
+    "El Salvador": [
+     0,
+     "pct"
+    ],
+    "Equatorial Guinea": [
+     0,
+     "pct"
+    ],
+    "Eritrea": [
+     0,
+     "pct"
+    ],
+    "Estonia": [
+     0,
+     "pct"
+    ],
+    "Ethiopia": [
+     0,
+     "pct"
+    ],
+    "Europe": [
+     9320096,
+     "pct"
+    ],
+    "Fiji": [
+     0,
+     "pct"
+    ],
+    "Finland": [
+     58418,
+     "exact"
+    ],
+    "France": [
+     2283592,
+     "exact"
+    ],
+    "Gabon": [
+     0,
+     "pct"
+    ],
+    "Gambia": [
+     0,
+     "pct"
+    ],
+    "Georgia": [
+     3174,
+     "pct"
+    ],
+    "Germany": [
+     1463220,
+     "exact"
+    ],
+    "Ghana": [
+     0,
+     "pct"
+    ],
+    "Greece": [
+     69762,
+     "exact"
+    ],
+    "Grenada": [
+     0,
+     "pct"
+    ],
+    "Guinea": [
+     0,
+     "pct"
+    ],
+    "Guinea-Bissau": [
+     0,
+     "pct"
+    ],
+    "Guyana": [
+     0,
+     "pct"
+    ],
+    "Hong Kong SAR, China": [
+     93298,
+     "exact"
+    ],
+    "Hungary": [
+     0,
+     "pct"
+    ],
+    "Iceland": [
+     5727,
+     "pct"
+    ],
+    "India": [
+     158081,
+     "exact"
+    ],
+    "Indonesia": [
+     104287,
+     "exact"
+    ],
+    "Iran": [
+     0,
+     "pct"
+    ],
+    "Ireland": [
+     59556,
+     "exact"
+    ],
+    "Israel": [
+     69777,
+     "exact"
+    ],
+    "Italy": [
+     1170554,
+     "exact"
+    ],
+    "Jamaica": [
+     0,
+     "pct"
+    ],
+    "Japan": [
+     3581172,
+     "exact"
+    ],
+    "Jordan": [
+     0,
+     "pct"
+    ],
+    "Kazakhstan": [
+     6096,
+     "exact"
+    ],
+    "Kenya": [
+     0,
+     "pct"
+    ],
+    "Korea, Rep.": [
+     207905,
+     "exact"
+    ],
+    "Kuwait": [
+     27079,
+     "exact"
+    ],
+    "Kyrgyz Republic": [
+     0,
+     "pct"
+    ],
+    "Lao PDR": [
+     0,
+     "pct"
+    ],
+    "Latin America and Caribbean": [
+     385936,
+     "pct"
+    ],
+    "Latvia": [
+     0,
+     "pct"
+    ],
+    "Lebanon": [
+     9316,
+     "exact"
+    ],
+    "Lesotho": [
+     0,
+     "pct"
+    ],
+    "Liberia": [
+     0,
+     "pct"
+    ],
+    "Libya": [
+     4206,
+     "pct"
+    ],
+    "Lithuania": [
+     0,
+     "pct"
+    ],
+    "Luxembourg": [
+     17325,
+     "pct"
+    ],
+    "Macedonia, FYR": [
+     0,
+     "pct"
+    ],
+    "Madagascar": [
+     0,
+     "pct"
+    ],
+    "Malawi": [
+     0,
+     "pct"
+    ],
+    "Malaysia": [
+     36536,
+     "exact"
+    ],
+    "Maldives": [
+     0,
+     "pct"
+    ],
+    "Mali": [
+     0,
+     "pct"
+    ],
+    "Malta": [
+     981,
+     "pct"
+    ],
+    "Mauritania": [
+     0,
+     "pct"
+    ],
+    "Mauritius": [
+     923,
+     "pct"
+    ],
+    "Mexico": [
+     140869,
+     "exact"
+    ],
+    "Moldova": [
+     0,
+     "pct"
+    ],
+    "Mongolia": [
+     0,
+     "pct"
+    ],
+    "Montenegro": [
+     0,
+     "pct"
+    ],
+    "Morocco": [
+     13712,
+     "exact"
+    ],
+    "Mozambique": [
+     0,
+     "pct"
+    ],
+    "Namibia": [
+     1222,
+     "pct"
+    ],
+    "Nepal": [
+     0,
+     "pct"
+    ],
+    "Netherlands": [
+     323095,
+     "exact"
+    ],
+    "New Zealand": [
+     58018,
+     "exact"
+    ],
+    "Nicaragua": [
+     0,
+     "pct"
+    ],
+    "Niger": [
+     0,
+     "pct"
+    ],
+    "North America": [
+     11853720,
+     "pct"
+    ],
+    "Northern America": [
+     11864713,
+     "exact"
+    ],
+    "Norway": [
+     228859,
+     "exact"
+    ],
+    "Oman": [
+     3642,
+     "pct"
+    ],
+    "Pakistan": [
+     0,
+     "pct"
+    ],
+    "Panama": [
+     2276,
+     "pct"
+    ],
+    "Papua New Guinea": [
+     0,
+     "pct"
+    ],
+    "Paraguay": [
+     0,
+     "pct"
+    ],
+    "Peru": [
+     17886,
+     "exact"
+    ],
+    "Philippines": [
+     25121,
+     "exact"
+    ],
+    "Poland": [
+     37844,
+     "exact"
+    ],
+    "Portugal": [
+     54731,
+     "exact"
+    ],
+    "Qatar": [
+     18945,
+     "pct"
+    ],
+    "Romania": [
+     13175,
+     "exact"
+    ],
+    "Russian Federation": [
+     97328,
+     "exact"
+    ],
+    "Rwanda": [
+     0,
+     "pct"
+    ],
+    "Saudi Arabia": [
+     45775,
+     "exact"
+    ],
+    "Senegal": [
+     0,
+     "pct"
+    ],
+    "Serbia": [
+     0,
+     "pct"
+    ],
+    "Seychelles": [
+     318,
+     "pct"
+    ],
+    "Sierra Leone": [
+     0,
+     "pct"
+    ],
+    "Singapore": [
+     156432,
+     "exact"
+    ],
+    "Slovakia": [
+     0,
+     "pct"
+    ],
+    "Slovenia": [
+     3302,
+     "pct"
+    ],
+    "Solomon Islands": [
+     0,
+     "pct"
+    ],
+    "South Africa": [
+     44333,
+     "exact"
+    ],
+    "Spain": [
+     313310,
+     "exact"
+    ],
+    "Sri Lanka": [
+     0,
+     "pct"
+    ],
+    "St. Kitts and Nevis": [
+     66,
+     "pct"
+    ],
+    "St. Lucia": [
+     0,
+     "pct"
+    ],
+    "St. Vincent and the Grenadines": [
+     0,
+     "pct"
+    ],
+    "Sudan": [
+     0,
+     "pct"
+    ],
+    "Suriname": [
+     0,
+     "pct"
+    ],
+    "Swaziland": [
+     0,
+     "pct"
+    ],
+    "Sweden": [
+     344068,
+     "exact"
+    ],
+    "Switzerland": [
+     561772,
+     "exact"
+    ],
+    "Syrian Arab Republic": [
+     0,
+     "pct"
+    ],
+    "Tajikistan": [
+     0,
+     "pct"
+    ],
+    "Tanzania": [
+     0,
+     "pct"
+    ],
+    "Thailand": [
+     19669,
+     "exact"
+    ],
+    "Togo": [
+     0,
+     "pct"
+    ],
+    "Tonga": [
+     0,
+     "pct"
+    ],
+    "Trinidad and Tobago": [
+     0,
+     "pct"
+    ],
+    "Tunisia": [
+     0,
+     "pct"
+    ],
+    "Turkey": [
+     84212,
+     "exact"
+    ],
+    "Uganda": [
+     0,
+     "pct"
+    ],
+    "Ukraine": [
+     8911,
+     "exact"
+    ],
+    "United Arab Emirates": [
+     44144,
+     "exact"
+    ],
+    "United Kingdom": [
+     1582716,
+     "exact"
+    ],
+    "United States of America": [
+     11022760,
+     "exact"
+    ],
+    "Uruguay": [
+     4764,
+     "pct"
+    ],
+    "Vanuatu": [
+     0,
+     "pct"
+    ],
+    "Venezuela": [
+     10283,
+     "exact"
+    ],
+    "Viet Nam": [
+     0,
+     "pct"
+    ],
+    "West Bank and Gaza": [
+     0,
+     "pct"
+    ],
+    "World": [
+     27552408,
+     "pct"
+    ],
+    "Yemen, Rep.": [
+     0,
+     "pct"
+    ],
+    "Zambia": [
+     0,
+     "pct"
+    ],
+    "Zimbabwe": [
+     0,
+     "pct"
+    ]
+   },
+   "2014": {
+    "Albania": [
+     0,
+     "pct"
+    ],
+    "Algeria": [
+     0,
+     "pct"
+    ],
+    "Angola": [
+     9429,
+     "pct"
+    ],
+    "Antigua and Barbuda": [
+     64,
+     "pct"
+    ],
+    "Argentina": [
+     18436,
+     "exact"
+    ],
+    "Armenia": [
+     0,
+     "pct"
+    ],
+    "Australia": [
+     1251875,
+     "exact"
+    ],
+    "Austria": [
+     233111,
+     "exact"
+    ],
+    "Azerbaijan": [
+     0,
+     "pct"
+    ],
+    "Bahamas": [
+     732,
+     "pct"
+    ],
+    "Bahrain": [
+     1737,
+     "pct"
+    ],
+    "Bangladesh": [
+     0,
+     "pct"
+    ],
+    "Barbados": [
+     200,
+     "pct"
+    ],
+    "Belarus": [
+     0,
+     "pct"
+    ],
+    "Belgium": [
+     358219,
+     "exact"
+    ],
+    "Belize": [
+     0,
+     "pct"
+    ],
+    "Benin": [
+     0,
+     "pct"
+    ],
+    "Bolivia": [
+     0,
+     "pct"
+    ],
+    "Bosnia and Herzegovina": [
+     0,
+     "pct"
+    ],
+    "Botswana": [
+     1192,
+     "pct"
+    ],
+    "Br azil": [
+     272798,
+     "pct"
+    ],
+    "Brazil": [
+     225427,
+     "exact"
+    ],
+    "Brunei": [
+     867,
+     "pct"
+    ],
+    "Bulgaria": [
+     0,
+     "pct"
+    ],
+    "Burkina Faso": [
+     0,
+     "pct"
+    ],
+    "Burundi": [
+     0,
+     "pct"
+    ],
+    "Cambodia": [
+     0,
+     "pct"
+    ],
+    "Cameroon": [
+     0,
+     "pct"
+    ],
+    "Canada": [
+     1137966,
+     "exact"
+    ],
+    "Cape Verde": [
+     299,
+     "pct"
+    ],
+    "Central African Repu blic": [
+     0,
+     "pct"
+    ],
+    "Chad": [
+     0,
+     "pct"
+    ],
+    "Chile": [
+     48317,
+     "exact"
+    ],
+    "China": [
+     1181265,
+     "exact"
+    ],
+    "Colombia": [
+     51184,
+     "exact"
+    ],
+    "Comoros": [
+     0,
+     "pct"
+    ],
+    "Congo, Dem. Rep.": [
+     0,
+     "pct"
+    ],
+    "Congo, Rep.": [
+     0,
+     "pct"
+    ],
+    "Costa Rica": [
+     6562,
+     "pct"
+    ],
+    "Cote d'Ivoire": [
+     0,
+     "pct"
+    ],
+    "Croatia": [
+     3498,
+     "pct"
+    ],
+    "Cyprus": [
+     10485,
+     "pct"
+    ],
+    "Czech Republic": [
+     31873,
+     "exact"
+    ],
+    "Denmark": [
+     241465,
+     "exact"
+    ],
+    "Djibouti": [
+     0,
+     "pct"
+    ],
+    "Dominica": [
+     100,
+     "pct"
+    ],
+    "Ecuador": [
+     8812,
+     "pct"
+    ],
+    "Egypt": [
+     23522,
+     "exact"
+    ],
+    "Equatorial Guinea": [
+     370,
+     "pct"
+    ],
+    "Eritrea": [
+     0,
+     "pct"
+    ],
+    "Estonia": [
+     2106,
+     "pct"
+    ],
+    "Fiji": [
+     0,
+     "pct"
+    ],
+    "Finland": [
+     103132,
+     "exact"
+    ],
+    "France": [
+     2443717,
+     "exact"
+    ],
+    "Gabon": [
+     881,
+     "pct"
+    ],
+    "Georgia": [
+     3170,
+     "pct"
+    ],
+    "Germany": [
+     1964179,
+     "exact"
+    ],
+    "Ghana": [
+     0,
+     "pct"
+    ],
+    "Greece": [
+     89625,
+     "exact"
+    ],
+    "Guinea": [
+     0,
+     "pct"
+    ],
+    "Guinea - Bissau": [
+     0,
+     "pct"
+    ],
+    "Guyana": [
+     0,
+     "pct"
+    ],
+    "Haiti": [
+     0,
+     "pct"
+    ],
+    "Hong Kong": [
+     101635,
+     "exact"
+    ],
+    "Hungary": [
+     7914,
+     "pct"
+    ],
+    "Iceland": [
+     15810,
+     "pct"
+    ],
+    "India": [
+     182038,
+     "exact"
+    ],
+    "Indonesia": [
+     98487,
+     "exact"
+    ],
+    "Iran": [
+     0,
+     "pct"
+    ],
+    "Ireland": [
+     91817,
+     "exact"
+    ],
+    "Israel": [
+     94772,
+     "pct"
+    ],
+    "Italy": [
+     1597304,
+     "exact"
+    ],
+    "Jamaica": [
+     0,
+     "pct"
+    ],
+    "Japan": [
+     2727809,
+     "exact"
+    ],
+    "Jordan": [
+     0,
+     "pct"
+    ],
+    "Kazakhstan": [
+     0,
+     "pct"
+    ],
+    "Kenya": [
+     0,
+     "pct"
+    ],
+    "Korea": [
+     332516,
+     "exact"
+    ],
+    "Kuwait": [
+     30548,
+     "exact"
+    ],
+    "Kyrgyzstan": [
+     0,
+     "pct"
+    ],
+    "Laos": [
+     0,
+     "pct"
+    ],
+    "Lebanon": [
+     8928,
+     "pct"
+    ],
+    "Lesotho": [
+     0,
+     "pct"
+    ],
+    "Liberia": [
+     0,
+     "pct"
+    ],
+    "Libya": [
+     13002,
+     "pct"
+    ],
+    "Luxembourg": [
+     22575,
+     "exact"
+    ],
+    "Macedonia": [
+     0,
+     "pct"
+    ],
+    "Madagascar": [
+     0,
+     "pct"
+    ],
+    "Malawi": [
+     0,
+     "pct"
+    ],
+    "Malaysia": [
+     37682,
+     "exact"
+    ],
+    "Maldives": [
+     0,
+     "pct"
+    ],
+    "Mali": [
+     0,
+     "pct"
+    ],
+    "Malta": [
+     3310,
+     "pct"
+    ],
+    "Mauritius": [
+     2823,
+     "pct"
+    ],
+    "Mexico": [
+     171851,
+     "exact"
+    ],
+    "Moldova": [
+     0,
+     "pct"
+    ],
+    "Mongolia": [
+     0,
+     "pct"
+    ],
+    "Morocco": [
+     16415,
+     "exact"
+    ],
+    "Mozambique": [
+     0,
+     "pct"
+    ],
+    "Myanmar": [
+     0,
+     "pct"
+    ],
+    "Namibia": [
+     2546,
+     "pct"
+    ],
+    "Nepa l": [
+     0,
+     "pct"
+    ],
+    "Netherlands": [
+     346977,
+     "exact"
+    ],
+    "New Zealand": [
+     86432,
+     "exact"
+    ],
+    "Nicaragua": [
+     0,
+     "pct"
+    ],
+    "Niger": [
+     0,
+     "pct"
+    ],
+    "Nigeria": [
+     0,
+     "pct"
+    ],
+    "Norway": [
+     256340,
+     "exact"
+    ],
+    "Oman": [
+     9485,
+     "pct"
+    ],
+    "Pakistan": [
+     0,
+     "pct"
+    ],
+    "Panama": [
+     2345,
+     "pct"
+    ],
+    "Papua New Guinea": [
+     0,
+     "pct"
+    ],
+    "Paraguay": [
+     0,
+     "pct"
+    ],
+    "Peru": [
+     30282,
+     "exact"
+    ],
+    "Philippines": [
+     31022,
+     "exact"
+    ],
+    "Poland": [
+     50235,
+     "exact"
+    ],
+    "Portugal": [
+     75903,
+     "exact"
+    ],
+    "Qatar": [
+     25641,
+     "exact"
+    ],
+    "Romania": [
+     16664,
+     "pct"
+    ],
+    "Russia": [
+     158230,
+     "exact"
+    ],
+    "Rwanda": [
+     0,
+     "pct"
+    ],
+    "Samoa": [
+     276,
+     "pct"
+    ],
+    "Sao Tome and Principe": [
+     0,
+     "pct"
+    ],
+    "Saudi Arabia": [
+     48481,
+     "exact"
+    ],
+    "Senegal": [
+     0,
+     "pct"
+    ],
+    "Serbia": [
+     0,
+     "pct"
+    ],
+    "Seychelles": [
+     385,
+     "pct"
+    ],
+    "Sierra Leone": [
+     0,
+     "pct"
+    ],
+    "Singapore": [
+     166851,
+     "exact"
+    ],
+    "Slovakia": [
+     0,
+     "pct"
+    ],
+    "Slovenia": [
+     1656,
+     "pct"
+    ],
+    "South Africa": [
+     47214,
+     "exact"
+    ],
+    "Spain": [
+     464642,
+     "exact"
+    ],
+    "Sweden": [
+     466878,
+     "exact"
+    ],
+    "Switzerland": [
+     662965,
+     "exact"
+    ],
+    "Taiwan": [
+     378898,
+     "exact"
+    ],
+    "Thailand": [
+     23633,
+     "exact"
+    ],
+    "Turkey": [
+     79434,
+     "exact"
+    ],
+    "United Arab Emirates": [
+     46118,
+     "exact"
+    ],
+    "United Kingdom": [
+     2042644,
+     "exact"
+    ],
+    "United States": [
+     14165823,
+     "exact"
+    ]
+   },
+   "2015": {
+    "Africa": [
+     0,
+     "pct"
+    ],
+    "Albania": [
+     0,
+     "pct"
+    ],
+    "Algeria": [
+     0,
+     "pct"
+    ],
+    "Angola": [
+     0,
+     "pct"
+    ],
+    "Antigua and Barbuda": [
+     130,
+     "pct"
+    ],
+    "Argentina": [
+     18319,
+     "exact"
+    ],
+    "Armenia": [
+     0,
+     "pct"
+    ],
+    "Asia-Pacific": [
+     4538496,
+     "pct"
+    ],
+    "Australia": [
+     960741,
+     "exact"
+    ],
+    "Austria": [
+     194252,
+     "exact"
+    ],
+    "Azerbaijan": [
+     0,
+     "pct"
+    ],
+    "Bahamas": [
+     1245,
+     "pct"
+    ],
+    "Bahrain": [
+     1190,
+     "pct"
+    ],
+    "Bangladesh": [
+     0,
+     "pct"
+    ],
+    "Barbados": [
+     202,
+     "pct"
+    ],
+    "Belarus": [
+     0,
+     "pct"
+    ],
+    "Belgium": [
+     278308,
+     "exact"
+    ],
+    "Belize": [
+     0,
+     "pct"
+    ],
+    "Benin": [
+     0,
+     "pct"
+    ],
+    "Bolivia": [
+     0,
+     "pct"
+    ],
+    "Bosnia and Herzegovina": [
+     0,
+     "pct"
+    ],
+    "Botswana": [
+     0,
+     "pct"
+    ],
+    "Brazil": [
+     168048,
+     "exact"
+    ],
+    "Brunei": [
+     592,
+     "pct"
+    ],
+    "Bulgaria": [
+     0,
+     "pct"
+    ],
+    "Burkina Faso": [
+     0,
+     "pct"
+    ],
+    "Burundi": [
+     0,
+     "pct"
+    ],
+    "Cambodia": [
+     0,
+     "pct"
+    ],
+    "Cameroon": [
+     0,
+     "pct"
+    ],
+    "Canada": [
+     983743,
+     "exact"
+    ],
+    "Cape Verde": [
+     307,
+     "pct"
+    ],
+    "Central African Republic": [
+     0,
+     "pct"
+    ],
+    "Chad": [
+     0,
+     "pct"
+    ],
+    "Chile": [
+     43932,
+     "exact"
+    ],
+    "China": [
+     1332980,
+     "exact"
+    ],
+    "Colombia": [
+     36612,
+     "exact"
+    ],
+    "Comoros": [
+     0,
+     "pct"
+    ],
+    "Congo, Dem. Rep.": [
+     0,
+     "pct"
+    ],
+    "Congo, Rep.": [
+     0,
+     "pct"
+    ],
+    "Costa Rica": [
+     10047,
+     "pct"
+    ],
+    "Cote d'Ivoire": [
+     0,
+     "pct"
+    ],
+    "Croatia": [
+     0,
+     "pct"
+    ],
+    "Cyprus": [
+     8508,
+     "pct"
+    ],
+    "Czech Republic": [
+     28295,
+     "exact"
+    ],
+    "Denmark": [
+     193812,
+     "exact"
+    ],
+    "Djibouti": [
+     0,
+     "pct"
+    ],
+    "Dominica": [
+     102,
+     "pct"
+    ],
+    "Ecuador": [
+     0,
+     "pct"
+    ],
+    "Egypt": [
+     22956,
+     "exact"
+    ],
+    "El Salvador": [
+     0,
+     "pct"
+    ],
+    "Equatorial Guinea": [
+     380,
+     "pct"
+    ],
+    "Eritrea": [
+     0,
+     "pct"
+    ],
+    "Estonia": [
+     1049,
+     "pct"
+    ],
+    "Ethiopia": [
+     0,
+     "pct"
+    ],
+    "Europe": [
+     9929496,
+     "pct"
+    ],
+    "Fiji": [
+     0,
+     "pct"
+    ],
+    "Finland": [
+     71420,
+     "exact"
+    ],
+    "France": [
+     1790861,
+     "exact"
+    ],
+    "Gabon": [
+     906,
+     "pct"
+    ],
+    "Gambia": [
+     0,
+     "pct"
+    ],
+    "Georgia": [
+     0,
+     "pct"
+    ],
+    "Germany": [
+     1524789,
+     "exact"
+    ],
+    "Ghana": [
+     0,
+     "pct"
+    ],
+    "Greece": [
+     57934,
+     "exact"
+    ],
+    "Grenada": [
+     68,
+     "pct"
+    ],
+    "Guinea": [
+     0,
+     "pct"
+    ],
+    "Guinea-Bissau": [
+     0,
+     "pct"
+    ],
+    "Guyana": [
+     0,
+     "pct"
+    ],
+    "Haiti": [
+     0,
+     "pct"
+    ],
+    "Hong Kong": [
+     107233,
+     "exact"
+    ],
+    "Hungary": [
+     7910,
+     "pct"
+    ],
+    "Iceland": [
+     15022,
+     "pct"
+    ],
+    "India": [
+     185205,
+     "exact"
+    ],
+    "Indonesia": [
+     98143,
+     "exact"
+    ],
+    "Iran": [
+     0,
+     "pct"
+    ],
+    "Ireland": [
+     83455,
+     "exact"
+    ],
+    "Israel": [
+     88231,
+     "exact"
+    ],
+    "Italy": [
+     1126011,
+     "exact"
+    ],
+    "Jamaica": [
+     0,
+     "pct"
+    ],
+    "Japan": [
+     2125604,
+     "exact"
+    ],
+    "Jordan": [
+     0,
+     "pct"
+    ],
+    "Kazakhstan": [
+     0,
+     "pct"
+    ],
+    "Kenya": [
+     0,
+     "pct"
+    ],
+    "Korea": [
+     313299,
+     "exact"
+    ],
+    "Kuwait": [
+     28010,
+     "exact"
+    ],
+    "Kyrgyzstan": [
+     0,
+     "pct"
+    ],
+    "Laos": [
+     0,
+     "pct"
+    ],
+    "Latin America": [
+     403142,
+     "pct"
+    ],
+    "Latvia": [
+     0,
+     "pct"
+    ],
+    "Lebanon": [
+     9072,
+     "pct"
+    ],
+    "Lesotho": [
+     0,
+     "pct"
+    ],
+    "Liberia": [
+     0,
+     "pct"
+    ],
+    "Libya": [
+     13260,
+     "pct"
+    ],
+    "Lithuania": [
+     0,
+     "pct"
+    ],
+    "Luxembourg": [
+     18403,
+     "exact"
+    ],
+    "Macedonia": [
+     0,
+     "pct"
+    ],
+    "Madagascar": [
+     0,
+     "pct"
+    ],
+    "Malawi": [
+     0,
+     "pct"
+    ],
+    "Malaysia": [
+     31199,
+     "exact"
+    ],
+    "Maldives": [
+     0,
+     "pct"
+    ],
+    "Mali": [
+     0,
+     "pct"
+    ],
+    "Malta": [
+     2997,
+     "pct"
+    ],
+    "Mauritania": [
+     0,
+     "pct"
+    ],
+    "Mauritius": [
+     1906,
+     "pct"
+    ],
+    "Mexico": [
+     122136,
+     "exact"
+    ],
+    "Moldova": [
+     0,
+     "pct"
+    ],
+    "Mongolia": [
+     0,
+     "pct"
+    ],
+    "Montenegro": [
+     0,
+     "pct"
+    ],
+    "Morocco": [
+     13285,
+     "exact"
+    ],
+    "Mozambique": [
+     0,
+     "pct"
+    ],
+    "Myanmar": [
+     0,
+     "pct"
+    ],
+    "Namibia": [
+     1307,
+     "pct"
+    ],
+    "Nepal": [
+     0,
+     "pct"
+    ],
+    "Netherlands": [
+     282347,
+     "exact"
+    ],
+    "New Zealand": [
+     281891,
+     "exact"
+    ],
+    "Nicaragua": [
+     0,
+     "pct"
+    ],
+    "Niger": [
+     0,
+     "pct"
+    ],
+    "Nigeria": [
+     0,
+     "pct"
+    ],
+    "North America": [
+     16538503,
+     "pct"
+    ],
+    "Norway": [
+     205202,
+     "exact"
+    ],
+    "Oman": [
+     7792,
+     "pct"
+    ],
+    "Pakistan": [
+     0,
+     "pct"
+    ],
+    "Panama": [
+     4784,
+     "pct"
+    ],
+    "Papua New Guinea": [
+     0,
+     "pct"
+    ],
+    "Paraguay": [
+     0,
+     "pct"
+    ],
+    "Peru": [
+     28435,
+     "exact"
+    ],
+    "Philippines": [
+     35037,
+     "exact"
+    ],
+    "Poland": [
+     43279,
+     "exact"
+    ],
+    "Portugal": [
+     51035,
+     "exact"
+    ],
+    "Qatar": [
+     32261,
+     "exact"
+    ],
+    "Romania": [
+     16609,
+     "pct"
+    ],
+    "Russia": [
+     92198,
+     "exact"
+    ],
+    "Rwanda": [
+     0,
+     "pct"
+    ],
+    "Samoa": [
+     94,
+     "pct"
+    ],
+    "Sao Tome and Principe": [
+     0,
+     "pct"
+    ],
+    "Saudi Arabia": [
+     49526,
+     "exact"
+    ],
+    "Senegal": [
+     0,
+     "pct"
+    ],
+    "Serbia": [
+     0,
+     "pct"
+    ],
+    "Seychelles": [
+     448,
+     "pct"
+    ],
+    "Sierra Leone": [
+     0,
+     "pct"
+    ],
+    "Singapore": [
+     141771,
+     "exact"
+    ],
+    "Slovakia": [
+     0,
+     "pct"
+    ],
+    "Slovenia": [
+     0,
+     "pct"
+    ],
+    "Solomon Islands": [
+     0,
+     "pct"
+    ],
+    "South Africa": [
+     49648,
+     "exact"
+    ],
+    "Spain": [
+     359555,
+     "exact"
+    ],
+    "Sri Lanka": [
+     0,
+     "pct"
+    ],
+    "St. Kitts and Nevis": [
+     72,
+     "pct"
+    ],
+    "St. Lucia": [
+     0,
+     "pct"
+    ],
+    "St. Vincent and the Grenadines": [
+     0,
+     "pct"
+    ],
+    "Sudan": [
+     0,
+     "pct"
+    ],
+    "Suriname": [
+     702,
+     "pct"
+    ],
+    "Swaziland": [
+     0,
+     "pct"
+    ],
+    "Sweden": [
+     519912,
+     "exact"
+    ],
+    "Switzerland": [
+     666915,
+     "exact"
+    ],
+    "Syria": [
+     0,
+     "pct"
+    ],
+    "Taiwan": [
+     414090,
+     "exact"
+    ],
+    "Tajikistan": [
+     0,
+     "pct"
+    ],
+    "Tanzania": [
+     0,
+     "pct"
+    ],
+    "Thailand": [
+     25257,
+     "exact"
+    ],
+    "Togo": [
+     0,
+     "pct"
+    ],
+    "Tonga": [
+     0,
+     "pct"
+    ],
+    "Trinidad and Tobago": [
+     996,
+     "pct"
+    ],
+    "Tunisia": [
+     7629,
+     "pct"
+    ],
+    "Turkey": [
+     73713,
+     "exact"
+    ],
+    "Turkmenistan": [
+     6924,
+     "pct"
+    ],
+    "Uganda": [
+     0,
+     "pct"
+    ],
+    "Ukraine": [
+     0,
+     "pct"
+    ],
+    "United Arab Emirates": [
+     59174,
+     "exact"
+    ],
+    "United Kingdom": [
+     2363649,
+     "exact"
+    ],
+    "United States": [
+     15655608,
+     "exact"
+    ],
+    "Uruguay": [
+     9712,
+     "pct"
+    ],
+    "Vanuatu": [
+     0,
+     "pct"
+    ],
+    "Venezuela": [
+     0,
+     "pct"
+    ],
+    "Vietnam": [
+     0,
+     "pct"
+    ],
+    "West Bank and Gaza": [
+     0,
+     "pct"
+    ],
+    "World": [
+     33395621,
+     "pct"
+    ],
+    "Yemen": [
+     0,
+     "pct"
+    ],
+    "Zambia": [
+     0,
+     "pct"
+    ],
+    "Zimbabwe": [
+     0,
+     "pct"
+    ]
+   },
+   "2016": {
+    "Africa": [
+     0,
+     "pct"
+    ],
+    "Albania": [
+     0,
+     "pct"
+    ],
+    "Algeria": [
+     0,
+     "pct"
+    ],
+    "Angola": [
+     20106,
+     "pct"
+    ],
+    "Antigua and Barbuda": [
+     132,
+     "pct"
+    ],
+    "Argentina": [
+     28038,
+     "exact"
+    ],
+    "Armenia": [
+     0,
+     "pct"
+    ],
+    "Asia-Pacific": [
+     5770550,
+     "pct"
+    ],
+    "Australia": [
+     1060149,
+     "exact"
+    ],
+    "Austria": [
+     216819,
+     "exact"
+    ],
+    "Azerbaijan": [
+     0,
+     "pct"
+    ],
+    "Bahamas": [
+     1012,
+     "pct"
+    ],
+    "Bahrain": [
+     2440,
+     "pct"
+    ],
+    "Bangladesh": [
+     0,
+     "pct"
+    ],
+    "Barbados": [
+     406,
+     "pct"
+    ],
+    "Belarus": [
+     0,
+     "pct"
+    ],
+    "Belgium": [
+     306897,
+     "exact"
+    ],
+    "Belize": [
+     202,
+     "pct"
+    ],
+    "Benin": [
+     0,
+     "pct"
+    ],
+    "Bolivia": [
+     0,
+     "pct"
+    ],
+    "Bosnia and Herzegovina": [
+     0,
+     "pct"
+    ],
+    "Botswana": [
+     1236,
+     "pct"
+    ],
+    "Brazil": [
+     172495,
+     "exact"
+    ],
+    "Brunei": [
+     912,
+     "pct"
+    ],
+    "Bulgaria": [
+     0,
+     "pct"
+    ],
+    "Burkina Faso": [
+     0,
+     "pct"
+    ],
+    "Burundi": [
+     0,
+     "pct"
+    ],
+    "Cambodia": [
+     0,
+     "pct"
+    ],
+    "Cameroon": [
+     0,
+     "pct"
+    ],
+    "Canada": [
+     1116790,
+     "exact"
+    ],
+    "Cape Verde": [
+     315,
+     "pct"
+    ],
+    "Central African Republic": [
+     0,
+     "pct"
+    ],
+    "Chad": [
+     0,
+     "pct"
+    ],
+    "Chile": [
+     51252,
+     "exact"
+    ],
+    "China": [
+     1589946,
+     "exact"
+    ],
+    "Colombia": [
+     31786,
+     "exact"
+    ],
+    "Comoros": [
+     412,
+     "pct"
+    ],
+    "Congo, Dem. Rep.": [
+     0,
+     "pct"
+    ],
+    "Congo, Rep.": [
+     0,
+     "pct"
+    ],
+    "Costa Rica": [
+     6832,
+     "pct"
+    ],
+    "Cote d'Ivoire": [
+     0,
+     "pct"
+    ],
+    "Croatia": [
+     3496,
+     "pct"
+    ],
+    "Cyprus": [
+     9347,
+     "pct"
+    ],
+    "Czech Republic": [
+     33106,
+     "exact"
+    ],
+    "Denmark": [
+     239703,
+     "exact"
+    ],
+    "Djibouti": [
+     0,
+     "pct"
+    ],
+    "Dominica": [
+     104,
+     "pct"
+    ],
+    "Ecuador": [
+     9170,
+     "pct"
+    ],
+    "Egypt": [
+     20491,
+     "exact"
+    ],
+    "El Salvador": [
+     3919,
+     "pct"
+    ],
+    "Equatorial Guinea": [
+     390,
+     "pct"
+    ],
+    "Eritrea": [
+     0,
+     "pct"
+    ],
+    "Estonia": [
+     2090,
+     "pct"
+    ],
+    "Ethiopia": [
+     0,
+     "pct"
+    ],
+    "Europe": [
+     9932981,
+     "pct"
+    ],
+    "Fiji": [
+     539,
+     "pct"
+    ],
+    "Finland": [
+     70412,
+     "exact"
+    ],
+    "France": [
+     1616764,
+     "exact"
+    ],
+    "Gabon": [
+     931,
+     "pct"
+    ],
+    "Gambia": [
+     0,
+     "pct"
+    ],
+    "Georgia": [
+     3153,
+     "pct"
+    ],
+    "Germany": [
+     1637233,
+     "exact"
+    ],
+    "Ghana": [
+     0,
+     "pct"
+    ],
+    "Greece": [
+     77373,
+     "exact"
+    ],
+    "Grenada": [
+     69,
+     "pct"
+    ],
+    "Guinea": [
+     0,
+     "pct"
+    ],
+    "Guinea-Bissau": [
+     0,
+     "pct"
+    ],
+    "Guyana": [
+     0,
+     "pct"
+    ],
+    "Haiti": [
+     0,
+     "pct"
+    ],
+    "Hong Kong": [
+     114626,
+     "exact"
+    ],
+    "Hungary": [
+     7902,
+     "pct"
+    ],
+    "Iceland": [
+     18662,
+     "exact"
+    ],
+    "India": [
+     178412,
+     "exact"
+    ],
+    "Indonesia": [
+     111537,
+     "exact"
+    ],
+    "Iran": [
+     0,
+     "pct"
+    ],
+    "Ireland": [
+     110284,
+     "exact"
+    ],
+    "Israel": [
+     104821,
+     "exact"
+    ],
+    "Italy": [
+     1131935,
+     "exact"
+    ],
+    "Jamaica": [
+     1774,
+     "pct"
+    ],
+    "Japan": [
+     2825943,
+     "exact"
+    ],
+    "Jordan": [
+     4059,
+     "pct"
+    ],
+    "Kazakhstan": [
+     0,
+     "pct"
+    ],
+    "Kenya": [
+     0,
+     "pct"
+    ],
+    "Korea": [
+     679176,
+     "exact"
+    ],
+    "Kuwait": [
+     29884,
+     "exact"
+    ],
+    "Kyrgyzstan": [
+     0,
+     "pct"
+    ],
+    "Laos": [
+     0,
+     "pct"
+    ],
+    "Latin America": [
+     409981,
+     "pct"
+    ],
+    "Latvia": [
+     1765,
+     "pct"
+    ],
+    "Lebanon": [
+     9213,
+     "pct"
+    ],
+    "Lesotho": [
+     0,
+     "pct"
+    ],
+    "Liberia": [
+     0,
+     "pct"
+    ],
+    "Libya": [
+     13521,
+     "pct"
+    ],
+    "Lithuania": [
+     2518,
+     "pct"
+    ],
+    "Luxembourg": [
+     17742,
+     "exact"
+    ],
+    "Macedonia": [
+     0,
+     "pct"
+    ],
+    "Madagascar": [
+     0,
+     "pct"
+    ],
+    "Malawi": [
+     0,
+     "pct"
+    ],
+    "Malaysia": [
+     34543,
+     "exact"
+    ],
+    "Maldives": [
+     0,
+     "pct"
+    ],
+    "Mali": [
+     0,
+     "pct"
+    ],
+    "Malta": [
+     4368,
+     "pct"
+    ],
+    "Mauritania": [
+     0,
+     "pct"
+    ],
+    "Mauritius": [
+     2892,
+     "pct"
+    ],
+    "Mexico": [
+     98975,
+     "exact"
+    ],
+    "Moldova": [
+     0,
+     "pct"
+    ],
+    "Mongolia": [
+     1940,
+     "pct"
+    ],
+    "Montenegro": [
+     0,
+     "pct"
+    ],
+    "Morocco": [
+     22321,
+     "pct"
+    ],
+    "Mozambique": [
+     0,
+     "pct"
+    ],
+    "Myanmar": [
+     0,
+     "pct"
+    ],
+    "Namibia": [
+     2682,
+     "pct"
+    ],
+    "Nepal": [
+     0,
+     "pct"
+    ],
+    "Netherlands": [
+     286851,
+     "exact"
+    ],
+    "New Zealand": [
+     165603,
+     "exact"
+    ],
+    "Nicaragua": [
+     0,
+     "pct"
+    ],
+    "Niger": [
+     0,
+     "pct"
+    ],
+    "Nigeria": [
+     0,
+     "pct"
+    ],
+    "North America": [
+     14799510,
+     "pct"
+    ],
+    "Norway": [
+     195052,
+     "exact"
+    ],
+    "Oman": [
+     10000,
+     "pct"
+    ],
+    "Pakistan": [
+     0,
+     "pct"
+    ],
+    "Panama": [
+     4878,
+     "pct"
+    ],
+    "Papua New Guinea": [
+     4030,
+     "pct"
+    ],
+    "Paraguay": [
+     4155,
+     "pct"
+    ],
+    "Peru": [
+     38898,
+     "exact"
+    ],
+    "Philippines": [
+     38838,
+     "exact"
+    ],
+    "Poland": [
+     41124,
+     "exact"
+    ],
+    "Portugal": [
+     54233,
+     "exact"
+    ],
+    "Qatar": [
+     28611,
+     "exact"
+    ],
+    "Romania": [
+     16558,
+     "pct"
+    ],
+    "Russia": [
+     79221,
+     "exact"
+    ],
+    "Rwanda": [
+     0,
+     "pct"
+    ],
+    "Samoa": [
+     288,
+     "pct"
+    ],
+    "Sao Tome and Principe": [
+     0,
+     "pct"
+    ],
+    "Saudi Arabia": [
+     50667,
+     "exact"
+    ],
+    "Senegal": [
+     0,
+     "pct"
+    ],
+    "Serbia": [
+     0,
+     "pct"
+    ],
+    "Seychelles": [
+     285,
+     "pct"
+    ],
+    "Sierra Leone": [
+     0,
+     "pct"
+    ],
+    "Singapore": [
+     150459,
+     "exact"
+    ],
+    "Slovakia": [
+     0,
+     "pct"
+    ],
+    "Slovenia": [
+     3322,
+     "pct"
+    ],
+    "Solomon Islands": [
+     0,
+     "pct"
+    ],
+    "South Africa": [
+     45483,
+     "exact"
+    ],
+    "Spain": [
+     385898,
+     "exact"
+    ],
+    "Sri Lanka": [
+     0,
+     "pct"
+    ],
+    "St. Kitts and Nevis": [
+     74,
+     "pct"
+    ],
+    "St. Lucia": [
+     0,
+     "pct"
+    ],
+    "St. Vincent and the Grenadines": [
+     73,
+     "pct"
+    ],
+    "Sudan": [
+     0,
+     "pct"
+    ],
+    "Suriname": [
+     356,
+     "pct"
+    ],
+    "Swaziland": [
+     0,
+     "pct"
+    ],
+    "Sweden": [
+     285130,
+     "exact"
+    ],
+    "Switzerland": [
+     716310,
+     "exact"
+    ],
+    "Syria": [
+     0,
+     "pct"
+    ],
+    "Taiwan": [
+     355520,
+     "exact"
+    ],
+    "Tajikistan": [
+     0,
+     "pct"
+    ],
+    "Tanzania": [
+     0,
+     "pct"
+    ],
+    "Thailand": [
+     28347,
+     "exact"
+    ],
+    "Togo": [
+     0,
+     "pct"
+    ],
+    "Tonga": [
+     55,
+     "pct"
+    ],
+    "Trinidad and Tobago": [
+     0,
+     "pct"
+    ],
+    "Tunisia": [
+     7738,
+     "pct"
+    ],
+    "Turkey": [
+     77279,
+     "exact"
+    ],
+    "Turkmenistan": [
+     17650,
+     "pct"
+    ],
+    "Uganda": [
+     0,
+     "pct"
+    ],
+    "Ukraine": [
+     0,
+     "pct"
+    ],
+    "United Arab Emirates": [
+     63184,
+     "exact"
+    ],
+    "United Kingdom": [
+     2224690,
+     "exact"
+    ],
+    "United States": [
+     13554450,
+     "exact"
+    ],
+    "Uruguay": [
+     4894,
+     "pct"
+    ],
+    "Vanuatu": [
+     0,
+     "pct"
+    ],
+    "Venezuela": [
+     0,
+     "pct"
+    ],
+    "Vietnam": [
+     0,
+     "pct"
+    ],
+    "West Bank and Gaza": [
+     0,
+     "pct"
+    ],
+    "World": [
+     33888351,
+     "pct"
+    ],
+    "Yemen": [
+     0,
+     "pct"
+    ],
+    "Zambia": [
+     0,
+     "pct"
+    ],
+    "Zimbabwe": [
+     0,
+     "pct"
+    ]
+   },
+   "2017": {
+    "Africa": [
+     0,
+     "pct"
+    ],
+    "Albania": [
+     0,
+     "pct"
+    ],
+    "Algeria": [
+     0,
+     "pct"
+    ],
+    "Angola": [
+     0,
+     "pct"
+    ],
+    "Antigua and Barbuda": [
+     136,
+     "pct"
+    ],
+    "Argentina": [
+     30081,
+     "exact"
+    ],
+    "Armenia": [
+     0,
+     "pct"
+    ],
+    "Asia-Pacific": [
+     5797540,
+     "pct"
+    ],
+    "Australia": [
+     1160336,
+     "exact"
+    ],
+    "Austria": [
+     250324,
+     "exact"
+    ],
+    "Azerbaijan": [
+     0,
+     "pct"
+    ],
+    "Bahamas": [
+     1136,
+     "pct"
+    ],
+    "Bahrain": [
+     3267,
+     "pct"
+    ],
+    "Bangladesh": [
+     0,
+     "pct"
+    ],
+    "Barbados": [
+     212,
+     "pct"
+    ],
+    "Belgium": [
+     340073,
+     "exact"
+    ],
+    "Belize": [
+     214,
+     "pct"
+    ],
+    "Bolivia": [
+     0,
+     "pct"
+    ],
+    "Bosnia and Herzegovina": [
+     0,
+     "pct"
+    ],
+    "Botswana": [
+     0,
+     "pct"
+    ],
+    "Brazil": [
+     163697,
+     "exact"
+    ],
+    "Brunei": [
+     1168,
+     "pct"
+    ],
+    "Bulgaria": [
+     0,
+     "pct"
+    ],
+    "Cambodia": [
+     0,
+     "pct"
+    ],
+    "Cameroon": [
+     0,
+     "pct"
+    ],
+    "Canada": [
+     1077720,
+     "exact"
+    ],
+    "Chile": [
+     57289,
+     "exact"
+    ],
+    "China": [
+     1952995,
+     "exact"
+    ],
+    "Colombia": [
+     26787,
+     "exact"
+    ],
+    "Comoros": [
+     0,
+     "pct"
+    ],
+    "Congo, Rep.": [
+     0,
+     "pct"
+    ],
+    "Costa Rica": [
+     3431,
+     "pct"
+    ],
+    "Cote d'Ivoire": [
+     0,
+     "pct"
+    ],
+    "Croatia": [
+     3353,
+     "pct"
+    ],
+    "Cyprus": [
+     9900,
+     "pct"
+    ],
+    "Czech Republic": [
+     30187,
+     "exact"
+    ],
+    "Denmark": [
+     210528,
+     "exact"
+    ],
+    "Dominica": [
+     106,
+     "pct"
+    ],
+    "Ecuador": [
+     0,
+     "pct"
+    ],
+    "Egypt": [
+     13664,
+     "exact"
+    ],
+    "El Salvador": [
+     0,
+     "pct"
+    ],
+    "Equatorial Guinea": [
+     670,
+     "pct"
+    ],
+    "Estonia": [
+     2080,
+     "pct"
+    ],
+    "Europe": [
+     10605726,
+     "pct"
+    ],
+    "Fiji": [
+     0,
+     "pct"
+    ],
+    "Finland": [
+     80198,
+     "exact"
+    ],
+    "France": [
+     1948866,
+     "exact"
+    ],
+    "Gabon": [
+     0,
+     "pct"
+    ],
+    "Georgia": [
+     2950,
+     "pct"
+    ],
+    "Germany": [
+     1958981,
+     "exact"
+    ],
+    "Greece": [
+     87948,
+     "exact"
+    ],
+    "Grenada": [
+     140,
+     "pct"
+    ],
+    "Guyana": [
+     0,
+     "pct"
+    ],
+    "Haiti": [
+     0,
+     "pct"
+    ],
+    "Hong Kong": [
+     119033,
+     "exact"
+    ],
+    "Hungary": [
+     0,
+     "pct"
+    ],
+    "Iceland": [
+     36776,
+     "exact"
+    ],
+    "India": [
+     244984,
+     "exact"
+    ],
+    "Indonesia": [
+     110609,
+     "exact"
+    ],
+    "Iran": [
+     0,
+     "pct"
+    ],
+    "Ireland": [
+     125357,
+     "exact"
+    ],
+    "Israel": [
+     120464,
+     "exact"
+    ],
+    "Italy": [
+     1287906,
+     "exact"
+    ],
+    "Jamaica": [
+     0,
+     "pct"
+    ],
+    "Japan": [
+     2693244,
+     "exact"
+    ],
+    "Jordan": [
+     0,
+     "pct"
+    ],
+    "Kazakhstan": [
+     0,
+     "pct"
+    ],
+    "Kenya": [
+     0,
+     "pct"
+    ],
+    "Korea": [
+     686375,
+     "exact"
+    ],
+    "Kuwait": [
+     29365,
+     "exact"
+    ],
+    "Kyrgyzstan": [
+     0,
+     "pct"
+    ],
+    "Laos": [
+     0,
+     "pct"
+    ],
+    "Latin America": [
+     425560,
+     "pct"
+    ],
+    "Latvia": [
+     1577,
+     "pct"
+    ],
+    "Lebanon": [
+     8170,
+     "pct"
+    ],
+    "Lesotho": [
+     0,
+     "pct"
+    ],
+    "Liberia": [
+     0,
+     "pct"
+    ],
+    "Libya": [
+     8014,
+     "pct"
+    ],
+    "Lithuania": [
+     2316,
+     "pct"
+    ],
+    "Luxembourg": [
+     18889,
+     "exact"
+    ],
+    "Macedonia": [
+     0,
+     "pct"
+    ],
+    "Malaysia": [
+     35433,
+     "exact"
+    ],
+    "Maldives": [
+     0,
+     "pct"
+    ],
+    "Malta": [
+     3105,
+     "pct"
+    ],
+    "Mauritius": [
+     934,
+     "pct"
+    ],
+    "Mexico": [
+     83886,
+     "exact"
+    ],
+    "Mongolia": [
+     0,
+     "pct"
+    ],
+    "Montenegro": [
+     0,
+     "pct"
+    ],
+    "Morocco": [
+     16666,
+     "exact"
+    ],
+    "Namibia": [
+     1317,
+     "pct"
+    ],
+    "Nepal": [
+     0,
+     "pct"
+    ],
+    "Netherlands": [
+     334537,
+     "exact"
+    ],
+    "New Zealand": [
+     201466,
+     "exact"
+    ],
+    "Nicaragua": [
+     0,
+     "pct"
+    ],
+    "Nigeria": [
+     0,
+     "pct"
+    ],
+    "North America": [
+     16435901,
+     "pct"
+    ],
+    "Norway": [
+     201465,
+     "exact"
+    ],
+    "Oman": [
+     9849,
+     "pct"
+    ],
+    "Pakistan": [
+     0,
+     "pct"
+    ],
+    "Panama": [
+     2600,
+     "pct"
+    ],
+    "Papua New Guinea": [
+     0,
+     "pct"
+    ],
+    "Paraguay": [
+     0,
+     "pct"
+    ],
+    "Peru": [
+     39537,
+     "exact"
+    ],
+    "Philippines": [
+     38222,
+     "exact"
+    ],
+    "Poland": [
+     57005,
+     "exact"
+    ],
+    "Portugal": [
+     67717,
+     "exact"
+    ],
+    "Qatar": [
+     8508,
+     "pct"
+    ],
+    "Romania": [
+     15645,
+     "pct"
+    ],
+    "Russia": [
+     131694,
+     "exact"
+    ],
+    "Samoa": [
+     103,
+     "pct"
+    ],
+    "Saudi Arabia": [
+     68538,
+     "exact"
+    ],
+    "Senegal": [
+     0,
+     "pct"
+    ],
+    "Serbia": [
+     0,
+     "pct"
+    ],
+    "Seychelles": [
+     136,
+     "pct"
+    ],
+    "Singapore": [
+     151703,
+     "exact"
+    ],
+    "Slovakia": [
+     0,
+     "pct"
+    ],
+    "Slovenia": [
+     3352,
+     "pct"
+    ],
+    "Solomon Islands": [
+     304,
+     "pct"
+    ],
+    "South Africa": [
+     58421,
+     "exact"
+    ],
+    "Spain": [
+     428006,
+     "exact"
+    ],
+    "Sri Lanka": [
+     0,
+     "pct"
+    ],
+    "St. Lucia": [
+     0,
+     "pct"
+    ],
+    "St. Vincent and the Grenadines": [
+     74,
+     "pct"
+    ],
+    "Suriname": [
+     0,
+     "pct"
+    ],
+    "Swaziland": [
+     0,
+     "pct"
+    ],
+    "Sweden": [
+     334685,
+     "exact"
+    ],
+    "Switzerland": [
+     594236,
+     "exact"
+    ],
+    "Taiwan": [
+     381449,
+     "exact"
+    ],
+    "Thailand": [
+     30032,
+     "exact"
+    ],
+    "Togo": [
+     0,
+     "pct"
+    ],
+    "Tonga": [
+     0,
+     "pct"
+    ],
+    "Trinidad and Tobago": [
+     0,
+     "pct"
+    ],
+    "Tunisia": [
+     0,
+     "pct"
+    ],
+    "Turkey": [
+     77602,
+     "exact"
+    ],
+    "Turkmenistan": [
+     0,
+     "pct"
+    ],
+    "Ukraine": [
+     0,
+     "pct"
+    ],
+    "United Arab Emirates": [
+     79391,
+     "exact"
+    ],
+    "United Kingdom": [
+     2189426,
+     "exact"
+    ],
+    "United States": [
+     15356437,
+     "exact"
+    ],
+    "Uruguay": [
+     4932,
+     "pct"
+    ],
+    "Vanuatu": [
+     0,
+     "pct"
+    ],
+    "Venezuela": [
+     0,
+     "pct"
+    ],
+    "Vietnam": [
+     0,
+     "pct"
+    ],
+    "World": [
+     34701037,
+     "pct"
+    ],
+    "Yemen": [
+     0,
+     "pct"
+    ],
+    "Zambia": [
+     0,
+     "pct"
+    ],
+    "Zimbabwe": [
+     0,
+     "pct"
+    ]
+   },
+   "2018": {
+    "Afghanistan": [
+     0,
+     "pct"
+    ],
+    "Albania": [
+     0,
+     "pct"
+    ],
+    "Algeria": [
+     0,
+     "pct"
+    ],
+    "Angola": [
+     0,
+     "pct"
+    ],
+    "Antigua and Barbuda": [
+     140,
+     "pct"
+    ],
+    "Argentina": [
+     20570,
+     "exact"
+    ],
+    "Armenia": [
+     0,
+     "pct"
+    ],
+    "Aruba": [
+     237,
+     "pct"
+    ],
+    "Australia": [
+     1288210,
+     "exact"
+    ],
+    "Austria": [
+     229408,
+     "exact"
+    ],
+    "Azerbaijan": [
+     0,
+     "pct"
+    ],
+    "Bahamas": [
+     1728,
+     "pct"
+    ],
+    "Bahrain": [
+     3459,
+     "pct"
+    ],
+    "Bangladesh": [
+     0,
+     "pct"
+    ],
+    "Barbados": [
+     426,
+     "pct"
+    ],
+    "Belarus": [
+     0,
+     "pct"
+    ],
+    "Belgium": [
+     423647,
+     "exact"
+    ],
+    "Belize": [
+     0,
+     "pct"
+    ],
+    "Benin": [
+     0,
+     "pct"
+    ],
+    "Bolivia": [
+     0,
+     "pct"
+    ],
+    "Bosnia and Herzegovina": [
+     0,
+     "pct"
+    ],
+    "Botswana": [
+     0,
+     "pct"
+    ],
+    "Brazil": [
+     154477,
+     "exact"
+    ],
+    "Brunei": [
+     1192,
+     "pct"
+    ],
+    "Bulgaria": [
+     5752,
+     "pct"
+    ],
+    "Burkina Faso": [
+     0,
+     "pct"
+    ],
+    "Burundi": [
+     0,
+     "pct"
+    ],
+    "Cambodia": [
+     0,
+     "pct"
+    ],
+    "Cameroon": [
+     0,
+     "pct"
+    ],
+    "Canada": [
+     1289277,
+     "exact"
+    ],
+    "Central African Republic": [
+     0,
+     "pct"
+    ],
+    "Chad": [
+     0,
+     "pct"
+    ],
+    "Chile": [
+     66532,
+     "exact"
+    ],
+    "China": [
+     3479838,
+     "exact"
+    ],
+    "Colombia": [
+     39676,
+     "exact"
+    ],
+    "Comoros": [
+     0,
+     "pct"
+    ],
+    "Congo, Dem. Rep.": [
+     0,
+     "pct"
+    ],
+    "Congo, Rep.": [
+     0,
+     "pct"
+    ],
+    "Costa Rica": [
+     6980,
+     "pct"
+    ],
+    "Cote d'Ivoire": [
+     0,
+     "pct"
+    ],
+    "Croatia": [
+     6684,
+     "pct"
+    ],
+    "Cyprus": [
+     9999,
+     "pct"
+    ],
+    "Czech Republic": [
+     45651,
+     "exact"
+    ],
+    "Denmark": [
+     242931,
+     "exact"
+    ],
+    "Djibouti": [
+     0,
+     "pct"
+    ],
+    "Dominica": [
+     108,
+     "pct"
+    ],
+    "Ecuador": [
+     0,
+     "pct"
+    ],
+    "Egypt": [
+     0,
+     "pct"
+    ],
+    "El Salvador": [
+     4024,
+     "pct"
+    ],
+    "Equatorial Guinea": [
+     0,
+     "pct"
+    ],
+    "Eritrea": [
+     0,
+     "pct"
+    ],
+    "Estonia": [
+     5170,
+     "pct"
+    ],
+    "Ethiopia": [
+     0,
+     "pct"
+    ],
+    "Fiji": [
+     0,
+     "pct"
+    ],
+    "Finland": [
+     80259,
+     "exact"
+    ],
+    "France": [
+     2147373,
+     "exact"
+    ],
+    "Gabon": [
+     0,
+     "pct"
+    ],
+    "Gambia": [
+     0,
+     "pct"
+    ],
+    "Georgia": [
+     2940,
+     "pct"
+    ],
+    "Germany": [
+     2182785,
+     "exact"
+    ],
+    "Ghana": [
+     0,
+     "pct"
+    ],
+    "Greece": [
+     87000,
+     "exact"
+    ],
+    "Grenada": [
+     71,
+     "pct"
+    ],
+    "Guinea": [
+     0,
+     "pct"
+    ],
+    "Guinea - Bissau": [
+     0,
+     "pct"
+    ],
+    "Guyana": [
+     0,
+     "pct"
+    ],
+    "Haiti": [
+     0,
+     "pct"
+    ],
+    "Honduras": [
+     5417,
+     "pct"
+    ],
+    "Hong Kong": [
+     179390,
+     "exact"
+    ],
+    "Hungary": [
+     15419,
+     "exact"
+    ],
+    "Iceland": [
+     26040,
+     "pct"
+    ],
+    "India": [
+     343075,
+     "exact"
+    ],
+    "Indonesia": [
+     88845,
+     "exact"
+    ],
+    "Iran": [
+     0,
+     "pct"
+    ],
+    "Iraq": [
+     0,
+     "pct"
+    ],
+    "Ireland": [
+     132839,
+     "exact"
+    ],
+    "Israel": [
+     111073,
+     "exact"
+    ],
+    "Italy": [
+     1361716,
+     "exact"
+    ],
+    "Jamaica": [
+     0,
+     "pct"
+    ],
+    "Japan": [
+     2808745,
+     "exact"
+    ],
+    "Jordan": [
+     0,
+     "pct"
+    ],
+    "Kazakhstan": [
+     0,
+     "pct"
+    ],
+    "Kenya": [
+     0,
+     "pct"
+    ],
+    "Korea": [
+     753503,
+     "exact"
+    ],
+    "Kuwait": [
+     31941,
+     "exact"
+    ],
+    "Kyrgyzstan": [
+     0,
+     "pct"
+    ],
+    "Laos": [
+     0,
+     "pct"
+    ],
+    "Latvia": [
+     3114,
+     "pct"
+    ],
+    "Lebanon": [
+     12486,
+     "pct"
+    ],
+    "Lesotho": [
+     0,
+     "pct"
+    ],
+    "Liberia": [
+     0,
+     "pct"
+    ],
+    "Libya": [
+     12255,
+     "pct"
+    ],
+    "Lithuania": [
+     2306,
+     "pct"
+    ],
+    "Luxembourg": [
+     31008,
+     "pct"
+    ],
+    "Macedonia": [
+     0,
+     "pct"
+    ],
+    "Madagascar": [
+     0,
+     "pct"
+    ],
+    "Malawi": [
+     0,
+     "pct"
+    ],
+    "Malaysia": [
+     46702,
+     "exact"
+    ],
+    "Maldives": [
+     0,
+     "pct"
+    ],
+    "Mali": [
+     0,
+     "pct"
+    ],
+    "Malta": [
+     4511,
+     "pct"
+    ],
+    "Mauritania": [
+     0,
+     "pct"
+    ],
+    "Mauritius": [
+     943,
+     "pct"
+    ],
+    "Mexico": [
+     109432,
+     "exact"
+    ],
+    "Mongolia": [
+     0,
+     "pct"
+    ],
+    "Montenegro": [
+     475,
+     "pct"
+    ],
+    "Morocco": [
+     23218,
+     "pct"
+    ],
+    "Mozambique": [
+     0,
+     "pct"
+    ],
+    "Myanmar": [
+     0,
+     "pct"
+    ],
+    "Namibia": [
+     1356,
+     "pct"
+    ],
+    "Nepal": [
+     0,
+     "pct"
+    ],
+    "Netherlands": [
+     477318,
+     "exact"
+    ],
+    "New Zealand": [
+     154557,
+     "exact"
+    ],
+    "Nicaragua": [
+     0,
+     "pct"
+    ],
+    "Niger": [
+     0,
+     "pct"
+    ],
+    "Nigeria": [
+     0,
+     "pct"
+    ],
+    "Norway": [
+     185064,
+     "exact"
+    ],
+    "Oman": [
+     13800,
+     "pct"
+    ],
+    "Pakistan": [
+     3479,
+     "exact"
+    ],
+    "Panama": [
+     5310,
+     "pct"
+    ],
+    "Papua New Guinea": [
+     0,
+     "pct"
+    ],
+    "Paraguay": [
+     0,
+     "pct"
+    ],
+    "Peru": [
+     33257,
+     "exact"
+    ],
+    "Philippines": [
+     32354,
+     "exact"
+    ],
+    "Poland": [
+     61565,
+     "exact"
+    ],
+    "Portugal": [
+     94233,
+     "exact"
+    ],
+    "Qatar": [
+     17416,
+     "pct"
+    ],
+    "Romania": [
+     15980,
+     "exact"
+    ],
+    "Russia": [
+     172165,
+     "exact"
+    ],
+    "Rwanda": [
+     0,
+     "pct"
+    ],
+    "Samoa": [
+     105,
+     "pct"
+    ],
+    "Sao Tome and Principe": [
+     0,
+     "pct"
+    ],
+    "Saudi Arabia": [
+     83216,
+     "exact"
+    ],
+    "Senegal": [
+     0,
+     "pct"
+    ],
+    "Serbia": [
+     0,
+     "pct"
+    ],
+    "Seychelles": [
+     136,
+     "pct"
+    ],
+    "Sierra Leone": [
+     0,
+     "pct"
+    ],
+    "Singapore": [
+     183736,
+     "exact"
+    ],
+    "South Africa": [
+     50281,
+     "exact"
+    ],
+    "Spain": [
+     851577,
+     "exact"
+    ],
+    "Sweden": [
+     347590,
+     "exact"
+    ],
+    "Switzerland": [
+     725100,
+     "exact"
+    ],
+    "Taiwan": [
+     521351,
+     "exact"
+    ],
+    "Thailand": [
+     39814,
+     "exact"
+    ],
+    "Turkey": [
+     79243,
+     "exact"
+    ],
+    "United Arab Emirates": [
+     78155,
+     "exact"
+    ],
+    "United Kingdom": [
+     2432972,
+     "exact"
+    ],
+    "United States": [
+     17349841,
+     "exact"
+    ],
+    "Vietnam": [
+     4943,
+     "exact"
+    ]
+   },
+   "2019": {
+    "Afghanistan": [
+     0,
+     "pct"
+    ],
+    "Africa": [
+     0,
+     "pct"
+    ],
+    "Albania": [
+     2225,
+     "pct"
+    ],
+    "Algeria": [
+     0,
+     "pct"
+    ],
+    "Angola": [
+     0,
+     "pct"
+    ],
+    "Antigua and Barbuda": [
+     142,
+     "pct"
+    ],
+    "Argentina": [
+     30320,
+     "pct"
+    ],
+    "Armenia": [
+     2177,
+     "pct"
+    ],
+    "Aruba": [
+     320,
+     "pct"
+    ],
+    "Asia - Pacific": [
+     7169514,
+     "pct"
+    ],
+    "Australia": [
+     1179553,
+     "exact"
+    ],
+    "Austria": [
+     312699,
+     "exact"
+    ],
+    "Azerbaijan": [
+     0,
+     "pct"
+    ],
+    "Bahamas": [
+     2628,
+     "pct"
+    ],
+    "Bahrain": [
+     10971,
+     "pct"
+    ],
+    "Bangladesh": [
+     13339,
+     "exact"
+    ],
+    "Barbados": [
+     1284,
+     "pct"
+    ],
+    "Belarus": [
+     0,
+     "pct"
+    ],
+    "Belgium": [
+     279349,
+     "exact"
+    ],
+    "Belize": [
+     228,
+     "pct"
+    ],
+    "Benin": [
+     0,
+     "pct"
+    ],
+    "Bolivia": [
+     6678,
+     "pct"
+    ],
+    "Bosnia and Herzegovina": [
+     2815,
+     "pct"
+    ],
+    "Botswana": [
+     1409,
+     "pct"
+    ],
+    "Brazil": [
+     259242,
+     "exact"
+    ],
+    "Brunei": [
+     1216,
+     "pct"
+    ],
+    "Bulgaria": [
+     11394,
+     "pct"
+    ],
+    "Burkina Faso": [
+     0,
+     "pct"
+    ],
+    "Burundi": [
+     0,
+     "pct"
+    ],
+    "Cambodia": [
+     0,
+     "pct"
+    ],
+    "Cameroon": [
+     0,
+     "pct"
+    ],
+    "Canada": [
+     1322374,
+     "exact"
+    ],
+    "Central African Republic": [
+     0,
+     "pct"
+    ],
+    "Chad": [
+     0,
+     "pct"
+    ],
+    "Chile": [
+     64442,
+     "exact"
+    ],
+    "China": [
+     4447481,
+     "exact"
+    ],
+    "Colombia": [
+     26848,
+     "exact"
+    ],
+    "Comoros": [
+     0,
+     "pct"
+    ],
+    "Congo, Dem. Rep.": [
+     0,
+     "pct"
+    ],
+    "Congo, Rep.": [
+     0,
+     "pct"
+    ],
+    "Costa Rica": [
+     7094,
+     "pct"
+    ],
+    "Croatia": [
+     13316,
+     "pct"
+    ],
+    "Cyprus": [
+     11934,
+     "pct"
+    ],
+    "Czech Republic": [
+     46003,
+     "exact"
+    ],
+    "Denmark": [
+     237289,
+     "exact"
+    ],
+    "Djibouti": [
+     0,
+     "pct"
+    ],
+    "Dominica": [
+     165,
+     "pct"
+    ],
+    "Ecuador": [
+     10725,
+     "pct"
+    ],
+    "Egypt": [
+     45587,
+     "exact"
+    ],
+    "El Salvador": [
+     8174,
+     "pct"
+    ],
+    "Equatorial Guinea": [
+     724,
+     "pct"
+    ],
+    "Eritrea": [
+     0,
+     "pct"
+    ],
+    "Estonia": [
+     7196,
+     "pct"
+    ],
+    "Ethiopia": [
+     0,
+     "pct"
+    ],
+    "Europe": [
+     13556246,
+     "pct"
+    ],
+    "Fiji": [
+     580,
+     "pct"
+    ],
+    "Finland": [
+     103434,
+     "exact"
+    ],
+    "France": [
+     2071179,
+     "exact"
+    ],
+    "Gabon": [
+     1149,
+     "pct"
+    ],
+    "Gambia": [
+     0,
+     "pct"
+    ],
+    "Georgia": [
+     0,
+     "pct"
+    ],
+    "Germany": [
+     2187207,
+     "exact"
+    ],
+    "Ghana": [
+     0,
+     "pct"
+    ],
+    "Greece": [
+     68457,
+     "exact"
+    ],
+    "Grenada": [
+     355,
+     "pct"
+    ],
+    "Guinea": [
+     0,
+     "pct"
+    ],
+    "Guinea - Bissau": [
+     0,
+     "pct"
+    ],
+    "Guyana": [
+     482,
+     "pct"
+    ],
+    "Haiti": [
+     0,
+     "pct"
+    ],
+    "Hong Kong SAR": [
+     515824,
+     "exact"
+    ],
+    "Hungary": [
+     15606,
+     "pct"
+    ],
+    "Iceland": [
+     16250,
+     "pct"
+    ],
+    "India": [
+     758608,
+     "exact"
+    ],
+    "Indonesia": [
+     106215,
+     "exact"
+    ],
+    "Iran": [
+     22450,
+     "exact"
+    ],
+    "Iraq": [
+     19788,
+     "pct"
+    ],
+    "Ireland": [
+     158170,
+     "exact"
+    ],
+    "Israel": [
+     130913,
+     "exact"
+    ],
+    "Italy": [
+     1496156,
+     "exact"
+    ],
+    "Jamaica": [
+     2002,
+     "pct"
+    ],
+    "Japan": [
+     3025320,
+     "exact"
+    ],
+    "Jordan": [
+     5512,
+     "pct"
+    ],
+    "Kazakhstan": [
+     24294,
+     "pct"
+    ],
+    "Kenya": [
+     0,
+     "pct"
+    ],
+    "Korea": [
+     741371,
+     "exact"
+    ],
+    "Kuwait": [
+     63212,
+     "exact"
+    ],
+    "Kyrgyzstan": [
+     0,
+     "pct"
+    ],
+    "Laos": [
+     0,
+     "pct"
+    ],
+    "Latin America": [
+     880436,
+     "pct"
+    ],
+    "Latvia": [
+     9216,
+     "pct"
+    ],
+    "Lebanon": [
+     21025,
+     "pct"
+    ],
+    "Lesotho": [
+     0,
+     "pct"
+    ],
+    "Liberia": [
+     0,
+     "pct"
+    ],
+    "Libya": [
+     4169,
+     "pct"
+    ],
+    "Lithuania": [
+     6888,
+     "pct"
+    ],
+    "Luxembourg": [
+     22589,
+     "pct"
+    ],
+    "Madagascar": [
+     0,
+     "pct"
+    ],
+    "Malawi": [
+     0,
+     "pct"
+    ],
+    "Malaysia": [
+     51512,
+     "exact"
+    ],
+    "Maldives": [
+     315,
+     "pct"
+    ],
+    "Mali": [
+     0,
+     "pct"
+    ],
+    "Malta": [
+     4537,
+     "pct"
+    ],
+    "Mauritania": [
+     0,
+     "pct"
+    ],
+    "Mauritius": [
+     2853,
+     "pct"
+    ],
+    "Mexico": [
+     173434,
+     "exact"
+    ],
+    "Moldova": [
+     0,
+     "pct"
+    ],
+    "Mongolia": [
+     0,
+     "pct"
+    ],
+    "Montenegro": [
+     1431,
+     "pct"
+    ],
+    "Morocco": [
+     23613,
+     "pct"
+    ],
+    "Mozambique": [
+     0,
+     "pct"
+    ],
+    "Myanmar": [
+     0,
+     "pct"
+    ],
+    "Namibia": [
+     1395,
+     "pct"
+    ],
+    "Nepal": [
+     0,
+     "pct"
+    ],
+    "Netherlands": [
+     832034,
+     "exact"
+    ],
+    "New Zealand": [
+     184785,
+     "exact"
+    ],
+    "Nicaragua": [
+     0,
+     "pct"
+    ],
+    "Niger": [
+     0,
+     "pct"
+    ],
+    "Nigeria": [
+     0,
+     "pct"
+    ],
+    "North America": [
+     20029813,
+     "pct"
+    ],
+    "Norway": [
+     163242,
+     "exact"
+    ],
+    "Oman": [
+     10824,
+     "pct"
+    ],
+    "Pakistan": [
+     8494,
+     "exact"
+    ],
+    "Panama": [
+     8133,
+     "pct"
+    ],
+    "Papua New Guinea": [
+     0,
+     "pct"
+    ],
+    "Paraguay": [
+     4268,
+     "pct"
+    ],
+    "Peru": [
+     21132,
+     "pct"
+    ],
+    "Philippines": [
+     52135,
+     "exact"
+    ],
+    "Poland": [
+     115621,
+     "exact"
+    ],
+    "Portugal": [
+     117181,
+     "exact"
+    ],
+    "Qatar": [
+     28899,
+     "pct"
+    ],
+    "Romania": [
+     31703,
+     "exact"
+    ],
+    "Russia": [
+     245621,
+     "exact"
+    ],
+    "Rwanda": [
+     0,
+     "pct"
+    ],
+    "Samoa": [
+     318,
+     "pct"
+    ],
+    "Sao Tome and Principe": [
+     0,
+     "pct"
+    ],
+    "Saudi Arabia": [
+     147105,
+     "exact"
+    ],
+    "Senegal": [
+     0,
+     "pct"
+    ],
+    "Serbia": [
+     6798,
+     "pct"
+    ],
+    "Seychelles": [
+     272,
+     "pct"
+    ],
+    "Sierra Leone": [
+     0,
+     "pct"
+    ],
+    "Singapore": [
+     207341,
+     "exact"
+    ],
+    "Slovakia": [
+     8680,
+     "pct"
+    ],
+    "Slovenia": [
+     15075,
+     "pct"
+    ],
+    "Solomon Islands": [
+     0,
+     "pct"
+    ],
+    "South Africa": [
+     46084,
+     "exact"
+    ],
+    "Spain": [
+     978609,
+     "exact"
+    ],
+    "Sri Lanka": [
+     14408,
+     "pct"
+    ],
+    "St. Lucia": [
+     399,
+     "pct"
+    ],
+    "St. Vincent and the Grenadines": [
+     150,
+     "pct"
+    ],
+    "Sudan": [
+     0,
+     "pct"
+    ],
+    "Suriname": [
+     0,
+     "pct"
+    ],
+    "Sweden": [
+     373869,
+     "exact"
+    ],
+    "Switzerland": [
+     810203,
+     "exact"
+    ],
+    "Syria": [
+     0,
+     "pct"
+    ],
+    "Taiwan (Chinese Taipei)": [
+     528498,
+     "exact"
+    ],
+    "Tajikistan": [
+     0,
+     "pct"
+    ],
+    "Tanzania": [
+     0,
+     "pct"
+    ],
+    "Thailand": [
+     87544,
+     "exact"
+    ],
+    "Timor - Leste": [
+     0,
+     "pct"
+    ],
+    "Togo": [
+     0,
+     "pct"
+    ],
+    "Tonga": [
+     177,
+     "pct"
+    ],
+    "Trinidad and Tobago": [
+     3018,
+     "pct"
+    ],
+    "Tunisia": [
+     0,
+     "pct"
+    ],
+    "Turkey": [
+     93943,
+     "exact"
+    ],
+    "Turkmenistan": [
+     0,
+     "pct"
+    ],
+    "Uganda": [
+     0,
+     "pct"
+    ],
+    "Ukraine": [
+     34998,
+     "pct"
+    ],
+    "United Arab Emirates": [
+     123901,
+     "exact"
+    ],
+    "United Kingdom": [
+     2460316,
+     "exact"
+    ],
+    "United States": [
+     18614295,
+     "exact"
+    ],
+    "Uruguay": [
+     5002,
+     "pct"
+    ],
+    "Vanuatu": [
+     157,
+     "pct"
+    ],
+    "Venezuela": [
+     0,
+     "pct"
+    ],
+    "Vietnam": [
+     38581,
+     "exact"
+    ],
+    "World": [
+     45807894,
+     "pct"
+    ],
+    "Yemen": [
+     0,
+     "pct"
+    ],
+    "Zambia": [
+     0,
+     "pct"
+    ],
+    "Zimbabwe": [
+     0,
+     "pct"
+    ]
+   },
+   "2020": {
+    "Afghanistan": [
+     0,
+     "pct"
+    ],
+    "Africa": [
+     0,
+     "pct"
+    ],
+    "Albania": [
+     2187,
+     "pct"
+    ],
+    "Algeria": [
+     27620,
+     "pct"
+    ],
+    "Angola": [
+     0,
+     "pct"
+    ],
+    "Argentina": [
+     0,
+     "pct"
+    ],
+    "Armenia": [
+     2176,
+     "pct"
+    ],
+    "Asia - Pacific": [
+     9906528,
+     "pct"
+    ],
+    "Australia": [
+     1804644,
+     "exact"
+    ],
+    "Austria": [
+     346172,
+     "exact"
+    ],
+    "Azerbaijan": [
+     0,
+     "pct"
+    ],
+    "Bahamas": [
+     1668,
+     "pct"
+    ],
+    "Bahrain": [
+     11862,
+     "pct"
+    ],
+    "Bangladesh": [
+     21399,
+     "exact"
+    ],
+    "Barbados": [
+     1326,
+     "pct"
+    ],
+    "Belarus": [
+     7367,
+     "pct"
+    ],
+    "Belgium": [
+     514859,
+     "exact"
+    ],
+    "Belize": [
+     0,
+     "pct"
+    ],
+    "Benin": [
+     0,
+     "pct"
+    ],
+    "Bolivia": [
+     7088,
+     "pct"
+    ],
+    "Bosnia and Herzegovina": [
+     2637,
+     "pct"
+    ],
+    "Botswana": [
+     1358,
+     "pct"
+    ],
+    "Brazil": [
+     207033,
+     "exact"
+    ],
+    "British Caribbean": [
+     2268,
+     "pct"
+    ],
+    "Brunei": [
+     1236,
+     "pct"
+    ],
+    "Bulgaria": [
+     11172,
+     "pct"
+    ],
+    "Burkina Faso": [
+     0,
+     "pct"
+    ],
+    "Burundi": [
+     0,
+     "pct"
+    ],
+    "Cambodia": [
+     0,
+     "pct"
+    ],
+    "Cameroon": [
+     0,
+     "pct"
+    ],
+    "Canada": [
+     1681969,
+     "exact"
+    ],
+    "Central African Republic": [
+     0,
+     "pct"
+    ],
+    "Chad": [
+     0,
+     "pct"
+    ],
+    "Chile": [
+     64405,
+     "exact"
+    ],
+    "China": [
+     5279467,
+     "exact"
+    ],
+    "Colombia": [
+     35172,
+     "exact"
+    ],
+    "Comoros": [
+     0,
+     "pct"
+    ],
+    "Congo, Dem. Rep.": [
+     0,
+     "pct"
+    ],
+    "Congo, Rep.": [
+     0,
+     "pct"
+    ],
+    "Costa Rica": [
+     11088,
+     "pct"
+    ],
+    "Croatia": [
+     16515,
+     "pct"
+    ],
+    "Cyprus": [
+     11543,
+     "pct"
+    ],
+    "Czechia": [
+     63280,
+     "exact"
+    ],
+    "Denmark": [
+     306823,
+     "exact"
+    ],
+    "Djibouti": [
+     0,
+     "pct"
+    ],
+    "Dutch Caribbean": [
+     516,
+     "pct"
+    ],
+    "Ecuador": [
+     11361,
+     "pct"
+    ],
+    "Egypt": [
+     69893,
+     "exact"
+    ],
+    "El Salvador": [
+     8402,
+     "pct"
+    ],
+    "Equatorial Guinea": [
+     776,
+     "pct"
+    ],
+    "Eritrea": [
+     0,
+     "pct"
+    ],
+    "Estonia": [
+     7308,
+     "pct"
+    ],
+    "Ethiopia": [
+     0,
+     "pct"
+    ],
+    "Europe": [
+     15939261,
+     "pct"
+    ],
+    "Fiji": [
+     564,
+     "pct"
+    ],
+    "Finland": [
+     85114,
+     "exact"
+    ],
+    "France": [
+     2468939,
+     "exact"
+    ],
+    "French Caribbean": [
+     3155,
+     "pct"
+    ],
+    "Gabon": [
+     1216,
+     "pct"
+    ],
+    "Gambia": [
+     0,
+     "pct"
+    ],
+    "Georgia": [
+     2959,
+     "pct"
+    ],
+    "Germany": [
+     2952710,
+     "exact"
+    ],
+    "Ghana": [
+     0,
+     "pct"
+    ],
+    "Greece": [
+     72367,
+     "exact"
+    ],
+    "Guinea": [
+     0,
+     "pct"
+    ],
+    "Guinea - Bissau": [
+     0,
+     "pct"
+    ],
+    "Guyana": [
+     0,
+     "pct"
+    ],
+    "Haiti": [
+     0,
+     "pct"
+    ],
+    "Hong Kong": [
+     520176,
+     "exact"
+    ],
+    "Hungary": [
+     23307,
+     "pct"
+    ],
+    "Iceland": [
+     13515,
+     "pct"
+    ],
+    "India": [
+     697655,
+     "exact"
+    ],
+    "Indonesia": [
+     171740,
+     "exact"
+    ],
+    "Iran": [
+     68736,
+     "exact"
+    ],
+    "Iraq": [
+     21247,
+     "pct"
+    ],
+    "Ireland": [
+     181727,
+     "exact"
+    ],
+    "Israel": [
+     164899,
+     "exact"
+    ],
+    "Italy": [
+     1479830,
+     "exact"
+    ],
+    "Jamaica": [
+     2041,
+     "pct"
+    ],
+    "Japan": [
+     3662407,
+     "exact"
+    ],
+    "Jordan": [
+     11732,
+     "pct"
+    ],
+    "Kazakhstan": [
+     24452,
+     "pct"
+    ],
+    "Kenya": [
+     27473,
+     "pct"
+    ],
+    "Korea": [
+     1051104,
+     "exact"
+    ],
+    "Kuwait": [
+     78650,
+     "pct"
+    ],
+    "Kyrgyzstan": [
+     0,
+     "pct"
+    ],
+    "Laos": [
+     0,
+     "pct"
+    ],
+    "Latin America": [
+     894752,
+     "pct"
+    ],
+    "Latvia": [
+     11816,
+     "pct"
+    ],
+    "Lebanon": [
+     22740,
+     "pct"
+    ],
+    "Lesotho": [
+     0,
+     "pct"
+    ],
+    "Liberia": [
+     0,
+     "pct"
+    ],
+    "Libya": [
+     4440,
+     "pct"
+    ],
+    "Lithuania": [
+     10830,
+     "pct"
+    ],
+    "Luxembourg": [
+     43824,
+     "pct"
+    ],
+    "Madagascar": [
+     0,
+     "pct"
+    ],
+    "Malawi": [
+     0,
+     "pct"
+    ],
+    "Malaysia": [
+     49081,
+     "exact"
+    ],
+    "Maldives": [
+     818,
+     "pct"
+    ],
+    "Mali": [
+     0,
+     "pct"
+    ],
+    "Malta": [
+     5012,
+     "pct"
+    ],
+    "Mauritania": [
+     0,
+     "pct"
+    ],
+    "Mauritius": [
+     4840,
+     "pct"
+    ],
+    "Melanesia": [
+     1422,
+     "pct"
+    ],
+    "Mexico": [
+     264034,
+     "exact"
+    ],
+    "Micronesia": [
+     0,
+     "pct"
+    ],
+    "Moldova": [
+     0,
+     "pct"
+    ],
+    "Mongolia": [
+     0,
+     "pct"
+    ],
+    "Montenegro": [
+     1904,
+     "pct"
+    ],
+    "Morocco": [
+     24654,
+     "pct"
+    ],
+    "Mozambique": [
+     0,
+     "pct"
+    ],
+    "Myanmar": [
+     0,
+     "pct"
+    ],
+    "Namibia": [
+     1375,
+     "pct"
+    ],
+    "Nepal": [
+     0,
+     "pct"
+    ],
+    "Netherlands": [
+     1039239,
+     "exact"
+    ],
+    "New Zealand": [
+     225487,
+     "exact"
+    ],
+    "Nicaragua": [
+     4107,
+     "pct"
+    ],
+    "Niger": [
+     0,
+     "pct"
+    ],
+    "Nigeria": [
+     32178,
+     "exact"
+    ],
+    "North America": [
+     23515800,
+     "pct"
+    ],
+    "Norway": [
+     176630,
+     "exact"
+    ],
+    "Oman": [
+     15060,
+     "pct"
+    ],
+    "Pakistan": [
+     15534,
+     "exact"
+    ],
+    "Panama": [
+     8529,
+     "pct"
+    ],
+    "Papua New Guinea": [
+     0,
+     "pct"
+    ],
+    "Paraguay": [
+     4454,
+     "pct"
+    ],
+    "Peru": [
+     22530,
+     "pct"
+    ],
+    "Philippines": [
+     80971,
+     "exact"
+    ],
+    "Poland": [
+     149120,
+     "exact"
+    ],
+    "Polynesia": [
+     1269,
+     "pct"
+    ],
+    "Portugal": [
+     136430,
+     "exact"
+    ],
+    "Qatar": [
+     23960,
+     "pct"
+    ],
+    "Romania": [
+     47168,
+     "exact"
+    ],
+    "Russia": [
+     268550,
+     "exact"
+    ],
+    "Rwanda": [
+     0,
+     "pct"
+    ],
+    "Sao Tome and Principe": [
+     0,
+     "pct"
+    ],
+    "Saudi Arabia": [
+     236127,
+     "exact"
+    ],
+    "Senegal": [
+     0,
+     "pct"
+    ],
+    "Serbia": [
+     5480,
+     "pct"
+    ],
+    "Seychelles": [
+     345,
+     "pct"
+    ],
+    "Sierra Leone": [
+     0,
+     "pct"
+    ],
+    "Singapore": [
+     269925,
+     "exact"
+    ],
+    "Slovakia": [
+     8692,
+     "pct"
+    ],
+    "Slovenia": [
+     13376,
+     "pct"
+    ],
+    "South Africa": [
+     58142,
+     "exact"
+    ],
+    "Spain": [
+     1146911,
+     "exact"
+    ],
+    "Sri Lanka": [
+     14732,
+     "pct"
+    ],
+    "Sudan": [
+     0,
+     "pct"
+    ],
+    "Suriname": [
+     0,
+     "pct"
+    ],
+    "Sweden": [
+     570439,
+     "exact"
+    ],
+    "Switzerland": [
+     1034918,
+     "exact"
+    ],
+    "Syria": [
+     0,
+     "pct"
+    ],
+    "Taiwan": [
+     608997,
+     "exact"
+    ],
+    "Tajikistan": [
+     0,
+     "pct"
+    ],
+    "Tanzania": [
+     0,
+     "pct"
+    ],
+    "Thailand": [
+     86216,
+     "exact"
+    ],
+    "Timor - Leste": [
+     0,
+     "pct"
+    ],
+    "Togo": [
+     0,
+     "pct"
+    ],
+    "Trinidad and Tobago": [
+     3096,
+     "pct"
+    ],
+    "Tunisia": [
+     8207,
+     "pct"
+    ],
+    "Turkey": [
+     115473,
+     "exact"
+    ],
+    "Turkmenistan": [
+     3722,
+     "pct"
+    ],
+    "Uganda": [
+     0,
+     "pct"
+    ],
+    "Ukraine": [
+     34639,
+     "pct"
+    ],
+    "United Arab Emirates": [
+     168546,
+     "exact"
+    ],
+    "United Kingdom": [
+     2490952,
+     "exact"
+    ],
+    "United States": [
+     21951202,
+     "exact"
+    ],
+    "Uruguay": [
+     10120,
+     "pct"
+    ],
+    "Venezuela": [
+     18359,
+     "pct"
+    ],
+    "Vietnam": [
+     51017,
+     "exact"
+    ],
+    "World": [
+     57556257,
+     "pct"
+    ],
+    "Yemen": [
+     0,
+     "pct"
+    ],
+    "Zambia": [
+     0,
+     "pct"
+    ],
+    "Zimbabwe": [
+     0,
+     "pct"
+    ]
+   },
+   "2021": {
+    "Afghanistan": [
+     0,
+     "pct"
+    ],
+    "Africa": [
+     689800,
+     "pct"
+    ],
+    "Albania": [
+     2196,
+     "pct"
+    ],
+    "Algeria": [
+     27980,
+     "pct"
+    ],
+    "Angola": [
+     0,
+     "pct"
+    ],
+    "Antigua and Barbuda": [
+     71,
+     "pct"
+    ],
+    "Argentina": [
+     31171,
+     "pct"
+    ],
+    "Armenia": [
+     2178,
+     "pct"
+    ],
+    "Aruba": [
+     328,
+     "pct"
+    ],
+    "Asia - Pacific": [
+     11311767,
+     "pct"
+    ],
+    "Australia": [
+     2176868,
+     "exact"
+    ],
+    "Austria": [
+     271014,
+     "exact"
+    ],
+    "Azerbaijan": [
+     7222,
+     "pct"
+    ],
+    "Bahamas": [
+     1974,
+     "pct"
+    ],
+    "Bahrain": [
+     13490,
+     "pct"
+    ],
+    "Bangladesh": [
+     30559,
+     "exact"
+    ],
+    "Barbados": [
+     1554,
+     "pct"
+    ],
+    "Belarus": [
+     7343,
+     "pct"
+    ],
+    "Belgium": [
+     588968,
+     "exact"
+    ],
+    "Belize": [
+     252,
+     "pct"
+    ],
+    "Benin": [
+     0,
+     "pct"
+    ],
+    "Bolivia": [
+     7242,
+     "pct"
+    ],
+    "Bosnia and Herzegovina": [
+     2632,
+     "pct"
+    ],
+    "Botswana": [
+     1393,
+     "pct"
+    ],
+    "Brazil": [
+     265782,
+     "exact"
+    ],
+    "Brunei": [
+     2512,
+     "pct"
+    ],
+    "Bulgaria": [
+     11070,
+     "pct"
+    ],
+    "Burkina Faso": [
+     0,
+     "pct"
+    ],
+    "Burundi": [
+     0,
+     "pct"
+    ],
+    "Cambodia": [
+     0,
+     "pct"
+    ],
+    "Cameroon": [
+     0,
+     "pct"
+    ],
+    "Canada": [
+     2291281,
+     "exact"
+    ],
+    "Central African Republic": [
+     0,
+     "pct"
+    ],
+    "Chad": [
+     0,
+     "pct"
+    ],
+    "Chile": [
+     65546,
+     "exact"
+    ],
+    "China": [
+     6190394,
+     "exact"
+    ],
+    "Colombia": [
+     38943,
+     "exact"
+    ],
+    "Comoros": [
+     0,
+     "pct"
+    ],
+    "Congo, Dem. Rep.": [
+     0,
+     "pct"
+    ],
+    "Congo, Rep.": [
+     0,
+     "pct"
+    ],
+    "Costa Rica": [
+     11238,
+     "pct"
+    ],
+    "Croatia": [
+     13148,
+     "pct"
+    ],
+    "Cyprus": [
+     13700,
+     "pct"
+    ],
+    "Czechia": [
+     67942,
+     "exact"
+    ],
+    "Denmark": [
+     384828,
+     "exact"
+    ],
+    "Djibouti": [
+     0,
+     "pct"
+    ],
+    "Dominica": [
+     100,
+     "pct"
+    ],
+    "Ecuador": [
+     11578,
+     "pct"
+    ],
+    "Egypt": [
+     87206,
+     "exact"
+    ],
+    "El Salvador": [
+     8508,
+     "pct"
+    ],
+    "Equatorial Guinea": [
+     1596,
+     "pct"
+    ],
+    "Eritrea": [
+     0,
+     "pct"
+    ],
+    "Estonia": [
+     7280,
+     "pct"
+    ],
+    "Ethiopia": [
+     0,
+     "pct"
+    ],
+    "Europe": [
+     16515016,
+     "pct"
+    ],
+    "Fiji": [
+     569,
+     "pct"
+    ],
+    "Finland": [
+     100786,
+     "exact"
+    ],
+    "France": [
+     2796334,
+     "exact"
+    ],
+    "Gabon": [
+     1242,
+     "pct"
+    ],
+    "Gambia": [
+     0,
+     "pct"
+    ],
+    "Georgia": [
+     2946,
+     "pct"
+    ],
+    "Germany": [
+     2683056,
+     "exact"
+    ],
+    "Ghana": [
+     0,
+     "pct"
+    ],
+    "Greece": [
+     81383,
+     "exact"
+    ],
+    "Grenada": [
+     316,
+     "pct"
+    ],
+    "Guinea": [
+     0,
+     "pct"
+    ],
+    "Guinea - Bissau": [
+     0,
+     "pct"
+    ],
+    "Guyana": [
+     503,
+     "pct"
+    ],
+    "Haiti": [
+     0,
+     "pct"
+    ],
+    "Hong Kong": [
+     631860,
+     "exact"
+    ],
+    "Hungary": [
+     30980,
+     "pct"
+    ],
+    "Iceland": [
+     34695,
+     "pct"
+    ],
+    "India": [
+     796416,
+     "exact"
+    ],
+    "Indonesia": [
+     191103,
+     "exact"
+    ],
+    "Iran": [
+     146638,
+     "exact"
+    ],
+    "Iraq": [
+     21931,
+     "pct"
+    ],
+    "Ireland": [
+     175791,
+     "exact"
+    ],
+    "Israel": [
+     203623,
+     "exact"
+    ],
+    "Italy": [
+     1412789,
+     "exact"
+    ],
+    "Jamaica": [
+     2061,
+     "pct"
+    ],
+    "Japan": [
+     3365616,
+     "exact"
+    ],
+    "Jordan": [
+     11928,
+     "pct"
+    ],
+    "Kazakhstan": [
+     36900,
+     "pct"
+    ],
+    "Kenya": [
+     28403,
+     "pct"
+    ],
+    "Korea": [
+     1289917,
+     "exact"
+    ],
+    "Kuwait": [
+     101856,
+     "pct"
+    ],
+    "Kyrgyzstan": [
+     0,
+     "pct"
+    ],
+    "Laos": [
+     0,
+     "pct"
+    ],
+    "Latin America": [
+     907672,
+     "pct"
+    ],
+    "Latvia": [
+     16016,
+     "pct"
+    ],
+    "Lebanon": [
+     36424,
+     "pct"
+    ],
+    "Lesotho": [
+     0,
+     "pct"
+    ],
+    "Liberia": [
+     0,
+     "pct"
+    ],
+    "Libya": [
+     0,
+     "pct"
+    ],
+    "Lithuania": [
+     10700,
+     "pct"
+    ],
+    "Luxembourg": [
+     81648,
+     "pct"
+    ],
+    "Madagascar": [
+     0,
+     "pct"
+    ],
+    "Malawi": [
+     0,
+     "pct"
+    ],
+    "Malaysia": [
+     45454,
+     "pct"
+    ],
+    "Maldives": [
+     407,
+     "pct"
+    ],
+    "Mali": [
+     0,
+     "pct"
+    ],
+    "Malta": [
+     5744,
+     "pct"
+    ],
+    "Mauritania": [
+     0,
+     "pct"
+    ],
+    "Mauritius": [
+     4880,
+     "pct"
+    ],
+    "Mexico": [
+     318298,
+     "exact"
+    ],
+    "Moldova": [
+     3182,
+     "pct"
+    ],
+    "Mongolia": [
+     0,
+     "pct"
+    ],
+    "Montenegro": [
+     2385,
+     "pct"
+    ],
+    "Morocco": [
+     24652,
+     "pct"
+    ],
+    "Mozambique": [
+     0,
+     "pct"
+    ],
+    "Myanmar": [
+     0,
+     "pct"
+    ],
+    "Namibia": [
+     1404,
+     "pct"
+    ],
+    "Nepal": [
+     0,
+     "pct"
+    ],
+    "Netherlands": [
+     1148740,
+     "exact"
+    ],
+    "New Zealand": [
+     347478,
+     "exact"
+    ],
+    "Nicaragua": [
+     4185,
+     "pct"
+    ],
+    "Niger": [
+     0,
+     "pct"
+    ],
+    "Nigeria": [
+     41317,
+     "exact"
+    ],
+    "North America": [
+     26796840,
+     "pct"
+    ],
+    "Norway": [
+     236023,
+     "exact"
+    ],
+    "Oman": [
+     15240,
+     "pct"
+    ],
+    "Pakistan": [
+     19873,
+     "exact"
+    ],
+    "Panama": [
+     11600,
+     "pct"
+    ],
+    "Papua New Guinea": [
+     0,
+     "pct"
+    ],
+    "Paraguay": [
+     4535,
+     "pct"
+    ],
+    "Peru": [
+     22795,
+     "pct"
+    ],
+    "Philippines": [
+     78626,
+     "exact"
+    ],
+    "Poland": [
+     100129,
+     "exact"
+    ],
+    "Portugal": [
+     159006,
+     "exact"
+    ],
+    "Qatar": [
+     36420,
+     "pct"
+    ],
+    "Romania": [
+     36690,
+     "exact"
+    ],
+    "Russia": [
+     352801,
+     "exact"
+    ],
+    "Rwanda": [
+     0,
+     "pct"
+    ],
+    "Samoa": [
+     107,
+     "pct"
+    ],
+    "Sao Tome and Principe": [
+     0,
+     "pct"
+    ],
+    "Saudi Arabia": [
+     313281,
+     "exact"
+    ],
+    "Senegal": [
+     0,
+     "pct"
+    ],
+    "Serbia": [
+     5466,
+     "pct"
+    ],
+    "Seychelles": [
+     345,
+     "pct"
+    ],
+    "Sierra Leone": [
+     0,
+     "pct"
+    ],
+    "Singapore": [
+     298650,
+     "exact"
+    ],
+    "Slovakia": [
+     4344,
+     "pct"
+    ],
+    "Slovenia": [
+     13360,
+     "pct"
+    ],
+    "Solomon Islands": [
+     357,
+     "pct"
+    ],
+    "South Africa": [
+     86175,
+     "exact"
+    ],
+    "Spain": [
+     1132132,
+     "exact"
+    ],
+    "Sri Lanka": [
+     14846,
+     "pct"
+    ],
+    "St. Lucia": [
+     280,
+     "pct"
+    ],
+    "St. Vincent and the Grenadines": [
+     79,
+     "pct"
+    ],
+    "Suriname": [
+     0,
+     "pct"
+    ],
+    "Sweden": [
+     610214,
+     "exact"
+    ],
+    "Switzerland": [
+     1151960,
+     "exact"
+    ],
+    "Syria": [
+     0,
+     "pct"
+    ],
+    "Taiwan": [
+     869210,
+     "exact"
+    ],
+    "Tajikistan": [
+     0,
+     "pct"
+    ],
+    "Tanzania": [
+     0,
+     "pct"
+    ],
+    "Thailand": [
+     82466,
+     "exact"
+    ],
+    "Timor - Leste": [
+     0,
+     "pct"
+    ],
+    "Togo": [
+     0,
+     "pct"
+    ],
+    "Tonga": [
+     236,
+     "pct"
+    ],
+    "Trinidad and Tobago": [
+     3111,
+     "pct"
+    ],
+    "Tunisia": [
+     8294,
+     "pct"
+    ],
+    "Turkey": [
+     72967,
+     "exact"
+    ],
+    "Turkmenistan": [
+     3782,
+     "pct"
+    ],
+    "Uganda": [
+     0,
+     "pct"
+    ],
+    "Ukraine": [
+     52567,
+     "exact"
+    ],
+    "United Arab Emirates": [
+     176780,
+     "exact"
+    ],
+    "United Kingdom": [
+     2849344,
+     "exact"
+    ],
+    "United States": [
+     24480110,
+     "exact"
+    ],
+    "Uruguay": [
+     10180,
+     "pct"
+    ],
+    "Vanuatu": [
+     165,
+     "pct"
+    ],
+    "Venezuela": [
+     18798,
+     "pct"
+    ],
+    "Vietnam": [
+     48917,
+     "exact"
+    ],
+    "World": [
+     63582768,
+     "pct"
+    ],
+    "Yemen": [
+     0,
+     "pct"
+    ],
+    "Zambia": [
+     0,
+     "pct"
+    ],
+    "Zimbabwe": [
+     7264,
+     "pct"
+    ]
+   }
+  }
+ },
+ "ubs": {
+  "source": "UBS, Global Wealth Report 2024 (chiffres 2023, 36 pays), 2025 (chiffres 2024, 25 pays, en milliers) et 2026 (chiffres 2025, 36 pays, en milliers).",
+  "annees": {
+   "2023": {
+    "Australia": 1936114,
+    "Belgium": 564666,
+    "Brazil": 380585,
+    "Canada": 1991416,
+    "Chile": 81274,
+    "France": 2868031,
+    "Germany": 2820819,
+    "Greece": 80655,
+    "Hong Kong SAR": 629155,
+    "Hungary": 24692,
+    "India": 868671,
+    "Indonesia": 178605,
+    "Israel": 179905,
+    "Italy": 1338142,
+    "Japan": 2827956,
+    "Kazakhstan": 44307,
+    "Mainland China": 6013282,
+    "Mexico": 331538,
+    "Netherlands": 1231625,
+    "Norway": 253085,
+    "Portugal": 171797,
+    "Qatar": 26163,
+    "Russia": 381726,
+    "Saudi Arabia": 351855,
+    "Singapore": 333204,
+    "South Africa": 90595,
+    "South Korea": 1295674,
+    "Spain": 1180703,
+    "Sweden": 575426,
+    "Switzerland": 1054293,
+    "Taiwan": 788799,
+    "Thailand": 100001,
+    "Türkiye": 60787,
+    "United Arab Emirates": 202201,
+    "United Kingdom": 3061553,
+    "United States": 21951319
+   },
+   "2024": {
+    "Australia": 1904000,
+    "Belgium": 549000,
+    "Brazil": 433000,
+    "Canada": 2098000,
+    "Denmark": 376000,
+    "France": 2897000,
+    "Germany": 2675000,
+    "Hong Kong SAR": 647000,
+    "India": 917000,
+    "Italy": 1344000,
+    "Japan": 2732000,
+    "Mainland China": 6327000,
+    "Mexico": 399000,
+    "Netherlands": 1267000,
+    "Norway": 348000,
+    "Russia": 426000,
+    "Saudi Arabia": 339000,
+    "Singapore": 331000,
+    "South Korea": 1301000,
+    "Spain": 1202000,
+    "Sweden": 490000,
+    "Switzerland": 1119000,
+    "Taiwan": 759000,
+    "United Kingdom": 2624000,
+    "United States": 23831000
+   },
+   "2025": {
+    "Australia": 1634000,
+    "Belgium": 556000,
+    "Brazil": 386000,
+    "Cyprus": 24000,
+    "France": 2388000,
+    "Germany": 2648000,
+    "Greece": 82000,
+    "Hong Kong SAR": 628000,
+    "Hungary": 27000,
+    "India": 944000,
+    "Ireland": 192000,
+    "Israel": 195000,
+    "Italy": 1235000,
+    "Japan": 2902000,
+    "Luxembourg": 85000,
+    "Mainland China": 5305000,
+    "Mexico": 333000,
+    "Netherlands": 1294000,
+    "Poland": 101000,
+    "Portugal": 181000,
+    "Qatar": 30000,
+    "Russia": 447000,
+    "Saudi Arabia": 348000,
+    "Singapore": 244000,
+    "South Africa": 97000,
+    "South Korea": 1317000,
+    "Spain": 1077000,
+    "Sweden": 507000,
+    "Switzerland": 944000,
+    "Taiwan": 772000,
+    "Türkiye": 93000,
+    "United Arab Emirates": 183000,
+    "United Kingdom": 2428000,
+    "United States": 23627000
+   }
+  }
+ }
+}

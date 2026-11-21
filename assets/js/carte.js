@@ -200,6 +200,16 @@
       sombre: inverser(PALETTE_SOMBRE),
     },
 
+    /* Le nombre de millionnaires (Credit Suisse puis UBS). Comme le PIB :
+       plus il y en a, plus c'est vert. Les écarts vont de quelques centaines
+       (Moldavie) à 24 millions (États-Unis) : des tranches très étalées. */
+    millionnaires: {
+      ecart: "ratio",
+      tranches: [1000, 10000, 50000, 200000, 1000000, 3000000],
+      clair: PALETTE_CLAIR,
+      sombre: PALETTE_SOMBRE,
+    },
+
     /* La population n'a ni « bon » ni « mauvais » côté : personne ne dira
        qu'un pays peuplé va mieux qu'un pays peu peuplé. La palette ne sert
        donc ici qu'à mesurer une taille, du plus petit (rouge sombre) au plus
@@ -314,6 +324,11 @@
   /* Version courte pour la légende : 10 000 devient "10 k" */
   function formaterCourt(valeur) {
     var abs = Math.abs(valeur);
+    /* Au-delà du million (carte des millionnaires) : « 3 M » et non « 3 000 k ». */
+    if (abs >= 1000000) {
+      var millions = valeur / 1000000;
+      return formater(millions, millions % 1 === 0 ? 0 : 1) + " M";
+    }
     if (abs >= 1000) {
       var milliers = valeur / 1000;
       return formater(milliers, milliers % 1 === 0 ? 0 : 1) + " k";
@@ -1734,7 +1749,13 @@
       enAttente = true;
       requestAnimationFrame(function () {
         enAttente = false;
-        if (valeur !== anneeAffichee) appliquerAnnee(Number(curseur.value));
+        /* Une série peut avoir des trous (pas de 2013 ni de 2022 pour les
+           millionnaires) : on prend l'année publiée la plus proche. */
+        var voulue = Number(curseur.value), proche = annees[0];
+        annees.forEach(function (a) {
+          if (Math.abs(a - voulue) < Math.abs(proche - voulue)) proche = a;
+        });
+        if (proche !== anneeAffichee) appliquerAnnee(proche);
       });
     });
   }
@@ -1747,7 +1768,11 @@
     if (!etiquette) return;
 
     var derniereReelle = donnees.derniere_annee_reelle;
-    if (anneeAffichee > derniereReelle) {
+    /* Une carte qui ne vient pas du FMI n'a ni estimation ni projection du
+       FMI : chaque année est un chiffre publié. */
+    if (donneesBase && donneesBase.source) {
+      etiquette.textContent = t("donnee_reelle");
+    } else if (anneeAffichee > derniereReelle) {
       etiquette.innerHTML = '<span class="annees__projection">▲ ' + t("projection") + "</span>";
     } else if (anneeAffichee === derniereReelle) {
       etiquette.textContent = t("estimation");
@@ -1825,7 +1850,12 @@
 
         var source = document.getElementById("source");
         if (source) {
-          var nomSource = meta.source[langue] || meta.source.fr;
+          /* Une carte qui ne vient pas du FMI (les millionnaires) écrit sa
+             propre source dans son fichier ; les autres citent le FMI. */
+          var propre = !!donnees.source;
+          var nomSource = propre
+            ? (donnees.source[langue] || donnees.source.fr)
+            : (meta.source[langue] || meta.source.fr);
 
           /* Le FMI publie ce rapport deux fois par an, en avril et en octobre.
              On affiche l'ÉDITION d'où viennent les chiffres plutôt que la date
@@ -1833,7 +1863,7 @@
              vraiment les projections. La date de récupération reste accessible
              en survolant la ligne. */
           var edition = "";
-          if (meta.edition) {
+          if (meta.edition && !propre) {
             edition =
               " (" +
               t(meta.edition.mois === 4 ? "weo_avril" : "weo_octobre") +
@@ -1842,7 +1872,8 @@
 
           source.innerHTML =
             t("source") + t("deux_points") +
-            '<a href="' + meta.source_url + '" target="_blank" rel="noopener">' +
+            '<a href="' + (propre ? donnees.source_url : meta.source_url) +
+            '" target="_blank" rel="noopener">' +
             echapper(nomSource + edition) + "</a>";
           source.title =
             t("mis_a_jour") + " " +

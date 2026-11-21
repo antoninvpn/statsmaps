@@ -90,6 +90,7 @@ CARTES = [
     ("croissance",              "📈", None,               None,      True),
     ("inflation",               "🔥", None,               None,      True),
     ("dette-publique",          "🏛️", None,               None,      True),
+    ("millionnaires",           "💎", None,               None,      True),
     ("population",              "👥", None,               None,      True),
     ("metro",                   "🚇", None,               None,      True),
     ("entreprises",             "🏢", None,               None,      True),
@@ -136,6 +137,7 @@ PRECHARGES = {
 # lui ajoute une carte, tout cela apparaît tout seul.
 CATEGORIES = [
     ("economie", "💶", ["pib-nominal", "pib-par-habitant", "croissance", "inflation", "dette-publique",
+                        "millionnaires",
                         "entreprises"]),
     ("demographie", "👥", ["population"]),
     ("infrastructure", "🏗️", ["metro"]),
@@ -324,6 +326,14 @@ LANGUES.append({
             "nav": "Dette publique", "nav_court": "Dette",
             "texte": "La dette de l’État, en pourcentage du PIB.",
         },
+        "millionnaires": {
+            "slug": "millionnaires",
+            "nom": "Millionnaires",
+            "nav": "Millionnaires", "nav_court": "Millionnaires",
+            "texte": "Le nombre d’adultes dont la fortune dépasse un million de dollars.",
+            # Pas des données du FMI : sa propre description.
+            "description": "Le nombre de millionnaires par pays, année par année depuis 2011 : les adultes dont la fortune nette dépasse un million de dollars, d’après le Credit Suisse puis UBS (Global Wealth Report). Classement mondial et évolution.",
+        },
         "population": {
             "slug": "population",
             "nom": "Population",
@@ -444,6 +454,13 @@ LANGUES.append({
             "nom": "Public debt",
             "nav": "Public debt", "nav_court": "Debt",
             "texte": "Government debt, as a percentage of GDP.",
+        },
+        "millionnaires": {
+            "slug": "millionaires",
+            "nom": "Millionaires",
+            "nav": "Millionaires", "nav_court": "Millionaires",
+            "texte": "How many adults are worth more than one million dollars.",
+            "description": "The number of millionaires in each country, year by year since 2011: adults whose net worth exceeds one million dollars, from Credit Suisse and then UBS (Global Wealth Report). World ranking and change over time.",
         },
         "population": {
             "slug": "population",

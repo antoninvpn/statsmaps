@@ -142,6 +142,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://statsmaps.com/millionnaires/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/millionnaires/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/millionaires/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/millionnaires/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statsmaps.com/en/millionaires/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/millionnaires/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/millionaires/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://statsmaps.com/millionnaires/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://statsmaps.com/population/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://statsmaps.com/population/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://statsmaps.com/en/population/"/>
