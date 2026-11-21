@@ -743,7 +743,15 @@
 
     carte.on("click", "pays-fond", function (evenement) {
       if (!evenement.features.length) return;
-      ouvrirInfobulle(paysDuDessus(evenement.features).properties.iso, evenement.lngLat);
+      var iso = paysDuDessus(evenement.features).properties.iso;
+      /* Un second clic sur le pays déjà choisi le relâche : la bulle se
+         ferme et la carte revient à ses valeurs (demande d'Antonin du
+         21 novembre 2026). Refermer la bulle fait tout le travail. */
+      if (iso === isoChoisi && infobulle && infobulle.isOpen()) {
+        infobulle.remove();
+        return;
+      }
+      ouvrirInfobulle(iso, evenement.lngLat);
     });
 
     /* Un clic dans la mer : on relâche le pays de référence et la carte revient
