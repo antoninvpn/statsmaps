@@ -191,26 +191,53 @@ h1, h2, h3 { line-height: 1.25; margin: 0 0 0.5em; letter-spacing: -0.015em; }
   gap: 6px;
 }
 
-/* « Français  English », comme sur le site de l'Unesco : la langue lue est
-   soulignée d'une couleur, l'autre est un simple lien. */
-.haut__langues {
-  display: flex;
+/* « Français ▾ », comme sur le site de l'Unesco : un seul bouton au nom de
+   la langue lue, qui déroule la liste des langues (demande d'Antonin du
+   21 novembre 2026). Balises <details>/<summary> : le menu s'ouvre sans
+   JavaScript ; barre.js le referme quand on clique ailleurs ou sur Échap. */
+.haut__langues { position: relative; }
+.haut__langues > summary {
+  display: inline-flex;
   align-items: center;
+  gap: 6px;
   height: 34px;
-  padding: 0 4px;
+  padding: 0 12px;
   border: 1px solid var(--bordure);
   border-radius: 8px;
   background: var(--fond);
-}
-.haut__langues a {
-  padding: 4px 8px;
-  border-radius: 6px;
-  color: var(--texte-doux);
+  color: var(--texte);
   font-size: 13px;
-  font-weight: 400;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
 }
-.haut__langues a:hover { color: var(--texte); background: var(--fond-doux); text-decoration: none; }
-.haut__langues a[aria-current="true"] { color: var(--accent); font-weight: 400; }
+.haut__langues > summary::-webkit-details-marker { display: none; }
+.haut__langues > summary:hover { background: var(--fond-doux); }
+.haut__langues > summary svg { transition: transform .15s; }
+.haut__langues[open] > summary svg { transform: rotate(180deg); }
+.langues__liste {
+  position: absolute;
+  top: calc(100% + 6px);
+  inset-inline-end: 0;
+  min-width: 140px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  border: 1px solid var(--bordure);
+  border-radius: 8px;
+  background: var(--fond);
+  box-shadow: var(--ombre);
+  z-index: 30;
+}
+.langues__liste a {
+  display: block;
+  padding: 7px 10px;
+  border-radius: 6px;
+  color: var(--texte);
+  font-size: 13px;
+}
+.langues__liste a:hover { background: var(--fond-doux); text-decoration: none; }
+.langues__liste a[aria-current="true"] { color: var(--accent); }
 
 .bouton-icone {
   display: inline-flex;
@@ -429,7 +456,7 @@ body.page-carte .haut {
 }
 body.page-carte .haut > *, body.page-carte .haut__droite > * { pointer-events: auto; }
 body.page-carte .haut .bouton-icone,
-body.page-carte .haut__langues {
+body.page-carte .haut__langues > summary {
   background: var(--panneau-flou);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -1110,7 +1137,7 @@ body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
 }
 
 @media (max-width: 420px) {
-  .haut__langues a { padding: 4px 6px; font-size: 12px; }
+  .haut__langues > summary { padding: 0 10px; font-size: 12px; }
 }
 
 /* --- 7. Les langues qui s'écrivent de droite à gauche ---------------------

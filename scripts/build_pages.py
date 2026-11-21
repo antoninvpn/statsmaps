@@ -731,9 +731,12 @@ ACCUEIL_MOT = {"fr": "Accueil", "en": "Home"}
 
 MODELE_ENTETE = """  <header class="haut">
 {retour}    <div class="haut__droite">
-      <nav class="haut__langues" aria-label="{langue_label}">
+      <details class="langues haut__langues">
+        <summary aria-label="{langue_label}"><span lang="{code}">{nom}</span><svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <ul class="langues__liste">
 {menu}
-      </nav>
+        </ul>
+      </details>
       <button class="bouton-icone" id="bouton-theme" type="button"
               aria-label="{theme_label}"
               data-vers-clair="{theme_clair}"
@@ -891,13 +894,15 @@ def entete(langue, page=ACCUEIL):
     for autre in LANGUES:
         actuelle = ' aria-current="true"' if autre["code"] == langue["code"] else ""
         cible = page if page in pages_de(autre) else ACCUEIL
-        menu.append('        <a href="%s" hreflang="%s" lang="%s"%s>%s</a>'
+        menu.append('          <li><a href="%s" hreflang="%s" lang="%s"%s>%s</a></li>'
                     % (adresse(autre, cible), autre["hreflang"], autre["hreflang"],
                        actuelle, echapper(autre["nom"])))
 
     return MODELE_ENTETE.format(
         retour=retour,
         langue_label=echapper(langue["langue_label"]),
+        code=langue["hreflang"],
+        nom=echapper(langue["nom"]),
         menu="\n".join(menu),
         theme_label=echapper(langue["theme_label"]),
         theme_clair=echapper(langue["theme_clair"]),

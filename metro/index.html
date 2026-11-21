@@ -28,10 +28,13 @@
       <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
     <div class="haut__droite">
-      <nav class="haut__langues" aria-label="Langue">
-        <a href="/metro/" hreflang="fr" lang="fr" aria-current="true">Français</a>
-        <a href="/en/metro/" hreflang="en" lang="en">English</a>
-      </nav>
+      <details class="langues haut__langues">
+        <summary aria-label="Langue"><span lang="fr">Français</span><svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <ul class="langues__liste">
+          <li><a href="/metro/" hreflang="fr" lang="fr" aria-current="true">Français</a></li>
+          <li><a href="/en/metro/" hreflang="en" lang="en">English</a></li>
+        </ul>
+      </details>
       <button class="bouton-icone" id="bouton-theme" type="button"
               aria-label="Changer de thème"
               data-vers-clair="Passer en thème clair"
