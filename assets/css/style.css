@@ -83,7 +83,8 @@
 
 /* La police : Inter partout, titres compris, comme sur le site de l'Unesco
    (demande d'Antonin du 21 novembre 2026). Police libre, hébergée ici même
-   (aucun appel à Google). Et plus aucun gras nulle part. */
+   (aucun appel à Google). Pas de gras dans le texte, mais les TITRES sont en
+   gras : Inter est fine, sans gras ils ne se détachaient pas. */
 @font-face {
   font-family: "Inter";
   font-style: normal;
@@ -104,8 +105,30 @@
                  U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF,
                  U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/inter-latin-600.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/inter-latin-ext-600.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+                 U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF,
+                 U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
 
-b, strong, th, h1, h2, h3, h4, h5, h6 { font-weight: 400; }
+b, strong, th { font-weight: 400; }
+h1, h2, h3, h4, h5, h6, .accueil__titre, .vignette__titre, .panneau__titre,
+.popup__nom { font-weight: 600; }
 
 
 * { box-sizing: border-box; }
@@ -222,7 +245,7 @@ h1, h2, h3 { line-height: 1.25; margin: 0 0 0.5em; letter-spacing: -0.015em; }
 
 .accueil__titre {
   font-size: clamp(30px, 5.5vw, 46px);
-  font-weight: 400;
+  font-weight: 600;
   /* Plus de phrase d'introduction sous le titre : c'est lui qui laisse
      l'espace avant les vignettes. */
   margin-bottom: 32px;
@@ -269,7 +292,7 @@ h1, h2, h3 { line-height: 1.25; margin: 0 0 0.5em; letter-spacing: -0.015em; }
   background: var(--accent-doux);
 }
 
-.vignette__titre { font-size: 17px; font-weight: 400; margin-bottom: 5px; }
+.vignette__titre { font-size: 17px; font-weight: 600; margin-bottom: 5px; }
 .vignette__texte { font-size: 14px; color: var(--texte-doux); margin: 0; }
 
 /* Sur l'accueil, la vignette d'une catégorie annonce ce qu'elle contient :
@@ -439,7 +462,7 @@ body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
 }
 
 .panneau__entete { padding: 14px 15px 11px; border-bottom: 1px solid var(--bordure); }
-.panneau__titre { font-size: 15px; font-weight: 400; margin: 0 0 2px; }
+.panneau__titre { font-size: 15px; font-weight: 600; margin: 0 0 2px; }
 .panneau__soustitre { font-size: 12px; color: var(--texte-tres-doux); }
 
 .panneau__recherche {
@@ -544,7 +567,7 @@ body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
   align-items: center;
   gap: 7px;
   font-size: 13.5px;
-  font-weight: 400;
+  font-weight: 600;
 }
 .fiche__cle {
   margin-top: 3px;
@@ -969,7 +992,7 @@ body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
 }
 .maplibregl-popup-tip { display: none; }
 .maplibregl-popup-close-button { color: var(--texte-tres-doux); font-size: 17px; }
-.popup__nom { font-weight: 400; font-size: 14px; margin-bottom: 3px; }
+.popup__nom { font-weight: 600; font-size: 14px; margin-bottom: 3px; }
 /* Le drapeau devant le nom du pays, comme dans le classement. */
 .popup__nom .drapeau { margin-right: 7px; }
 .popup__valeur { font-size: 17px; font-weight: 400; font-variant-numeric: tabular-nums; }

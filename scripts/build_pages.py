@@ -912,10 +912,11 @@ def vignette(lien, pastille, titre, texte, liste="", bientot=""):
     # 20 novembre 2026) : le nom, et en dessous la liste des cartes, suffisent.
     # La phrase (« texte ») sert encore ailleurs : elle ouvre la description
     # que lit Google.
-    corps = ('        <div class="vignette__pastille">%s</div>\n'
-             '        <div class="vignette__titre">%s</div>\n'
+    # Plus d'émoji dans les vignettes (demande d'Antonin du 21 novembre 2026) :
+    # le nom seul. « pastille » reste en paramètre, au cas où on y revienne.
+    corps = ('        <div class="vignette__titre">%s</div>\n'
              '%s'
-             % (pastille, echapper(titre), dedans))
+             % (echapper(titre), dedans))
 
     if not lien:
         return '      <div class="vignette est-bientot">\n%s      </div>' % corps
