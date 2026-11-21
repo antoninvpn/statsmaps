@@ -237,7 +237,7 @@ LANGUES.append({
     "code": "fr", "dossier": "", "hreflang": "fr", "sens": "ltr",
     "drapeau": "🇫🇷", "nom": "Français", "nav_aria": "Cartes",
     # Les libellés que lisent les lecteurs d'écran, et les infobulles.
-    "langue_label": "Langue", "theme_label": "Changer de thème",
+    "langue_label": "Langue", "retour_label": "Retour", "theme_label": "Changer de thème",
     "theme_clair": "Passer en thème clair", "theme_sombre": "Passer en thème sombre",
     "variantes_label": "Unité",
     "modele_titre": "{nom}, par pays — carte mondiale interactive | StatsMaps",
@@ -352,7 +352,7 @@ LANGUES.append({
     "code": "en", "dossier": "en", "hreflang": "en", "sens": "ltr",
     "drapeau": "🇬🇧", "nom": "English", "nav_aria": "Maps",
     # Les libellés que lisent les lecteurs d'écran, et les infobulles.
-    "langue_label": "Language", "theme_label": "Switch theme",
+    "langue_label": "Language", "retour_label": "Back", "theme_label": "Switch theme",
     "theme_clair": "Switch to light theme", "theme_sombre": "Switch to dark theme",
     "variantes_label": "Unit",
     "modele_titre": "{nom} by country — interactive world map | StatsMaps",
@@ -699,24 +699,23 @@ MODELE_VIGNETTES = """<!DOCTYPE html>
 # Le mot « accueil » dans chaque langue, pour les boutons de la page 404.
 ACCUEIL_MOT = {"fr": "Accueil", "en": "Home"}
 
-MODELE_ENTETE = """  <header class="barre">
-    <a class="barre__logo" href="{accueil}">Stats<span>Maps</span></a>
-{categorie}    <nav class="barre__nav" aria-label="{nav_aria}">
-{liens}
-    </nav>
-    <div class="barre__droite">
-      <details class="langues">
-        <summary class="bouton-icone" title="{langue_label}" aria-label="{langue_label}">{drapeau}</summary>
-        <div class="langues__menu">
+MODELE_ENTETE = """  <header class="haut">
+{retour}    <div class="haut__droite">
+      <nav class="haut__langues" aria-label="{langue_label}">
 {menu}
-        </div>
-      </details>
+      </nav>
       <button class="bouton-icone" id="bouton-theme" type="button"
               aria-label="{theme_label}"
               data-vers-clair="{theme_clair}"
               data-vers-sombre="{theme_sombre}">☾</button>
     </div>
   </header>
+"""
+
+# La flèche retour : elle remonte d'un niveau (carte -> rubrique -> accueil).
+MODELE_RETOUR = """    <a class="bouton-icone haut__retour" href="{cible}" aria-label="{label}" title="{label}">
+      <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
 """
 
 
@@ -826,73 +825,35 @@ def alternates(page):
 
 
 def entete(langue, page=ACCUEIL):
-    """La barre du haut : logo, menu, menu des langues, thème.
-
-    Le menu montre le niveau où l'on se trouve, et pas tout le site (voir le
-    commentaire de MENU plus haut) : les catégories sur l'accueil et sur une
-    page de rubrique, les cartes de sa rubrique sur une carte."""
+    """Le haut de chaque page, sans bande (demande d'Antonin du 21 novembre
+    2026) : une flèche retour à gauche, qui remonte d'un niveau, et à droite
+    les langues écrites en toutes lettres et le bouton clair/sombre."""
     genre, clef = page
-    # Depuis l'accueil, un lien vers une carte s'écrit "croissance/" ; depuis
-    # n'importe quelle autre page, on remonte d'un cran : "../croissance/".
+    # Depuis l'accueil, un lien s'écrit "economie/" ; d'ailleurs, "../economie/".
     haut = "" if page == ACCUEIL else "../"
 
-    liens = []
-    categorie_ouverte = None
-
     if genre == "carte":
-        # Les cartes de la catégorie de cette carte, et elles seules.
-        categorie_ouverte = CATEGORIE_DE[clef]
-        for identifiant in cartes_de(categorie_ouverte, langue):
-            carte = langue["cartes"][identifiant]
-            # La page de la VARIANTE d'une carte allume quand même son entrée :
-            # sur /pib-ppa/, c'est bien « PIB » qu'on est en train de voir.
-            meme = clef == identifiant or (
-                FAMILLE_DE[clef] and FAMILLE_DE[clef] == FAMILLE_DE[identifiant])
-            liens.append(lien_de_menu(haut + carte["slug"] + "/",
-                                      carte["nav"], carte["nav_court"], meme))
+        parent = haut + langue["categories"][CATEGORIE_DE[clef]]["slug"] + "/"
+    elif genre == "categorie":
+        parent = haut or "./"
     else:
-        # L'accueil et les pages de rubrique montrent les rubriques ouvertes.
-        for identifiant, _, _ in categories_ouvertes_de(langue):
-            categorie = langue["categories"][identifiant]
-            liens.append(lien_de_menu(haut + categorie["slug"] + "/",
-                                      categorie["nom"], categorie["nom"],
-                                      genre == "categorie" and clef == identifiant))
+        parent = None
+    retour = (MODELE_RETOUR.format(cible=parent, label=echapper(langue["retour_label"]))
+              if parent else "")
 
-    # Sur une carte, le nom de la rubrique ouvre sa page : c'est à la fois le
-    # repère « où suis-je » et le chemin de retour vers les autres rubriques.
-    fil = ""
-    if categorie_ouverte:
-        fil = ('    <a class="barre__categorie" href="%s%s/">%s</a>\n'
-               % (haut, langue["categories"][categorie_ouverte]["slug"],
-                  echapper(langue["categories"][categorie_ouverte]["nom"])))
-
-    # Le menu des langues pointe vers la MÊME page dans chaque langue, en
-    # adresses absolues : c'est ce qui permet de changer de langue sans perdre
-    # la carte qu'on était en train de regarder.
+    # Les langues pointent vers la MÊME page dans chaque langue, en adresses
+    # absolues : on change de langue sans perdre la carte qu'on regardait.
     menu = []
     for autre in LANGUES:
         actuelle = ' aria-current="true"' if autre["code"] == langue["code"] else ""
-        # Si la page n'existe pas encore dans cette langue-là (une carte en
-        # cours de traduction), son drapeau mène à l'accueil de cette langue
-        # plutôt qu'à une adresse qui n'existe pas.
         cible = page if page in pages_de(autre) else ACCUEIL
-        menu.append(
-            '          <a href="%s" hreflang="%s" lang="%s"%s>'
-            '<span class="drapeau" aria-hidden="true">%s</span>%s</a>'
-            % (adresse(autre, cible), autre["hreflang"], autre["hreflang"],
-               actuelle, autre["drapeau"], echapper(autre["nom"])))
+        menu.append('        <a href="%s" hreflang="%s" lang="%s"%s>%s</a>'
+                    % (adresse(autre, cible), autre["hreflang"], autre["hreflang"],
+                       actuelle, echapper(autre["nom"])))
 
     return MODELE_ENTETE.format(
-        # Le logo ramène à l'accueil DE LA LANGUE COURANTE, et non à la racine
-        # du site : depuis /en/gdp/, il mène à /en/ et non à l'accueil français.
-        # Ne pas confondre avec « base », qui vise la racine pour aller y
-        # chercher assets/ et data/.
-        accueil=haut or "./",
-        categorie=fil,
-        nav_aria=echapper(langue["nav_aria"]),
-        liens="\n".join(liens),
+        retour=retour,
         langue_label=echapper(langue["langue_label"]),
-        drapeau=langue["drapeau"],
         menu="\n".join(menu),
         theme_label=echapper(langue["theme_label"]),
         theme_clair=echapper(langue["theme_clair"]),

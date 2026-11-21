@@ -150,6 +150,7 @@ window.StatsMapsTextes = {
        Des points sur les sièges, et un panneau de cases à cocher : les
        secteurs, puis les places boursières. */
     bourse_titre: "Entreprises cotées en bourse",
+    bourse_tiroir: "Filtres",
     bourse_recherche: "Rechercher une entreprise…",
     bourse_rien_trouve: "Aucune entreprise trouvée.",
     bourse_entreprises: "entreprises",
@@ -302,6 +303,7 @@ window.StatsMapsTextes = {
 
     /* La carte des entreprises cotées */
     bourse_titre: "Listed companies",
+    bourse_tiroir: "Filters",
     bourse_recherche: "Search a company…",
     bourse_rien_trouve: "No company found.",
     bourse_entreprises: "companies",

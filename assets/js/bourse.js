@@ -826,11 +826,11 @@
     tiroir.bouton = document.getElementById("bouton-panneau");
     tiroir.boite = document.getElementById("panneau");
     if (!tiroir.bouton || !tiroir.boite) return;
-    tiroir.bouton.textContent = "☰ " + t("bourse_titre");
+    tiroir.bouton.textContent = "☰ " + t("bourse_tiroir");
     tiroir.bouton.addEventListener("click", function () {
       var ouvert = tiroir.boite.classList.toggle("est-ouvert");
       tiroir.bouton.setAttribute("aria-expanded", ouvert ? "true" : "false");
-      tiroir.bouton.textContent = ouvert ? "✕" : "☰ " + t("bourse_titre");
+      tiroir.bouton.textContent = ouvert ? "✕" : "☰ " + t("bourse_tiroir");
     });
   }
 

@@ -116,88 +116,51 @@ h1, h2, h3 { line-height: 1.25; margin: 0 0 0.5em; letter-spacing: -0.015em; }
   border-radius: 4px;
 }
 
-/* --- 3. Barre de navigation --------------------------------------------- */
+/* --- 3. Le haut de page ------------------------------------------------
 
-.barre {
+   Plus de bande (demande d'Antonin du 21 novembre 2026) : une flèche retour
+   à gauche, et à droite les langues en toutes lettres et le bouton du thème.
+   Sur l'accueil et les rubriques, ils occupent une simple rangée sans fond ;
+   sur les cartes, ils flottent au-dessus de la carte (voir section 5). */
+
+.haut {
   display: flex;
   align-items: center;
   gap: 8px;
-  height: 56px;
-  padding: 0 16px;
-  background: var(--panneau);
-  border-bottom: 1px solid var(--bordure);
+  padding: 14px 16px 0;
   position: relative;
   z-index: 20;
 }
 
-.barre__logo {
-  font-weight: 700;
-  font-size: 17px;
-  letter-spacing: -0.02em;
-  color: var(--texte);
-  white-space: nowrap;
-}
-.barre__logo:hover { text-decoration: none; }
-.barre__logo span { color: var(--accent); }
+.haut__retour { padding: 0; width: 34px; }
 
-/* Sur une carte, le nom de la rubrique où l'on se trouve, juste après le logo.
-   Il sert deux fois : il dit « tu es dans l'Économie », et il ramène à la page
-   de la rubrique — d'où l'on atteint les autres. Le menu, lui, ne montre que
-   les cartes de CETTE rubrique. */
-.barre__categorie {
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: var(--fond-doux);
-  border: 1px solid var(--bordure);
-  color: var(--texte-doux);
-  font-size: 12.5px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-.barre__categorie:hover {
-  color: var(--texte);
-  border-color: var(--accent);
-  text-decoration: none;
-}
-
-.barre__nav {
-  display: flex;
-  gap: 2px;
-  margin-left: 18px;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.barre__nav::-webkit-scrollbar { display: none; }
-
-.barre__lien {
-  padding: 6px 12px;
-  border-radius: 8px;
-  color: var(--texte-doux);
-  font-size: 14px;
-  font-weight: 500;
-  white-space: nowrap;
-}
-.barre__lien:hover {
-  background: var(--fond-doux);
-  color: var(--texte);
-  text-decoration: none;
-}
-.barre__lien[aria-current="page"] {
-  background: var(--accent-doux);
-  color: var(--accent);
-  font-weight: 600;
-}
-
-/* Chaque lien existe en version longue et courte : sur un petit écran,
-   « PIB par habitant » devient « PIB/hab. » pour que tout tienne. */
-.barre__lien .court { display: none; }
-
-.barre__droite {
-  margin-left: auto;
+.haut__droite {
+  margin-inline-start: auto;
   display: flex;
   align-items: center;
   gap: 6px;
 }
+
+/* « Français  English », comme sur le site de l'Unesco : la langue lue est
+   soulignée d'une couleur, l'autre est un simple lien. */
+.haut__langues {
+  display: flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 4px;
+  border: 1px solid var(--bordure);
+  border-radius: 8px;
+  background: var(--fond);
+}
+.haut__langues a {
+  padding: 4px 8px;
+  border-radius: 6px;
+  color: var(--texte-doux);
+  font-size: 13px;
+  font-weight: 500;
+}
+.haut__langues a:hover { color: var(--texte); background: var(--fond-doux); text-decoration: none; }
+.haut__langues a[aria-current="true"] { color: var(--accent); font-weight: 600; }
 
 .bouton-icone {
   display: inline-flex;
@@ -222,68 +185,12 @@ h1, h2, h3 { line-height: 1.25; margin: 0 0 0.5em; letter-spacing: -0.015em; }
   text-decoration: none;
 }
 
-/* Menu des langues : un bouton drapeau qui déroule les trois langues.
-   C'est une balise <details> : le navigateur l'ouvre et la ferme tout seul,
-   même sans JavaScript. barre.js n'ajoute que la fermeture au clic extérieur. */
-.langues { position: relative; }
-
-/* Un <summary> affiche par défaut un petit triangle : on l'enlève. */
-.langues > summary { list-style: none; font-size: 15px; line-height: 1; }
-.langues > summary::-webkit-details-marker { display: none; }
-.langues > summary::marker { content: ""; }
-.langues[open] > summary {
-  border-color: var(--bordure-forte);
-  background: var(--fond-doux);
-}
-
-.langues__menu {
-  position: absolute;
-  top: calc(100% + 6px);
-  right: 0;
-  min-width: 172px;
-  padding: 5px;
-  background: var(--panneau-flou);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--bordure);
-  border-radius: 10px;
-  box-shadow: var(--ombre);
-  z-index: 40;
-}
-
-.langues__menu a {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 7px 10px;
-  border-radius: 7px;
-  color: var(--texte);
-  font-size: 13.5px;
-  font-weight: 500;
-  white-space: nowrap;
-}
-.langues__menu a:hover { background: var(--fond-doux); text-decoration: none; }
-/* À treize langues, le menu dépasse la hauteur d'un téléphone : il défile.
-   La hauteur est donnée en « vh » — un pourcentage de l'écran — pour qu'il
-   reste utilisable aussi bien sur un grand écran que sur un petit. */
-.langues__menu {
-  max-height: min(62vh, 420px);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-}
-.langues__menu a[aria-current="true"] {
-  background: var(--accent-doux);
-  color: var(--accent);
-  font-weight: 600;
-}
-.langues__menu .drapeau { font-size: 15px; line-height: 1; }
-
 /* --- 4. Page d'accueil --------------------------------------------------- */
 
 .accueil {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 56px 20px 80px;
+  padding: 28px 20px 80px;
 }
 
 .accueil__titre {
@@ -459,18 +366,39 @@ body.page-carte {
 
 #carte { position: absolute; inset: 0; }
 
+/* Sur une carte, le haut flotte par-dessus : la carte occupe tout l'écran.
+   La rangée elle-même laisse passer les clics ; seuls ses boutons les
+   prennent. Le panneau et les boutons de zoom descendent d'un cran. */
+body.page-carte .haut {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 14px;
+  pointer-events: none;
+}
+body.page-carte .haut > *, body.page-carte .haut__droite > * { pointer-events: auto; }
+body.page-carte .haut .bouton-icone,
+body.page-carte .haut__langues {
+  background: var(--panneau-flou);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--ombre);
+}
+body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
+
 /* Panneau de classement, du côté où commence la lecture : à gauche partout,
    à droite en arabe. C'est le rôle de « inset-inline-start », qui veut dire
    « du côté où le texte commence » plutôt que « à gauche ». */
 .panneau {
   position: absolute;
-  top: 14px;
+  top: 62px;
   inset-inline-start: 14px;
   /* Assez large pour la ligne la plus longue du site :
      « 192 419,942 $ int./hab. » à côté d'un nom de pays. Les chiffres sont
      écrits au plus précis, ils prennent donc plus de place qu'avant. */
   width: 344px;
-  max-height: calc(100% - 28px);
+  max-height: calc(100% - 76px);
   display: flex;
   flex-direction: column;
   background: var(--panneau-flou);
@@ -1065,25 +993,13 @@ body.page-carte {
 .bouton-panneau { display: none; }
 
 @media (max-width: 860px) {
-  .barre { padding: 0 12px; height: 52px; }
-  .barre__lien { padding: 5px 9px; font-size: 13px; }
-  .barre__categorie { padding: 3px 8px; font-size: 11.5px; }
-
-  /* Avec cinq cartes, le menu ne tient plus sur un téléphone : il défile
-     horizontalement. Sans repère visuel, on ne devine pas qu'il continue.
-     Ce dégradé fait disparaître le dernier onglet en fondu sur le bord droit,
-     ce qui se lit tout de suite comme « ça continue par là ». */
-  .barre__nav {
-    margin-left: 10px;
-    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
-    mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
-  }
+  body.page-carte .haut { padding: 12px; }
 
   .bouton-panneau {
     display: inline-flex;
     position: absolute;
     top: 12px;
-    inset-inline-start: 12px;
+    inset-inline-start: 54px;
     z-index: 12;
     background: var(--panneau);
     box-shadow: var(--ombre);
@@ -1119,7 +1035,7 @@ body.page-carte {
   /* Sur téléphone, la légende monte en haut à droite : c'est le seul endroit
      vraiment libre, et elle ne peut donc plus chevaucher le curseur. */
   .legende {
-    top: 12px;
+    top: 56px;
     bottom: auto;
     inset-inline-end: 12px;
     max-width: 178px;
@@ -1143,21 +1059,8 @@ body.page-carte {
   .maplibregl-ctrl-top-right { display: none; }
 }
 
-/* En dessous de 560 px, on bascule sur les libellés courts. */
-@media (max-width: 560px) {
-  .barre__lien .long { display: none; }
-  .barre__lien .court { display: inline; }
-}
-
 @media (max-width: 420px) {
-  .barre__logo { font-size: 15px; }
-  .barre__lien { padding: 5px 7px; font-size: 12px; }
-  .barre__nav { margin-left: 6px; }
-  /* Avec cinq cartes, le menu déborde : il défile déjà horizontalement
-     (overflow-x: auto plus haut). On lui laisse juste un peu d'air à droite
-     pour qu'on devine qu'il continue. */
-  .barre__nav { padding-right: 4px; }
-  .langues__menu { min-width: 158px; }
+  .haut__langues a { padding: 4px 6px; font-size: 12px; }
 }
 
 /* --- 7. Les langues qui s'écrivent de droite à gauche ---------------------

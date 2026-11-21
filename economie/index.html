@@ -20,21 +20,15 @@
 </head>
 <body>
 
-  <header class="barre">
-    <a class="barre__logo" href="../">Stats<span>Maps</span></a>
-    <nav class="barre__nav" aria-label="Cartes">
-        <a class="barre__lien" href="../economie/" aria-current="page"><span class="long">Économie</span><span class="court">Économie</span></a>
-        <a class="barre__lien" href="../demographie/"><span class="long">Démographie</span><span class="court">Démographie</span></a>
-        <a class="barre__lien" href="../infrastructure/"><span class="long">Infrastructure</span><span class="court">Infrastructure</span></a>
-    </nav>
-    <div class="barre__droite">
-      <details class="langues">
-        <summary class="bouton-icone" title="Langue" aria-label="Langue">🇫🇷</summary>
-        <div class="langues__menu">
-          <a href="/economie/" hreflang="fr" lang="fr" aria-current="true"><span class="drapeau" aria-hidden="true">🇫🇷</span>Français</a>
-          <a href="/en/economy/" hreflang="en" lang="en"><span class="drapeau" aria-hidden="true">🇬🇧</span>English</a>
-        </div>
-      </details>
+  <header class="haut">
+    <a class="bouton-icone haut__retour" href="../" aria-label="Retour" title="Retour">
+      <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <div class="haut__droite">
+      <nav class="haut__langues" aria-label="Langue">
+        <a href="/economie/" hreflang="fr" lang="fr" aria-current="true">Français</a>
+        <a href="/en/economy/" hreflang="en" lang="en">English</a>
+      </nav>
       <button class="bouton-icone" id="bouton-theme" type="button"
               aria-label="Changer de thème"
               data-vers-clair="Passer en thème clair"
