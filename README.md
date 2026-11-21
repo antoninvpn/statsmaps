@@ -529,6 +529,7 @@ sur « octobre 2026 » dès le 15 octobre. Il n'y a rien à modifier à la main.
 
 - **Données** : [FMI — World Economic Outlook](https://www.imf.org/external/datamapper/profile)
 - **Frontières** : [Natural Earth](https://www.naturalearthdata.com/), échelle 1:50 m (domaine public)
+- **Photos de la Terre** (fond de l'accueil et des rubriques, `assets/img/terre-jour.jpg` et `terre-nuit.jpg`) : NASA, « Blue Marble » et « Black Marble 2016 » (domaine public), copies de Wikimedia Commons réduites à 2400 × 1200
 
   Natural Earth dessine le monde « tel qu'il est contrôlé sur le terrain ».
   StatsMaps suit la **reconnaissance internationale**. Les écarts assumés,

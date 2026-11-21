@@ -709,7 +709,7 @@ MODELE_VIGNETTES = """<!DOCTYPE html>
   <link rel="stylesheet" href="{base}assets/css/style.css">
   <script src="{base}assets/js/theme.js"></script>
 </head>
-<body>
+<body class="page-terre">
 
 {entete}
   <main class="accueil">

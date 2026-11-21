@@ -366,6 +366,61 @@ h1, h2, h3 { line-height: 1.25; margin: 0 0 0.5em; letter-spacing: -0.015em; }
   color: var(--texte-tres-doux);
 }
 
+/* La Terre vue de l'espace derrière l'accueil et les rubriques (demande
+   d'Antonin du 21 novembre 2026). Deux photos de la NASA, du domaine public :
+   « Blue Marble » (la Terre de jour) en thème clair, « Black Marble 2016 »
+   (les lumières des villes, la nuit) en thème sombre. La photo est assombrie
+   et les cases deviennent du verre dépoli, avec du texte blanc, pour rester
+   lisibles quelle que soit la région qui passe derrière.
+   La photo est posée sur un calque fixe (::before) plutôt qu'avec
+   « background-attachment: fixed », que les iPhone ignorent. */
+body.page-terre {
+  --texte: #ffffff;
+  --texte-doux: rgba(255, 255, 255, 0.80);
+  --texte-tres-doux: rgba(255, 255, 255, 0.58);
+  --bordure: rgba(255, 255, 255, 0.22);
+  --bordure-forte: rgba(255, 255, 255, 0.45);
+  --fond: rgba(12, 22, 36, 0.55);
+  --fond-doux: rgba(255, 255, 255, 0.16);
+  --panneau: rgba(12, 22, 36, 0.42);
+  --accent: #a8d1ff;
+  --accent-doux: rgba(168, 209, 255, 0.18);
+  --ombre: 0 2px 6px rgba(0, 0, 0, 0.25), 0 12px 32px rgba(0, 0, 0, 0.35);
+  --terre: url("../img/terre-jour.jpg");
+  --voile: linear-gradient(rgba(4, 14, 28, 0.42), rgba(4, 14, 28, 0.62));
+  /* Transparent : sinon le fond uni de la page recouvrirait la photo. */
+  background: transparent;
+}
+[data-theme="dark"] body.page-terre {
+  --terre: url("../img/terre-nuit.jpg");
+  --voile: linear-gradient(rgba(0, 0, 0, 0.10), rgba(0, 0, 0, 0.40));
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.page-terre {
+    --terre: url("../img/terre-nuit.jpg");
+    --voile: linear-gradient(rgba(0, 0, 0, 0.10), rgba(0, 0, 0, 0.40));
+  }
+}
+body.page-terre::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--voile), var(--terre) center / cover no-repeat, #06101d;
+}
+body.page-terre .vignette,
+body.page-terre .haut__langues > summary,
+body.page-terre .langues__liste,
+body.page-terre .bouton-icone {
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+}
+body.page-terre .langues__liste { background: rgba(12, 22, 36, 0.82); }
+body.page-terre .vignette:hover { border-color: var(--bordure-forte); background: rgba(12, 22, 36, 0.55); }
+body.page-terre .vignette.est-bientot { background: rgba(12, 22, 36, 0.22); }
+body.page-terre .accueil__titre { text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45); }
+body.page-terre .pied { border-top: 0; }
+
 /* --- 5. Pages de carte --------------------------------------------------- */
 
 body.page-carte {
