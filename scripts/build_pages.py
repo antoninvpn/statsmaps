@@ -1067,11 +1067,12 @@ def page_accueil(langue):
         alternates=alternates(ACCUEIL),
         base=remonter(profondeur(langue)),
         entete=entete(langue),
-        # Sur l'accueil, ni grand titre ni phrase d'introduction (demande
-        # d'Antonin du 20 novembre 2026) : on arrive directement sur les
-        # rubriques. Le « h1 » reste écrit dans le bloc de chaque langue, au
-        # cas où on voudrait le remettre, mais n'est plus mis dans la page.
-        tete="",
+        # Sur l'accueil, le logo (le même dessin que l'icône de l'onglet) et
+        # le nom du site, au-dessus des rubriques (demande d'Antonin du
+        # 21 novembre 2026). Pas de phrase d'introduction.
+        tete=('    <h1 class="accueil__titre accueil__marque">'
+              '<img src="%sfavicon.svg" alt="" width="56" height="56">StatsMaps</h1>\n'
+              % remonter(profondeur(langue))),
         vignettes="\n".join(vignettes),
         # Pas de ligne de bas de page, ni ici ni sur les pages de rubrique
         # (demande d'Antonin du 20 novembre 2026). Les sources restent écrites
