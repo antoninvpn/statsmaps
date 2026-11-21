@@ -63,8 +63,10 @@ Pour ajouter une carte
     4. Relancer ce script : les pages, les menus et le sitemap suivent.
 """
 
+import hashlib
 import io
 import os
+import re
 import shutil
 
 SITE = "https://statsmaps.com"
@@ -1161,7 +1163,33 @@ def page_404(modele):
     return debut + "  <div>\n" + "\n".join(boutons) + "\n  </div>\n</body>\n</html>\n"
 
 
+# L'EMPREINTE DES FICHIERS DE STYLE ET DE PROGRAMME (21 novembre 2026)
+# Les navigateurs gardent style.css et les fichiers .js en mémoire un moment
+# (le « cache ») : après une publication, un visiteur pouvait encore voir
+# l'ancienne apparence. On ajoute donc au bout de chaque adresse une courte
+# empreinte tirée du contenu du fichier : « style.css?v=3f9a1c2b ». Dès que le
+# fichier change, l'empreinte change, l'adresse aussi, et le navigateur va
+# chercher la nouvelle version. Si le fichier ne change pas, l'adresse reste
+# la même et le navigateur peut continuer à se servir de sa copie.
+_EMPREINTES = {}
+_ADRESSE_FICHIER = re.compile(r'(assets/(?:css|js)/[\w.-]+\.(?:css|js))"')
+
+
+def empreinte(chemin_relatif):
+    if chemin_relatif not in _EMPREINTES:
+        with open(os.path.join(RACINE, chemin_relatif), "rb") as f:
+            _EMPREINTES[chemin_relatif] = hashlib.sha256(f.read()).hexdigest()[:8]
+    return _EMPREINTES[chemin_relatif]
+
+
+def avec_empreintes(html):
+    return _ADRESSE_FICHIER.sub(
+        lambda m: '%s?v=%s"' % (m.group(1), empreinte(m.group(1))), html)
+
+
 def ecrire(chemin_relatif, contenu):
+    if chemin_relatif.endswith(".html"):
+        contenu = avec_empreintes(contenu)
     chemin = os.path.join(RACINE, chemin_relatif)
     dossier = os.path.dirname(chemin)
     if dossier:
