@@ -1038,15 +1038,14 @@ def page_accueil(langue):
     for identifiant, pastille, _ in CATEGORIES:
         categorie = langue["categories"][identifiant]
         cartes = cartes_de(identifiant, langue)
+        # Sur l'accueil, juste le nom de la rubrique : ni la liste des cartes,
+        # ni « Bientôt » (demande d'Antonin du 21 novembre 2026).
         if cartes:
             vignettes.append(vignette(
-                categorie["slug"] + "/", pastille, categorie["nom"], categorie["texte"],
-                liste=" · ".join(nom_dans_la_liste(langue, c) for c in cartes)))
+                categorie["slug"] + "/", pastille, categorie["nom"], categorie["texte"]))
         else:
             # Rubrique annoncée, pas encore ouverte : ni lien, ni page.
-            vignettes.append(vignette(
-                None, pastille, categorie["nom"], categorie["texte"],
-                bientot=langue["accueil"]["bientot"]))
+            vignettes.append(vignette(None, pastille, categorie["nom"], categorie["texte"]))
 
     return MODELE_VIGNETTES.format(
         hreflang=langue["hreflang"],
