@@ -40,7 +40,7 @@
 [data-theme="dark"] {
   --fond: #0e1116;
   --fond-doux: #161b22;
-  --fond-carte: #0b0f14;
+  --fond-carte: #031d3a;   /* « Grand fond », choisi par Antonin le 23/11/2026 */
   --panneau: #161b22;
   --panneau-flou: rgba(22, 27, 34, 0.94);
   --texte: #e6edf3;
@@ -53,15 +53,15 @@
   --pays-sans-donnee: #2b323b;
   --contour-pays: #0e1116;
   --ombre: 0 1px 3px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.4);
-  --houle-crete: rgba(88, 140, 196, 0.13);
-  --houle-creux: rgba(0, 0, 0, 0.30);
+  --houle-crete: rgba(60, 130, 225, 0.12);
+  --houle-creux: rgba(0, 5, 25, 0.38);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --fond: #0e1116;
     --fond-doux: #161b22;
-    --fond-carte: #0b0f14;
+    --fond-carte: #031d3a;   /* « Grand fond », choisi par Antonin le 23/11/2026 */
     --panneau: #161b22;
     --panneau-flou: rgba(22, 27, 34, 0.94);
     --texte: #e6edf3;
@@ -74,8 +74,8 @@
     --pays-sans-donnee: #2b323b;
     --contour-pays: #0e1116;
     --ombre: 0 1px 3px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.4);
-    --houle-crete: rgba(88, 140, 196, 0.13);
-    --houle-creux: rgba(0, 0, 0, 0.30);
+    --houle-crete: rgba(60, 130, 225, 0.12);
+    --houle-creux: rgba(0, 5, 25, 0.38);
   }
 }
 
