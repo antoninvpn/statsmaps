@@ -11,6 +11,8 @@
     "  pourquoi . une phrase, pour se souvenir plus tard.",
     "Facultatif : \"position\": [longitude, latitude] pour poser le point sur l'immeuble exact (il devient bleu),",
     "et \"adresse\": \"rue...\" pour l'afficher dans la fiche.",
+    "Pour un DOUBLON (la même entreprise deux fois sur la carte) : un bloc avec \"id\" (celle à faire disparaître)",
+    "et \"doublon_de\" (celle à garder) ; ses bourses et symboles sont ajoutés à celle qu'on garde.",
     "Attention aux virgules : une virgule entre deux blocs, pas après le dernier."
   ],
   "corrections": [
@@ -27,6 +29,24 @@
       "lieu": "Q1899",
       "ville": "Kyiv",
       "pourquoi": "Coté à Varsovie, direction à Kyiv ; Wikidata ne donne que le siège légal, au Luxembourg."
+    },
+    {
+      "id": "Q2412906",
+      "nom": "Groupe TF1",
+      "lieu": "Q172455",
+      "ville": "Boulogne-Billancourt",
+      "position": [
+        2.26056,
+        48.83389
+      ],
+      "adresse": "Tour TF1, 1 quai du Point-du-Jour",
+      "pourquoi": "Wikidata ne donne que la ville ; le siège est la tour TF1 (coordonnées de la tour sur Wikidata, Q3533194)."
+    },
+    {
+      "id": "F00QSGLRT2",
+      "nom": "FDJ United (doublon)",
+      "doublon_de": "Q1450805",
+      "pourquoi": "La Française des jeux, devenue FDJ United en 2025 : son nouveau symbole FDJU n'est pas sur Wikidata, d'où un 2e point gris au centre de la France."
     }
   ]
 }

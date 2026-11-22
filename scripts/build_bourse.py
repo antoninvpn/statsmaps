@@ -772,6 +772,8 @@ def corrections_des_sieges():
     resultat = {}
     for c in liste:
         ident, lieu = c.get("id"), c.get("lieu")
+        if c.get("doublon_de"):
+            continue   # un doublon à fondre, pas un siège à déplacer : voir fondre_les_doublons()
         position = c.get("position")
         exact = bool(position)
         if not position:
@@ -785,6 +787,41 @@ def corrections_des_sieges():
             "a": c.get("adresse"),
         }
     return resultat
+
+
+def fondre_les_doublons(entreprises):
+    """Les doublons signalés dans le fichier des corrections (« doublon_de ») :
+    une même entreprise trouvée deux fois, par Wikidata et par OpenFIGI, sans
+    que le robot ait pu relier les deux (FDJ, dont le symbole est passé de
+    « FDJ » à « FDJU » en 2025). On garde la fiche Wikidata, qui est la mieux
+    placée, en lui ajoutant les bourses et les symboles de l'autre."""
+    if not os.path.exists(FICHIER_CORRECTIONS):
+        return entreprises
+    with open(FICHIER_CORRECTIONS, encoding="utf-8") as f:
+        doublons = {c["id"]: c["doublon_de"] for c in json.load(f).get("corrections", [])
+                    if c.get("id") and c.get("doublon_de")}
+    if not doublons:
+        return entreprises
+    par_q = {x["q"]: x for x in entreprises}
+    gardees = []
+    for x in entreprises:
+        cible = par_q.get(doublons.get(x["q"]))
+        if cible is None:
+            gardees.append(x)
+            continue
+        for b in x["b"]:
+            if b not in cible["b"]:
+                cible["b"].append(b)
+        symboles = list(cible.get("t") or [])
+        for t in x.get("t") or []:
+            if t not in symboles:
+                symboles.append(t)
+        if symboles:
+            cible["t"] = symboles[:4]
+        if x.get("g") and not cible.get("g"):
+            cible["g"] = x["g"]
+    dit(f"  {len(entreprises) - len(gardees)} doublons fondus (fichier des corrections)")
+    return gardees
 
 
 def appliquer_correction(ligne, corrections, pays):
@@ -1229,6 +1266,7 @@ def main():
     # Les corrections à la main ont le dernier mot, y compris sur GLEIF.
     corrigees = sum(appliquer_correction(x, corrections, pays) for x in entreprises)
     dit(f"  {corrigees} entreprises déplacées par les corrections à la main")
+    entreprises = fondre_les_doublons(entreprises)
 
     # Les plus connues d'abord : c'est l'ordre dans lequel la carte les pose,
     # et celui de la liste quand on cherche un nom.
