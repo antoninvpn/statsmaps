@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="flag-icons-gt" viewBox="0 0 640 480">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="flag-icons-gt" viewBox="0 0 640 480"><g data-debord="1" transform="translate(-16 -12) scale(1.05)">
   <defs>
     <radialGradient xlink:href="#gt-a" id="gt-d" cx="447.4" cy="308.3" r="16.5" gradientUnits="userSpaceOnUse"/>
     <radialGradient id="gt-a">
@@ -201,4 +201,4 @@
       <path fill="#67923d" d="M445 370.3c-.7-3.7-10.5-3.4-20.4 4.8a69.6 69.6 0 0 1 20.4-4.8zm69.9 4.4c1.4-4.4 12.8-3.3 23.4 7.5a84 84 0 0 0-23.4-7.5z"/>
     </g>
   </g>
-</svg>
+</g></svg>

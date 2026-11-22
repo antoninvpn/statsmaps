@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-fj" viewBox="0 0 640 480">
+<svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-fj" viewBox="0 0 640 480"><g data-debord="1" transform="translate(-16 -12) scale(1.05)">
   <path fill="#68bfe5" d="M0 0v480h640V0z"/>
   <g stroke-miterlimit="4.8">
     <path fill="#fff" d="M420.9 193.2v136.4c0 44.6 80.6 71 80.6 71s80.5-26.4 80.5-71V193.2z"/>
@@ -117,4 +117,4 @@
   <path fill="#C8102E" d="M212 140.5 320 220v20l-135.5-99.5zm-92 10 3 17.5-96 72H0zM320 0v1.5l-124.5 94 1-22L295 0zM0 0l119.5 88h-30L0 21z"/>
   <path fill="#FFF" d="M120.5 0v240h80V0zM0 80v80h320V80z"/>
   <path fill="#C8102E" d="M0 96.5v48h320v-48zM136.5 0v240h48V0z"/>
-</svg>
+</g></svg>

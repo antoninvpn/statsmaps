@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-om" viewBox="0 0 640 480">
+<svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-om" viewBox="0 0 640 480"><g data-debord="1" transform="translate(-16 -12) scale(1.05)">
   <defs>
     <clipPath id="om-a">
       <path fill-opacity=".7" d="M0 0h640v480H0z"/>
@@ -112,4 +112,4 @@
       </g>
     </g>
   </g>
-</svg>
+</g></svg>

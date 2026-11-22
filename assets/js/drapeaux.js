@@ -16,6 +16,11 @@
    demandé à un autre serveur.
    ========================================================================== */
 
+/* À augmenter de 1 chaque fois qu'on retouche les fichiers de drapeaux : les
+   navigateurs vont alors chercher les nouveaux au lieu de garder les anciens.
+   2 = dessins agrandis de 5 % pour supprimer le liseré clair de Safari. */
+var VERSION_DRAPEAUX = 2;
+
 window.StatsMapsDrapeau = function (emoji) {
   if (!emoji) return "";
   var base = (document.body && document.body.getAttribute("data-base")) || "./";
@@ -27,7 +32,7 @@ window.StatsMapsDrapeau = function (emoji) {
     if (a < 0 || a > 25 || b < 0 || b > 25) continue;
     var code = String.fromCharCode(97 + a, 97 + b);
     html += '<img class="drapeau-img" src="' + base + "assets/drapeaux/" + code +
-      '.svg" alt="" width="20" height="15" loading="lazy" decoding="async">';
+      ".svg?v=" + VERSION_DRAPEAUX + '" alt="" width="20" height="15" loading="lazy" decoding="async">';
   }
   return html;
 };

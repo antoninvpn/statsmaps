@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-ir" viewBox="0 0 640 480">
+<svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-ir" viewBox="0 0 640 480"><g data-debord="1" transform="translate(-16 -12) scale(1.05)">
   <defs>
     <clipPath id="ir-a">
       <path fill-opacity=".7" d="M-85.3 0h682.7v512H-85.3z"/>
@@ -216,4 +216,4 @@
       <path d="m256.4 331.6 7.8-9 1.1-120.1-9.3-8.2-9.3 7.8 1.9 121z"/>
     </g>
   </g>
-</svg>
+</g></svg>

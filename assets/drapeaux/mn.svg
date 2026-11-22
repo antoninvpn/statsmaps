@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill="#ffd900" id="flag-icons-mn" viewBox="0 0 640 480">
+<svg xmlns="http://www.w3.org/2000/svg" fill="#ffd900" id="flag-icons-mn" viewBox="0 0 640 480"><g data-debord="1" transform="translate(-16 -12) scale(1.05)">
   <path fill="#da2032" d="M0 0h640v480H0Z"/>
   <path fill="#0066b3" d="M213.3 0h213.4v480H213.3Z"/>
   <circle cx="106.7" cy="181.8" r="40"/>
@@ -11,4 +11,4 @@
     <circle cx="200" cy="416.5" r="10"/>
     <path d="M200 334a29.5 29.5 0 0 1 0 59 23.5 23.5 0 0 0 0 47v6a29.5 29.5 0 0 1 0-59 23.5 23.5 0 0 0 0-47z"/>
   </g>
-</svg>
+</g></svg>
