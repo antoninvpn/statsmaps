@@ -77,7 +77,10 @@
      même, avec les pays du site en gris. */
   var STYLES = {
     clair: "https://tiles.openfreemap.org/styles/liberty",
-    sombre: "https://tiles.openfreemap.org/styles/dark",
+    /* En mode sombre aussi, la carte CLAIRE : le fond « Dark » ne plaisait
+       pas à Antonin (choix du 23 novembre 2026). Remettre ici
+       ".../styles/dark" pour revenir à une carte de nuit. */
+    sombre: "https://tiles.openfreemap.org/styles/liberty",
   };
 
   /* LES FRONTIÈRES. Le fond d'OpenFreeMap dessine celles d'OpenStreetMap, qui
@@ -295,7 +298,7 @@
     style.layers.push({
       id: "pays-contour", type: "line", source: "frontieres",
       paint: {
-        "line-color": themeSombre() ? "#7f8a9b" : "#7d8699",
+        "line-color": "#7d8699",  /* la carte est toujours claire */
         "line-width": ["interpolate", ["linear"], ["zoom"], 1, 0.6, 6, 1.3, 12, 2],
         "line-opacity": ["interpolate", ["linear"], ["zoom"], 1, 0.9, 12, 0.75],
       },
@@ -313,7 +316,7 @@
         "circle-color": ["match", ["get", "p"], 1, BLEU, 2, GRIS, JAUNE],
         "circle-opacity": 0.95,
         "circle-stroke-width": ["interpolate", ["linear"], ["zoom"], 2, 0.5, 8, 1.2],
-        "circle-stroke-color": themeSombre() ? "#0e1116" : "#ffffff",
+        "circle-stroke-color": "#ffffff",
       },
     });
 
@@ -345,7 +348,7 @@
         "circle-radius": ["interpolate", ["linear"], ["zoom"], 2, 8, ZOOM_LOGOS, 12, 14, 22],
         "circle-color": "rgba(0,0,0,0)",
         "circle-stroke-width": 2.5,
-        "circle-stroke-color": themeSombre() ? "#e6edf3" : "#16191d",
+        "circle-stroke-color": "#16191d",
       },
     });
 

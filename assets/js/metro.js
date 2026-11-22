@@ -60,7 +60,10 @@
      quand même, avec les pays du site en gris, comme avant. */
   var STYLES = {
     clair: "https://tiles.openfreemap.org/styles/liberty",
-    sombre: "https://tiles.openfreemap.org/styles/dark",
+    /* En mode sombre aussi, la carte CLAIRE : le fond « Dark » ne plaisait
+       pas à Antonin (choix du 23 novembre 2026). Remettre ici
+       ".../styles/dark" pour revenir à une carte de nuit. */
+    sombre: "https://tiles.openfreemap.org/styles/liberty",
   };
 
   /* Ses frontières sont celles d'OpenStreetMap, pas celles du site : on les
@@ -390,7 +393,7 @@
       carte.addLayer({
         id: "pays-contour", type: "line", source: "frontieres",
         paint: {
-          "line-color": themeSombre() ? "#7f8a9b" : "#7d8699",
+          "line-color": "#7d8699",  /* la carte est toujours claire */
           "line-width": ["interpolate", ["linear"], ["zoom"], 1, 0.6, 6, 1.3, 12, 2],
           "line-opacity": ["interpolate", ["linear"], ["zoom"], 1, 0.9, 12, 0.75],
         },
@@ -472,10 +475,13 @@
         "circle-stroke-width": ["case",
           ["boolean", ["feature-state", "choisie"], false], 2.6,
           [">", ["coalesce", ["get", "kmc"], 0], 0], 1.8, 1],
+        /* Sur le fond OpenStreetMap, toujours clair : contour sombre pour la
+           ville choisie, blanc sinon. Sans fond, les couleurs du thème. */
         "circle-stroke-color": ["case",
-          ["boolean", ["feature-state", "choisie"], false], couleurCSS("--texte"),
+          ["boolean", ["feature-state", "choisie"], false],
+          fondActuel ? "#16191d" : couleurCSS("--texte"),
           [">", ["coalesce", ["get", "kmc"], 0], 0], COULEUR_CHANTIER,
-          couleurCSS("--panneau")],
+          fondActuel ? "#ffffff" : couleurCSS("--panneau")],
         "circle-stroke-opacity": ["interpolate", ["linear"], ["zoom"],
           ZOOM_LIGNES, 1, ZOOM_LIGNES + 3, 0.25],
       },

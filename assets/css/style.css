@@ -479,6 +479,12 @@ body.page-carte {
   min-height: 0;
   background: var(--fond-carte);
   overflow: hidden; /* la houle déborde volontairement : on la coupe ici */
+  /* Un « étage » à part pour la carte : les deux calques de la houle
+     (z-index -1 ci-dessous) passent ainsi SOUS la carte, mais au-dessus du
+     fond de .zone-carte. Sans cela, ::after était dessiné PAR-DESSUS la carte
+     et ses taches blanches la voilaient d'une brume en mode clair (remarqué
+     par Antonin le 23 novembre 2026). */
+  isolation: isolate;
 }
 
 /* --- La houle -------------------------------------------------------------
@@ -512,6 +518,7 @@ body.page-carte {
   inset: -35%;
   pointer-events: none; /* on doit pouvoir cliquer la carte à travers */
   will-change: transform;
+  z-index: -1;          /* sous la carte, jamais par-dessus */
 }
 
 .zone-carte::before {
