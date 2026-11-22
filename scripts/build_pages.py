@@ -742,7 +742,7 @@ MODELE_ENTETE = """  <header class="haut">
       <button class="bouton-icone" id="bouton-theme" type="button"
               aria-label="{theme_label}"
               data-vers-clair="{theme_clair}"
-              data-vers-sombre="{theme_sombre}">☾</button>
+              data-vers-sombre="{theme_sombre}"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M16.8 12.9A7.4 7.4 0 1 1 7.1 3.2a6 6 0 0 0 9.7 9.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button>
     </div>
   </header>
 """

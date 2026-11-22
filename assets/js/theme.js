@@ -46,6 +46,13 @@
   /* On applique immédiatement, avant que la page ne s'affiche. */
   if (lireChoix()) appliquer(lireChoix());
 
+  /* Les deux icônes, dessinées à la même taille (18 × 18) et du même trait
+     que la flèche retour. Avant, c'étaient les caractères ☾ et ☀ de la police :
+     la lune sortait bien plus grosse que le soleil (remarqué par Antonin le
+     23 novembre 2026). */
+  var LUNE = '<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M16.8 12.9A7.4 7.4 0 1 1 7.1 3.2a6 6 0 0 0 9.7 9.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+  var SOLEIL = '<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="10" cy="10" r="3.4"/><path d="M10 2.2v1.9M10 15.9v1.9M2.2 10h1.9M15.9 10h1.9M4.5 4.5l1.35 1.35M14.15 14.15l1.35 1.35M4.5 15.5l1.35-1.35M14.15 5.85l1.35-1.35"/></g></svg>';
+
   /* Une fois la page prête, on branche le bouton. */
   function brancherBouton() {
     var bouton = document.getElementById("bouton-theme");
@@ -57,7 +64,7 @@
        bouton. Si elles manquent, on retombe sur le français.              */
     function rafraichirBouton() {
       var sombre = themeActuel() === "dark";
-      bouton.textContent = sombre ? "☀︎" : "☾";
+      bouton.innerHTML = sombre ? SOLEIL : LUNE;
       var etiquette = sombre
         ? bouton.getAttribute("data-vers-clair") || "Passer en thème clair"
         : bouton.getAttribute("data-vers-sombre") || "Passer en thème sombre";
