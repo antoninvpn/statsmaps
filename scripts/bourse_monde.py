@@ -150,9 +150,12 @@ def garder(nom, valeur):
 PLACES = """
 US LN FP NA BB PL ID IM SM SS DC FH NO IR ET LR LH PW CP HB RO CR SV BU GA CY
 TI RM JP CH HK TT KS IN SP MK TB IJ PM VN PA SL BD AU NZ CN BZ CI AR CB SJ EY
-NL KN MC TU GN BG MS ZH IT AB UH DH QD KK BI OM JR
+NL KN MC TU GN BG MS ZH IT AB UH DH QD KK BI OM JR UK
 GR SW AV LX MM PE
 """.split()
+# « UK » n'est PAS le Royaume-Uni (c'est « LN », Londres) : c'est l'UKRAINE
+# (bourse de Kyiv, PFTS), ajoutée le 22 novembre 2026 : elle manquait, et
+# avec elle plus de deux cents entreprises ukrainiennes.
 
 
 # --- Étape 2 : toutes les actions, pays par pays ---------------------------
@@ -506,7 +509,7 @@ PAYS_DES_PLACES = {
     "BD": "BD", "AU": "AU", "NZ": "NZ", "CN": "CA", "BZ": "BR", "CI": "CL", "AR": "AR",
     "CB": "CO", "SJ": "ZA", "EY": "EG", "NL": "NG", "KN": "KE", "MC": "MA", "TU": "TN",
     "GN": "GH", "BG": "BW", "MS": "MU", "ZH": "ZW", "IT": "IL", "AB": "SA", "UH": "AE",
-    "DH": "AE", "QD": "QA", "KK": "KW", "BI": "BH", "OM": "OM", "JR": "JO",
+    "DH": "AE", "QD": "QA", "KK": "KW", "BI": "BH", "OM": "OM", "JR": "JO", "UK": "UA",
     "GR": "DE", "SW": "CH", "AV": "AT", "LX": "LU", "MM": "MX", "PE": "PE",
 }
 

@@ -37,6 +37,7 @@ suivantes il repart de là. Pour tout retélécharger : --neuf
 Pour ne pas toucher aux logos : --sans-logos
 """
 
+import hashlib
 import json
 import math
 import os
@@ -733,6 +734,78 @@ def leis_wikidata():
     return {val(l, "lei"): qid(val(l, "e")) for l in lignes if qid(val(l, "e"))}
 
 
+# --- Les corrections à la main --------------------------------------------
+#
+# scripts/sieges_corriges.json : une petite liste, tenue à la main, des
+# entreprises que Wikidata ou GLEIF placent mal (le siège LÉGAL dans un paradis
+# fiscal au lieu du vrai siège, ou pas de siège du tout). Elle a le dernier
+# mot sur tout le reste. Son mode d'emploi est écrit en tête du fichier.
+
+FICHIER_CORRECTIONS = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                   "sieges_corriges.json")
+
+
+def corrections_des_sieges():
+    """{identifiant de l'entreprise: où la mettre}, d'après le fichier."""
+    if not os.path.exists(FICHIER_CORRECTIONS):
+        return {}
+    with open(FICHIER_CORRECTIONS, encoding="utf-8") as f:
+        liste = json.load(f).get("corrections", [])
+    lieux = sorted({c["lieu"] for c in liste if c.get("lieu")})
+    centres, fr, en = {}, {}, {}
+    if lieux:
+        # Le nom du cache dépend de la liste des lieux : ajouter une ville au
+        # fichier fait reposer la question à Wikidata.
+        clef = hashlib.md5(" ".join(lieux).encode()).hexdigest()[:8]
+        valeurs = " ".join("wd:" + q for q in lieux)
+        for l in sparql("SELECT ?h ?c WHERE { VALUES ?h { %s } ?h wdt:P625 ?c }" % valeurs,
+                        "lieux_corriges_%s.json" % clef):
+            h, c = qid(val(l, "h")), point(val(l, "c"))
+            if h and c:
+                centres.setdefault(h, c)
+        fr, en = noms("""
+            SELECT ?e ?l (LANG(?l) AS ?lg) WHERE {
+              VALUES ?e { %s }
+              ?e rdfs:label ?l .
+              FILTER(LANG(?l) IN (%s))
+            }""" % (valeurs, LANGUES_SPARQL), "noms_lieux_corriges_%s.json" % clef)
+    resultat = {}
+    for c in liste:
+        ident, lieu = c.get("id"), c.get("lieu")
+        position = c.get("position")
+        exact = bool(position)
+        if not position:
+            position = centres.get(lieu)
+        if not ident or not position:
+            dit(f"  ATTENTION : correction ignorée (identifiant ou lieu introuvable) : {c}")
+            continue
+        resultat[ident] = {
+            "x": position[0], "y": position[1], "p": 1 if exact else 0,
+            "v": fr.get(lieu) or c.get("ville"), "ve": en.get(lieu),
+            "a": c.get("adresse"),
+        }
+    return resultat
+
+
+def appliquer_correction(ligne, corrections, pays):
+    """Si l'entreprise est dans le fichier des corrections, on la déplace."""
+    c = corrections.get(ligne["q"])
+    if not c:
+        return False
+    ligne["x"], ligne["y"], ligne["p"] = arrondi(c["x"]), arrondi(c["y"]), c["p"]
+    ligne["i"] = pays_du_point(ligne["x"], ligne["y"], pays)
+    ligne["v"] = c["v"]
+    if c["ve"] and c["ve"] != c["v"]:
+        ligne["ve"] = c["ve"]
+    else:
+        ligne.pop("ve", None)
+    if c["a"]:
+        ligne["a"] = c["a"]
+    else:
+        ligne.pop("a", None)   # l'ancienne adresse était celle du mauvais siège
+    return True
+
+
 def codes_pays():
     """« FR » -> « FRA » : GLEIF parle en codes à deux lettres, le fond de
     carte du site en codes à trois."""
@@ -1009,6 +1082,14 @@ def fusionner_avec_le_monde(lignes, bourses_wd, pays):
 
     # Les entreprises de Wikidata qu'OpenFIGI ne connaît pas : gardées si
     # Wikidata les dit cotées et sait les placer (comme avant).
+    # Celles dont Wikidata ne connaît que le pays, sans ville de siège, ne
+    # sont PAS ajoutées ici (essayé le 22 novembre 2026) : sur 2 850, la
+    # moitié étaient des doublons d'entreprises déjà trouvées par OpenFIGI
+    # sous un nom un peu différent (« Gamuda Berhad » / « Gamuda BHD »), et
+    # beaucoup des indices boursiers (« SBF 80 »). Pour une entreprise de ce
+    # genre qui manque vraiment (MHP), le fichier des corrections à la main.
+    # (Préférer le pays de Wikidata à celui de GLEIF a aussi été essayé : il
+    # déplaçait à tort Siemens Mexico en Allemagne, entre autres.)
     for l in lignes:
         if l["q"] not in reliees and l["x"] is not None and l["b"]:
             resultat.append(l)
@@ -1050,6 +1131,10 @@ def main():
     capi = dernier_chiffre("P2226", "capitalisation.json")
     monnaies = codes_des_monnaies(sorted({c[1] for c in list(ca.values()) + list(capi.values())
                                           if c[1]}))
+
+    dit("→ Les corrections à la main (scripts/sieges_corriges.json)")
+    corrections = corrections_des_sieges()
+    dit(f"  {len(corrections)} corrections")
 
     dit("→ Assemblage")
     pays = charger_pays()
@@ -1116,10 +1201,14 @@ def main():
                              ("cb", chiffre_ou_rien(capi, e, monnaies))):
             if valeur:
                 ligne[clef] = valeur
+        appliquer_correction(ligne, corrections, pays)
         entreprises.append(ligne)
 
     dit("→ OpenFIGI et GLEIF : la liste complète")
     entreprises = fusionner_avec_le_monde(entreprises, bourses_wd, pays)
+    # Les corrections à la main ont le dernier mot, y compris sur GLEIF.
+    corrigees = sum(appliquer_correction(x, corrections, pays) for x in entreprises)
+    dit(f"  {corrigees} entreprises déplacées par les corrections à la main")
 
     # Les plus connues d'abord : c'est l'ordre dans lequel la carte les pose,
     # et celui de la liste quand on cherche un nom.

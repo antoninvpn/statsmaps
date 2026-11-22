@@ -1,0 +1,32 @@
+{
+  "mode_d_emploi": [
+    "Les entreprises mal placées sur la carte des entreprises cotées, corrigées à la main.",
+    "Ce fichier a le dernier mot : le robot l'applique à chaque mise à jour, après Wikidata et GLEIF.",
+    "Pour en ajouter une, copier un bloc { ... } de la liste ci-dessous, et changer :",
+    "  id ....... l'identifiant de l'entreprise : sur la carte, ouvrir sa fiche, le lien Wikidata finit par Q123... ;",
+    "             (pour une entreprise sans fiche Wikidata, demander à Claude, l'identifiant commence par F)",
+    "  nom ...... son nom, pour s'y retrouver (le robot ne le lit pas) ;",
+    "  lieu ..... l'identifiant Wikidata de la VILLE du vrai siège (Kyiv = Q1899, Paris = Q90) ;",
+    "  ville .... le nom de la ville, pour s'y retrouver ;",
+    "  pourquoi . une phrase, pour se souvenir plus tard.",
+    "Facultatif : \"position\": [longitude, latitude] pour poser le point sur l'immeuble exact (il devient bleu),",
+    "et \"adresse\": \"rue...\" pour l'afficher dans la fiche.",
+    "Attention aux virgules : une virgule entre deux blocs, pas après le dernier."
+  ],
+  "corrections": [
+    {
+      "id": "Q12123536",
+      "nom": "MHP",
+      "lieu": "Q1899",
+      "ville": "Kyiv",
+      "pourquoi": "Coté à Londres, siège à Kyiv ; Wikidata ne note pas la ville du siège, et le siège légal est à Chypre."
+    },
+    {
+      "id": "Q56367534",
+      "nom": "Kernel",
+      "lieu": "Q1899",
+      "ville": "Kyiv",
+      "pourquoi": "Coté à Varsovie, direction à Kyiv ; Wikidata ne donne que le siège légal, au Luxembourg."
+    }
+  ]
+}
