@@ -529,7 +529,7 @@ sur « octobre 2026 » dès le 15 octobre. Il n'y a rien à modifier à la main.
 
 - **Données** : [FMI — World Economic Outlook](https://www.imf.org/external/datamapper/profile)
 - **Frontières** : [Natural Earth](https://www.naturalearthdata.com/), échelle 1:50 m (domaine public)
-- **Photo de la Terre** (fond de l'accueil et des rubriques, `assets/img/terre-jour.jpg`) : NASA, « Blue Marble » (domaine public), copies de Wikimedia Commons réduites à 2400 × 1200 (celle de jour rognée de 4 pixels à droite : bord clair)
+- **Photos de la Terre** (fond de l'accueil et des rubriques, `assets/img/terre-jour.jpg` et `terre-nuit.jpg`) : NASA, « Blue Marble » et « Black Marble 2016 » (domaine public), copies de Wikimedia Commons réduites à 2400 × 1200 (celle de jour rognée de 4 pixels à droite : bord clair)
 - **Drapeaux** (`assets/drapeaux/`, affichés par `assets/js/drapeaux.js`) : [flag-icons](https://github.com/lipis/flag-icons) 7.2.3, licence MIT (voir `assets/drapeaux/LICENCE.txt`)
 
   Natural Earth dessine le monde « tel qu'il est contrôlé sur le terrain ».
