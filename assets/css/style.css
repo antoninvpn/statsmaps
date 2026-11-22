@@ -16,7 +16,7 @@
 :root {
   --fond: #ffffff;
   --fond-doux: #f5f7fa;
-  --fond-carte: #e9edf1;          /* la mer */
+  --fond-carte: #d3eef2;          /* la mer : « aqua glacier », choisi par Antonin le 23/11/2026 */
   --panneau: #ffffff;
   --panneau-flou: rgba(255, 255, 255, 0.94);
   --texte: #16191d;
@@ -32,52 +32,13 @@
   --rayon: 12px;
   /* La houle : deux nuances à peine différentes de la mer, l'une un peu plus
      claire (la crête), l'autre un peu plus foncée (le creux). Voir § 5. */
-  --houle-crete: rgba(255, 255, 255, 0.75);
-  --houle-creux: rgba(120, 150, 182, 0.20);
+  --houle-crete: rgba(255, 255, 255, 0.55);
+  --houle-creux: rgba(70, 150, 170, 0.16);
 }
 
-/* Thème sombre : soit choisi par le bouton, soit réglé sur le téléphone. */
-[data-theme="dark"] {
-  --fond: #0e1116;
-  --fond-doux: #161b22;
-  --fond-carte: #0b0f14;
-  --panneau: #161b22;
-  --panneau-flou: rgba(22, 27, 34, 0.94);
-  --texte: #e6edf3;
-  --texte-doux: #9aa5b1;
-  --texte-tres-doux: #6e7681;
-  --bordure: #262c36;
-  --bordure-forte: #363d47;
-  --accent: #58a6ff;
-  --accent-doux: #12253f;
-  --pays-sans-donnee: #2b323b;
-  --contour-pays: #0e1116;
-  --ombre: 0 1px 3px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.4);
-  --houle-crete: rgba(88, 140, 196, 0.13);
-  --houle-creux: rgba(0, 0, 0, 0.30);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --fond: #0e1116;
-    --fond-doux: #161b22;
-    --fond-carte: #0b0f14;
-    --panneau: #161b22;
-    --panneau-flou: rgba(22, 27, 34, 0.94);
-    --texte: #e6edf3;
-    --texte-doux: #9aa5b1;
-    --texte-tres-doux: #6e7681;
-    --bordure: #262c36;
-    --bordure-forte: #363d47;
-    --accent: #58a6ff;
-    --accent-doux: #12253f;
-    --pays-sans-donnee: #2b323b;
-    --contour-pays: #0e1116;
-    --ombre: 0 1px 3px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.4);
-    --houle-crete: rgba(88, 140, 196, 0.13);
-    --houle-creux: rgba(0, 0, 0, 0.30);
-  }
-}
+/* Plus de thème sombre (décision d'Antonin du 23 novembre 2026) : le site
+   est toujours en clair, comme la plupart des sites de statistiques (Our
+   World in Data, le FMI, l'Unesco). Les couleurs ci-dessus sont les seules. */
 
 /* --- 2. Base ------------------------------------------------------------ */
 
@@ -395,8 +356,7 @@ h1, h2, h3 { line-height: 1.25; margin: 0 0 0.5em; letter-spacing: -0.015em; }
 
 /* La Terre vue de l'espace derrière l'accueil et les rubriques (demande
    d'Antonin du 21 novembre 2026). Deux photos de la NASA, du domaine public :
-   « Blue Marble » (la Terre de jour) en thème clair, « Black Marble 2016 »
-   (les lumières des villes, la nuit) en thème sombre. La photo est assombrie
+   « Blue Marble » (la Terre de jour). La photo est assombrie
    et les cases deviennent du verre dépoli, avec du texte blanc, pour rester
    lisibles quelle que soit la région qui passe derrière.
    La photo est posée sur un calque fixe (::before) plutôt qu'avec
@@ -417,16 +377,6 @@ body.page-terre {
   --voile: linear-gradient(rgba(4, 14, 28, 0.42), rgba(4, 14, 28, 0.62));
   /* Transparent : sinon le fond uni de la page recouvrirait la photo. */
   background: transparent;
-}
-[data-theme="dark"] body.page-terre {
-  --terre: url("../img/terre-nuit.jpg");
-  --voile: linear-gradient(rgba(0, 0, 0, 0.10), rgba(0, 0, 0, 0.40));
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) body.page-terre {
-    --terre: url("../img/terre-nuit.jpg");
-    --voile: linear-gradient(rgba(0, 0, 0, 0.10), rgba(0, 0, 0, 0.40));
-  }
 }
 body.page-terre::before {
   content: "";
@@ -1123,7 +1073,6 @@ body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
 .annees__valeur { font-size: 20px; font-weight: 400; font-variant-numeric: tabular-nums; }
 .annees__etiquette { font-size: 11.5px; color: var(--texte-tres-doux); }
 .annees__projection { color: #d97706; font-weight: 400; }
-[data-theme="dark"] .annees__projection { color: #f0b429; }
 
 .annees input[type="range"] {
   width: 100%;
@@ -1192,7 +1141,6 @@ body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
   box-shadow: var(--ombre) !important;
 }
 .maplibregl-ctrl-group button + button { border-top: 1px solid var(--bordure) !important; }
-[data-theme="dark"] .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(0.85); }
 
 /* Écran de chargement */
 .chargement {
@@ -1374,7 +1322,6 @@ body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
 /* Ce qui est en construction porte la couleur des chantiers, la même que sur
    la carte et dans la légende. */
 .fiche__chiffre.est-chantier b { color: #c96a22; }
-[data-theme="dark"] .fiche__chiffre.est-chantier b { color: #e8934a; }
 
 .fiche__phrase {
   margin: 0 0 3px;

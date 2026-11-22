@@ -242,8 +242,7 @@ LANGUES.append({
     "code": "fr", "dossier": "", "hreflang": "fr", "sens": "ltr",
     "drapeau": "🇫🇷", "nom": "Français", "nav_aria": "Cartes",
     # Les libellés que lisent les lecteurs d'écran, et les infobulles.
-    "langue_label": "Langue", "retour_label": "Retour", "theme_label": "Changer de thème",
-    "theme_clair": "Passer en thème clair", "theme_sombre": "Passer en thème sombre",
+    "langue_label": "Langue", "retour_label": "Retour",
     "variantes_label": "Unité",
     "modele_titre": "{nom}, par pays — carte mondiale interactive | StatsMaps",
     "modele_titre_categorie": "{nom} — toutes les cartes | StatsMaps",
@@ -371,8 +370,7 @@ LANGUES.append({
     "code": "en", "dossier": "en", "hreflang": "en", "sens": "ltr",
     "drapeau": "🇬🇧", "nom": "English", "nav_aria": "Maps",
     # Les libellés que lisent les lecteurs d'écran, et les infobulles.
-    "langue_label": "Language", "retour_label": "Back", "theme_label": "Switch theme",
-    "theme_clair": "Switch to light theme", "theme_sombre": "Switch to dark theme",
+    "langue_label": "Language", "retour_label": "Back",
     "variantes_label": "Unit",
     "modele_titre": "{nom} by country — interactive world map | StatsMaps",
     "modele_titre_categorie": "{nom} — all the maps | StatsMaps",
@@ -741,10 +739,6 @@ MODELE_ENTETE = """  <header class="haut">
 {menu}
         </ul>
       </details>
-      <button class="bouton-icone" id="bouton-theme" type="button"
-              aria-label="{theme_label}"
-              data-vers-clair="{theme_clair}"
-              data-vers-sombre="{theme_sombre}"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M16.8 12.9A7.4 7.4 0 1 1 7.1 3.2a6 6 0 0 0 9.7 9.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button>
     </div>
   </header>
 """
@@ -908,9 +902,6 @@ def entete(langue, page=ACCUEIL):
         code=langue["hreflang"],
         nom=echapper(langue["nom"]),
         menu="\n".join(menu),
-        theme_label=echapper(langue["theme_label"]),
-        theme_clair=echapper(langue["theme_clair"]),
-        theme_sombre=echapper(langue["theme_sombre"]),
     )
 
 
