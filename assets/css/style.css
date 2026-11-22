@@ -555,6 +555,13 @@ body.page-carte {
 body.page-carte--osm .zone-carte { background: rgb(158, 189, 255); }
 body.page-carte--osm .zone-carte::before,
 body.page-carte--osm .zone-carte::after { display: none; }
+/* La carte OpenStreetMap se dessine en plusieurs temps : d'abord un fond
+   beige et un relief gris, puis les mers et les pays. Ce premier jet passait
+   pour « une autre carte » une fraction de seconde. On la garde donc
+   invisible jusqu'à ce qu'elle soit entièrement dessinée (bourse.js et
+   metro.js ajoutent alors « est-prete »), puis elle apparaît en fondu. */
+body.page-carte--osm #carte { opacity: 0; transition: opacity 0.3s ease; }
+body.page-carte--osm #carte.est-prete { opacity: 1; }
 
 #carte { position: absolute; inset: 0; }
 

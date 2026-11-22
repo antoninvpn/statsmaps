@@ -348,6 +348,15 @@
     });
 
     carte.touchZoomRotate.disableRotation();
+    /* Montrer la carte seulement une fois entièrement dessinée (voir
+       « est-prete » dans style.css). Au plus tard après 4 secondes, au cas
+       où une tuile se ferait attendre. */
+    var montrer = function () {
+      document.getElementById("carte").classList.add("est-prete");
+    };
+    carte.once("idle", montrer);
+    setTimeout(montrer, 4000);
+
     carte.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
     carte.addControl(new maplibregl.AttributionControl({
       compact: true,
