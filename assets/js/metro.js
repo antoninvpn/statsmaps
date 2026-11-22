@@ -348,12 +348,12 @@
     });
 
     carte.touchZoomRotate.disableRotation();
-    /* Montrer la carte seulement une fois entièrement dessinée (voir
-       « est-prete » dans style.css). Au plus tard après 4 secondes, au cas
-       où une tuile se ferait attendre. */
-    var montrer = function () {
-      document.getElementById("carte").classList.add("est-prete");
-    };
+    /* Cacher la carte le temps qu'elle soit entièrement dessinée (voir
+       « en-attente » dans style.css), puis la montrer. Au plus tard après
+       4 secondes, au cas où une tuile se ferait attendre. */
+    var boite = document.getElementById("carte");
+    boite.classList.add("en-attente");
+    var montrer = function () { boite.classList.remove("en-attente"); };
     carte.once("idle", montrer);
     setTimeout(montrer, 4000);
 
