@@ -657,7 +657,7 @@ MODELE_METRO = """<!DOCTYPE html>
   <link rel="stylesheet" href="{base}assets/css/style.css">
   <script src="{base}assets/js/theme.js"></script>
 </head>
-<body class="page-carte" data-indicateur="{indicateur}" data-langue="{code}" data-base="{base}">
+<body class="page-carte page-carte--osm" data-indicateur="{indicateur}" data-langue="{code}" data-base="{base}">
 
 {entete}
   <div class="zone-carte">

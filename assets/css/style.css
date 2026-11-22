@@ -547,6 +547,15 @@ body.page-carte {
   to   { transform: translate3d(-2.5%, -2%, 0) scale(1); }
 }
 
+/* Les cartes sur fond OpenStreetMap (entreprises cotées, métros) : pas de
+   houle, et en attendant que le fond arrive, le bleu de la mer du fond
+   « Liberty » plutôt que la mer grise des autres cartes. Sinon, pendant une
+   fraction de seconde, on voyait l'ancienne carte avant la nouvelle
+   (remarqué par Antonin le 23 novembre 2026). */
+body.page-carte--osm .zone-carte { background: rgb(158, 189, 255); }
+body.page-carte--osm .zone-carte::before,
+body.page-carte--osm .zone-carte::after { display: none; }
+
 #carte { position: absolute; inset: 0; }
 
 /* Sur une carte, le haut flotte par-dessus : la carte occupe tout l'écran.
