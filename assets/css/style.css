@@ -790,15 +790,17 @@ body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
 }
 /* Le drapeau du pays : une petite image (voir assets/js/drapeaux.js), et
    non plus un émoji, que Windows ne savait pas dessiner (il écrivait « FR »).
-   Sa taille suit celle du texte autour : 20 × 15 dans le classement, comme
-   l'émoji d'avant. */
+   Toujours EXACTEMENT 20 × 15 pixels, les proportions du dessin (4:3).
+   Une taille calculée d'après le texte (1,43 em…) donnait 20,02 × 14,98 :
+   le navigateur rétrécissait alors le dessin d'un cheveu pour le faire
+   tenir, et le fond blanc du panneau apparaissait en fine bande sur le
+   bord gauche du drapeau français (remarqué par Antonin le 23 novembre). */
 .drapeau-img {
   display: inline-block;
-  width: 1.43em;
-  height: 1.07em;
-  vertical-align: -0.15em;
+  width: 20px;
+  height: 15px;
+  vertical-align: -3px;
   border-radius: 2px;
-  object-fit: cover;
   /* Un liseré très fin, sans lequel les drapeaux blancs (Japon, Chypre…)
      se perdraient sur le fond blanc du panneau. Il est tracé SUR le bord du
      drapeau (contour vers l'intérieur), en ombre transparente : sur un bord
