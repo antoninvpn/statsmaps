@@ -828,8 +828,28 @@ def centres_des_pays(pays):
                 cy += (y1 + y2) * f
             if abs(aire) > aire_max and aire:
                 aire_max, meilleur = abs(aire), (cx / (3 * aire), cy / (3 * aire))
-        if meilleur:
-            centres[p["iso"]] = meilleur
+                anneau_max = anneau
+        if not meilleur:
+            continue
+        # Le centre d'une forme tordue peut tomber HORS du pays : celui du
+        # Viêt Nam, pays en S, tombe au Laos ; celui de la Somalie, en
+        # Éthiopie. Les entreprises vietnamiennes sans adresse se comptaient
+        # alors au Laos (22 novembre 2026). On prend dans ce cas, sur une
+        # grille posée sur le pays, le point DU PAYS le plus proche du centre.
+        if pays_du_point(meilleur[0], meilleur[1], pays) != p["iso"]:
+            xs = [pt[0] for pt in anneau_max]
+            ys = [pt[1] for pt in anneau_max]
+            dedans = []
+            for i in range(41):
+                for j in range(41):
+                    x = min(xs) + (max(xs) - min(xs)) * i / 40
+                    y = min(ys) + (max(ys) - min(ys)) * j / 40
+                    if pays_du_point(x, y, pays) == p["iso"]:
+                        dedans.append((x, y))
+            if dedans:
+                meilleur = min(dedans, key=lambda q: (q[0] - meilleur[0]) ** 2
+                                                     + (q[1] - meilleur[1]) ** 2)
+        centres[p["iso"]] = meilleur
     return centres
 
 

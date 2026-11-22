@@ -1439,56 +1439,9 @@ body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
    LA CARTE DES ENTREPRISES COTÉES
 
    Elle réemploie le panneau, la fiche et la légende de la carte des métros.
-   Ne sont écrits ici que ses éléments propres : les cases à cocher des
-   filtres, les lignes d'entreprise avec leur pastille bleue ou jaune, et la
+   Ne sont écrits ici que ses éléments propres : les lignes d'entreprise avec leur pastille bleue ou jaune, et la
    fiche d'une entreprise avec son logo.
    ========================================================================== */
-
-/* L'en-tête d'un groupe de cases : « Secteurs   Tout · Rien ». */
-.classement .filtres__entete {
-  padding: 12px 15px 7px 11px;
-  background: var(--fond-doux);
-  font-size: 11.5px;
-  font-weight: 400;
-  color: var(--texte-doux);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  cursor: default;
-}
-.classement .filtres__entete:hover { background: var(--fond-doux); }
-.filtres__entete span { flex: 1; }
-.filtres__entete button,
-.filtres__plus button {
-  padding: 2px 8px;
-  border: 1px solid var(--bordure);
-  border-radius: 20px;
-  background: var(--panneau);
-  color: var(--texte-doux);
-  font: inherit;
-  font-size: 11px;
-  font-weight: 400;
-  text-transform: none;
-  letter-spacing: 0;
-  cursor: pointer;
-}
-.filtres__entete button:hover,
-.filtres__plus button:hover { color: var(--texte); border-color: var(--bordure-forte); }
-
-/* Une case à cocher : toute la ligne est cliquable, grâce au <label>. */
-.classement .filtre { padding-top: 5px; padding-bottom: 5px; }
-.filtre input {
-  flex: 0 0 auto;
-  width: 15px;
-  height: 15px;
-  margin: 0;
-  accent-color: var(--accent);
-  cursor: pointer;
-}
-.classement .filtre label.nom { cursor: pointer; }
-.classement .filtre .valeur { color: var(--texte-tres-doux); font-size: 11.5px; }
-
-.classement .filtres__plus { justify-content: center; cursor: default; }
-.classement .filtres__plus:hover { background: none; }
 
 /* La pastille bleue ou jaune, la même que sur la carte. */
 .entreprise__point {

@@ -1205,6 +1205,10 @@ def pays_du_point(lon, lat, pays):
     candidats = [p for p in pays
                  if p["cadre"][0] - 0.5 <= lon <= p["cadre"][2] + 0.5
                  and p["cadre"][1] - 0.5 <= lat <= p["cadre"][3] + 0.5]
+    # Les plus petits pays d'abord : un pays enclavé (Lesotho, Saint-Marin,
+    # Vatican) est dessiné DANS le contour de son voisin, qui n'a pas de trou
+    # à sa place ; testé en second, il n'était jamais trouvé.
+    candidats.sort(key=lambda p: (p["cadre"][2] - p["cadre"][0]) * (p["cadre"][3] - p["cadre"][1]))
     for p in candidats:
         if any(dans_l_anneau(lon, lat, a) for a in p["anneaux"]):
             return RATTACHES.get(p["iso"], p["iso"])

@@ -30,7 +30,7 @@
      2. Petits outils
      3. Fabrication de la carte
      4. Les logos, dessinés à la demande
-     5. Les filtres
+     5. Le classement des pays
      6. Le panneau de gauche
      7. La fiche d'une entreprise
      8. La légende
@@ -88,10 +88,6 @@
      territoires, qu'OpenStreetMap écrit comme des pays. */
   var TERRITOIRES_SANS_NOM = ["Western Sahara", "Somaliland", "Northern Cyprus",
     "Turkish Republic of Northern Cyprus", "Sahrawi Arab Democratic Republic"];
-
-  /* Combien de places boursières on montre avant le bouton « Voir les autres » :
-     il y en a deux cents, dont la moitié n'ont qu'une ou deux entreprises. */
-  var BOURSES_VISIBLES = 15;
 
   /* Combien de résultats au plus quand on cherche un nom. */
   var RESULTATS_MAX = 120;
@@ -185,11 +181,9 @@
   var donnees = null;        /* data/bourse/entreprises.json */
   var parQid = {};           /* "Q312" -> Apple */
   var paysParIso = {};       /* "FRA" -> {nom, drapeau} */
-  var secteursCoches = {};   /* "banque" -> true */
-  var boursesCochees = {};   /* 0 -> true (numéro dans donnees.bourses) */
-  var toutesLesBourses = false;  /* la liste des bourses est-elle dépliée ? */
+  var classementDesPays = []; /* [{iso, n}], du pays qui en a le plus au moins */
   var choisie = null;        /* la Q de l'entreprise dont la fiche est ouverte */
-  var vue = "filtres";       /* "filtres", "fiche" ou "ici" */
+  var vue = "classement";    /* "classement", "fiche" ou "ici" */
 
   function nomDuPays(iso) {
     var p = paysParIso[iso] || {};
@@ -400,13 +394,11 @@
     });
   }
 
-  /* Seules les entreprises qui passent les filtres vont sur la carte. On
-     refait la liste à chaque case cochée : dix mille points, le navigateur
-     s'en acquitte en quelques millisecondes. */
+  /* Toutes les entreprises vont sur la carte (il n'y a plus de filtres). */
   function entreprisesGeoJSON() {
     return {
       type: "FeatureCollection",
-      features: donnees.entreprises.filter(estVisible).map(function (e) {
+      features: donnees.entreprises.map(function (e) {
         return {
           type: "Feature",
           properties: { q: e.q, p: e.p, r: e.r },
@@ -414,12 +406,6 @@
         };
       }),
     };
-  }
-
-  function redessinerLesPoints() {
-    if (carte && carte.getSource("entreprises")) {
-      carte.getSource("entreprises").setData(entreprisesGeoJSON());
-    }
   }
 
   /* --- 4. Les logos, dessinés à la demande --------------------------------- */
@@ -504,7 +490,7 @@
         if (!vues[q]) { vues[q] = true; qids.push(q); }
       });
       if (!qids.length) {
-        if (vue !== "filtres") fermer();
+        if (vue !== "classement") fermer();
         return;
       }
       /* De près, un logo cliqué l'emporte sur ses voisines… sauf si d'autres
@@ -536,15 +522,31 @@
     });
   }
 
-  /* --- 5. Les filtres ------------------------------------------------------ */
+  /* --- 5. Le classement des pays ----------------------------------------- */
 
-  function estVisible(e) {
-    return e.s.some(function (s) { return secteursCoches[s]; }) &&
-           e.b.some(function (b) { return boursesCochees[b]; });
+  /* Le nombre d'entreprises cotées par pays, celui de leur siège (demande
+     d'Antonin du 22 novembre 2026 : il remplace les cases à cocher des
+     secteurs et des places boursières). Calculé une fois, au chargement. */
+  function compterParPays() {
+    var compte = {};
+    donnees.entreprises.forEach(function (e) {
+      if (e.i) compte[e.i] = (compte[e.i] || 0) + 1;
+    });
+    classementDesPays = Object.keys(compte).map(function (iso) {
+      return { iso: iso, n: compte[iso] };
+    }).sort(function (a, b) {
+      return b.n - a.n || nomDuPays(a.iso).localeCompare(nomDuPays(b.iso), langue);
+    });
   }
 
-  function toutCocher(liste, valeur) {
-    Object.keys(liste).forEach(function (k) { liste[k] = valeur; });
+  /* Un clic sur un pays : la carte vole jusqu'à lui (son cadre est écrit
+     dans data/pays.json, comme pour la carte des métros). */
+  function volerVersPays(iso) {
+    var cadre = (paysParIso[iso] || {}).c;
+    if (!cadre || !carte) return;
+    carte.fitBounds([[cadre[0], cadre[1]], [cadre[2], cadre[3]]],
+                    { padding: margesDuCadrage(), maxZoom: 8 });
+    fermerTiroirSurTelephone();
   }
 
   /* --- 6. Le panneau de gauche --------------------------------------------- */
@@ -560,15 +562,12 @@
   };
 
   function compteur() {
-    var affichees = donnees.entreprises.filter(estVisible).length;
-    var total = donnees.entreprises.length;
-    var texte = formater(total) + " " + t("bourse_entreprises");
-    if (affichees !== total) texte += " · " + formater(affichees) + " " + t("bourse_affichees");
-    return texte;
+    return formater(donnees.entreprises.length) + " " + t("bourse_entreprises") +
+      " · " + formater(classementDesPays.length) + " " + t("bourse_pays");
   }
 
   function dessinerPanneau() {
-    if (vue !== "filtres") return;
+    if (vue !== "classement") return;
     panneau.titre.textContent = t("bourse_titre");
     panneau.soustitre.textContent = compteur();
     panneau.retour.hidden = true;
@@ -578,7 +577,7 @@
     if (recherche) {
       dessinerResultats(recherche);
     } else {
-      dessinerFiltres();
+      dessinerClassement();
     }
   }
 
@@ -605,77 +604,41 @@
         (e.na && sansAccents(e.na).indexOf(recherche) >= 0) ||
         (e.t || []).some(function (s) { return sansAccents(s) === recherche; });
     }).slice(0, RESULTATS_MAX);
-    if (!trouvees.length) {
+    /* La recherche trouve aussi les pays (« Ukraine »), en tête de liste. */
+    var pays = [];
+    classementDesPays.forEach(function (p, i) {
+      if (sansAccents(nomDuPays(p.iso)).indexOf(recherche) >= 0) pays.push([p, i + 1]);
+    });
+    if (!trouvees.length && !pays.length) {
       panneau.liste.innerHTML = '<li class="vide">' + echapper(t("bourse_rien_trouve")) + "</li>";
       return;
     }
     panneau.liste.innerHTML = trouvees.map(ligneEntreprise).join("");
+    pays.reverse().forEach(function (x) {
+      panneau.liste.insertBefore(lignePays(x[0], x[1]), panneau.liste.firstChild);
+    });
     brancherLignesEntreprises();
   }
 
-  /* Les cases à cocher : les secteurs, puis les places boursières. */
-  function dessinerFiltres() {
-    var h = [];
-
-    h.push(enteteDeGroupe("bourse_secteurs", "secteurs"));
-    donnees.secteurs.forEach(function (s) {
-      h.push(caseACocher("secteur", s.id, nomDuSecteur(s.id), s.c, secteursCoches[s.id]));
+  /* Le classement : un pays par ligne, avec son drapeau et son nombre
+     d'entreprises, comme le classement des autres cartes. */
+  function dessinerClassement() {
+    panneau.liste.innerHTML = "";
+    classementDesPays.forEach(function (p, i) {
+      panneau.liste.appendChild(lignePays(p, i + 1));
     });
-
-    h.push(enteteDeGroupe("bourse_bourses", "bourses"));
-    var bourses = donnees.bourses;
-    var montrees = toutesLesBourses ? bourses : bourses.slice(0, BOURSES_VISIBLES);
-    montrees.forEach(function (b, n) {
-      h.push(caseACocher("bourse", n, b.n, b.c, boursesCochees[n]));
-    });
-    if (bourses.length > BOURSES_VISIBLES) {
-      h.push('<li class="filtres__plus"><button type="button" id="plus-de-bourses">' +
-        echapper(toutesLesBourses ? t("bourse_voir_moins")
-          : t("bourse_voir_plus").replace("{n}", formater(bourses.length - BOURSES_VISIBLES))) +
-        "</button></li>");
-    }
-
-    panneau.liste.innerHTML = h.join("");
-
-    Array.prototype.forEach.call(panneau.liste.querySelectorAll("input[data-genre]"), function (c) {
-      c.addEventListener("change", function () {
-        var liste = c.getAttribute("data-genre") === "secteur" ? secteursCoches : boursesCochees;
-        liste[c.getAttribute("data-id")] = c.checked;
-        redessinerLesPoints();
-        panneau.soustitre.textContent = compteur();
-      });
-    });
-    Array.prototype.forEach.call(panneau.liste.querySelectorAll("[data-tout]"), function (b) {
-      b.addEventListener("click", function () {
-        var liste = b.getAttribute("data-groupe") === "secteurs" ? secteursCoches : boursesCochees;
-        toutCocher(liste, b.getAttribute("data-tout") === "1");
-        redessinerLesPoints();
-        dessinerPanneau();
-      });
-    });
-    var plus = document.getElementById("plus-de-bourses");
-    if (plus) {
-      plus.addEventListener("click", function () {
-        toutesLesBourses = !toutesLesBourses;
-        dessinerPanneau();
-      });
-    }
   }
 
-  function enteteDeGroupe(clef, groupe) {
-    return '<li class="filtres__entete"><span>' + echapper(t(clef)) + "</span>" +
-      '<button type="button" data-groupe="' + groupe + '" data-tout="1">' +
-        echapper(t("bourse_tout")) + "</button>" +
-      '<button type="button" data-groupe="' + groupe + '" data-tout="0">' +
-        echapper(t("bourse_rien")) + "</button></li>";
-  }
-
-  function caseACocher(genre, id, nom, nombre, coche) {
-    var identifiant = "f-" + genre + "-" + id;
-    return '<li class="filtre"><input type="checkbox" id="' + identifiant + '"' +
-      ' data-genre="' + genre + '" data-id="' + echapper(id) + '"' + (coche ? " checked" : "") + ">" +
-      '<label class="nom" for="' + identifiant + '">' + echapper(nom) + "</label>" +
-      '<span class="valeur">' + formater(nombre) + "</span></li>";
+  function lignePays(p, rang) {
+    var li = document.createElement("li");
+    li.className = "classement__pays";
+    li.innerHTML =
+      '<span class="rang">' + formater(rang) + "</span>" +
+      '<span class="drapeau" aria-hidden="true">' + drapeauDuPays(p.iso) + "</span>" +
+      '<span class="nom">' + echapper(nomDuPays(p.iso)) + "</span>" +
+      '<span class="valeur">' + formater(p.n) + "</span>";
+    li.addEventListener("click", function () { volerVersPays(p.iso); });
+    return li;
   }
 
   /* Plusieurs entreprises au même endroit : c'est le cas de toutes celles
@@ -696,7 +659,7 @@
   }
 
   function fermer() {
-    vue = "filtres";
+    vue = "classement";
     marquerChoisie(null);
     dessinerPanneau();
   }
@@ -841,6 +804,13 @@
     if (!tiroir.boite.classList.contains("est-ouvert")) tiroir.bouton.click();
   }
 
+  /* À l'inverse, un pays choisi dans le classement, sur téléphone : on
+     referme le tiroir pour qu'on voie la carte voler jusqu'à lui. */
+  function fermerTiroirSurTelephone() {
+    if (!tiroir.boite || window.innerWidth > 860) return;
+    if (tiroir.boite.classList.contains("est-ouvert")) tiroir.bouton.click();
+  }
+
   /* --- 8. La légende ------------------------------------------------------- */
 
   function dessinerLegende() {
@@ -884,9 +854,8 @@
           donnees.entreprises.forEach(function (e) { if (e.ne) e.na = e.ne; });
         }
         donnees.entreprises.forEach(function (e) { parQid[e.q] = e; });
-        donnees.secteurs.forEach(function (s) { secteursCoches[s.id] = true; });
-        donnees.bourses.forEach(function (b, n) { boursesCochees[n] = true; });
         r[1].features.forEach(function (f) { paysParIso[f.properties.iso] = f.properties; });
+        compterParPays();
 
         panneau.recherche.placeholder = t("bourse_recherche");
         panneau.retour.textContent = t("bourse_retour");
@@ -907,7 +876,7 @@
 
   /* Le thème clair/sombre repeint la carte sans la reconstruire. */
   /* Le thème clair/sombre change de fond de carte : « Liberty » ou « Dark ».
-     On refabrique le style entier ; les entreprises, les filtres et la fiche
+     On refabrique le style entier ; les entreprises et la fiche
      ouverte sont gardés, et les logos se redessinent d'eux-mêmes. */
   window.addEventListener("statsmaps:theme", function () {
     if (!carte || !geoPaysGarde) return;
