@@ -1147,10 +1147,28 @@ def fusionner_avec_le_monde(lignes, bourses_wd, pays):
     # genre qui manque vraiment (MHP), le fichier des corrections à la main.
     # (Préférer le pays de Wikidata à celui de GLEIF a aussi été essayé : il
     # déplaçait à tort Siemens Mexico en Allemagne, entre autres.)
-    for l in lignes:
+    #
+    # Et parmi celles qu'on garde, on écarte les DOUBLONS (22 novembre 2026,
+    # remarqué par Antonin avec Carrefour) : Wikidata a souvent deux fiches
+    # pour une même cotation — la marque et le groupe (« Carrefour » et
+    # « Groupe Carrefour »), l'ancien nom et le nouveau (« Hewlett-Packard »
+    # et « HP Inc. », « Avago » et « Broadcom »). Toutes deux disent « cotée à
+    # Paris sous le symbole CA ». Une fiche que seul Wikidata connaît, dont le
+    # symbole est DÉJÀ pris sur la même bourse par une entreprise retrouvée
+    # dans la liste d'OpenFIGI, est donc un doublon. Entre deux fiches
+    # Wikidata seules, la plus connue (r) garde la place.
+    pris = {(b, t.upper()) for x in resultat for b in x["b"] for t in (x.get("t") or [])}
+    ecartees = 0
+    for l in sorted(lignes, key=lambda l: -l["r"]):
         if l["q"] not in reliees and l["x"] is not None and l["b"]:
+            siens = {(b, t.upper()) for b in l["b"] for t in (l.get("t") or [])}
+            if siens & pris:
+                ecartees += 1
+                continue
+            pris |= siens
             resultat.append(l)
             bilan["bleu" if l["p"] == 1 else "jaune"] += 1
+    dit(f"  {ecartees} doublons Wikidata écartés (même symbole, même bourse)")
     monde.enregistrer_memoire()
     dit(f"  {len(resultat)} entreprises : {bilan['bleu']} bleues, {bilan['jaune']} jaunes, "
         f"{bilan['gris']} grises")
