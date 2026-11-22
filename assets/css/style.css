@@ -799,9 +799,14 @@ body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
   vertical-align: -0.15em;
   border-radius: 2px;
   object-fit: cover;
-  /* Un liseré très fin : sans lui, les drapeaux blancs (Japon, Chypre…)
-     se perdraient sur le fond blanc du panneau. */
-  box-shadow: 0 0 0 0.5px rgba(16, 24, 40, 0.22);
+  /* Un liseré très fin, sans lequel les drapeaux blancs (Japon, Chypre…)
+     se perdraient sur le fond blanc du panneau. Il est tracé SUR le bord du
+     drapeau (contour vers l'intérieur), en ombre transparente : sur un bord
+     foncé il s'y fond. Tracé autour, en gris clair, il faisait un petit bord
+     blanc à côté du bleu du drapeau français (remarqué par Antonin le
+     23 novembre 2026). */
+  outline: 1px solid rgba(16, 24, 40, 0.16);
+  outline-offset: -1px;
 }
 .drapeau-img + .drapeau-img { margin-left: 4px; }
 .classement .drapeau {
