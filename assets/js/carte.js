@@ -837,7 +837,7 @@
     var emoji = drapeauxParIso[iso] || "";
     var contenu =
       '<div class="popup__nom">' +
-      (emoji ? '<span class="drapeau" aria-hidden="true">' + echapper(emoji) + "</span>" : "") +
+      (emoji ? '<span class="drapeau" aria-hidden="true">' + window.StatsMapsDrapeau(emoji) + "</span>" : "") +
       echapper(nom) +
       "</div>";
 
@@ -878,7 +878,7 @@
           contenu +=
             '<div class="popup__ecart">' +
             '<span class="drapeau" aria-hidden="true">' +
-            echapper(drapeauxParIso[isoReference] || "") + "</span>" +
+            window.StatsMapsDrapeau(drapeauxParIso[isoReference]) + "</span>" +
             echapper(nomReference + t("deux_points")) +
             "<b>" + echapper(ecartLisible(ecart)) + "</b>" +
             "</div>";
@@ -1196,7 +1196,7 @@
         ' style="--couleur-pays:' + couleur + '">' +
         '<span class="rang">' + (element.rang || "") + "</span>" +
         '<span class="drapeau" aria-hidden="true">' +
-        echapper(drapeauxParIso[element.iso] || "") + "</span>" +
+        window.StatsMapsDrapeau(drapeauxParIso[element.iso]) + "</span>" +
         '<span class="nom">' + echapper(element.nom) + "</span>" +
         '<span class="valeur">' + echapper(affichage) + "</span>" +
         "</li>"
@@ -1500,7 +1500,7 @@
     boite.hidden = false;
     boite.innerHTML =
       '<span class="drapeau" aria-hidden="true">' +
-      echapper(drapeauxParIso[isoReference] || "") + "</span>" +
+      window.StatsMapsDrapeau(drapeauxParIso[isoReference]) + "</span>" +
       '<span class="panneau__reference-nom">' +
       echapper(nomsParIso[isoReference] || isoReference) + "</span>" +
       '<span class="panneau__reference-mot">' + echapper(t("reference_pays")) + "</span>" +
@@ -1684,7 +1684,7 @@
     var entete =
       '<div class="fiche__nom">' +
       '<span class="drapeau" aria-hidden="true">' +
-      echapper(drapeauxParIso[isoChoisi] || "") + "</span>" +
+      window.StatsMapsDrapeau(drapeauxParIso[isoChoisi]) + "</span>" +
       echapper(nomsParIso[isoChoisi] || isoChoisi) + "</div>";
 
     if (typeof anneePic !== "number" || typeof valeurPic !== "number") {

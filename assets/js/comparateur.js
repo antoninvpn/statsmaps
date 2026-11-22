@@ -283,7 +283,7 @@
       (iso ? "" : " est-vide") +
       '" data-fente="' + lettre + '">' +
       (iso
-        ? '<span class="drapeau" aria-hidden="true">' + e(reglages.pays.drapeaux[iso] || "") + "</span>" +
+        ? '<span class="drapeau" aria-hidden="true">' + window.StatsMapsDrapeau(reglages.pays.drapeaux[iso]) + "</span>" +
           '<span class="cmp__nom">' + e(reglages.pays.noms[iso] || iso) + "</span>" +
           (estLaBase ? '<span class="cmp__base">' + e(t("reference_court")) + "</span>" : "") +
           '<span class="cmp__valeur nombre">' + e(valeur === null ? "—" : valeur) + "</span>"
@@ -369,8 +369,8 @@
         var choisi = (fenteActive === "a" ? paysA : paysB) === iso;
         return (
           '<option value="' + e(iso) + '"' + (choisi ? " selected" : "") + ">" +
-          e((reglages.pays.drapeaux[iso] ? reglages.pays.drapeaux[iso] + " " : "") +
-            (reglages.pays.noms[iso] || iso)) +
+          /* Une liste déroulante ne sait pas afficher d'image : le nom seul. */
+          e(reglages.pays.noms[iso] || iso) +
           "</option>"
         );
       })

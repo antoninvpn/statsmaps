@@ -618,6 +618,7 @@ MODELE_CARTE = """<!DOCTYPE html>
     <div class="chargement" id="chargement">…</div>
   </div>
 
+  <script src="{base}assets/js/drapeaux.js"></script>
   <script src="{base}assets/js/i18n.js"></script>
   <script src="{base}assets/js/barre.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/{maplibre}/maplibre-gl.js"></script>
@@ -682,6 +683,7 @@ MODELE_METRO = """<!DOCTYPE html>
     <div class="chargement" id="chargement">…</div>
   </div>
 
+  <script src="{base}assets/js/drapeaux.js"></script>
   <script src="{base}assets/js/i18n.js"></script>
   <script src="{base}assets/js/barre.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/{maplibre}/maplibre-gl.js"></script>

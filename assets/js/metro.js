@@ -731,8 +731,9 @@
     return (paysParIso[iso] || {})[langue] || (paysParIso[iso] || {}).en || iso;
   }
 
+  /* Le drapeau dessiné (voir assets/js/drapeaux.js), et non plus l'émoji. */
   function drapeauDuPays(iso) {
-    return (paysParIso[iso] || {}).d || "";
+    return window.StatsMapsDrapeau((paysParIso[iso] || {}).d);
   }
 
   function valeurDuCritere(objet) {

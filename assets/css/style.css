@@ -788,9 +788,22 @@ body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
   font-weight: 400;
   font-variant-numeric: tabular-nums;
 }
-/* Le drapeau du pays. Attention : Windows ne sait pas dessiner les drapeaux
-   emoji et affiche à la place les deux lettres du pays (« FR »). C'est moins
-   joli mais reste lisible, et il n'y a pas d'autre solution sans images. */
+/* Le drapeau du pays : une petite image (voir assets/js/drapeaux.js), et
+   non plus un émoji, que Windows ne savait pas dessiner (il écrivait « FR »).
+   Sa taille suit celle du texte autour : 20 × 15 dans le classement, comme
+   l'émoji d'avant. */
+.drapeau-img {
+  display: inline-block;
+  width: 1.43em;
+  height: 1.07em;
+  vertical-align: -0.15em;
+  border-radius: 2px;
+  object-fit: cover;
+  /* Un liseré très fin : sans lui, les drapeaux blancs (Japon, Chypre…)
+     se perdraient sur le fond blanc du panneau. */
+  box-shadow: 0 0 0 0.5px rgba(16, 24, 40, 0.22);
+}
+.drapeau-img + .drapeau-img { margin-left: 4px; }
 .classement .drapeau {
   flex: 0 0 20px;
   font-size: 14px;
