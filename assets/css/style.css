@@ -1536,6 +1536,9 @@ body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
   white-space: nowrap;
 }
 
+/* Les lignes d'une station, dans sa bulle. */
+.station__lignes { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+
 /* Le bouton qui ramène de la fiche d'une ville au classement des pays. */
 .panneau__retour {
   align-self: flex-start;
@@ -1685,3 +1688,31 @@ body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
   font-size: 12.5px;
   font-weight: 400;
 }
+
+/* ==========================================================================
+   LA CARTE DES DIRIGEANTS
+   ========================================================================== */
+
+/* Deux lignes par dirigeant : son nom et son pays, la date et la durée. */
+.classement .dirigeant .nom, .classement .dirigeant .valeur { line-height: 1.3; }
+.classement .dirigeant .nom b, .classement .dirigeant .valeur { font-weight: 400; }
+.classement .dirigeant .nom b, .classement .dirigeant i {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.classement .dirigeant i { font-style: normal; font-size: 11px; color: var(--texte-tres-doux); }
+.classement .dirigeant .valeur { text-align: end; font-size: 11.5px; }
+.dirigeant__bulle { display: flex; gap: 12px; align-items: flex-start; }
+.dirigeant__bulle > img {
+  width: 84px; height: 104px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex: 0 0 auto;
+}
+.dirigeant__titre { font-size: 12.5px; color: var(--texte-doux); line-height: 1.35; }
+.dirigeant__pays { margin-top: 5px; font-size: 12.5px; }
+.dirigeant__bulle .popup__detail { line-height: 1.4; }
+.dirigeant__credit { margin-top: 9px; font-size: 10px; line-height: 1.35; color: var(--texte-tres-doux); }
+.dirigeant__credit a { color: inherit; text-decoration: underline; }

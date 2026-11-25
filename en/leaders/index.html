@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>World leaders — who leads each country, and since when | StatsMaps</title>
+  <meta name="description" content="The map of world leaders: the face, the office and the date of accession of the person who actually leads each country, from the longest-serving to the most recent.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://statsmaps.com/en/leaders/">
+  <link rel="alternate" hreflang="fr" href="https://statsmaps.com/dirigeants/">
+  <link rel="alternate" hreflang="en" href="https://statsmaps.com/en/leaders/">
+  <link rel="alternate" hreflang="x-default" href="https://statsmaps.com/dirigeants/">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="World leaders — who leads each country, and since when">
+  <meta property="og:description" content="The map of world leaders: the face, the office and the date of accession of the person who actually leads each country, from the longest-serving to the most recent.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://statsmaps.com/en/leaders/">
+  <link rel="preload" href="../../data/dirigeants.json" as="fetch" crossorigin>
+  <link rel="preload" href="../../data/pays.json" as="fetch" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.1/maplibre-gl.css">
+  <link rel="stylesheet" href="../../assets/css/style.css?v=a4312f7c">
+  <script src="../../assets/js/theme.js?v=0fdcf4b5"></script>
+</head>
+<body class="page-carte" data-indicateur="dirigeants" data-langue="en" data-base="../../">
+
+  <header class="haut">
+    <a class="bouton-icone haut__retour" href="../politics/" aria-label="Back" title="Back">
+      <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <div class="haut__droite">
+      <details class="langues haut__langues">
+        <summary aria-label="Language"><span lang="en">English</span><svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <ul class="langues__liste">
+          <li><a href="/dirigeants/" hreflang="fr" lang="fr">Français</a></li>
+          <li><a href="/en/leaders/" hreflang="en" lang="en" aria-current="true">English</a></li>
+        </ul>
+      </details>
+      <button class="bouton-icone" id="bouton-theme" type="button"
+              aria-label="Switch theme"
+              data-vers-clair="Switch to light theme"
+              data-vers-sombre="Switch to dark theme"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M16.8 12.9A7.4 7.4 0 1 1 7.1 3.2a6 6 0 0 0 9.7 9.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button>
+    </div>
+  </header>
+
+  <div class="zone-carte">
+    <div id="carte"></div>
+
+    <button class="bouton-icone bouton-panneau" id="bouton-panneau" type="button" aria-expanded="false" aria-controls="panneau"></button>
+
+    <aside class="panneau" id="panneau">
+      <div class="panneau__entete">
+        <h1 class="panneau__titre" id="titre-panneau">World leaders</h1>
+        <div class="panneau__soustitre" id="compteur-pays"></div>
+        <div class="onglets onglets--criteres" id="criteres" role="group"></div>
+        <button class="panneau__retour" id="retour" type="button" hidden></button>
+        <input class="panneau__recherche" id="recherche" type="search" autocomplete="off" spellcheck="false">
+      </div>
+      <ul class="classement" id="classement"></ul>
+      <div class="panneau__pied" id="source"></div>
+    </aside>
+
+    <div class="legende" id="legende"></div>
+
+    <div class="chargement" id="chargement">…</div>
+  </div>
+
+  <script src="../../assets/js/drapeaux.js?v=60bb5ee0"></script>
+  <script src="../../assets/js/i18n.js?v=af09fec8"></script>
+  <script src="../../assets/js/barre.js?v=31e8f19f"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.1/maplibre-gl.js"></script>
+  <script src="../../assets/js/dirigeants.js?v=a84f5a14"></script>
+</body>
+</html>

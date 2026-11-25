@@ -28,7 +28,12 @@ window.StatsMapsSatellite = (function () {
     "Western Sahara", "Sahara occidental", "Somaliland", "Northern Cyprus",
     "Chypre du Nord", "Turkish Republic of Northern Cyprus"];
 
-  function preparer(style) {
+  /* Les traits des routes, des voies ferrées et des bateaux. La carte des
+     métros les retire (leurs noms restent) : orange et rouges, on les prendrait
+     pour des lignes de métro. */
+  var TRAITS_RETIRABLES = /^(Road|Railroad|Ferry)/;
+
+  function preparer(style, sansRoutes) {
     Object.keys(style.sources).forEach(function (nom) {
       var source = style.sources[nom];
       /* « url » désigne une fiche descriptive que MapLibre ne sait pas lire ;
@@ -37,7 +42,13 @@ window.StatsMapsSatellite = (function () {
       delete source.copyrightText;
     });
     style.layers = style.layers.filter(function (couche) {
-      return COUCHES_RETIREES.indexOf(couche["source-layer"]) < 0;
+      var origine = couche["source-layer"] || "";
+      /* Les noms de gares d'Esri feraient double emploi avec les stations. */
+      if (sansRoutes && couche.id === "Point of interest/Rail station") return false;
+      if (sansRoutes && couche.type === "line" && TRAITS_RETIRABLES.test(origine)) {
+        return false;
+      }
+      return COUCHES_RETIREES.indexOf(origine) < 0;
     }).map(function (couche) {
       if (/^Admin[01] /.test(couche["source-layer"] || "")) {
         var filtre = ["all"];
@@ -53,7 +64,7 @@ window.StatsMapsSatellite = (function () {
     return style;
   }
 
-  function telecharger(langue) {
+  function telecharger(langue, sansRoutes) {
     var cle = window.StatsMapsCleEsri || "";
     if (cle.length < 40) return Promise.reject(new Error("pas de clé Esri"));
     return fetch(SERVICE + "?language=" + encodeURIComponent(langue) +
@@ -63,7 +74,7 @@ window.StatsMapsSatellite = (function () {
         if (!r.ok) throw new Error("Esri : " + r.status);
         return r.json();
       })
-      .then(preparer);
+      .then(function (style) { return preparer(style, sansRoutes); });
   }
 
   /* « Powered by Esri », toujours visible, comme Esri le demande. Les sources

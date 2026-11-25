@@ -183,6 +183,42 @@ def lire_moisson():
     return list(relations.values()), list(voies.values())
 
 
+ARRETS_PAR_REQUETE = 3000
+
+
+def moissonner_arrets(relations):
+    """Le nom de chaque arrêt. Les relations disent OÙ sont les arrêts, jamais
+    comment ils s'appellent : il faut le redemander, point par point. Chaque
+    paquet est gardé dès qu'il arrive, pour reprendre là où l'on s'est arrêté
+    si un serveur tombe."""
+    ids = sorted({m["ref"] for r in relations for m in r.get("members", [])
+                  if m.get("type") == "node" and "stop" in (m.get("role") or "")})
+    connus = {int(k): v for k, v in (cache_lire("osm-arrets.json") or {}).items()}
+    manquants = [i for i in ids if i not in connus]
+    for debut in range(0, len(manquants), ARRETS_PAR_REQUETE):
+        paquet = manquants[debut:debut + ARRETS_PAR_REQUETE]
+        req = "[out:json][timeout:180];node(id:%s);out tags;" % ",".join(map(str, paquet))
+        for essai in range(14):
+            try:
+                d = json.loads(telecharger(OVERPASS[(essai + 1) % 2],
+                               "data=" + urllib.parse.quote(req), essais=1))
+                break
+            except Exception as ex:
+                dit(f"    … {type(ex).__name__}, nouvel essai")
+                time.sleep(min(60, 8 * (essai + 1)))
+        else:
+            raise RuntimeError("Overpass ne répond pas : relancer plus tard")
+        noms = {e["id"]: e.get("tags", {}) for e in d.get("elements", [])}
+        for i in paquet:
+            connus[i] = {k: v for k, v in noms.get(i, {}).items()
+                         if k in ("name", "name:fr", "name:en", "int_name",
+                                  "name:latin", "official_name")}
+        cache_ecrire("osm-arrets.json", connus)
+        dit(f"    {min(debut + ARRETS_PAR_REQUETE, len(manquants))} / {len(manquants)} arrêts")
+        time.sleep(4)
+    return connus
+
+
 
 # --- Étape 2 : de la géométrie -------------------------------------------
 
@@ -225,11 +261,11 @@ def distance_km(a, b):
 def longueur_km(points):
     return sum(distance_km(points[i], points[i + 1]) for i in range(len(points) - 1))
 
-def alleger(points, tolerance_m=12.0):
+def alleger(points, tolerance_m=5.0):
     """Retire les points inutiles d'un tracé (algorithme de Douglas-Peucker).
 
     Un tunnel de métro est dessiné dans OpenStreetMap avec un point tous les
-    quelques mètres. À l'écran, un point tous les douze mètres suffit : le
+    quelques mètres. À l'écran, un écart de cinq mètres suffit : le
     tracé est identique à l'œil, et le fichier trois à cinq fois plus léger.
     """
     if len(points) < 3:
@@ -332,6 +368,8 @@ def couleur_propre(valeur):
         "silver": "#B9BBB6", "gold": "#C5A253", "navy": "#003057",
         "teal": "#00857D", "olive": "#7A7C3C", "maroon": "#7C2529",
         "violet": "#8A2BE2", "turquoise": "#40E0D0", "beige": "#D9C9A3",
+        "aqua": "#00B5AD", "deepskyblue": "#00BFFF", "seagreen": "#2E8B57",
+        "lightgreen": "#90EE90",
     }
     return NOMMEES.get(v.lower())
 
@@ -437,11 +475,11 @@ def distance_km(a, b):
 def longueur_km(points):
     return sum(distance_km(points[i], points[i + 1]) for i in range(len(points) - 1))
 
-def alleger(points, tolerance_m=12.0):
+def alleger(points, tolerance_m=5.0):
     """Retire les points inutiles d'un tracé (algorithme de Douglas-Peucker).
 
     Un tunnel de métro est dessiné dans OpenStreetMap avec un point tous les
-    quelques mètres. À l'écran, un point tous les douze mètres suffit : le
+    quelques mètres. À l'écran, un écart de cinq mètres suffit : le
     tracé est identique à l'œil, et le fichier trois à cinq fois plus léger.
     """
     if len(points) < 3:
@@ -544,6 +582,8 @@ def couleur_propre(valeur):
         "silver": "#B9BBB6", "gold": "#C5A253", "navy": "#003057",
         "teal": "#00857D", "olive": "#7A7C3C", "maroon": "#7C2529",
         "violet": "#8A2BE2", "turquoise": "#40E0D0", "beige": "#D9C9A3",
+        "aqua": "#00B5AD", "deepskyblue": "#00BFFF", "seagreen": "#2E8B57",
+        "lightgreen": "#90EE90",
     }
     return NOMMEES.get(v.lower())
 
@@ -782,6 +822,99 @@ def arrets(relation):
             and m.get("lon") is not None]
 
 
+def arrets_nommes(relation):
+    """Les mêmes arrêts, avec leur identifiant : c'est lui qui donne leur nom."""
+    return [(m["ref"], m["lon"], m["lat"]) for m in relation.get("members", [])
+            if m.get("type") == "node" and "stop" in (m.get("role") or "")
+            and m.get("lon") is not None]
+
+
+def est_latin(texte):
+    """« Opéra » oui ; « 人民广场 », « Площадь Революции » ou « العتبة » non."""
+    lettres = [c for c in texte if c.isalpha()]
+    latines = [c for c in lettres if "LATIN" in unicodedata.name(c, "")]
+    return bool(lettres) and len(latines) * 2 >= len(lettres)
+
+
+def nom_de_station(tags):
+    """Le nom écrit sur les quais ; pour une écriture qui n'est pas la nôtre,
+    sa version en lettres latines quand OpenStreetMap la connaît."""
+    local = tags.get("name") or ""
+    if local and est_latin(local):
+        return local
+    for cle in ("name:en", "int_name", "name:latin", "name:fr"):
+        if tags.get(cle):
+            return tags[cle]
+    return local or tags.get("official_name")
+
+
+MEME_STATION_M = 450.0     # deux arrêts du même nom, à cette distance
+MEME_QUAI_M = 120.0        # un arrêt sans nom, à cette distance d'un autre
+
+
+def stations_de(lignes):
+    """Les stations d'une ville : [lon, lat, nom, [numéros de ses lignes]].
+
+    OpenStreetMap liste chaque arrêt une fois par quai et par ligne : on réunit
+    ceux qui portent le même nom et qui sont voisins. Un arrêt sans nom rejoint
+    la station la plus proche ; s'il est seul, il reste un point sans nom."""
+    def reduit(nom):
+        return slug(nom) if est_latin(nom) else re.sub(r"\s+", "", nom)
+
+    groupes, anonymes = [], []
+    par_nom = {}
+    for i, l in enumerate(lignes):
+        for ref, lon, lat in l["_arrets"]:
+            nom = nom_de_station(NOMS_DES_ARRETS.get(ref, {}))
+            if not nom:
+                anonymes.append((i, lon, lat))
+                continue
+            for g in par_nom.setdefault(reduit(nom), []):
+                if distance_km((g["lon"], g["lat"]), (lon, lat)) * 1000 < MEME_STATION_M:
+                    break
+            else:
+                g = {"noms": {}, "lignes": set(), "points": [], "lon": lon, "lat": lat}
+                par_nom[reduit(nom)].append(g)
+                groupes.append(g)
+            g["noms"][nom] = g["noms"].get(nom, 0) + 1
+            g["lignes"].add(i)
+            if (lon, lat) not in g["points"]:
+                g["points"].append((lon, lat))
+                g["lon"], g["lat"] = centre(g["points"])
+    for i, lon, lat in anonymes:
+        proches = [(distance_km((g["lon"], g["lat"]), (lon, lat)) * 1000, n)
+                   for n, g in enumerate(groupes)]
+        pres = min(proches) if proches else None
+        if pres and pres[0] < MEME_QUAI_M:
+            groupes[pres[1]]["lignes"].add(i)
+        else:
+            groupes.append({"noms": {"": 1}, "lignes": {i}, "points": [(lon, lat)],
+                            "lon": lon, "lat": lat})
+    return [[round(g["lon"], 5), round(g["lat"], 5),
+             max(g["noms"], key=g["noms"].get), sorted(g["lignes"])]
+            for g in groupes]
+
+
+# Les lignes dont OpenStreetMap ne donne pas la couleur, mais Wikidata si
+# (propriété P465, relevée le 25 novembre 2026).
+COULEURS_WIKIDATA = {
+    "Q17621067": "#345298", "Q18420098": "#FF7604",   # Medellín A, B
+    "Q2668472": "#01820B",                             # Séville 1
+    "Q5017774": "#0000FF",                             # Le Caire 1
+    "Q10318644": "#D9001C", "Q10318650": "#000080",   # Salvador 1, 2
+    "Q10914047": "#8EC31C",                            # Taichung, ligne verte
+    "Q15928521": "#006934",                            # Zhengzhou 5
+    "Q1039452": "#A12830", "Q8048350": "#D85F26",     # Pékin, Batong et Yanfang
+    "Q112169762": "#0077C8",                           # Chongqing, Jiangtiao
+    "Q117213028": "#48A23E",                           # Panama, ligne 2
+    "Q117774718": "#FF0000", "Q117782475": "#00008B", # Jinhua
+}
+
+
+# Rempli au démarrage par moissonner_arrets().
+NOMS_DES_ARRETS = {}
+
+
 def compter_stations(points, proche_m=150.0):
     """Combien de stations distinctes ? Les arrêts sont listés une fois par
     sens et une fois par ligne : République, à Paris, apparaît dix fois.
@@ -842,15 +975,17 @@ def reseaux_du_monde(relations, metros_wikidata):
                 cle = tags.get("ref") or nom_de_ligne(tags) or str(r["id"])
                 l = lignes.setdefault(cle, {
                     "ref": tags.get("ref"), "noms": {}, "couleurs": {},
-                    "bouts": {}, "arrets": [],
+                    "bouts": {}, "arrets": [], "quais": [],
                 })
                 l["centre"] = r["_centre"]
                 l["bouts"].update(r["_bouts"])
                 l["arrets"] += arrets(r)
+                l["quais"] += arrets_nommes(r)
                 n = nom_de_ligne(tags)
                 if n:
                     l["noms"][n] = l["noms"].get(n, 0) + 1
-                c = couleur_propre(tags.get("colour"))
+                c = (couleur_propre(tags.get("colour"))
+                     or COULEURS_WIKIDATA.get(tags.get("wikidata")))
                 if c:
                     l["couleurs"][c] = l["couleurs"].get(c, 0) + 1
             qids = [r["tags"].get("network:wikidata") for r in morceau
@@ -1262,6 +1397,7 @@ def fondre(cible, source):
             continue
         deja["bouts"].update(l["bouts"])
         deja["arrets"] += l["arrets"]
+        deja["quais"] += l["quais"]
         for n, c in l["noms"].items():
             deja["noms"][n] = deja["noms"].get(n, 0) + c
         for n, c in l["couleurs"].items():
@@ -1408,6 +1544,7 @@ def fabriquer(villes, etat_villes, etat_reseaux, metros_wikidata):
                     "couleur": couleur or COULEUR_INCONNUE,
                     "sansCouleur": 1 if not couleur else 0,
                     "km": round(km_sans_voies_doubles(traces), 1), "t": traces,
+                    "_arrets": l["quais"],
                 })
             if not lignes_du_reseau:
                 continue
@@ -1447,8 +1584,12 @@ def fabriquer(villes, etat_villes, etat_reseaux, metros_wikidata):
             while s in slugs_pris:
                 s += "-2"
         slugs_pris[s] = True
+        stations_ville = stations_de(lignes)
+        for l in lignes:
+            del l["_arrets"]
         poids_total += ecrire(os.path.join(SORTIE, "villes", s + ".json"),
-                              {"s": s, "lignes": lignes, "chantiers": chantiers})
+                              {"s": s, "lignes": lignes, "chantiers": chantiers,
+                               "stations": stations_ville})
 
         # Les chantiers d'une ville qui n'a pas encore de métro : c'est son
         # premier, et la carte l'annonce en orange.
@@ -1568,6 +1709,9 @@ if __name__ == "__main__":
     moissonner()
     relations, voies = lire_moisson()
     dit(f"  {len(relations)} lignes et {len(voies)} tronçons en construction")
+
+    dit("→ OpenStreetMap : le nom des stations")
+    NOMS_DES_ARRETS.update(moissonner_arrets(relations))
 
     dit("→ Wikidata : qu'est-ce qui est un métro ?")
     metros = metros_selon_wikidata()

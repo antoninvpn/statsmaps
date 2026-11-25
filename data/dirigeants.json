@@ -1,0 +1,4700 @@
+{
+"maj": "2026-11-25",
+"pays": {
+"AFG": {
+"couleur": "vert",
+"depuis": "2021-08-15",
+"en": "Hibatullah Akhundzada",
+"fr": "Haibatullah Akhundzada",
+"g": "h",
+"ne": "1967-10-19",
+"q": "Q24237654",
+"titre": {
+"en": "Supreme Leader",
+"fr": "Guide suprême"
+}
+},
+"AGO": {
+"couleur": "vert",
+"depuis": "2017-09-26",
+"en": "João Lourenço",
+"fr": "João Lourenço",
+"g": "h",
+"ne": "1954-03-05",
+"photo": {
+"auteur": "U.S. Secretary of Defense",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:President_of_Angola_Jo%C3%A3o_Louren%C3%A7o_during_a_bilateral_exchange_at_the_Angola_presidential_palace_in_Luanda,_Angola,_September_27,_2023_-_230927-D-PM193-1914_(cropped).jpg",
+"visage": [
+0.535,
+0.4,
+0.432,
+0.324
+]
+},
+"q": "Q28650390",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"ALB": {
+"couleur": "vert",
+"depuis": "2013-09-15",
+"en": "Edi Rama",
+"fr": "Edi Rama",
+"g": "h",
+"ne": "1964-07-04",
+"photo": {
+"auteur": "Matti Blume",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Edi_Rama,_press_conference,_ITB_2025,_Berlin_(ITB56291)_(cropped_1).jpg",
+"visage": [
+0.504,
+0.374,
+0.469,
+0.352
+]
+},
+"q": "Q316901",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"AND": {
+"couleur": "vert",
+"depuis": "2019-05-16",
+"en": "Xavier Espot Zamora",
+"fr": "Xavier Espot Zamora",
+"g": "h",
+"ne": "1979-10-30",
+"photo": {
+"auteur": "Nebojša Tejić",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Xavier_Espot_Zamora_in_2024_(cropped).jpg",
+"visage": [
+0.462,
+0.46,
+0.546,
+0.408
+]
+},
+"q": "Q21001195",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"ARE": {
+"couleur": "vert",
+"depuis": "2014-01-25",
+"en": "Mohammed Bin Zayed Al Nahyan",
+"fr": "Mohammed ben Zayed Al Nahyane",
+"g": "h",
+"ne": "1961-03-11",
+"photo": {
+"auteur": "Press Service of the President of the Republic of Azerbaijan",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Mohamed_bin_Zayed_Al_Nahyan_-_2024_(cropped).jpg",
+"visage": [
+0.54,
+0.455,
+0.467,
+0.364
+]
+},
+"q": "Q1951896",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"ARG": {
+"couleur": "vert",
+"depuis": "2023-12-10",
+"en": "Javier Milei",
+"fr": "Javier Milei",
+"g": "h",
+"ne": "1970-10-22",
+"photo": {
+"auteur": "Quirinale",
+"licence": "Attribution",
+"page": "https://commons.wikimedia.org/wiki/File:Mattarella_Milei_2024_(cropped).jpg",
+"visage": [
+0.504,
+0.418,
+0.567,
+0.378
+]
+},
+"q": "Q52395487",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"ARM": {
+"couleur": "vert",
+"depuis": "2018-05-08",
+"en": "Nikol Pashinyan",
+"fr": "Nikol Pachinian",
+"g": "h",
+"ne": "1975-06-01",
+"photo": {
+"auteur": "Stenbocki maja",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:K%C3%A4tlemine_Armeenia_peaminister_Pashinyan%27iga_(552477480461).jpg",
+"visage": [
+0.528,
+0.325,
+0.384,
+0.288
+]
+},
+"q": "Q7035479",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"ATG": {
+"couleur": "vert",
+"depuis": "2014-06-13",
+"en": "Gaston Browne",
+"fr": "Gaston Browne",
+"g": "h",
+"ne": "1967-02-09",
+"photo": {
+"auteur": "Ian Jones",
+"licence": "CC BY 2.0",
+"page": "https://commons.wikimedia.org/wiki/File:Gaston_Browne_Coronation_2023.jpg",
+"visage": [
+0.537,
+0.413,
+0.664,
+0.466
+]
+},
+"q": "Q17177542",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"AUS": {
+"couleur": "vert",
+"depuis": "2022-05-23",
+"en": "Anthony Albanese",
+"fr": "Anthony Albanese",
+"g": "h",
+"ne": "1963-03-02",
+"photo": {
+"auteur": "Australian Government",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Anthony_Albanese_portrait_(re-crop).jpg",
+"visage": [
+0.493,
+0.295,
+0.223,
+0.167
+]
+},
+"q": "Q335697",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"AUT": {
+"couleur": "vert",
+"depuis": "2025-03-03",
+"en": "Christian Stocker",
+"fr": "Christian Stocker",
+"g": "h",
+"ne": "1960-03-20",
+"photo": {
+"auteur": "Frédéric Sierakowski / European Council",
+"licence": "Attribution",
+"page": "https://commons.wikimedia.org/wiki/File:Christian_Stocker_EuCo_2026.jpg",
+"visage": [
+0.472,
+0.399,
+0.595,
+0.397
+]
+},
+"q": "Q64576653",
+"titre": {
+"en": "Chancellor",
+"fr": "Chancelier"
+}
+},
+"AZE": {
+"couleur": "vert",
+"depuis": "2003-08-04",
+"en": "Ilham Aliyev",
+"fr": "Ilham Aliyev",
+"g": "h",
+"ne": "1961-12-24",
+"photo": {
+"auteur": "Press Service of the President of the Republic of Azerbaijan",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Ilham_Aliyev,_December_2025_(cropped).jpg",
+"visage": [
+0.482,
+0.29,
+0.355,
+0.274
+]
+},
+"q": "Q57371",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"BDI": {
+"couleur": "vert",
+"depuis": "2020-06-18",
+"en": "Évariste Ndayishimiye",
+"fr": "Évariste Ndayishimiye",
+"g": "h",
+"ne": "1968-06-17",
+"photo": {
+"auteur": "Lukasz Kobus / European Commission",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:%D0%AD%D0%B2%D0%B0%D1%80%D0%B8%D1%81%D1%82_%D0%9D%D0%B4%D0%B0%D0%B9%D0%B8%D1%88%D0%B8%D0%BC%D0%B8%D0%B5_(18-02-2022)_(cropped).jpg",
+"visage": [
+0.509,
+0.393,
+0.534,
+0.365
+]
+},
+"q": "Q27329764",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"BEL": {
+"couleur": "vert",
+"depuis": "2025-02-03",
+"en": "Bart De Wever",
+"fr": "Bart De Wever",
+"g": "h",
+"ne": "1970-12-21",
+"photo": {
+"auteur": "Dati Bendo",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Belgian_Prime_Minister_Bart_De_Wever_(head_%2B_shoulders).jpg",
+"visage": [
+0.593,
+0.371,
+0.414,
+0.298
+]
+},
+"q": "Q336599",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"BEN": {
+"couleur": "vert",
+"depuis": "2026-05-24",
+"en": "Romuald Wadagni",
+"fr": "Romuald Wadagni",
+"g": "h",
+"ne": "1976-06-20",
+"photo": {
+"auteur": "Bibamad",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Romuald_Wadagni_March_2026.jpg",
+"visage": [
+0.496,
+0.218,
+0.158,
+0.127
+]
+},
+"q": "Q24951128",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"BFA": {
+"couleur": "bleu",
+"depuis": "2022-09-30",
+"en": "Ibrahim Traoré",
+"fr": "Ibrahim Traoré",
+"g": "h",
+"ne": "1988-03-14",
+"photo": {
+"auteur": "Bamjo226",
+"licence": "CC0",
+"page": "https://commons.wikimedia.org/wiki/File:Capitaine_Ibrahim_Traor%C3%A9.jpg",
+"visage": [
+0.48,
+0.452,
+0.432,
+0.347
+]
+},
+"q": "Q114341246",
+"titre": {
+"en": "President of the Patriotic Movement for Safeguard and Restoration",
+"fr": "Président du Mouvement patriotique pour la sauvegarde et la restauration"
+}
+},
+"BGD": {
+"couleur": "vert",
+"depuis": "2026-02-17",
+"en": "Tarique Rahman",
+"fr": "Tarique Rahman",
+"g": "h",
+"ne": "1968-11-20",
+"photo": {
+"auteur": "Press Information Department",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Prime_Minister_Tarique_Rahman_addressing_13th_National_Parliament,_Dhaka,_2026-03-12_(cropped).jpg",
+"visage": [
+0.416,
+0.323,
+0.42,
+0.334
+]
+},
+"q": "Q7686199",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"BGR": {
+"couleur": "vert",
+"depuis": "2026-05-08",
+"en": "Rumen Radev",
+"fr": "Roumen Radev",
+"g": "h",
+"ne": "1963-06-18",
+"photo": {
+"auteur": "Unknown author Unknown author",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Official_Portrait_of_Rumen_Radev_v2_(2026).jpg",
+"visage": [
+0.515,
+0.243,
+0.207,
+0.159
+]
+},
+"q": "Q26257557",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"BHR": {
+"couleur": "vert",
+"depuis": "1999-03-06",
+"en": "Hamad II of Bahrain",
+"fr": "Hamed ben Issa al-Khalifa",
+"g": "h",
+"ne": "1950-01-28",
+"photo": {
+"auteur": "DHSgov",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Hamad_bin_Isa_Al_Khalifa_May_2025.jpg",
+"visage": [
+0.465,
+0.452,
+0.474,
+0.42
+]
+},
+"q": "Q57352",
+"titre": {
+"en": "King",
+"fr": "Roi"
+}
+},
+"BHS": {
+"couleur": "vert",
+"depuis": "2021-09-17",
+"en": "Philip \"Brave\" Davis",
+"fr": "Philip \"Brave\" Davis",
+"g": "h",
+"ne": "1951-06-07",
+"photo": {
+"auteur": "Palácio do Planalto from Brasilia, Brasil",
+"licence": "CC BY 2.0",
+"page": "https://commons.wikimedia.org/wiki/File:Prime_Minister_Philip_Davis_in_2022.jpg",
+"visage": [
+0.355,
+0.455,
+0.484,
+0.372
+]
+},
+"q": "Q7183082",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"BIH": {
+"couleur": "bleu",
+"depuis": "2026-07-01",
+"en": "Louis Crishock",
+"fr": "Louis Crishock",
+"g": "h",
+"ne": "1971-02-08",
+"photo": {
+"auteur": "United States Department of State",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Consul_General_Louis_John_Crishock,_official_portrait_(cropped).jpg",
+"visage": [
+0.49,
+0.387,
+0.461,
+0.364
+]
+},
+"q": "Q129024018",
+"titre": {
+"en": "Acting High Representative",
+"fr": "Haut représentant par intérim"
+}
+},
+"BLR": {
+"couleur": "bleu",
+"depuis": "1994-07-20",
+"en": "Alexander Lukashenka",
+"fr": "Alexandre Loukachenko",
+"g": "h",
+"ne": "1954-08-30",
+"photo": {
+"auteur": "U.S. Department of State from United States",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Alexander_Lukashenko_2020.jpg",
+"visage": [
+0.475,
+0.503,
+0.613,
+0.486
+]
+},
+"q": "Q2866",
+"titre": {
+"en": "Chairman of the All-Belarusian People's Assembly",
+"fr": "Président de l’Assemblée populaire panbiélorusse"
+}
+},
+"BLZ": {
+"couleur": "vert",
+"depuis": "2020-11-12",
+"en": "Johnny Briceño",
+"fr": "Johnny Briceño",
+"g": "h",
+"ne": "1960-07-17",
+"photo": {
+"auteur": "Palácio do Planalto from Brasilia, Brasil",
+"licence": "CC BY 2.0",
+"page": "https://commons.wikimedia.org/wiki/File:Johnny_Brice%C3%B1o_(52135383761)_(cropped).jpg",
+"visage": [
+0.402,
+0.395,
+0.507,
+0.364
+]
+},
+"q": "Q6266369",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"BOL": {
+"couleur": "vert",
+"depuis": "2025-11-08",
+"en": "Rodrigo Paz",
+"fr": "Rodrigo Paz Pereira",
+"g": "h",
+"ne": "1967-09-22",
+"photo": {
+"auteur": "Lula Oficial",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Rodrigo_Paz_enero_2026.jpg",
+"visage": [
+0.545,
+0.443,
+0.478,
+0.355
+]
+},
+"q": "Q110520817",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"BRA": {
+"couleur": "vert",
+"depuis": "2023-01-01",
+"en": "Luiz Inácio Lula da Silva",
+"fr": "Luiz Inácio Lula da Silva",
+"g": "h",
+"ne": "1945-10-27",
+"photo": {
+"auteur": "Palácio do Planalto from Brasilia, Brasil",
+"licence": "CC BY 2.0",
+"page": "https://commons.wikimedia.org/wiki/File:Foto_oficial_de_Luiz_In%C3%A1cio_Lula_da_Silva_(estreita).jpg",
+"visage": [
+0.447,
+0.332,
+0.354,
+0.253
+]
+},
+"q": "Q37181",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"BRB": {
+"couleur": "vert",
+"depuis": "2018-05-25",
+"en": "Mia Mottley",
+"fr": "Mia Mottley",
+"g": "f",
+"ne": "1965-10-01",
+"photo": {
+"auteur": "Lula Oficial",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:06.11.2025_%E2%80%93_Recep%C3%A7%C3%A3o_Oficial_dos_Chefes_de_Delega%C3%A7%C3%A3o_da_C%C3%BApula_do_Clima_(54906293485)_(Mia_Mottley).jpg",
+"visage": [
+0.558,
+0.39,
+0.404,
+0.303
+]
+},
+"q": "Q6827147",
+"titre": {
+"en": "Prime Minister",
+"fr": "Première ministre"
+}
+},
+"BRN": {
+"couleur": "vert",
+"depuis": "1967-10-05",
+"en": "Hassanal Bolkiah I of Brunei",
+"fr": "Hassanal Bolkiah",
+"g": "h",
+"ne": "1946-07-15",
+"photo": {
+"auteur": "Cancillería del Perú",
+"licence": "CC BY-SA 2.0",
+"page": "https://commons.wikimedia.org/wiki/File:Visita_de_Estado_del_Sult%C3%A1n_de_Brun%C3%A9i_Darussalam,_Hassanal_Bolkiah_(cropped).jpg",
+"visage": [
+0.55,
+0.401,
+0.34,
+0.256
+]
+},
+"q": "Q57327",
+"titre": {
+"en": "Sultan",
+"fr": "Sultan"
+}
+},
+"BTN": {
+"couleur": "vert",
+"depuis": "2024-01-28",
+"en": "Tshering Tobgay",
+"fr": "Tshering Tobgay",
+"g": "h",
+"ne": "1965-09-19",
+"photo": {
+"auteur": "Tshering Tobgay",
+"licence": "CC BY 3.0",
+"page": "https://commons.wikimedia.org/wiki/File:Tshering_Tobgay.jpg",
+"visage": [
+0.503,
+0.319,
+0.361,
+0.263
+]
+},
+"q": "Q7849613",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"BWA": {
+"couleur": "vert",
+"depuis": "2024-11-01",
+"en": "Duma Boko",
+"fr": "Duma Boko",
+"g": "h",
+"ne": "1969-12-31",
+"photo": {
+"auteur": "U.S. Department of State",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Duma_Boko_2025_(cropped).jpg",
+"visage": [
+0.578,
+0.421,
+0.511,
+0.382
+]
+},
+"q": "Q18618881",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"CAF": {
+"couleur": "vert",
+"depuis": "2016-03-30",
+"en": "Faustin-Archange Touadéra",
+"fr": "Faustin-Archange Touadéra",
+"g": "h",
+"ne": "1957-04-21",
+"photo": {
+"auteur": "Christophe Licoppe / European Communities, 2025 / EC - Audiovisual Service",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Visit_of_Faustin-Archange_Touad%C3%A9ra,_President_of_the_Central_African_Republic,_to_the_European_Commission_(P067074-430913,_cropped).jpg",
+"visage": [
+0.488,
+0.464,
+0.523,
+0.388
+]
+},
+"q": "Q57758",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"CAN": {
+"couleur": "vert",
+"depuis": "2025-03-14",
+"en": "Mark Carney",
+"fr": "Mark Carney",
+"g": "h",
+"ne": "1965-03-16",
+"photo": {
+"auteur": "Bryan Berlin",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Mark_Carney_Argentina_v_Spain_19_July_2026-303_(3x4_close_up_cropped).jpg",
+"visage": [
+0.509,
+0.434,
+0.543,
+0.407
+]
+},
+"q": "Q192533",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"CHE": {
+"couleur": "vert",
+"depuis": "2016-01-01",
+"en": "Guy Parmelin",
+"fr": "Guy Parmelin",
+"g": "h",
+"ne": "1959-11-09",
+"photo": {
+"auteur": "Schweizerische Bundeskanzlei",
+"licence": "Attribution",
+"page": "https://commons.wikimedia.org/wiki/File:Guy_Parmelin_(2026)_(cropped).jpg",
+"visage": [
+0.502,
+0.374,
+0.467,
+0.35
+]
+},
+"q": "Q121160",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"CHL": {
+"couleur": "vert",
+"depuis": "2026-03-11",
+"en": "José Antonio Kast",
+"fr": "José Antonio Kast",
+"g": "h",
+"ne": "1966-01-18",
+"photo": {
+"auteur": "Unknown author Unknown author",
+"licence": "CC BY 3.0 cl",
+"page": "https://commons.wikimedia.org/wiki/File:Retrato_Presidente_Jos%C3%A9_Antonio_Kast.png",
+"visage": [
+0.493,
+0.192,
+0.226,
+0.171
+]
+},
+"q": "Q5937916",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"CHN": {
+"couleur": "bleu",
+"depuis": "2012-11-15",
+"en": "Xi Jinping",
+"fr": "Xi Jinping",
+"g": "h",
+"ne": "1953-06-15",
+"photo": {
+"auteur": "Presidencia de la República del Ecuador",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Xi_Jinping_on_August_18,_2026_(cropped).jpg",
+"visage": [
+0.483,
+0.435,
+0.439,
+0.34
+]
+},
+"q": "Q15031",
+"titre": {
+"en": "General Secretary of the Communist Party",
+"fr": "Secrétaire général du Parti communiste"
+}
+},
+"CIV": {
+"couleur": "vert",
+"depuis": "2010-12-04",
+"en": "Alassane Ouattara",
+"fr": "Alassane Ouattara",
+"g": "h",
+"ne": "1942-01-01",
+"photo": {
+"auteur": "Dario Pignatelli / European Union",
+"licence": "Attribution",
+"page": "https://commons.wikimedia.org/wiki/File:Alassane_Ouattara_-_2024_(cropped).jpg",
+"visage": [
+0.49,
+0.408,
+0.531,
+0.354
+]
+},
+"q": "Q57413",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"CMR": {
+"couleur": "vert",
+"depuis": "1975-06-30",
+"en": "Paul Biya",
+"fr": "Paul Biya",
+"g": "h",
+"ne": "1933-02-13",
+"photo": {
+"auteur": "United States Department of State Africa U.S.-Africa Leaders Summit: Photos and Videos",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Paul_Biya_in_December_14th,_2022.jpg",
+"visage": [
+0.493,
+0.415,
+0.431,
+0.336
+]
+},
+"q": "Q57272",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"COD": {
+"couleur": "vert",
+"depuis": "2019-01-24",
+"en": "Félix Tshisekedi",
+"fr": "Félix Tshisekedi",
+"g": "h",
+"ne": "1963-06-13",
+"photo": {
+"auteur": "U.S. Department of State",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Felix_Tshisekedi,_President_of_the_Democratic_Republic_of_the_Congo_(55078564106)_(cropped).jpg",
+"visage": [
+0.544,
+0.438,
+0.432,
+0.334
+]
+},
+"q": "Q29032770",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"COG": {
+"couleur": "vert",
+"depuis": "1997-10-25",
+"en": "Denis Sassou-Nguesso",
+"fr": "Denis Sassou-Nguesso",
+"g": "h",
+"ne": "1943-11-23",
+"photo": {
+"auteur": "Amanda Lucidon / White House",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Denis_Sassou_Nguesso_2014.jpg",
+"visage": [
+0.498,
+0.388,
+0.523,
+0.392
+]
+},
+"q": "Q57418",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"COL": {
+"couleur": "vert",
+"depuis": "2026-08-07",
+"en": "Abelardo de la Espriella",
+"fr": "Abelardo de la Espriella",
+"g": "h",
+"ne": "1978-07-31",
+"photo": {
+"auteur": "Abelardo de la Espriella",
+"licence": "CC0",
+"page": "https://commons.wikimedia.org/wiki/File:Colombian_Presidential_Candidate_Abelardo_de_la_Espriella_(cropped).jpg",
+"visage": [
+0.509,
+0.31,
+0.356,
+0.266
+]
+},
+"q": "Q137204778",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"COM": {
+"couleur": "vert",
+"depuis": "2016-05-26",
+"en": "Azali Assoumani",
+"fr": "Azali Assoumani",
+"g": "h",
+"ne": "1959-01-01",
+"photo": {
+"auteur": "U.S. Department of State",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Azali_Assoumani_in_New_York_City_on_September_19,_2023_-_53199606411_(cropped).jpg",
+"visage": [
+0.563,
+0.362,
+0.473,
+0.352
+]
+},
+"q": "Q515602",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"CPV": {
+"couleur": "vert",
+"depuis": "2026-06-19",
+"en": "Francisco Carvalho",
+"fr": "Francisco Carvalho",
+"g": "h",
+"ne": "1970-12-04",
+"photo": {
+"auteur": "Nha Terra Nha Cretcheu",
+"licence": "CC BY 3.0",
+"page": "https://commons.wikimedia.org/wiki/File:Francisco_Carvalho_06072026.jpg",
+"visage": [
+0.544,
+0.441,
+0.581,
+0.439
+]
+},
+"q": "Q139594211",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"CRI": {
+"couleur": "vert",
+"depuis": "2026-05-08",
+"en": "Laura Fernández Delgado",
+"fr": "Laura Fernández Delgado",
+"g": "f",
+"ne": "1986-07-04",
+"photo": {
+"auteur": "DHSgov",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Laura_Fern%C3%A1ndez_March_2026.jpg",
+"visage": [
+0.516,
+0.416,
+0.475,
+0.354
+]
+},
+"q": "Q114705150",
+"titre": {
+"en": "President",
+"fr": "Présidente"
+}
+},
+"CUB": {
+"couleur": "bleu",
+"depuis": "2018-04-19",
+"en": "Miguel Díaz-Canel",
+"fr": "Miguel Díaz-Canel",
+"g": "h",
+"ne": "1960-04-20",
+"photo": {
+"auteur": "El divo de placetas",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Miguel_Diaz-Canel_on_July_7,_2025_(cropped).jpg",
+"visage": [
+0.412,
+0.45,
+0.456,
+0.343
+]
+},
+"q": "Q1932603",
+"titre": {
+"en": "First Secretary of the Communist Party",
+"fr": "Premier secrétaire du Parti communiste"
+}
+},
+"CYP": {
+"couleur": "vert",
+"depuis": "2023-02-28",
+"en": "Nicos Christodoulides",
+"fr": "Níkos Christodoulídis",
+"g": "h",
+"ne": "1973-12-06",
+"photo": {
+"auteur": "European Union",
+"licence": "Attribution",
+"page": "https://commons.wikimedia.org/wiki/File:Nikos_CHRISTODOULIDES_(cropped).jpg",
+"visage": [
+0.489,
+0.5,
+0.613,
+0.467
+]
+},
+"q": "Q48905549",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"CZE": {
+"couleur": "vert",
+"depuis": "2025-12-09",
+"en": "Andrej Babiš",
+"fr": "Andrej Babiš",
+"g": "h",
+"ne": "1954-09-02",
+"photo": {
+"auteur": "Vox España",
+"licence": "CC0",
+"page": "https://commons.wikimedia.org/wiki/File:Andrej_Babi%C5%A1_2025_(cropped).jpg",
+"visage": [
+0.558,
+0.46,
+0.642,
+0.481
+]
+},
+"q": "Q10819807",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"DEU": {
+"couleur": "vert",
+"depuis": "2025-05-06",
+"en": "Friedrich Merz",
+"fr": "Friedrich Merz",
+"g": "h",
+"ne": "1955-11-11",
+"photo": {
+"auteur": "Sandro Halank, Wikimedia Commons",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:2025-02-23_Bundestagswahl_%E2%80%93_Wahlabend_CDU_by_Sandro_Halank%E2%80%93070.jpg",
+"visage": [
+0.584,
+0.443,
+0.641,
+0.396
+]
+},
+"q": "Q566257",
+"titre": {
+"en": "Chancellor",
+"fr": "Chancelier"
+}
+},
+"DJI": {
+"couleur": "vert",
+"depuis": "1999-05-08",
+"en": "Ismail Omar Guelleh",
+"fr": "Ismail Omar Guelleh",
+"g": "h",
+"ne": "1947-11-27",
+"photo": {
+"auteur": "U.S. Secretary of Defense",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Djiboutian_President_Ismail_Omar_Guelleh_at_the_presidential_palace_in_Djibouti,_Republic_of_Djibouti,_September_24,_2023_-_(cropped).jpg",
+"visage": [
+0.466,
+0.378,
+0.339,
+0.254
+]
+},
+"q": "Q57390",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"DMA": {
+"couleur": "vert",
+"depuis": "2004-01-08",
+"en": "Roosevelt Skerrit",
+"fr": "Roosevelt Skerrit",
+"g": "h",
+"ne": "1972-06-08",
+"photo": {
+"auteur": "[mjones]",
+"licence": "CC BY-SA 3.0",
+"page": "https://commons.wikimedia.org/wiki/File:RooseveltSkerrit.jpg",
+"visage": [
+0.562,
+0.357,
+0.439,
+0.313
+]
+},
+"q": "Q57823",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"DNK": {
+"couleur": "vert",
+"depuis": "2019-06-27",
+"en": "Mette Frederiksen",
+"fr": "Mette Frederiksen",
+"g": "f",
+"ne": "1977-11-19",
+"photo": {
+"auteur": "Christian Ursilva",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Mette_Frederiksen_by_Christian_Ursilva_(2026).jpg",
+"visage": [
+0.459,
+0.446,
+0.557,
+0.371
+]
+},
+"q": "Q5015",
+"titre": {
+"en": "Prime Minister",
+"fr": "Première ministre"
+}
+},
+"DOM": {
+"couleur": "vert",
+"depuis": "2020-08-16",
+"en": "Luis Abinader",
+"fr": "Luis Abinader",
+"g": "h",
+"ne": "1967-07-12",
+"photo": {
+"auteur": "Chairman of the Joint Chiefs of Staff",
+"licence": "CC BY 2.0",
+"page": "https://commons.wikimedia.org/wiki/File:President_Luis_Abinader_at_the_National_Palace_of_the_Dominican_Republic_in_Santo_Domingo_on_April_25,_2024_(cropped).jpg",
+"visage": [
+0.487,
+0.51,
+0.607,
+0.458
+]
+},
+"q": "Q16594097",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"DZA": {
+"couleur": "vert",
+"depuis": "2019-12-19",
+"en": "Abdelmadjid Tebboune",
+"fr": "Abdelmadjid Tebboune",
+"g": "h",
+"ne": "1945-11-17",
+"photo": {
+"auteur": "Vlada Republike Slovenije from Ljubljana, Slovenia",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Abdelmadjid_Tebboune_in_2024_(cropped).jpg",
+"visage": [
+0.44,
+0.45,
+0.424,
+0.319
+]
+},
+"q": "Q2821166",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"ECU": {
+"couleur": "vert",
+"depuis": "2023-11-23",
+"en": "Daniel Noboa",
+"fr": "Daniel Noboa",
+"g": "h",
+"ne": "1987-11-30",
+"photo": {
+"auteur": "Juan Montenegro/Presidencia de la República",
+"licence": "CC0",
+"page": "https://commons.wikimedia.org/wiki/File:Noboa_en_24_mayo_de_2026.jpg",
+"visage": [
+0.455,
+0.243,
+0.322,
+0.234
+]
+},
+"q": "Q112075625",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"EGY": {
+"couleur": "vert",
+"depuis": "2014-06-08",
+"en": "Abdel Fattah el-Sisi",
+"fr": "Abdel Fattah al-Sissi",
+"g": "h",
+"ne": "1954-11-19",
+"photo": {
+"auteur": "Ministry of Communications and Information Technology in Egypt",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:AbdelFattah_Elsisi_(cropped).jpg",
+"visage": [
+0.452,
+0.34,
+0.348,
+0.276
+]
+},
+"q": "Q307871",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"ERI": {
+"couleur": "vert",
+"depuis": "1991-04-27",
+"en": "Isaias Afwerki",
+"fr": "Issayas Afewerki",
+"g": "h",
+"ne": "1946-02-02",
+"photo": {
+"auteur": "Quirinale (Francesco Ammendola and Paolo Giandotti)",
+"licence": "Attribution",
+"page": "https://commons.wikimedia.org/wiki/File:Isaias_Afwerki_2024_(cropped).jpg",
+"visage": [
+0.514,
+0.328,
+0.343,
+0.245
+]
+},
+"q": "Q57348",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"ESP": {
+"couleur": "vert",
+"depuis": "2018-06-02",
+"en": "Pedro Sánchez",
+"fr": "Pedro Sánchez",
+"g": "h",
+"ne": "1972-02-29",
+"photo": {
+"auteur": "Foto: Nebojša Tejić/STA",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Obisk_%C5%A1panskega_predsednika_vlade_v_Sloveniji_(53658605930)_(cropped).jpg",
+"visage": [
+0.461,
+0.448,
+0.545,
+0.411
+]
+},
+"q": "Q6070218",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"EST": {
+"couleur": "vert",
+"depuis": "2024-07-23",
+"en": "Kristen Michal",
+"fr": "Kristen Michal",
+"g": "h",
+"ne": "1975-07-12",
+"photo": {
+"auteur": "FinnishGovernment",
+"licence": "CC BY 2.0",
+"page": "https://commons.wikimedia.org/wiki/File:Kristen_Michal_in_2024_(cropped).jpg",
+"visage": [
+0.527,
+0.471,
+0.616,
+0.462
+]
+},
+"q": "Q1789192",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"ETH": {
+"couleur": "vert",
+"depuis": "2018-04-02",
+"en": "Abiy Ahmed",
+"fr": "Abiy Ahmed",
+"g": "h",
+"ne": "1976-08-15",
+"photo": {
+"auteur": "Ethiopia Prime Minister's Office",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Prime_Minister_of_Ethiopia_Abiy_Ahmed_Ali_(cropped).jpg",
+"visage": [
+0.446,
+0.418,
+0.468,
+0.366
+]
+},
+"q": "Q50365049",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"FIN": {
+"couleur": "vert",
+"depuis": "2023-06-20",
+"en": "Petteri Orpo",
+"fr": "Petteri Orpo",
+"g": "h",
+"ne": "1969-11-03",
+"photo": {
+"auteur": "Lauri Heikkinen, valtioneuvoston kanslia",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Petteri-Orpo-01_(cropped).jpg",
+"visage": [
+0.527,
+0.428,
+0.566,
+0.405
+]
+},
+"q": "Q6029546",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"FJI": {
+"couleur": "vert",
+"depuis": "2022-12-24",
+"en": "Sitiveni Rabuka",
+"fr": "Sitiveni Rabuka",
+"g": "h",
+"ne": "1948-09-13",
+"photo": {
+"auteur": "Prime Minister's Office",
+"licence": "GODL-India",
+"page": "https://commons.wikimedia.org/wiki/File:2025_Sitiveni_Rabuka_(cropped).jpg",
+"visage": [
+0.518,
+0.434,
+0.607,
+0.454
+]
+},
+"q": "Q981549",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"FRA": {
+"couleur": "vert",
+"depuis": "2017-05-14",
+"en": "Emmanuel Macron",
+"fr": "Emmanuel Macron",
+"g": "h",
+"ne": "1977-12-21",
+"photo": {
+"auteur": "Nebojša Tejić",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Emmanuel_Macron_2025_(cropped).jpg",
+"visage": [
+0.469,
+0.391,
+0.488,
+0.353
+]
+},
+"q": "Q3052772",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"FSM": {
+"couleur": "vert",
+"depuis": "2023-05-11",
+"en": "Wesley Simina",
+"fr": "Wesley Simina",
+"g": "h",
+"ne": "1961-09-10",
+"photo": {
+"auteur": "U.S. Department of State",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Wesley_Simina,_Federated_States_of_Micronesia_President,_at_the_Department_of_State_in_Washington,_D.C._on_March_18,_2024_(cropped).jpg",
+"visage": [
+0.518,
+0.464,
+0.5,
+0.376
+]
+},
+"q": "Q7984081",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"GAB": {
+"couleur": "vert",
+"depuis": "2023-08-30",
+"en": "Brice Clotaire Oligui Nguema",
+"fr": "Brice Oligui Nguema",
+"g": "h",
+"ne": "1975-03-03",
+"photo": {
+"auteur": "Lukasz Kobus / European Communities, 2024 / EC - Audiovisual Service",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Brice_Oligui_Nguema_on_November_26,_2024_(cropped).jpg",
+"visage": [
+0.525,
+0.405,
+0.409,
+0.318
+]
+},
+"q": "Q122067521",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"GBR": {
+"couleur": "vert",
+"depuis": "2026-07-20",
+"en": "Andy Burnham",
+"fr": "Andy Burnham",
+"g": "h",
+"ne": "1970-01-07",
+"photo": {
+"auteur": "Prime Minister's Office",
+"licence": "OGL 3",
+"page": "https://commons.wikimedia.org/wiki/File:Prime_Minister_Andy_Burnham_portrait_(cropped).jpg",
+"visage": [
+0.482,
+0.423,
+0.506,
+0.38
+]
+},
+"q": "Q269909",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"GEO": {
+"couleur": "bleu",
+"depuis": null,
+"en": "Bidzina Ivanishvili",
+"fr": "Bidzina Ivanichvili",
+"g": "h",
+"ne": "1956-02-18",
+"photo": {
+"auteur": "Saeima",
+"licence": "CC BY-SA 2.0",
+"page": "https://commons.wikimedia.org/wiki/File:Solvita_%C4%80bolti%C5%86a_tiekas_ar_Gruzijas_premjerministru_(cropped).jpg",
+"visage": [
+0.567,
+0.393,
+0.563,
+0.413
+]
+},
+"q": "Q57794",
+"titre": {
+"en": "Honorary Chairman of Georgian Dream",
+"fr": "Président honoraire du Rêve géorgien"
+}
+},
+"GHA": {
+"couleur": "vert",
+"depuis": "2025-01-07",
+"en": "John Mahama",
+"fr": "John Dramani Mahama",
+"g": "h",
+"ne": "1958-11-29",
+"photo": {
+"auteur": "Cabinet Public Relations Office of the Cabinet Secretariat",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:John_Mahama_in_Yokohama_(cropped).jpg",
+"visage": [
+0.482,
+0.443,
+0.46,
+0.35
+]
+},
+"q": "Q50678",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"GIN": {
+"couleur": "vert",
+"depuis": "2021-09-05",
+"en": "Mamadi Doumbouya",
+"fr": "Mamadi Doumbouya",
+"g": "h",
+"ne": "1984-12-05",
+"photo": {
+"auteur": "Ambassade des Etats-Unis Conakry, Guinée",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Mamadi_Doumbouya_2022.jpg",
+"visage": [
+0.458,
+0.272,
+0.364,
+0.273
+]
+},
+"q": "Q108418519",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"GMB": {
+"couleur": "vert",
+"depuis": "2017-01-19",
+"en": "Adama Barrow",
+"fr": "Adama Barrow",
+"g": "h",
+"ne": "1965-02-15",
+"photo": {
+"auteur": "SULAIMAN LEIGH ( https://www.youtube.com/channel/UCGrScO8KLUL0UymeUFaJd-w )",
+"licence": "CC BY 3.0",
+"page": "https://commons.wikimedia.org/wiki/File:Adama_Barrow_2016.jpg",
+"visage": [
+0.645,
+0.498,
+0.811,
+0.556
+]
+},
+"q": "Q27917049",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"GNB": {
+"couleur": "bleu",
+"depuis": "2025-11-27",
+"en": "Horta Inta-A Na Man",
+"fr": "Horta Inta-A Na Man",
+"g": "h",
+"ne": "1960-00-00",
+"photo": {
+"auteur": "Abakar B",
+"licence": "CC0",
+"page": "https://commons.wikimedia.org/wiki/File:Le_Tchad_c%C3%A9l%C3%A8bre_ce_mardi_11_ao%C3%BBt_2026_le_66%E1%B5%89_anniversaire_101_(cropped).jpg",
+"visage": [
+0.626,
+0.508,
+0.37,
+0.277
+]
+},
+"q": "Q137049690",
+"titre": {
+"en": "Chief of the High Command",
+"fr": "Chef du haut commandement"
+}
+},
+"GNQ": {
+"couleur": "vert",
+"depuis": "1979-08-03",
+"en": "Teodoro Obiang",
+"fr": "Teodoro Obiang Nguema Mbasogo",
+"g": "h",
+"ne": "1942-06-05",
+"photo": {
+"auteur": "U.S. Department of State",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:2026_Teodoro_Obiang_(cropped).jpg",
+"visage": [
+0.484,
+0.4,
+0.539,
+0.401
+]
+},
+"q": "Q57385",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"GRC": {
+"couleur": "vert",
+"depuis": "2023-06-26",
+"en": "Kyriakos Mitsotakis",
+"fr": "Kyriákos Mitsotákis",
+"g": "h",
+"ne": "1968-03-04",
+"photo": {
+"auteur": "Yorgos Karahalis",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Kyriakos_Mitsotakis_2026.jpg",
+"visage": [
+0.517,
+0.356,
+0.379,
+0.288
+]
+},
+"q": "Q552751",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"GRD": {
+"couleur": "vert",
+"depuis": "2022-06-24",
+"en": "Dickon Mitchell",
+"fr": "Dickon Mitchell",
+"g": "h",
+"ne": "1978-10-08",
+"photo": {
+"auteur": "Prime Minister's Office",
+"licence": "GODL-India",
+"page": "https://commons.wikimedia.org/wiki/File:Prime_Minister_of_Grenada_Mr._Dickon_Mitchell.jpg",
+"visage": [
+0.523,
+0.42,
+0.483,
+0.362
+]
+},
+"q": "Q112679881",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"GTM": {
+"couleur": "vert",
+"depuis": "2024-01-15",
+"en": "Bernardo Arévalo de León",
+"fr": "Bernardo Arévalo",
+"g": "h",
+"ne": "1958-10-07",
+"photo": {
+"auteur": "Gobierno de Guatemala",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Retrato_oficial_de_Presidente_Bernardo_Ar%C3%A9valo_(cropped).jpg",
+"visage": [
+0.502,
+0.377,
+0.379,
+0.284
+]
+},
+"q": "Q107254030",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"GUY": {
+"couleur": "vert",
+"depuis": "2020-08-02",
+"en": "Irfaan Ali",
+"fr": "Irfaan Ali",
+"g": "h",
+"ne": "1980-04-25",
+"photo": {
+"auteur": "U.S. Department of State",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:2025_Irfaan_Ali_(cropped).jpg",
+"visage": [
+0.568,
+0.487,
+0.589,
+0.444
+]
+},
+"q": "Q64840184",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"HND": {
+"couleur": "vert",
+"depuis": "2026-01-27",
+"en": "Nasry Asfura",
+"fr": "Nasry Asfura",
+"g": "h",
+"ne": "1958-06-08",
+"photo": {
+"auteur": "U.S. Department of State",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Secretary_Rubio_Meets_with_Honduran_President-Elect_(55037313932)_(cropped).jpg",
+"visage": [
+0.514,
+0.327,
+0.382,
+0.312
+]
+},
+"q": "Q16146159",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"HRV": {
+"couleur": "vert",
+"depuis": "2016-10-19",
+"en": "Andrej Plenković",
+"fr": "Andrej Plenković",
+"g": "h",
+"ne": "1970-04-08",
+"photo": {
+"auteur": "© European Union 2024 - Source : European Commission",
+"licence": "Attribution",
+"page": "https://commons.wikimedia.org/wiki/File:Andrej_Plenkovi%C4%87.jpg",
+"visage": [
+0.469,
+0.453,
+0.458,
+0.342
+]
+},
+"q": "Q11685764",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"HTI": {
+"couleur": "bleu",
+"depuis": "2024-11-10",
+"en": "Alix Didier Fils-Aimé",
+"fr": "Alix Didier Fils-Aimé",
+"g": "h",
+"ne": "1971-11-14",
+"photo": {
+"auteur": "Unknown author Unknown author",
+"licence": "CC0",
+"page": "https://commons.wikimedia.org/wiki/File:Alix_Didier_Fils-Aim%C3%A9_-_Premier_ministre.jpg",
+"visage": [
+0.429,
+0.279,
+0.263,
+0.251
+]
+},
+"q": "Q131140314",
+"titre": {
+"en": "Acting Prime Minister",
+"fr": "Premier ministre par intérim"
+}
+},
+"HUN": {
+"couleur": "vert",
+"depuis": "2026-05-09",
+"en": "Péter Magyar",
+"fr": "Péter Magyar",
+"g": "h",
+"ne": "1981-03-16",
+"photo": {
+"auteur": "© European Union 2024 - Source : EP",
+"licence": "European Parliament",
+"page": "https://commons.wikimedia.org/wiki/File:P%C3%A9ter_Magyar_MEP_(2024).jpg",
+"visage": [
+0.452,
+0.49,
+0.506,
+0.394
+]
+},
+"q": "Q124488292",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"IDN": {
+"couleur": "vert",
+"depuis": "2024-10-20",
+"en": "Prabowo Subianto",
+"fr": "Prabowo Subianto",
+"g": "h",
+"ne": "1951-10-17",
+"photo": {
+"auteur": "Darwis Triadi & Ministry of State Secretariat",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Prabowo_Subianto_2024_official_portrait.jpg",
+"visage": [
+0.596,
+0.364,
+0.383,
+0.303
+]
+},
+"q": "Q2107268",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"IND": {
+"couleur": "vert",
+"depuis": "2014-05-26",
+"en": "Narendra Modi",
+"fr": "Narendra Modi",
+"g": "h",
+"ne": "1950-09-17",
+"photo": {
+"auteur": "Prime Minister's Office",
+"licence": "GODL-India",
+"page": "https://commons.wikimedia.org/wiki/File:Prime_Minister_Of_Bharat_Shri_Narendra_Damodardas_Modi.jpg",
+"visage": [
+0.483,
+0.331,
+0.362,
+0.33
+]
+},
+"q": "Q1058",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"IRL": {
+"couleur": "vert",
+"depuis": "2025-01-23",
+"en": "Micheál Martin",
+"fr": "Micheál Martin",
+"g": "h",
+"ne": "1960-08-16",
+"photo": {
+"auteur": "The White House",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:2026_Miche%C3%A1l_Martin_-_(cropped).jpg",
+"visage": [
+0.549,
+0.429,
+0.534,
+0.399
+]
+},
+"q": "Q920403",
+"titre": {
+"en": "Taoiseach",
+"fr": "Taoiseach (Premier ministre)"
+}
+},
+"IRN": {
+"couleur": "vert",
+"depuis": "2026-03-08",
+"en": "Mojtaba Khamenei",
+"fr": "Mojtaba Khamenei",
+"g": "h",
+"ne": "1969-09-08",
+"photo": {
+"auteur": "khamenei.ir",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Portrait_of_Mojtaba_Khamenei.jpg",
+"visage": [
+0.544,
+0.458,
+0.459,
+0.325
+]
+},
+"q": "Q2919350",
+"titre": {
+"en": "Supreme Leader",
+"fr": "Guide suprême"
+}
+},
+"IRQ": {
+"couleur": "vert",
+"depuis": "2026-05-14",
+"en": "Ali Falih Al-Zaidi",
+"fr": "Ali Falih Al-Zaidi",
+"g": "h",
+"ne": "1985-05-01",
+"photo": {
+"auteur": "White House https://x.com/WhiteHouse%7CThe White House",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:President_Donald_J._Trump_and_Iraqi_Prime_Minister_Ali_al-Zaidi_(cropped).jpg",
+"visage": [
+0.504,
+0.384,
+0.526,
+0.386
+]
+},
+"q": "Q139573306",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"ISL": {
+"couleur": "vert",
+"depuis": "2024-12-21",
+"en": "Kristrún Mjöll Frostadóttir",
+"fr": "Kristrún Mjöll Frostadóttir",
+"g": "f",
+"ne": "1988-05-12",
+"photo": {
+"auteur": "Xuthoria",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:NYCW_2026_-_Kristr%C3%BAn_Frostad%C3%B3ttir_09_(cropped).jpg",
+"visage": [
+0.539,
+0.345,
+0.558,
+0.349
+]
+},
+"q": "Q108856371",
+"titre": {
+"en": "Prime Minister",
+"fr": "Première ministre"
+}
+},
+"ISR": {
+"couleur": "vert",
+"depuis": "2022-12-29",
+"en": "Benjamin Netanyahu",
+"fr": "Benjamin Netanyahou",
+"g": "h",
+"ne": "1949-10-21",
+"photo": {
+"auteur": "Avi Ohayon",
+"licence": "CC BY-SA 3.0",
+"page": "https://commons.wikimedia.org/wiki/File:Benjamin_Netanyahu,_February_2023.jpg",
+"visage": [
+0.486,
+0.288,
+0.349,
+0.24
+]
+},
+"q": "Q43723",
+"titre": {
+"en": "Caretaker Prime Minister",
+"fr": "Premier ministre chargé des affaires courantes"
+}
+},
+"ITA": {
+"couleur": "vert",
+"depuis": "2022-10-22",
+"en": "Giorgia Meloni",
+"fr": "Giorgia Meloni",
+"g": "f",
+"ne": "1977-01-15",
+"photo": {
+"auteur": "Governo Italiano",
+"licence": "CC BY 3.0 it",
+"page": "https://commons.wikimedia.org/wiki/File:Giorgia_Meloni_Official_2024_(cropped).jpg",
+"visage": [
+0.519,
+0.396,
+0.408,
+0.31
+]
+},
+"q": "Q451791",
+"titre": {
+"en": "Prime Minister",
+"fr": "Première ministre"
+}
+},
+"JAM": {
+"couleur": "vert",
+"depuis": "2016-03-03",
+"en": "Andrew Holness",
+"fr": "Andrew Holness",
+"g": "h",
+"ne": "1972-07-22",
+"photo": {
+"auteur": "U.S. Department of State from United States",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Andrew_Holness_Press_(cropped).jpg",
+"visage": [
+0.365,
+0.331,
+0.375,
+0.341
+]
+},
+"q": "Q505200",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"JOR": {
+"couleur": "vert",
+"depuis": "1999-01-25",
+"en": "Abdullah II of Jordan",
+"fr": "Abdallah II de Jordanie",
+"g": "h",
+"ne": "1962-01-30",
+"photo": {
+"auteur": "Number 10",
+"licence": "OGL 3",
+"page": "https://commons.wikimedia.org/wiki/File:Abdullah_II_portrait_at_10_Downing_Street_February_2026_(cropped).jpg",
+"visage": [
+0.561,
+0.449,
+0.517,
+0.392
+]
+},
+"q": "Q57464",
+"titre": {
+"en": "King",
+"fr": "Roi"
+}
+},
+"JPN": {
+"couleur": "vert",
+"depuis": "2025-10-21",
+"en": "Sanae Takaichi",
+"fr": "Sanae Takaichi",
+"g": "f",
+"ne": "1961-03-07",
+"photo": {
+"auteur": "Immediate source: MOFA/Japanese Embassy to South Africa, probable source: Cabinet Public Affairs Office",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Official_portrait_of_Sanae_Takaichi,_Prime_Minister_of_Japan_(HD).jpg",
+"visage": [
+0.472,
+0.353,
+0.33,
+0.256
+]
+},
+"q": "Q1705028",
+"titre": {
+"en": "Prime Minister",
+"fr": "Première ministre"
+}
+},
+"KAZ": {
+"couleur": "vert",
+"depuis": "2019-03-20",
+"en": "Kassym-Jomart Tokayev",
+"fr": "Kassym-Jomart Tokaïev",
+"g": "h",
+"ne": "1953-05-17",
+"photo": {
+"auteur": "Қазақстан премьер-министрі",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:2025_Tokayev_Address_to_the_Nation_(cropped).jpg",
+"visage": [
+0.477,
+0.373,
+0.42,
+0.315
+]
+},
+"q": "Q200881",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"KEN": {
+"couleur": "vert",
+"depuis": "2022-09-13",
+"en": "William Ruto",
+"fr": "William Ruto",
+"g": "h",
+"ne": "1966-12-21",
+"photo": {
+"auteur": "Presidenza della Repubblica",
+"licence": "Attribution",
+"page": "https://commons.wikimedia.org/wiki/File:William_Ruto_2023_(cropped).jpg",
+"visage": [
+0.449,
+0.437,
+0.531,
+0.383
+]
+},
+"q": "Q195725",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"KGZ": {
+"couleur": "vert",
+"depuis": "2021-01-28",
+"en": "Sadyr Japarov",
+"fr": "Sadyr Japarov",
+"g": "h",
+"ne": "1968-12-06",
+"photo": {
+"auteur": "Ermek Sydykov https://president.kg/president/biography",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Official_Photo_of_the_President_of_the_Kyrgyz_Republic_H.E._Mr._Sadyr_Zhaparov.jpg",
+"visage": [
+0.526,
+0.43,
+0.5,
+0.375
+]
+},
+"q": "Q25597826",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"KHM": {
+"couleur": "bleu",
+"depuis": null,
+"en": "Hun Sen",
+"fr": "Hun Sen",
+"g": "h",
+"ne": "1952-08-05",
+"photo": {
+"auteur": "U.S. Secretary of Defense",
+"licence": "CC BY 2.0",
+"page": "https://commons.wikimedia.org/wiki/File:Cambodian_President_of_the_Senate_Hun_Sen_met_United_States_Secretary_of_Defense_Lloyd_Austin_during_his_visit_to_senior_Cambodian_government_officials_in_Phnom_Penh_on_June_4,_2024_(cropped).jpg",
+"visage": [
+0.411,
+0.506,
+0.603,
+0.45
+]
+},
+"q": "Q57788",
+"titre": {
+"en": "President of the People's Party",
+"fr": "Président du Parti du peuple"
+}
+},
+"KIR": {
+"couleur": "vert",
+"depuis": "2016-03-11",
+"en": "Taneti Maamau",
+"fr": "Taneti Maamau",
+"g": "h",
+"ne": "1960-09-16",
+"photo": {
+"auteur": "Department of Foreign Affairs and Trade (DFAT)/Sarah Hodges",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Taneti_Maamau_Feb_2023.jpg",
+"visage": [
+0.627,
+0.437,
+0.584,
+0.452
+]
+},
+"q": "Q23034482",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"KNA": {
+"couleur": "vert",
+"depuis": "2022-08-06",
+"en": "Terrance Drew",
+"fr": "Terrance Drew",
+"g": "h",
+"ne": "1976-11-22",
+"photo": {
+"auteur": "Ministry of Foreign Affairs, Republic of China (Taiwan)",
+"licence": "Attribution",
+"page": "https://commons.wikimedia.org/wiki/File:Terrance_Drew_2022.jpg",
+"visage": [
+0.479,
+0.388,
+0.508,
+0.381
+]
+},
+"q": "Q113443525",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"KOR": {
+"couleur": "vert",
+"depuis": "2025-06-04",
+"en": "Lee Jae Myung",
+"fr": "Lee Jae-myung",
+"g": "h",
+"ne": "1963-12-08",
+"photo": {
+"auteur": "Republic of Korea from Seoul, Republic of Korea",
+"licence": "CC BY-SA 2.0",
+"page": "https://commons.wikimedia.org/wiki/File:President_Lee_Jae-myung_2025_(cropped).jpg",
+"visage": [
+0.531,
+0.412,
+0.473,
+0.368
+]
+},
+"q": "Q12612463",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"KWT": {
+"couleur": "vert",
+"depuis": "2023-12-16",
+"en": "Mishal Al-Ahmad Al-Jaber Al-Sabah",
+"fr": "Mechaal al-Ahmad al-Jaber al-Sabah",
+"g": "h",
+"ne": "1940-09-27",
+"photo": {
+"auteur": "Prime Minister's Office",
+"licence": "GODL-India",
+"page": "https://commons.wikimedia.org/wiki/File:Emir_of_Kuwait_Sheikh_Mishal_Al-Ahmad_Al-Jaber_Al-Sabah_in_2024.jpg",
+"visage": [
+0.469,
+0.391,
+0.525,
+0.392
+]
+},
+"q": "Q12243161",
+"titre": {
+"en": "Emir",
+"fr": "Émir"
+}
+},
+"LAO": {
+"couleur": "bleu",
+"depuis": "2016-04-20",
+"en": "Thongloun Sisoulith",
+"fr": "Thongloun Sisoulith",
+"g": "h",
+"ne": "1945-11-10",
+"photo": {
+"auteur": "Press Service of the President of the Republic of Azerbaijan",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Thongloun_Sisoulith_in_Kazan_-_2024_(cropped_2).jpg",
+"visage": [
+0.533,
+0.411,
+0.428,
+0.337
+]
+},
+"q": "Q58323",
+"titre": {
+"en": "General Secretary of the People's Revolutionary Party",
+"fr": "Secrétaire général du Parti révolutionnaire populaire"
+}
+},
+"LBN": {
+"couleur": "vert",
+"depuis": "2025-02-08",
+"en": "Nawaf Salam",
+"fr": "Nawaf Salam",
+"g": "h",
+"ne": "1953-12-15",
+"photo": {
+"auteur": "ALGÉRIE PRESSE SERVICE",
+"licence": "CC BY 3.0",
+"page": "https://commons.wikimedia.org/wiki/File:Nawaf_Salam.jpg",
+"visage": [
+0.657,
+0.322,
+0.346,
+0.259
+]
+},
+"q": "Q638463",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"LBR": {
+"couleur": "vert",
+"depuis": "2024-01-22",
+"en": "Joseph Boakai",
+"fr": "Joseph Boakai",
+"g": "h",
+"ne": "1944-11-30",
+"photo": {
+"auteur": "Cabinet Public Relations Office of the Cabinet Secretariat",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Joseph_Boakai_in_Yokohama_(cropped).jpg",
+"visage": [
+0.458,
+0.45,
+0.459,
+0.342
+]
+},
+"q": "Q2630483",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"LBY": {
+"couleur": "vert",
+"depuis": "2021-03-15",
+"en": "Abd al-Hamid Al-Dabiba",
+"fr": "Abdelhamid Dabeibah",
+"g": "h",
+"ne": "1959-02-13",
+"photo": {
+"auteur": "© European Union, 2024",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Visit_of_Abdul_Hamid_Dbeibah,_Prime_Minister_of_the_Government_of_National_Unity_of_Libya,_to_the_European_Commission_04_(cropped).jpg",
+"visage": [
+0.478,
+0.448,
+0.483,
+0.362
+]
+},
+"q": "Q105319569",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"LCA": {
+"couleur": "vert",
+"depuis": "2021-07-28",
+"en": "Philip J. Pierre",
+"fr": "Philip Pierre",
+"g": "h",
+"ne": "1954-09-18",
+"photo": {
+"auteur": "U.S. Department of State",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Philip_Pierre_2025_(cropped).jpg",
+"visage": [
+0.484,
+0.474,
+0.629,
+0.475
+]
+},
+"q": "Q7184214",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"LIE": {
+"couleur": "bleu",
+"depuis": "2004-08-15",
+"en": "Alois, Hereditary Prince of Liechtenstein",
+"fr": "Alois de Liechtenstein",
+"g": "h",
+"ne": "1968-06-11",
+"photo": {
+"auteur": "Bundesministerium für Europa, Integration und Äußeres",
+"licence": "CC BY 2.0",
+"page": "https://commons.wikimedia.org/wiki/File:Alois_of_Liechtenstein_and_Karin_Kneissl_November_2018_(45170115774)_(cropped).jpg",
+"visage": [
+0.49,
+0.324,
+0.279,
+0.266
+]
+},
+"q": "Q311308",
+"titre": {
+"en": "Regent",
+"fr": "Régent"
+}
+},
+"LKA": {
+"couleur": "vert",
+"depuis": "2024-09-23",
+"en": "Anura Kurankan Dissanayake",
+"fr": "Anura Kumara Dissanayake",
+"g": "h",
+"ne": "1968-11-24",
+"photo": {
+"auteur": "Prime Minister's Office",
+"licence": "GODL-India",
+"page": "https://commons.wikimedia.org/wiki/File:Dissanayake_2026.jpg",
+"visage": [
+0.528,
+0.447,
+0.489,
+0.367
+]
+},
+"q": "Q4777855",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"LSO": {
+"couleur": "vert",
+"depuis": "2022-10-28",
+"en": "Sam Matekane",
+"fr": "Sam Matekane",
+"g": "h",
+"ne": "1958-03-15",
+"photo": {
+"auteur": "European Union Election Observation Mission Lesotho 2022",
+"licence": "Attribution",
+"page": "https://commons.wikimedia.org/wiki/File:Sam_Matekane_candidate_(cropped).jpg",
+"visage": [
+0.603,
+0.305,
+0.256,
+0.208
+]
+},
+"q": "Q114588964",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"LTU": {
+"couleur": "vert",
+"depuis": "2019-07-12",
+"en": "Gitanas Nausėda",
+"fr": "Gitanas Nausėda",
+"g": "h",
+"ne": "1964-05-19",
+"photo": {
+"auteur": "European Union",
+"licence": "Attribution",
+"page": "https://commons.wikimedia.org/wiki/File:Gitanas_Naus%C4%97da,_2025.06.26_(cropped).jpg",
+"visage": [
+0.387,
+0.57,
+0.574,
+0.431
+]
+},
+"q": "Q9268379",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"LUX": {
+"couleur": "vert",
+"depuis": "2023-11-17",
+"en": "Luc Frieden",
+"fr": "Luc Frieden",
+"g": "h",
+"ne": "1963-09-16",
+"photo": {
+"auteur": "European Parliament",
+"licence": "European Parliament",
+"page": "https://commons.wikimedia.org/wiki/File:Luc_Frieden_EP_2025_(cropped).jpg",
+"visage": [
+0.537,
+0.397,
+0.599,
+0.399
+]
+},
+"q": "Q592101",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"LVA": {
+"couleur": "vert",
+"depuis": "2026-05-28",
+"en": "Andris Kulbergs",
+"fr": "Andris Kulbergs",
+"g": "h",
+"ne": "1979-05-26",
+"photo": {
+"auteur": "Saeima",
+"licence": "CC BY-SA 2.0",
+"page": "https://commons.wikimedia.org/wiki/File:Andris_Kulbergs_2023_(cropped).jpg",
+"visage": [
+0.511,
+0.289,
+0.236,
+0.233
+]
+},
+"q": "Q115604300",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"MAR": {
+"couleur": "vert",
+"depuis": "1999-07-23",
+"en": "Mohammed VI of Morocco",
+"fr": "Mohammed VI",
+"g": "h",
+"ne": "1963-08-21",
+"photo": {
+"auteur": "UN Climate Change",
+"licence": "CC BY 2.0",
+"page": "https://commons.wikimedia.org/wiki/File:King_Mohammed_VI_(cropped).jpg",
+"visage": [
+0.519,
+0.301,
+0.294,
+0.204
+]
+},
+"q": "Q57553",
+"titre": {
+"en": "King",
+"fr": "Roi"
+}
+},
+"MCO": {
+"couleur": "vert",
+"depuis": "2005-03-31",
+"en": "Albert II, Prince of Monaco",
+"fr": "Albert II de Monaco",
+"g": "h",
+"ne": "1958-03-14",
+"photo": {
+"auteur": "https://www.flickr.com/photos/unfccc/ Unclimaitechange",
+"licence": "CC BY 2.0",
+"page": "https://commons.wikimedia.org/wiki/File:Prince_Albert_II_2016.jpg",
+"visage": [
+0.524,
+0.428,
+0.626,
+0.473
+]
+},
+"q": "Q3910",
+"titre": {
+"en": "Sovereign Prince",
+"fr": "Prince souverain"
+}
+},
+"MDA": {
+"couleur": "bleu",
+"depuis": "2020-12-24",
+"en": "Maia Sandu",
+"fr": "Maia Sandu",
+"g": "f",
+"ne": "1972-05-24",
+"photo": {
+"auteur": "European Parliament",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Maia_Sandu,_September_2025.jpg",
+"visage": [
+0.61,
+0.462,
+0.396,
+0.439
+]
+},
+"q": "Q15071069",
+"titre": {
+"en": "President",
+"fr": "Présidente"
+}
+},
+"MDG": {
+"couleur": "bleu",
+"depuis": "2025-10-17",
+"en": "Michael Randrianirina",
+"fr": "Michael Randrianirina",
+"g": "h",
+"ne": "1974-00-00",
+"q": "Q136500275",
+"titre": {
+"en": "President of the Council of the Presidency for the Re-Foundation of the Republic",
+"fr": "Président du Conseil de la présidence pour la refondation"
+}
+},
+"MDV": {
+"couleur": "vert",
+"depuis": "2023-11-17",
+"en": "Mohamed Muizzu",
+"fr": "Mohamed Muizzu",
+"g": "h",
+"ne": "1978-06-15",
+"photo": {
+"auteur": "The President's Office, Maldives",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Dr_Muizzu_in_December_2023.jpg",
+"visage": [
+0.528,
+0.28,
+0.358,
+0.268
+]
+},
+"q": "Q116293030",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"MEX": {
+"couleur": "vert",
+"depuis": "2024-10-01",
+"en": "Claudia Sheinbaum",
+"fr": "Claudia Sheinbaum",
+"g": "f",
+"ne": "1962-06-24",
+"photo": {
+"auteur": "Bryan Berlin",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Claudia_Sheinbaum_Argentina_v_Spain_19_July_2026-283.jpg",
+"visage": [
+0.46,
+0.27,
+0.358,
+0.238
+]
+},
+"q": "Q5771800",
+"titre": {
+"en": "President",
+"fr": "Présidente"
+}
+},
+"MHL": {
+"couleur": "vert",
+"depuis": "2024-01-03",
+"en": "Hilda Heine",
+"fr": "Hilda Heine",
+"g": "f",
+"ne": "1951-04-06",
+"photo": {
+"auteur": "Department of Foreign Affairs and Trade (DFAT)/Nathan Fulton",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Hilda_Heine_2022.jpg",
+"visage": [
+0.459,
+0.479,
+0.571,
+0.434
+]
+},
+"q": "Q20090884",
+"titre": {
+"en": "President",
+"fr": "Présidente"
+}
+},
+"MKD": {
+"couleur": "vert",
+"depuis": "2024-06-23",
+"en": "Hristijan Mickoski",
+"fr": "Hristijan Mickoski",
+"g": "h",
+"ne": "1977-09-29",
+"photo": {
+"auteur": "Government of North Macedonia",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Hristijan_Mickoski_official_portrait_2024_(cropped).jpg",
+"visage": [
+0.481,
+0.398,
+0.465,
+0.351
+]
+},
+"q": "Q46675558",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"MLI": {
+"couleur": "vert",
+"depuis": "2021-05-24",
+"en": "Assimi Goïta",
+"fr": "Assimi Goïta",
+"g": "h",
+"ne": "1983-11-09",
+"q": "Q98497406",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"MLT": {
+"couleur": "vert",
+"depuis": "2020-01-13",
+"en": "Robert Abela",
+"fr": "Robert Abela",
+"g": "h",
+"ne": "1977-12-07",
+"photo": {
+"auteur": "European Union",
+"licence": "Attribution",
+"page": "https://commons.wikimedia.org/wiki/File:Robert_Abela,_2025.06.26_(03)_(cropped).jpg",
+"visage": [
+0.407,
+0.518,
+0.62,
+0.464
+]
+},
+"q": "Q37860840",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"MMR": {
+"couleur": "vert",
+"depuis": "2021-02-02",
+"en": "Min Aung Hlaing",
+"fr": "Min Aung Hlaing",
+"g": "h",
+"ne": "1956-07-03",
+"photo": {
+"auteur": "Zawzawaungthwin",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:President_Min_Aung_Hlaing_2026_(cropped).jpg",
+"visage": [
+0.44,
+0.498,
+0.442,
+0.331
+]
+},
+"q": "Q3462649",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"MNE": {
+"couleur": "vert",
+"depuis": "2023-10-31",
+"en": "Milojko Spajić",
+"fr": "Milojko Spajić",
+"g": "h",
+"ne": "1987-09-24",
+"photo": {
+"auteur": "belgium24.eu",
+"licence": "CC BY 2.0",
+"page": "https://commons.wikimedia.org/wiki/File:Milojko_Spaji%C4%87_at_EU-Montenegro_Intergovernmental_Conference_European_Council_on_26_June_2024_(cropped).jpg",
+"visage": [
+0.531,
+0.427,
+0.598,
+0.449
+]
+},
+"q": "Q101225458",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"MNG": {
+"couleur": "bleu",
+"depuis": "2026-11-19",
+"en": "Byambatsogt Sandag",
+"fr": "Byambatsogt Sandag",
+"g": "h",
+"ne": "1974-01-01",
+"photo": {
+"auteur": "Munkh777",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Byambatsogt.jpg",
+"visage": [
+0.53,
+0.418,
+0.273,
+0.182
+]
+},
+"q": "Q30951236",
+"titre": {
+"en": "Acting President",
+"fr": "Président par intérim"
+}
+},
+"MOZ": {
+"couleur": "vert",
+"depuis": "2025-01-15",
+"en": "Daniel Chapo",
+"fr": "Daniel Chapo",
+"g": "h",
+"ne": "1977-01-06",
+"photo": {
+"auteur": "Lula Oficial",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Daniel_Chapo_on_November_24,_2025_(cropped).jpg",
+"visage": [
+0.486,
+0.428,
+0.502,
+0.389
+]
+},
+"q": "Q97058466",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"MRT": {
+"couleur": "vert",
+"depuis": "2019-08-01",
+"en": "Mohamed Ould Ghazouani",
+"fr": "Mohammed ould al-Ghazouani",
+"g": "h",
+"ne": "1956-12-31",
+"photo": {
+"auteur": "European Union",
+"licence": "Attribution",
+"page": "https://commons.wikimedia.org/wiki/File:President_Mohamed_Ould_Ghazouani_(2026-03-26)_(cropped).jpg",
+"visage": [
+0.46,
+0.435,
+0.512,
+0.395
+]
+},
+"q": "Q12241106",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"MUS": {
+"couleur": "vert",
+"depuis": "2024-11-13",
+"en": "Navin Ramgoolam",
+"fr": "Navin Ramgoolam",
+"g": "h",
+"ne": "1947-07-14",
+"photo": {
+"auteur": "Ministry of External Affairs",
+"licence": "GODL-India",
+"page": "https://commons.wikimedia.org/wiki/File:Navin_Ramgoolam,_2025.jpg",
+"visage": [
+0.512,
+0.441,
+0.451,
+0.361
+]
+},
+"q": "Q57836",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"MWI": {
+"couleur": "vert",
+"depuis": "2025-10-04",
+"en": "Peter Mutharika",
+"fr": "Peter Mutharika",
+"g": "h",
+"ne": "1940-07-18",
+"photo": {
+"auteur": "U.S. Department of State",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Arthur_Peter_Mutharika_2014_(cropped).jpg",
+"visage": [
+0.546,
+0.41,
+0.513,
+0.385
+]
+},
+"q": "Q7176020",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"MYS": {
+"couleur": "vert",
+"depuis": "2022-11-24",
+"en": "Anwar Ibrahim",
+"fr": "Anwar Ibrahim",
+"g": "h",
+"ne": "1947-08-10",
+"photo": {
+"auteur": "Cabinet Public Relations Office of the Cabinet Secretariat",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Anwar_Ibrahim_in_June_2026.jpg",
+"visage": [
+0.506,
+0.409,
+0.482,
+0.362
+]
+},
+"q": "Q299574",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"NAM": {
+"couleur": "vert",
+"depuis": "2025-03-21",
+"en": "Netumbo Nandi-Ndaitwah",
+"fr": "Netumbo Nandi-Ndaitwah",
+"g": "f",
+"ne": "1952-10-29",
+"photo": {
+"auteur": "Prime Minister's Office",
+"licence": "GODL-India",
+"page": "https://commons.wikimedia.org/wiki/File:Netumbo_Nandi-Ndaitwah_2025.jpg",
+"visage": [
+0.423,
+0.413,
+0.473,
+0.381
+]
+},
+"q": "Q527020",
+"titre": {
+"en": "President",
+"fr": "Présidente"
+}
+},
+"NER": {
+"couleur": "bleu",
+"depuis": "2023-07-26",
+"en": "Abdourahamane Tiani",
+"fr": "Abdourahamane Tchiani",
+"g": "h",
+"ne": "1961-00-00",
+"photo": {
+"auteur": "Sule Barma",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Abdourahamane_Tchiani_in_2025_(cropped).jpg",
+"visage": [
+0.582,
+0.376,
+0.47,
+0.331
+]
+},
+"q": "Q120965176",
+"titre": {
+"en": "President of the National Council for the Safeguard of the Homeland",
+"fr": "Président du Conseil national pour la sauvegarde de la patrie"
+}
+},
+"NGA": {
+"couleur": "vert",
+"depuis": "2023-05-29",
+"en": "Bola Tinubu",
+"fr": "Bola Tinubu",
+"g": "h",
+"ne": "1952-03-29",
+"photo": {
+"auteur": "Nosa Asemota",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Bola_Tinubu_portrait.jpg",
+"visage": [
+0.513,
+0.408,
+0.371,
+0.297
+]
+},
+"q": "Q3510872",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"NIC": {
+"couleur": "vert",
+"depuis": "2007-01-10",
+"en": "Daniel Ortega",
+"fr": "Daniel Ortega",
+"g": "h",
+"ne": "1945-11-11",
+"photo": {
+"auteur": "總統府",
+"licence": "CC BY 2.0",
+"page": "https://commons.wikimedia.org/wiki/File:01.10_%E7%B8%BD%E7%B5%B1%E8%88%87%E5%B0%BC%E5%8A%A0%E6%8B%89%E7%93%9C%E7%B8%BD%E7%B5%B1%E5%A5%A7%E5%BE%B7%E5%98%89(Jos%C3%A9_Daniel_Ortega_Saavedra)%E9%9B%99%E9%82%8A%E6%9C%83%E6%99%A4_(32074399712)_(cropped).jpg",
+"visage": [
+0.51,
+0.467,
+0.644,
+0.483
+]
+},
+"q": "Q57402",
+"titre": {
+"en": "Co-Presidents",
+"fr": "Coprésident (avec Rosario Murillo)"
+}
+},
+"NLD": {
+"couleur": "vert",
+"depuis": "2026-02-23",
+"en": "Rob Jetten",
+"fr": "Rob Jetten",
+"g": "h",
+"ne": "1987-03-25",
+"photo": {
+"auteur": "Alexis Haulot / EP",
+"licence": "European Parliament",
+"page": "https://commons.wikimedia.org/wiki/File:Rob_Jetten,_March_2026_-_02.jpg",
+"visage": [
+0.505,
+0.487,
+0.546,
+0.41
+]
+},
+"q": "Q28860866",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"NOR": {
+"couleur": "vert",
+"depuis": "2021-10-14",
+"en": "Jonas Gahr Støre",
+"fr": "Jonas Gahr Støre",
+"g": "h",
+"ne": "1960-08-25",
+"photo": {
+"auteur": "Torbjørn Kjosvold/SMK",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Jonas_Gahr_St%C3%B8re_under_%C3%A5pningen_av_det_nye_regjeringskvartalet_130426_(cropped).jpg",
+"visage": [
+0.456,
+0.476,
+0.497,
+0.373
+]
+},
+"q": "Q467948",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"NPL": {
+"couleur": "vert",
+"depuis": "2026-03-27",
+"en": "Balendra Shah",
+"fr": "Balendra Shah",
+"g": "h",
+"ne": "1990-04-27",
+"photo": {
+"auteur": "Metro News",
+"licence": "CC BY 3.0",
+"page": "https://commons.wikimedia.org/wiki/File:Balen_Shah_in_May_2024_01_(cropped).jpg",
+"visage": [
+0.439,
+0.497,
+0.459,
+0.392
+]
+},
+"q": "Q111772343",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"NRU": {
+"couleur": "vert",
+"depuis": "2023-10-30",
+"en": "David Adeang",
+"fr": "David Adeang",
+"g": "h",
+"ne": "1969-11-24",
+"photo": {
+"auteur": "Naikaku Sōri Daijin Kantei",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:David_Adeang_in_July_2024_(cropped).jpg",
+"visage": [
+0.516,
+0.385,
+0.474,
+0.355
+]
+},
+"q": "Q58096",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"NZL": {
+"couleur": "vert",
+"depuis": "2023-11-27",
+"en": "Christopher Luxon",
+"fr": "Christopher Luxon",
+"g": "h",
+"ne": "1970-07-19",
+"photo": {
+"auteur": "The Office of the Governor-General of New Zealand",
+"licence": "CC0",
+"page": "https://commons.wikimedia.org/wiki/File:Christopher_Luxon_2025_(mid_cropped).jpg",
+"visage": [
+0.51,
+0.337,
+0.435,
+0.326
+]
+},
+"q": "Q74370310",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"OMN": {
+"couleur": "vert",
+"depuis": "2020-01-11",
+"en": "Haitham bin Tarik Al Said",
+"fr": "Haïtham bin Tariq Al Saïd",
+"g": "h",
+"ne": "1955-10-11",
+"photo": {
+"auteur": "Foreign Ministry of Oman",
+"licence": "OGL-om 1.0",
+"page": "https://commons.wikimedia.org/wiki/File:Official_portrait_of_Sultan_Haitham_bin_Tariq_(2021).jpg",
+"visage": [
+0.506,
+0.231,
+0.158,
+0.1
+]
+},
+"q": "Q12250314",
+"titre": {
+"en": "Sultan",
+"fr": "Sultan"
+}
+},
+"PAK": {
+"couleur": "vert",
+"depuis": "2024-03-04",
+"en": "Shehbaz Sharif",
+"fr": "Shahbaz Sharif",
+"g": "h",
+"ne": "1951-09-23",
+"photo": {
+"auteur": "Press Service of the President of the Republic of Azerbaijan",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Shehbaz_Sharif_in_2024.jpg",
+"visage": [
+0.497,
+0.395,
+0.492,
+0.378
+]
+},
+"q": "Q2096387",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"PAN": {
+"couleur": "vert",
+"depuis": "2024-07-01",
+"en": "José Raúl Mulino",
+"fr": "José Raúl Mulino",
+"g": "h",
+"ne": "1959-06-13",
+"photo": {
+"auteur": "REPÚBLICA DE COLOMBIA",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Jos%C3%A9_Ra%C3%BAl_Mulino_2025.jpg",
+"visage": [
+0.512,
+0.439,
+0.523,
+0.412
+]
+},
+"q": "Q108454869",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"PER": {
+"couleur": "vert",
+"depuis": "2026-07-28",
+"en": "Keiko Fujimori",
+"fr": "Keiko Fujimori",
+"g": "f",
+"ne": "1975-05-25",
+"photo": {
+"auteur": "Ministerio de la Producción",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Keiko_Fujimori,_septiembre_de_2026.jpg",
+"visage": [
+0.398,
+0.34,
+0.405,
+0.284
+]
+},
+"q": "Q235137",
+"titre": {
+"en": "President",
+"fr": "Présidente"
+}
+},
+"PHL": {
+"couleur": "vert",
+"depuis": "2022-06-30",
+"en": "Bongbong Marcos",
+"fr": "Bongbong Marcos",
+"g": "h",
+"ne": "1957-09-13",
+"photo": {
+"auteur": "Office of the President of the Philippines",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Portrait_of_President_Ferdinand_R._Marcos,_Jr_(cropped).jpg",
+"visage": [
+0.497,
+0.311,
+0.375,
+0.282
+]
+},
+"q": "Q983324",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"PLW": {
+"couleur": "vert",
+"depuis": "2021-01-21",
+"en": "Surangel Whipps Jr.",
+"fr": "Surangel Whipps Jr.",
+"g": "h",
+"ne": "1968-08-09",
+"photo": {
+"auteur": "Government House, Department of the Prime Minister and Cabinet",
+"licence": "CC0",
+"page": "https://commons.wikimedia.org/wiki/File:Surangel_Whipps_Jr_2026.jpg",
+"visage": [
+0.543,
+0.423,
+0.518,
+0.394
+]
+},
+"q": "Q26703072",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"PNG": {
+"couleur": "vert",
+"depuis": "2019-05-30",
+"en": "James Marape",
+"fr": "James Marape",
+"g": "h",
+"ne": "1971-04-24",
+"photo": {
+"auteur": "U.S. Secretary of Defense",
+"licence": "CC BY 2.0",
+"page": "https://commons.wikimedia.org/wiki/File:Papua_New_Guinea_Prime_Minister_James_Marape_in_Port_Moresby,_Papua_New_Guinea_on_July_27,_2023_-_230727-D-TT977-0140_(cropped).jpg",
+"visage": [
+0.486,
+0.406,
+0.453,
+0.339
+]
+},
+"q": "Q6138903",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"POL": {
+"couleur": "vert",
+"depuis": "2023-12-13",
+"en": "Donald Tusk",
+"fr": "Donald Tusk",
+"g": "h",
+"ne": "1957-04-22",
+"photo": {
+"auteur": "The Chancellery of the Prime Minister of the Republic of Poland",
+"licence": "CC BY 3.0 pl",
+"page": "https://commons.wikimedia.org/wiki/File:Premier_Donald_Tusk_KPRM.jpg",
+"visage": [
+0.505,
+0.452,
+0.496,
+0.378
+]
+},
+"q": "Q946",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"PRK": {
+"couleur": "bleu",
+"depuis": "2011-12-17",
+"en": "Kim Jong-un",
+"fr": "Kim Jong-un",
+"g": "h",
+"ne": "1984-01-08",
+"photo": {
+"auteur": "Cheongwadae / Blue House",
+"licence": "KOGL Type 1",
+"page": "https://commons.wikimedia.org/wiki/File:Kim_Jong_Un_with_Honor_Guard_portrait.jpg",
+"visage": [
+0.502,
+0.29,
+0.305,
+0.243
+]
+},
+"q": "Q56226",
+"titre": {
+"en": "General Secretary of the Workers' Party",
+"fr": "Secrétaire général du Parti du travail"
+}
+},
+"PRT": {
+"couleur": "vert",
+"depuis": "2024-04-02",
+"en": "Luís Montenegro",
+"fr": "Luís Montenegro",
+"g": "h",
+"ne": "1973-02-16",
+"photo": {
+"auteur": "European Union",
+"licence": "Attribution",
+"page": "https://commons.wikimedia.org/wiki/File:Lu%C3%ADs_Montenegro,_2025.06.26_(05)_(cropped).jpg",
+"visage": [
+0.463,
+0.526,
+0.515,
+0.386
+]
+},
+"q": "Q11764394",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"PRY": {
+"couleur": "vert",
+"depuis": "2026-11-06",
+"en": "Pedro Alliana",
+"fr": "Pedro Alliana",
+"g": "h",
+"ne": "1974-02-19",
+"photo": {
+"auteur": "9364837@N06",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Pedro_Alliana_2026.jpg",
+"visage": [
+0.548,
+0.343,
+0.416,
+0.319
+]
+},
+"q": "Q51885479",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"QAT": {
+"couleur": "vert",
+"depuis": "2013-06-25",
+"en": "Tamim bin Hamad Al Thani",
+"fr": "Tamim ben Hamad Al Thani",
+"g": "h",
+"ne": "1980-03-25",
+"photo": {
+"auteur": "LLs",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Tamim_bin_Hamad_Al_Thani_in_2018.jpg",
+"visage": [
+0.705,
+0.431,
+0.531,
+0.391
+]
+},
+"q": "Q1855372",
+"titre": {
+"en": "Emir",
+"fr": "Émir"
+}
+},
+"ROU": {
+"couleur": "vert",
+"depuis": "2026-10-20",
+"en": "Luca Niculescu",
+"fr": "Luca Niculescu",
+"g": "h",
+"ne": "1971-04-25",
+"photo": {
+"auteur": "gov.ro (Romanian Government)",
+"licence": "Attribution",
+"page": "https://commons.wikimedia.org/wiki/File:First_press_conference_of_PM_Luca_Niculescu_(cropped).jpg",
+"visage": [
+0.518,
+0.435,
+0.515,
+0.386
+]
+},
+"q": "Q121140873",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"RUS": {
+"couleur": "vert",
+"depuis": "1999-08-09",
+"en": "Vladimir Putin",
+"fr": "Vladimir Poutine",
+"g": "h",
+"ne": "1952-10-07",
+"photo": {
+"auteur": "Пресс-служба Президента России",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Putin_V_2026_08_10.png",
+"visage": [
+0.575,
+0.422,
+0.565,
+0.404
+]
+},
+"q": "Q7747",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"RWA": {
+"couleur": "vert",
+"depuis": "2000-03-24",
+"en": "Paul Kagame",
+"fr": "Paul Kagame",
+"g": "h",
+"ne": "1957-10-23",
+"photo": {
+"auteur": "Saeima",
+"licence": "CC BY-SA 2.0",
+"page": "https://commons.wikimedia.org/wiki/File:Paul_Kagame_2024_(cropped).jpg",
+"visage": [
+0.53,
+0.412,
+0.447,
+0.34
+]
+},
+"q": "Q1231345",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"SAU": {
+"couleur": "bleu",
+"depuis": "2022-09-27",
+"en": "Mohammed bin Salman Al Saud",
+"fr": "Mohammed ben Salmane ben Abdelaziz Al Saoud",
+"g": "h",
+"ne": "1985-08-31",
+"photo": {
+"auteur": "وكالة الأنباء السعودية",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:%D8%A7%D9%84%D8%B5%D9%88%D8%B1%D8%A9_%D8%A7%D9%84%D8%B1%D8%B3%D9%85%D9%8A%D8%A9_%D9%84%D9%84%D8%A3%D9%85%D9%8A%D8%B1_%D9%85%D8%AD%D9%85%D8%AF_%D8%A8%D9%86_%D8%B3%D9%84%D9%85%D8%A7%D9%86_%D8%A8%D9%86_%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D8%B9%D8%B2%D9%8A%D8%B2_%D8%A2%D9%84_%D8%B3%D8%B9%D9%88%D8%AF_(%D9%85%D9%82%D8%B5%D9%88%D8%B5%D8%A9).jpg",
+"visage": [
+0.517,
+0.396,
+0.448,
+0.358
+]
+},
+"q": "Q6892571",
+"titre": {
+"en": "Crown Prince",
+"fr": "Prince héritier"
+}
+},
+"SDN": {
+"couleur": "bleu",
+"depuis": "2019-04-12",
+"en": "Abdel Fattah al-Burhan",
+"fr": "Abdel Fattah Abdelrahmane al-Burhan",
+"g": "h",
+"ne": "1960-07-11",
+"photo": {
+"auteur": "Press Service of the President of the Republic of Azerbaijan",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Abdel_Fattah_al-Burhan_in_April_2025_(cropped).jpg",
+"visage": [
+0.532,
+0.399,
+0.489,
+0.366
+]
+},
+"q": "Q63111184",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"SEN": {
+"couleur": "vert",
+"depuis": "2024-04-02",
+"en": "Bassirou Diomaye Faye",
+"fr": "Bassirou Diomaye Faye",
+"g": "h",
+"ne": "1980-03-25",
+"photo": {
+"auteur": "The White House (Official White House Photo by Molly Riley); cropped by Brühl",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Bassirou_Diomaye_Faye_9_juillet_2025_Washington_DC_(cropped).jpg",
+"visage": [
+0.731,
+0.385,
+0.332,
+0.249
+]
+},
+"q": "Q124382437",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"SGP": {
+"couleur": "vert",
+"depuis": "2024-05-15",
+"en": "Lawrence Wong",
+"fr": "Lawrence Wong",
+"g": "h",
+"ne": "1972-12-18",
+"photo": {
+"auteur": "Presidencia de la República del Ecuador",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Lawrence_Wong,_August_2026_(cropped).jpg",
+"visage": [
+0.555,
+0.436,
+0.478,
+0.359
+]
+},
+"q": "Q6504758",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"SLB": {
+"couleur": "vert",
+"depuis": "2026-05-15",
+"en": "Matthew Wale",
+"fr": "Matthew Wale",
+"g": "h",
+"ne": "1968-06-13",
+"photo": {
+"auteur": "Cabinet Public Relations Office of the Cabinet Secretariat",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Matthew_Wale_in_2026_(cropped).jpg",
+"visage": [
+0.455,
+0.422,
+0.469,
+0.363
+]
+},
+"q": "Q6791373",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"SLE": {
+"couleur": "vert",
+"depuis": "2018-04-04",
+"en": "Julius Maada Bio",
+"fr": "Julius Maada Bio",
+"g": "h",
+"ne": "1964-05-12",
+"photo": {
+"auteur": "European Commission",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Julius_Maada_Bio_-_2023_(cropped).jpg",
+"visage": [
+0.502,
+0.477,
+0.566,
+0.377
+]
+},
+"q": "Q283829",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"SLV": {
+"couleur": "vert",
+"depuis": "2019-06-01",
+"en": "Nayib Bukele",
+"fr": "Nayib Bukele",
+"g": "h",
+"ne": "1981-07-24",
+"photo": {
+"auteur": "The White House",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Nayib_Bukele_in_the_White_House,_2025_(cropped).jpg",
+"visage": [
+0.501,
+0.466,
+0.558,
+0.419
+]
+},
+"q": "Q17712353",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"SMR": {
+"couleur": "bleu",
+"depuis": "2020-01-08",
+"en": "Luca Beccari",
+"fr": "Luca Beccari",
+"g": "h",
+"ne": "1974-10-29",
+"photo": {
+"auteur": "Begni2020",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Luca_Beccari_San_Marino_(cropped).jpg",
+"visage": [
+0.5,
+0.364,
+0.423,
+0.334
+]
+},
+"q": "Q15998324",
+"titre": {
+"en": "Secretary for Foreign and Political Affairs",
+"fr": "Secrétaire d’État aux Affaires étrangères et politiques"
+}
+},
+"SOM": {
+"couleur": "bleu",
+"depuis": "2022-05-23",
+"en": "Hassan Sheikh Mohamud",
+"fr": "Hassan Sheikh Mohamoud",
+"g": "h",
+"ne": "1955-11-29",
+"photo": {
+"auteur": "United States State Department",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Hassan_Sheikh_Mohamud--StateDept_Portrait--_(cropped).jpg",
+"visage": [
+0.491,
+0.411,
+0.523,
+0.368
+]
+},
+"q": "Q319153",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"SRB": {
+"couleur": "vert",
+"depuis": "2025-04-16",
+"en": "Đuro Macut",
+"fr": "Duro Macut",
+"g": "h",
+"ne": "1963-11-22",
+"photo": {
+"auteur": "Vlada APV",
+"licence": "CC BY-SA 3.0",
+"page": "https://commons.wikimedia.org/wiki/File:%C4%90uro_Macut_in_2025_(cropped).jpg",
+"visage": [
+0.52,
+0.486,
+0.642,
+0.483
+]
+},
+"q": "Q42478807",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"SSD": {
+"couleur": "vert",
+"depuis": "2005-07-30",
+"en": "Salva Kiir Mayardit",
+"fr": "Salva Kiir",
+"g": "h",
+"ne": "1951-09-13",
+"photo": {
+"auteur": "U.S. Department of State",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:President_Barack_Obama_and_First_Lady_Michelle_Obama_greet_His_Excellency_Salva_Kiir_Mayardit,_President_of_the_Republic_of_South_Sudan_(cropped).jpg",
+"visage": [
+0.534,
+0.398,
+0.356,
+0.266
+]
+},
+"q": "Q57315",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"STP": {
+"couleur": "vert",
+"depuis": "2025-01-14",
+"en": "Américo Ramos",
+"fr": "Américo Ramos",
+"g": "h",
+"ne": "1966-07-21",
+"photo": {
+"auteur": "Óscar Medeiros (VOA)",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Am%C3%A9rico_Ramos_(14-01-2025).jpg",
+"visage": [
+0.52,
+0.294,
+0.386,
+0.281
+]
+},
+"q": "Q131749390",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"SUR": {
+"couleur": "vert",
+"depuis": "2025-07-16",
+"en": "Jennifer Geerlings-Simons",
+"fr": "Jennifer Simons",
+"g": "f",
+"ne": "1953-09-05",
+"photo": {
+"auteur": "Lula Oficial",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Jennifer_Geerlings-Simons,_November_2025.jpg",
+"visage": [
+0.516,
+0.466,
+0.569,
+0.403
+]
+},
+"q": "Q440403",
+"titre": {
+"en": "President",
+"fr": "Présidente"
+}
+},
+"SVK": {
+"couleur": "vert",
+"depuis": "2023-10-25",
+"en": "Robert Fico",
+"fr": "Robert Fico",
+"g": "h",
+"ne": "1964-09-15",
+"photo": {
+"auteur": "Gage Skidmore from Surprise, AZ, United States of America",
+"licence": "CC BY-SA 2.0",
+"page": "https://commons.wikimedia.org/wiki/File:Robert_Fico_(54359433078)_(cropped).jpg",
+"visage": [
+0.52,
+0.44,
+0.603,
+0.453
+]
+},
+"q": "Q57606",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"SVN": {
+"couleur": "vert",
+"depuis": "2026-06-04",
+"en": "Janez Janša",
+"fr": "Janez Janša",
+"g": "h",
+"ne": "1958-09-17",
+"photo": {
+"auteur": "Vlada Republike Slovenije",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Janez_Jan%C5%A1a_official_portrait_2026_(cropped_3).jpg",
+"visage": [
+0.438,
+0.39,
+0.554,
+0.417
+]
+},
+"q": "Q57627",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"SWE": {
+"couleur": "vert",
+"depuis": "2022-10-18",
+"en": "Ulf Kristersson",
+"fr": "Ulf Kristersson",
+"g": "h",
+"ne": "1963-12-29",
+"photo": {
+"auteur": "European Commission (Christophe Licoppe)",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Ulf_Kristersson_on_29_June_2023.jpg",
+"visage": [
+0.527,
+0.51,
+0.496,
+0.375
+]
+},
+"q": "Q1780398",
+"titre": {
+"en": "Caretaker Prime Minister",
+"fr": "Premier ministre chargé des affaires courantes"
+}
+},
+"SWZ": {
+"couleur": "vert",
+"depuis": "1986-04-25",
+"en": "Mswati III",
+"fr": "Mswati III",
+"g": "h",
+"ne": "1968-04-19",
+"photo": {
+"auteur": "Cabinet Public Relations Office of the Cabinet Secretariat",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Mswati_III_in_Yokohama_(cropped).jpg",
+"visage": [
+0.448,
+0.441,
+0.444,
+0.339
+]
+},
+"q": "Q57340",
+"titre": {
+"en": "King",
+"fr": "Roi"
+}
+},
+"SYC": {
+"couleur": "vert",
+"depuis": "2025-10-26",
+"en": "Patrick Herminie",
+"fr": "Patrick Herminie",
+"g": "h",
+"ne": "1963-09-22",
+"photo": {
+"auteur": "State House",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Patrick_Herminie_-_President_of_Seychelles_(cropped).jpg",
+"visage": [
+0.429,
+0.362,
+0.329,
+0.347
+]
+},
+"q": "Q16190544",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"SYR": {
+"couleur": "vert",
+"depuis": "2017-10-01",
+"en": "Ahmed al-Sharaa",
+"fr": "Ahmed el-Charaa",
+"g": "h",
+"ne": "1982-10-29",
+"photo": {
+"auteur": "Original photo by Foreign, Commonwealth & Development Office , used under CC BY 4.0. Cropped by HurricaneEdgar .",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Ahmed_al-Sharaa,_President_of_Syria,_in_March_2026.jpg",
+"visage": [
+0.529,
+0.379,
+0.486,
+0.363
+]
+},
+"q": "Q7934206",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"TCD": {
+"couleur": "vert",
+"depuis": "2021-04-20",
+"en": "Mahamat Déby",
+"fr": "Mahamat Idriss Déby",
+"g": "h",
+"ne": "1984-04-04",
+"photo": {
+"auteur": "United States Department of State Africa U.S.-Africa Leaders Summit: Photos and Videos",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Mahamat_D%C3%A9by.jpg",
+"visage": [
+0.536,
+0.365,
+0.504,
+0.351
+]
+},
+"q": "Q16206405",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"TGO": {
+"couleur": "vert",
+"depuis": "2005-05-04",
+"en": "Faure Essozimna Gnassingbé",
+"fr": "Faure Essozimna Gnassingbé",
+"g": "h",
+"ne": "1966-06-06",
+"photo": {
+"auteur": "Press Service of the President of the Republic of Azerbaijan",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:President_of_Togo_Faure_Gnassingb%C3%A9_on_November_13,_2024_(cropped).jpg",
+"visage": [
+0.558,
+0.464,
+0.472,
+0.354
+]
+},
+"q": "Q4414",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"THA": {
+"couleur": "vert",
+"depuis": "2025-09-07",
+"en": "Anutin Charnvirakul",
+"fr": "Anutin Charnvirakul",
+"g": "h",
+"ne": "1966-09-13",
+"photo": {
+"auteur": "Daniel Torok / The White House",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:2025_Anutin_Charnvirakul_%E0%B8%AD%E0%B8%99%E0%B8%B8%E0%B8%97%E0%B8%B4%E0%B8%99_%E0%B8%8A%E0%B8%B2%E0%B8%8D%E0%B8%A7%E0%B8%B5%E0%B8%A3%E0%B8%81%E0%B8%B9%E0%B8%A5_(2568)_(cropped).jpg",
+"visage": [
+0.508,
+0.442,
+0.599,
+0.451
+]
+},
+"q": "Q16139757",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"TJK": {
+"couleur": "vert",
+"depuis": "1992-11-19",
+"en": "Emomali Rahmon",
+"fr": "Emomalii Rahmon",
+"g": "h",
+"ne": "1952-10-05",
+"photo": {
+"auteur": "Masato Kanda",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Emomali_Rahmon_in_2026.jpg",
+"visage": [
+0.435,
+0.39,
+0.514,
+0.385
+]
+},
+"q": "Q57366",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"TKM": {
+"couleur": "bleu",
+"depuis": null,
+"en": "Gurbanguly Berdimuhamedow",
+"fr": "Gurbanguly Berdimuhamedow",
+"g": "h",
+"ne": "1957-06-29",
+"photo": {
+"auteur": "Press Service of the President of the Republic of Azerbaijan",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Gurbanguly_Berdimuhamedov_on_July_16,_2025.jpg",
+"visage": [
+0.558,
+0.403,
+0.431,
+0.321
+]
+},
+"q": "Q57530",
+"titre": {
+"en": "Chairman of the People's Council",
+"fr": "Président du Conseil du peuple"
+}
+},
+"TLS": {
+"couleur": "vert",
+"depuis": "2023-07-01",
+"en": "Xanana Gusmão",
+"fr": "Xanana Gusmão",
+"g": "h",
+"ne": "1946-06-20",
+"photo": {
+"auteur": "Antonio Cruz/ABr",
+"licence": "CC BY 3.0",
+"page": "https://commons.wikimedia.org/wiki/File:Xanana_2011.jpg",
+"visage": [
+0.571,
+0.294,
+0.258,
+0.207
+]
+},
+"q": "Q11509",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"TON": {
+"couleur": "bleu",
+"depuis": "2012-03-18",
+"en": "Tupou VI of Tonga",
+"fr": "Tupou VI de Tonga",
+"g": "h",
+"ne": "1959-07-12",
+"photo": {
+"auteur": "Government House, Department of the Prime Minister and Cabinet",
+"licence": "CC0",
+"page": "https://commons.wikimedia.org/wiki/File:Tupou_VI_2025.jpg",
+"visage": [
+0.48,
+0.454,
+0.574,
+0.431
+]
+},
+"q": "Q208497",
+"titre": {
+"en": "King",
+"fr": "Roi"
+}
+},
+"TTO": {
+"couleur": "vert",
+"depuis": "2025-05-01",
+"en": "Kamla Persad-Bissessar",
+"fr": "Kamla Persad-Bissessar",
+"g": "f",
+"ne": "1952-04-22",
+"photo": {
+"auteur": "U.S. Department of State",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:2025_Kamla_Persad-Bissessar_(cropped).jpg",
+"visage": [
+0.506,
+0.439,
+0.464,
+0.349
+]
+},
+"q": "Q57712",
+"titre": {
+"en": "Prime Minister",
+"fr": "Première ministre"
+}
+},
+"TUN": {
+"couleur": "vert",
+"depuis": "2019-10-23",
+"en": "Kais Saied",
+"fr": "Kaïs Saïed",
+"g": "h",
+"ne": "1958-02-22",
+"photo": {
+"auteur": "Quirinale",
+"licence": "Attribution",
+"page": "https://commons.wikimedia.org/wiki/File:Kais_Saied_2023.jpg",
+"visage": [
+0.573,
+0.348,
+0.461,
+0.333
+]
+},
+"q": "Q16120878",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"TUR": {
+"couleur": "vert",
+"depuis": "2003-03-14",
+"en": "Recep Tayyip Erdoğan",
+"fr": "Recep Tayyip Erdoğan",
+"g": "h",
+"ne": "1954-02-26",
+"photo": {
+"auteur": "Lula Oficial",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:10.11.2026_-_Reuni%C3%A3o_Bilateral_com_o_Presidente_da_Turquia_-_55645239849_(Recep_Tayyip_Erdo%C4%9Fan).jpg",
+"visage": [
+0.572,
+0.395,
+0.464,
+0.348
+]
+},
+"q": "Q39259",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"TUV": {
+"couleur": "vert",
+"depuis": "2024-02-26",
+"en": "Ben Do",
+"fr": "Feleti Teo",
+"g": "h",
+"ne": "1962-10-09",
+"photo": {
+"auteur": "總統府",
+"licence": "CC BY 2.0",
+"page": "https://commons.wikimedia.org/wiki/File:Feleti_Teo_2024.jpg",
+"visage": [
+0.629,
+0.433,
+0.546,
+0.409
+]
+},
+"q": "Q5441662",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"TWN": {
+"couleur": "vert",
+"depuis": "2024-05-20",
+"en": "Lai Ching-te",
+"fr": "Lai Ching‑te",
+"g": "h",
+"ne": "1959-10-06",
+"photo": {
+"auteur": "總統府",
+"licence": "Attribution",
+"page": "https://commons.wikimedia.org/wiki/File:%E8%B3%B4%E6%B8%85%E5%BE%B7%E7%B8%BD%E7%B5%B1_1.jpg",
+"visage": [
+0.564,
+0.441,
+0.519,
+0.365
+]
+},
+"q": "Q3847080",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"TZA": {
+"couleur": "vert",
+"depuis": "2021-03-19",
+"en": "Samia Suluhu Hassan",
+"fr": "Samia Suluhu Hassan",
+"g": "f",
+"ne": "1960-01-27",
+"photo": {
+"auteur": "Gospel Kitaa",
+"licence": "CC BY-SA 2.0",
+"page": "https://commons.wikimedia.org/wiki/File:Samia_Suluhu_Hassan_in_May_2017.jpg",
+"visage": [
+0.295,
+0.523,
+0.534,
+0.452
+]
+},
+"q": "Q16193885",
+"titre": {
+"en": "President",
+"fr": "Présidente"
+}
+},
+"UGA": {
+"couleur": "vert",
+"depuis": "1986-01-29",
+"en": "Yoweri Museveni",
+"fr": "Yoweri Museveni",
+"g": "h",
+"ne": "1944-09-15",
+"photo": {
+"auteur": "U.S. Department of State",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Yoweri_Museveni_September_2015.jpg",
+"visage": [
+0.486,
+0.38,
+0.527,
+0.388
+]
+},
+"q": "Q57274",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"UKR": {
+"couleur": "vert",
+"depuis": "2019-05-20",
+"en": "Volodymyr Zelenskyy",
+"fr": "Volodymyr Zelensky",
+"g": "h",
+"ne": "1978-01-25",
+"photo": {
+"auteur": "Press Service of the President of Ukraine",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:New_Year%27s_Eve_from_President_of_Ukraine_Volodymyr_Zelensky_(31-12-2025)_(cropped).jpg",
+"visage": [
+0.508,
+0.349,
+0.394,
+0.289
+]
+},
+"q": "Q3874799",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"URY": {
+"couleur": "vert",
+"depuis": "2025-03-01",
+"en": "Yamandú Orsi",
+"fr": "Yamandú Orsi",
+"g": "h",
+"ne": "1967-06-13",
+"photo": {
+"auteur": "Marcelo Cúneo",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Yamand%C3%BA_Orsi.jpg",
+"visage": [
+0.459,
+0.416,
+0.344,
+0.34
+]
+},
+"q": "Q19946921",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"USA": {
+"couleur": "vert",
+"depuis": "2025-01-20",
+"en": "Donald Trump",
+"fr": "Donald Trump",
+"g": "h",
+"ne": "1946-06-14",
+"photo": {
+"auteur": "Daniel Torok",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Official_Presidential_Portrait_of_President_Donald_J._Trump_(2025)_(3x4).jpg",
+"visage": [
+0.547,
+0.509,
+0.506,
+0.38
+]
+},
+"q": "Q22686",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"UVK": {
+"couleur": "vert",
+"depuis": "2021-03-22",
+"en": "Albin Kurti",
+"fr": "Albin Kurti",
+"g": "h",
+"ne": "1975-03-24",
+"photo": {
+"auteur": "Government of the Republic of Kosovo / Qeveria e Republikës së Kosovës",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Albin_Kurti_2022.jpg",
+"visage": [
+0.495,
+0.342,
+0.349,
+0.261
+]
+},
+"q": "Q441633",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"UZB": {
+"couleur": "vert",
+"depuis": "2003-12-12",
+"en": "Shavkat Mirziyoyev",
+"fr": "Chavkat Mirzioïev",
+"g": "h",
+"ne": "1957-07-24",
+"photo": {
+"auteur": "Press Service of the President of the Republic of Uzbekistan",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Shavkat_Mirziyoyev_official_portrait_(cropped_2).jpg",
+"visage": [
+0.472,
+0.398,
+0.472,
+0.345
+]
+},
+"q": "Q57808",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"VAT": {
+"couleur": "vert",
+"depuis": "2025-05-08",
+"en": "Leo XIV",
+"fr": "Léon XIV",
+"g": "h",
+"ne": "1955-09-14",
+"photo": {
+"auteur": "Ricardo Stuckert",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Leo_XIV_(13_October_2025).jpg",
+"visage": [
+0.469,
+0.333,
+0.355,
+0.266
+]
+},
+"q": "Q6109517",
+"titre": {
+"en": "Pope",
+"fr": "Pape"
+}
+},
+"VCT": {
+"couleur": "vert",
+"depuis": "2025-11-28",
+"en": "Godwin Friday",
+"fr": "Godwin Friday",
+"g": "h",
+"ne": "1959-09-28",
+"photo": {
+"auteur": "Taiwan Presidential Office",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Godwin_Friday_2026.jpg",
+"visage": [
+0.554,
+0.354,
+0.487,
+0.396
+]
+},
+"q": "Q28319076",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"VEN": {
+"couleur": "bleu",
+"depuis": "2026-01-03",
+"en": "Delcy Rodriguez",
+"fr": "Delcy Rodríguez",
+"g": "f",
+"ne": "1969-05-18",
+"photo": {
+"auteur": "Presidency of Venezuela",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Delcy_Rodr%C3%ADguez_-_02_(19-01-2026)_(cropped_2).jpg",
+"visage": [
+0.51,
+0.386,
+0.449,
+0.326
+]
+},
+"q": "Q15081116",
+"titre": {
+"en": "Acting President",
+"fr": "Présidente par intérim"
+}
+},
+"VNM": {
+"couleur": "bleu",
+"depuis": "2024-05-22",
+"en": "Tô Lâm",
+"fr": "Tô Lâm",
+"g": "h",
+"ne": "1957-07-10",
+"photo": {
+"auteur": "European Union",
+"licence": "Attribution",
+"page": "https://commons.wikimedia.org/wiki/File:T%C3%B4_L%C3%A2m_(2026-01-29)_(cropped).jpg",
+"visage": [
+0.478,
+0.469,
+0.526,
+0.407
+]
+},
+"q": "Q10831196",
+"titre": {
+"en": "General Secretary of the Communist Party",
+"fr": "Secrétaire général du Parti communiste"
+}
+},
+"VUT": {
+"couleur": "vert",
+"depuis": "2025-02-11",
+"en": "Jotham Napat",
+"fr": "Jotham Napat",
+"g": "h",
+"ne": "1972-08-07",
+"photo": {
+"auteur": "The Philippine Embassy of Canberra, Australia",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Jotham_Napat_2019_(cropped).jpg",
+"visage": [
+0.498,
+0.279,
+0.295,
+0.221
+]
+},
+"q": "Q115252004",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"WBG": {
+"couleur": "vert",
+"depuis": "2005-01-15",
+"en": "Mahmoud Abbas",
+"fr": "Mahmoud Abbas",
+"g": "h",
+"ne": "1935-11-15",
+"photo": {
+"auteur": "Gobierno de Chile",
+"licence": "CC BY 3.0 cl",
+"page": "https://commons.wikimedia.org/wiki/File:Mahmoud_Abbas_May_2018.jpg",
+"visage": [
+0.473,
+0.499,
+0.61,
+0.453
+]
+},
+"q": "Q127998",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"WSM": {
+"couleur": "vert",
+"depuis": "2025-09-16",
+"en": "Laʻauli Leuatea Schmidt",
+"fr": "Leuatea Polataivao",
+"g": "h",
+"ne": "1966-04-14",
+"photo": {
+"auteur": "US Embassy",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:La%CA%BBauli_Leuatea_Schmidt_in_2023.jpg",
+"visage": [
+0.471,
+0.463,
+0.479,
+0.371
+]
+},
+"q": "Q16734600",
+"titre": {
+"en": "Prime Minister",
+"fr": "Premier ministre"
+}
+},
+"YEM": {
+"couleur": "vert",
+"depuis": "2022-04-07",
+"en": "Rashad al-Alimi",
+"fr": "Rashad al-Alimi",
+"g": "h",
+"ne": "1954-01-15",
+"photo": {
+"auteur": "Ali mamon",
+"licence": "CC BY-SA 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Rashad_al-Alimi_-_2022.jpg",
+"visage": [
+0.533,
+0.208,
+0.228,
+0.177
+]
+},
+"q": "Q12213376",
+"titre": {
+"en": "President of the Presidential Leadership Council",
+"fr": "Président du Conseil présidentiel"
+}
+},
+"ZAF": {
+"couleur": "vert",
+"depuis": "2018-02-14",
+"en": "Cyril Ramaphosa",
+"fr": "Cyril Ramaphosa",
+"g": "h",
+"ne": "1952-11-17",
+"photo": {
+"auteur": "Ricardo Stuckert",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:21.11.2025_%E2%80%93_Presidente_da_Rep%C3%BAblica_da_%C3%81frica_do_Sul,_Cyril_Ramaphosa_(54938010569)_(cropped).jpg",
+"visage": [
+0.487,
+0.456,
+0.583,
+0.438
+]
+},
+"q": "Q1148669",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"ZMB": {
+"couleur": "vert",
+"depuis": "2021-08-24",
+"en": "Hakainde Hichilema",
+"fr": "Hakainde Hichilema",
+"g": "h",
+"ne": "1962-06-04",
+"photo": {
+"auteur": "Cabinet Public Relations Office of the Cabinet Secretariat",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Hakainde_Hichilema_in_Japan_on_February_6,_2025_(cropped).jpg",
+"visage": [
+0.52,
+0.403,
+0.392,
+0.31
+]
+},
+"q": "Q717185",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+},
+"ZWE": {
+"couleur": "vert",
+"depuis": "2017-11-24",
+"en": "Emmerson Mnangagwa",
+"fr": "Emmerson Mnangagwa",
+"g": "h",
+"ne": "1942-09-15",
+"photo": {
+"auteur": "Government of Zimbabwe",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Emmerson_Mnangagwa_Official_Portrait_(cropped).jpg",
+"visage": [
+0.458,
+0.363,
+0.451,
+0.338
+]
+},
+"q": "Q510523",
+"titre": {
+"en": "President",
+"fr": "Président"
+}
+}
+}
+}

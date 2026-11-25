@@ -1,0 +1,49 @@
+# ============================================================================
+# Mise à jour automatique de la carte des dirigeants.
+#
+# Chaque jour, GitHub relit les deux pages de Wikipédia, et enregistre ce qui a
+# changé (une élection, une nouvelle photo). Si la page paraît cassée, ou si
+# trop de dirigeants changent d'un coup (du vandalisme), rien n'est enregistré
+# et GitHub prévient par e-mail.
+#
+# À la main : onglet « Actions » du dépôt, puis « Run workflow ».
+# ============================================================================
+
+name: Mise à jour des dirigeants
+
+on:
+  schedule:
+    # Tous les jours à 5h20 UTC.
+    - cron: "20 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  mettre-a-jour:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le site
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Relire Wikipédia
+        run: python3 scripts/build_dirigeants.py
+
+      - name: Enregistrer si quelque chose a changé
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Aucun changement."
+            exit 0
+          fi
+          git config user.name "StatsMaps (robot)"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "Dirigeants mis à jour ($(date +%d/%m/%Y))"
+          git pull --rebase
+          git push

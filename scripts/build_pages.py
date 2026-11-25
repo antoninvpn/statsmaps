@@ -96,6 +96,7 @@ CARTES = [
     ("population",              "👥", None,               None,      True),
     ("metro",                   "🚇", None,               None,      True),
     ("entreprises",             "🏢", None,               None,      True),
+    ("dirigeants",              "🗳️", None,               None,      True),
 ]
 
 # Une carte peut n'exister QUE DANS CERTAINES LANGUES, le temps d'être
@@ -113,7 +114,7 @@ LANGUES_DE = {
 }
 
 # Les cartes dont le fond est une photo satellite (assets/js/fond-satellite.js).
-CARTES_SATELLITE = {"entreprises"}
+CARTES_SATELLITE = {"entreprises", "metro"}
 
 # Les cartes qui ne colorient pas des pays et ont donc leur propre moteur.
 # La carte des métros dessine des lignes sur des villes : ni curseur des
@@ -121,6 +122,7 @@ CARTES_SATELLITE = {"entreprises"}
 MOTEURS = {
     "metro": "metro.js",
     "entreprises": "bourse.js",
+    "dirigeants": "dirigeants.js",
 }
 
 # Le gros fichier que chacune de ces cartes lit au démarrage. On le signale au
@@ -129,6 +131,7 @@ MOTEURS = {
 PRECHARGES = {
     "metro": "data/metro/monde.json",
     "entreprises": "data/bourse/entreprises.json",
+    "dirigeants": "data/dirigeants.json",
 }
 
 # ----------------------------------------------------------- LES CATÉGORIES
@@ -146,6 +149,7 @@ CATEGORIES = [
                         "entreprises"]),
     ("demographie", "👥", ["population"]),
     ("infrastructure", "🏗️", ["metro"]),
+    ("politique", "🗳️", ["dirigeants"]),
     ("armee", "🛡️", []),
 ]
 
@@ -283,6 +287,13 @@ LANGUES.append({
             "h1": "Les infrastructures du monde, en cartes.",
             "intro": "Première carte de la rubrique : les métros du monde, ville par ville et ligne par ligne, dans leurs vraies couleurs.",
         },
+        "politique": {
+            "slug": "politique",
+            "nom": "Politique",
+            "texte": "Qui dirige chaque pays du monde, et depuis quand.",
+            "h1": "La politique mondiale, en cartes.",
+            "intro": "Première carte de la rubrique : les dirigeants du monde, leur visage à l’intérieur de leur pays.",
+        },
         "armee": {
             "nom": "Armée",
             "texte": "Effectifs, budgets et matériels militaires.",
@@ -358,6 +369,14 @@ LANGUES.append({
         },
         # Comme les métros, les entreprises sont des POINTS et non des pays
         # coloriés : elles ont leur propre titre et leur propre description.
+        "dirigeants": {
+            "slug": "dirigeants",
+            "nom": "Dirigeants du monde",
+            "nav": "Dirigeants", "nav_court": "Dirigeants",
+            "texte": "Le visage de celui ou celle qui dirige chaque pays, et depuis quand.",
+            "titre": "Les dirigeants du monde — qui dirige chaque pays, et depuis quand | StatsMaps",
+            "description": "La carte des dirigeants du monde : le visage, la fonction et la date d’arrivée au pouvoir de celui ou celle qui dirige vraiment chaque pays, du plus ancien au plus récent.",
+        },
         "entreprises": {
             "slug": "entreprises-cotees",
             "nom": "Entreprises cotées en bourse",
@@ -411,6 +430,13 @@ LANGUES.append({
             "texte": "The networks that hold a city and a country together.",
             "h1": "The world’s infrastructure, mapped.",
             "intro": "The first map in this section: the world’s metro systems, city by city and line by line, in their real colours.",
+        },
+        "politique": {
+            "slug": "politics",
+            "nom": "Politics",
+            "texte": "Who leads each country in the world, and since when.",
+            "h1": "World politics, in maps.",
+            "intro": "First map of the section: the world's leaders, their faces inside their countries.",
         },
         "armee": {
             "nom": "Military",
@@ -480,6 +506,14 @@ LANGUES.append({
             "texte": "Every city in the world with a metro, line by line and in its real colours.",
             "titre": "Metro systems of the world — interactive map of every line | StatsMaps",
             "description": "A map of every metro system in the world: 200 cities, each line in its official colour, and the sections under construction. Countries ranked by number of systems, kilometres, stations and lines.",
+        },
+        "dirigeants": {
+            "slug": "leaders",
+            "nom": "World leaders",
+            "nav": "Leaders", "nav_court": "Leaders",
+            "texte": "The face of the person who leads each country, and since when.",
+            "titre": "World leaders — who leads each country, and since when | StatsMaps",
+            "description": "The map of world leaders: the face, the office and the date of accession of the person who actually leads each country, from the longest-serving to the most recent.",
         },
         "entreprises": {
             "slug": "listed-companies",
@@ -661,7 +695,7 @@ MODELE_METRO = """<!DOCTYPE html>
   <link rel="stylesheet" href="{base}assets/css/style.css">
   <script src="{base}assets/js/theme.js"></script>
 </head>
-<body class="page-carte page-carte--osm{satellite}" data-indicateur="{indicateur}" data-langue="{code}" data-base="{base}">
+<body class="page-carte{osm}{satellite}" data-indicateur="{indicateur}" data-langue="{code}" data-base="{base}">
 
 {entete}
   <div class="zone-carte">
@@ -1008,6 +1042,7 @@ def page_carte(langue, id_carte):
             entete=entete(langue, ("carte", id_carte)),
             h1=echapper(carte["nom"]),
             moteur=MOTEURS[id_carte],
+            osm=" page-carte--osm" if id_carte in CARTES_SATELLITE else "",
             satellite=" page-carte--satellite" if id_carte in CARTES_SATELLITE else "",
             scripts_fond="".join(
                 '  <script src="%sassets/js/%s"></script>\n' % (base, f)

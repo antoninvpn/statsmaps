@@ -412,6 +412,7 @@
 
     carte.on("load", function () {
       if (fond && fond.satellite) window.StatsMapsSatellite.ajouterMention();
+      if (fond && window.StatsMapsFrontieres) window.StatsMapsFrontieres.poser(carte, "points");
       brancherInteractions();
       dessinerLegende();
     });
@@ -904,7 +905,10 @@
   window.addEventListener("statsmaps:theme", function () {
     if (!carte || !geoPaysGarde) return;
     telechargerStyle(themeSombre() ? "sombre" : "clair").then(function (fond) {
-      carte.setStyle(fabriquerStyle(fond, geoPaysGarde, geoFrontieresGarde));
+      carte.once("style.load", function () {
+        if (fond && window.StatsMapsFrontieres) window.StatsMapsFrontieres.poser(carte, "points");
+      });
+      carte.setStyle(fabriquerStyle(fond, geoPaysGarde, geoFrontieresGarde), { diff: false });
       dessinerLegende();
     });
   });

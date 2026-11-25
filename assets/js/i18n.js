@@ -140,11 +140,12 @@ window.StatsMapsTextes = {
 
     /* La légende */
     metro_leg_ville: "Ville avec un métro",
+    metro_leg_station: "Station (quand on zoome)",
     metro_leg_chantier: "Premier métro en construction",
     metro_leg_pointilles: "Ligne en construction",
     metro_leg_couleurs: "Chaque ligne dans sa couleur officielle",
     metro_leg_zoom: "La taille de la pastille suit la longueur du réseau. Zoome pour voir les tracés au détail près, station par station.",
-    metro_source: "Tracés, couleurs, stations : OpenStreetMap · Noms, ouverture, fréquentation : Wikidata · Fond de carte : OpenStreetMap, via OpenFreeMap",
+    metro_source: "Tracés, couleurs, stations : OpenStreetMap · Noms, ouverture, fréquentation : Wikidata · Photos satellite et noms des lieux : Esri",
 
     /* --- La carte des entreprises cotées ------------------------------------
        Des points sur les sièges, et un panneau de cases à cocher : les
@@ -203,6 +204,23 @@ window.StatsMapsTextes = {
     bourse_sec_services: "Services aux entreprises",
     bourse_sec_conglomerat: "Conglomérats & holdings",
     bourse_sec_autre: "Autre ou non renseigné",
+
+    /* --- La carte des dirigeants ---------------------------------------------- */
+    dir_titre: "Dirigeants",
+    dir_compteur: "{n} pays · du plus ancien au plus récent",
+    dir_recherche: "Rechercher un pays, un nom…",
+    dir_date_inconnue: "date inconnue",
+    dir_depuis: "Au pouvoir depuis le {d}",
+    dir_moins_dun_an: "moins d’un an",
+    dir_un_an: "1 an",
+    dir_n_ans: "{n} ans",
+    dir_photo: "Photo :",
+    dir_leg_titre: "Qui dirige ?",
+    dir_leg_h: "Homme",
+    dir_leg_f: "Femme",
+    dir_leg_nd: "Pas d’État souverain",
+    dir_leg_note: "Celui ou celle qui exerce vraiment le pouvoir, d’après Wikipédia : pas toujours le chef de l’État. Zoome pour voir les petits pays.",
+    dir_source: 'Dirigeants et dates : Wikipédia (<a href="https://en.wikipedia.org/wiki/List_of_current_heads_of_state_and_government" target="_blank" rel="noopener">qui</a>, <a href="https://en.wikipedia.org/wiki/List_of_current_state_leaders_by_date_of_assumption_of_office" target="_blank" rel="noopener">depuis quand</a>), <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA</a> · Femme ou homme : Wikidata · Photos : Wikimedia Commons, auteur dans chaque fiche',
   },
 
   en: {
@@ -289,11 +307,12 @@ window.StatsMapsTextes = {
     metro_ses_lignes: "Its lines, in their official colours",
     metro_ses_chantiers: "Some sections are under construction (dotted on the map).",
     metro_leg_ville: "City with a metro",
+    metro_leg_station: "Station (when zoomed in)",
     metro_leg_chantier: "First metro under construction",
     metro_leg_pointilles: "Line under construction",
     metro_leg_couleurs: "Each line in its official colour",
     metro_leg_zoom: "The size of the dot follows the length of the network. Zoom in to see the lines in detail, station by station.",
-    metro_source: "Lines, colours, stations: OpenStreetMap · Names, opening, ridership: Wikidata · Map: OpenStreetMap, via OpenFreeMap",
+    metro_source: "Lines, colours, stations: OpenStreetMap · Names, opening, ridership: Wikidata · Satellite imagery and place names: Esri",
 
     /* La carte des entreprises cotées */
     bourse_titre: "Listed companies",
@@ -348,6 +367,23 @@ window.StatsMapsTextes = {
     bourse_sec_services: "Business services",
     bourse_sec_conglomerat: "Conglomerates & holdings",
     bourse_sec_autre: "Other or not specified",
+
+    /* --- The leaders map ------------------------------------------------------ */
+    dir_titre: "Leaders",
+    dir_compteur: "{n} countries · longest-serving first",
+    dir_recherche: "Search a country, a name…",
+    dir_date_inconnue: "date unknown",
+    dir_depuis: "In power since {d}",
+    dir_moins_dun_an: "less than a year",
+    dir_un_an: "1 year",
+    dir_n_ans: "{n} years",
+    dir_photo: "Photo:",
+    dir_leg_titre: "Who leads?",
+    dir_leg_h: "Man",
+    dir_leg_f: "Woman",
+    dir_leg_nd: "Not a sovereign state",
+    dir_leg_note: "The person who actually holds power, according to Wikipedia: not always the head of state. Zoom in to see small countries.",
+    dir_source: 'Leaders and dates: Wikipedia (<a href="https://en.wikipedia.org/wiki/List_of_current_heads_of_state_and_government" target="_blank" rel="noopener">who</a>, <a href="https://en.wikipedia.org/wiki/List_of_current_state_leaders_by_date_of_assumption_of_office" target="_blank" rel="noopener">since when</a>), <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA</a> · Gender: Wikidata · Photos: Wikimedia Commons, author in each card',
   },
 };
 

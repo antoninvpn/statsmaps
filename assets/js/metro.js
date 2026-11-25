@@ -51,13 +51,11 @@
      mètre près ne se verrait pas et coûterait plusieurs mégaoctets. */
   var ZOOM_LIGNES = 7;
 
-  /* LE FOND DE CARTE (demande d'Antonin du 21 novembre 2026) : le même que
-     sur la carte des entreprises cotées (voir assets/js/bourse.js), une carte
-     détaillée tirée d'OpenStreetMap, servie gratuitement, sans compte ni
-     publicité, par OpenFreeMap : « Liberty » en thème clair, « Dark » en
-     thème sombre. On voit ainsi les rues, les fleuves et les quartiers sous
-     les lignes de métro. Si OpenFreeMap ne répond pas, la carte s'affiche
-     quand même, avec les pays du site en gris, comme avant. */
+  /* LE FOND DE CARTE : le même que sur la carte des entreprises cotées, des
+     photos satellite (Esri, voir fond-satellite.js), demandées par Antonin le
+     25 novembre 2026. Si Esri ne répond pas : la carte OpenStreetMap
+     d'OpenFreeMap. Et si elle ne répond pas non plus, les pays du site en
+     gris. */
   var STYLES = {
     clair: "https://tiles.openfreemap.org/styles/liberty",
     /* En mode sombre aussi, la carte CLAIRE : le fond « Dark » ne plaisait
@@ -75,6 +73,11 @@
 
   /* Le zoom auquel on arrive quand on choisit une ville. */
   var ZOOM_VILLE = 10.4;
+
+  /* Les stations : les points apparaissent à partir du premier zoom, leurs
+     noms à partir du second (avant, ils se marcheraient dessus). */
+  var ZOOM_STATIONS = 10.8;
+  var ZOOM_NOMS_STATIONS = 12.3;
 
   /* La couleur des chantiers : le orange des panneaux de travaux. Elle sert
      aux pastilles des villes qui construisent leur premier métro, aux tracés
@@ -198,14 +201,21 @@
     return parseInt(m[1], 16) + parseInt(m[2], 16) + parseInt(m[3], 16) < 300;
   }
 
-  /* Le style d'OpenFreeMap, téléchargé une fois par thème puis gardé. */
+  /* Le fond de carte, téléchargé une fois par thème puis gardé : le satellite
+     (voir fond-satellite.js), ou à défaut OpenFreeMap. */
   var stylesTelecharges = {};
   function telechargerStyle(theme) {
     if (!stylesTelecharges[theme]) {
-      stylesTelecharges[theme] = fetch(STYLES[theme])
-        .then(function (r) {
-          if (!r.ok) throw new Error(STYLES[theme] + " : " + r.status);
-          return r.json();
+      var satellite = window.StatsMapsSatellite
+        ? window.StatsMapsSatellite.telecharger(langue, true)
+        : Promise.reject(new Error("pas de fond satellite"));
+      stylesTelecharges[theme] = satellite
+        .catch(function (e) {
+          console.warn("[StatsMaps] satellite :", e.message);
+          return fetch(STYLES[theme]).then(function (r) {
+            if (!r.ok) throw new Error(STYLES[theme] + " : " + r.status);
+            return r.json();
+          });
         })
         .catch(function (e) {
           console.error("[StatsMaps] fond de carte :", e);
@@ -246,6 +256,7 @@
       };
     }
     var style = JSON.parse(JSON.stringify(fond));
+    delete style.satellite;  /* notre marque, que MapLibre ne connaît pas */
     style.layers = style.layers.filter(function (couche) {
       return couche["source-layer"] !== "boundary";  /* leurs frontières */
     }).map(function (couche) {
@@ -374,6 +385,7 @@
     });
 
     carte.on("load", function () {
+      if (fond && fond.satellite) window.StatsMapsSatellite.ajouterMention();
       ajouterCouches();
       brancherInteractions();
       chargerCeQuOnVoit();
@@ -389,20 +401,23 @@
      données déjà là (aperçu, tracés téléchargés, ville choisie). */
   function ajouterCouches() {
     var geoPays = geoPaysGarde;
+    var satellite = !!(fondActuel && fondActuel.satellite);
     carte.addSource("pays", { type: "geojson", data: geoPays, promoteId: "iso" });
     carte.addSource("frontieres", { type: "geojson", data: geoFrontieresGarde || geoPays });
     carte.addSource("apercu", { type: "geojson", data: videGeoJSON() });
     carte.addSource("traces", { type: "geojson", data: videGeoJSON() });
     carte.addSource("chantiers", { type: "geojson", data: videGeoJSON() });
+    carte.addSource("stations", { type: "geojson", data: videGeoJSON() });
     carte.addSource("villes", { type: "geojson", data: villesGeoJSON(), promoteId: "s" });
 
     if (fondActuel) {
-      /* Sur le fond d'OpenStreetMap : seulement les frontières du site, un
-         trait fin et discret, comme sur la carte des entreprises. */
+      /* Sur une photo ou sur OpenStreetMap : seulement les frontières du site,
+         un trait fin et discret, comme sur la carte des entreprises. Blanches
+         sur les photos, grises sur OpenStreetMap. */
       carte.addLayer({
         id: "pays-contour", type: "line", source: "frontieres",
         paint: {
-          "line-color": "#7d8699",  /* la carte est toujours claire */
+          "line-color": satellite ? "rgba(255, 255, 255, 0.75)" : "#7d8699",
           "line-width": ["interpolate", ["linear"], ["zoom"], 1, 0.6, 6, 1.3, 12, 2],
           "line-opacity": ["interpolate", ["linear"], ["zoom"], 1, 0.9, 12, 0.75],
         },
@@ -420,6 +435,14 @@
       });
     }
 
+    /* Sur une photo, les noms des lieux restent AU-DESSUS des lignes (elles
+       sont glissées sous la première couche de noms), sinon elles les barrent. */
+    var sousLesNoms;
+    if (satellite) {
+      var noms = fondActuel.layers.filter(function (c) { return c.type === "symbol"; });
+      if (noms.length) sousLesNoms = noms[0].id;
+    }
+
     /* L'aperçu du monde entier : toutes les lignes de tous les métros, dans
        leur couleur, visibles dès la vue du monde. Il passe sous les tracés
        détaillés, auxquels il cède la place en fondu au zoom 7. */
@@ -431,7 +454,7 @@
         "line-width": epaisseurDeLApercu(),
         "line-opacity": disparitionDeLApercu(),
       },
-    });
+    }, sousLesNoms);
 
     /* Les chantiers passent SOUS les lignes en service : là où une extension
        prolonge une ligne existante, c'est la ligne ouverte qu'on veut voir
@@ -445,7 +468,21 @@
         "line-opacity": apparitionDesLignes(),
         "line-dasharray": [1.5, 1.3],
       },
-    });
+    }, sousLesNoms);
+
+    /* Sur une photo, un liseré blanc sous chaque ligne : sans lui, les lignes
+       foncées (bleu, vert, marron) se perdaient dans les toits et les parcs. */
+    if (satellite) {
+      carte.addLayer({
+        id: "lignes-lisere", type: "line", source: "traces",
+        layout: { "line-cap": "round", "line-join": "round" },
+        paint: {
+          "line-color": "#ffffff",
+          "line-width": epaisseurDesLignes(1.7),
+          "line-opacity": apparitionDesLignes(),
+        },
+      }, "chantiers");
+    }
 
     carte.addLayer({
       id: "lignes", type: "line", source: "traces",
@@ -455,7 +492,7 @@
         "line-width": epaisseurDesLignes(),
         "line-opacity": apparitionDesLignes(),
       },
-    });
+    }, sousLesNoms);
 
     /* La ligne survolée dans le panneau : la même, en plus épais. */
     carte.addLayer({
@@ -467,7 +504,7 @@
         "line-width": epaisseurDesLignes(2.4),
         "line-opacity": 0.45,
       },
-    });
+    }, sousLesNoms);
 
     carte.addLayer({
       id: "villes", type: "circle", source: "villes",
@@ -484,11 +521,11 @@
         "circle-stroke-width": ["case",
           ["boolean", ["feature-state", "choisie"], false], 2.6,
           [">", ["coalesce", ["get", "kmc"], 0], 0], 1.8, 1],
-        /* Sur le fond OpenStreetMap, toujours clair : contour sombre pour la
-           ville choisie, blanc sinon. Sans fond, les couleurs du thème. */
+        /* La ville choisie : contour blanc sur les photos, sombre sur le fond
+           OpenStreetMap, toujours clair. Sans fond, les couleurs du thème. */
         "circle-stroke-color": ["case",
           ["boolean", ["feature-state", "choisie"], false],
-          fondActuel ? "#16191d" : couleurCSS("--texte"),
+          satellite ? "#ffffff" : fondActuel ? "#16191d" : couleurCSS("--texte"),
           [">", ["coalesce", ["get", "kmc"], 0], 0], COULEUR_CHANTIER,
           fondActuel ? "#ffffff" : couleurCSS("--panneau")],
         "circle-stroke-opacity": ["interpolate", ["linear"], ["zoom"],
@@ -496,11 +533,62 @@
       },
     });
 
+    ajouterStations(satellite);
+
+    if (window.StatsMapsFrontieres && fondActuel) {
+      window.StatsMapsFrontieres.poser(carte, "apercu");
+    }
     if (apercu) carte.getSource("apercu").setData(apercu);
     redessinerLesTraces();
     if (villeChoisie) {
       carte.setFeatureState({ source: "villes", id: villeChoisie }, { choisie: true });
     }
+  }
+
+  /* Les stations, par-dessus les lignes : un point blanc cerclé de noir, comme
+     sur un plan de métro, plus gros quand plusieurs lignes s'y croisent. */
+  function ajouterStations(satellite) {
+    var correspondance = [">", ["get", "nb"], 1];
+    carte.addLayer({
+      id: "stations", type: "circle", source: "stations", minzoom: ZOOM_STATIONS,
+      paint: {
+        "circle-radius": ["interpolate", ["linear"], ["zoom"],
+          ZOOM_STATIONS, ["case", correspondance, 2.2, 1.5],
+          13, ["case", correspondance, 4.6, 3.2],
+          16, ["case", correspondance, 8, 6]],
+        "circle-color": "#ffffff",
+        "circle-stroke-color": "#16191d",
+        "circle-stroke-width": ["interpolate", ["linear"], ["zoom"],
+          ZOOM_STATIONS, 0.6, 13, 1.4, 16, 2.2],
+        "circle-opacity": ["interpolate", ["linear"], ["zoom"],
+          ZOOM_STATIONS, 0, ZOOM_STATIONS + 0.5, 1],
+        "circle-stroke-opacity": ["interpolate", ["linear"], ["zoom"],
+          ZOOM_STATIONS, 0, ZOOM_STATIONS + 0.5, 1],
+      },
+    });
+    if (!fondActuel) return;  /* sans fond, pas de police : pas de noms */
+    carte.addLayer({
+      id: "stations-noms", type: "symbol", source: "stations",
+      minzoom: ZOOM_NOMS_STATIONS,
+      filter: ["!=", ["get", "nom"], ""],
+      layout: {
+        "text-field": ["get", "nom"],
+        /* Chaque fond fournit sa propre police. */
+        "text-font": satellite ? ["Arial Bold"] : ["Noto Sans Bold"],
+        "text-size": ["interpolate", ["linear"], ["zoom"], ZOOM_NOMS_STATIONS, 10.5, 16, 14],
+        "text-variable-anchor": ["left", "right", "top", "bottom"],
+        "text-radial-offset": 0.75,
+        "text-max-width": 9,
+        "text-justify": "auto",
+        /* Les correspondances d'abord, quand la place manque. */
+        "symbol-sort-key": ["-", 0, ["get", "nb"]],
+      },
+      paint: {
+        "text-color": satellite ? "#ffffff" : "#16191d",
+        "text-halo-color": satellite ? "rgba(0, 0, 0, 0.85)" : "#ffffff",
+        "text-halo-width": 1.5,
+      },
+    });
   }
 
   function videGeoJSON() {
@@ -578,7 +666,7 @@
      l'ensemble à chaque ajout : c'est un tableau de quelques milliers de
      tracés, le navigateur le refabrique en quelques millisecondes. */
   function redessinerLesTraces() {
-    var lignes = [], chantiers = [];
+    var lignes = [], chantiers = [], stations = [];
     Object.keys(traces).forEach(function (slug) {
       var d = traces[slug];
       (d.lignes || []).forEach(function (l, i) {
@@ -588,6 +676,13 @@
             properties: { couleur: l.couleur, id: slug + "/" + i, ville: slug },
             geometry: { type: "LineString", coordinates: trace },
           });
+        });
+      });
+      (d.stations || []).forEach(function (s, i) {
+        stations.push({
+          type: "Feature",
+          properties: { nom: s[2], nb: s[3].length, ville: slug, i: i },
+          geometry: { type: "Point", coordinates: [s[0], s[1]] },
         });
       });
       (d.chantiers || []).forEach(function (c) {
@@ -601,6 +696,7 @@
     if (carte.getSource("traces")) {
       carte.getSource("traces").setData({ type: "FeatureCollection", features: lignes });
       carte.getSource("chantiers").setData({ type: "FeatureCollection", features: chantiers });
+      carte.getSource("stations").setData({ type: "FeatureCollection", features: stations });
     }
   }
 
@@ -616,6 +712,17 @@
     carte.on("click", "villes", function (e) {
       var f = e.features && e.features[0];
       if (f) ouvrirVille(f.properties.s, true);
+    });
+    /* Une station : son nom et ses lignes, dans une petite bulle. */
+    carte.on("mouseenter", "stations", function () {
+      carte.getCanvas().style.cursor = "pointer";
+    });
+    carte.on("mouseleave", "stations", function () {
+      carte.getCanvas().style.cursor = "";
+    });
+    carte.on("click", "stations", function (e) {
+      var f = e.features && e.features[0];
+      if (f) ouvrirStation(f.properties.ville, f.properties.i);
     });
     /* Un clic sur une ligne ouvre la ville à laquelle elle appartient : quand
        on est zoomé, la pastille de la ville est souvent hors de l'écran. */
@@ -636,11 +743,28 @@
       /* MapLibre continue de « voir » une couche rendue totalement
          transparente : sans ce tri, un clic dans le vide au-dessus d'un tracé
          d'aperçu invisible ne refermerait jamais la fiche. */
-      var couches = ["villes", "lignes", "chantiers"];
+      var couches = ["villes", "lignes", "chantiers", "stations"];
       if (carte.getZoom() < ZOOM_LIGNES + 0.4) couches.push("apercu");
       var dessus = carte.queryRenderedFeatures(e.point, { layers: couches });
       if (!dessus.length) fermerVille();
     });
+  }
+
+  function ouvrirStation(slug, i) {
+    var d = traces[slug];
+    var s = d && d.stations && d.stations[i];
+    if (!s) return;
+    if (bulle) bulle.remove();
+    var lignes = s[3].map(function (n) { return d.lignes[n]; }).filter(Boolean);
+    bulle = new maplibregl.Popup({ closeButton: false, offset: 10, maxWidth: "260px" })
+      .setLngLat([s[0], s[1]])
+      .setHTML((s[2] ? '<div class="popup__nom">' + echapper(s[2]) + "</div>" : "") +
+        '<div class="station__lignes">' + lignes.map(function (l) {
+          return '<span class="ligne-metro__pastille" style="background:' +
+            echapper(l.couleur) + ";color:" + texteSurCouleur(l.couleur) + '">' +
+            echapper(l.ref || l.nom || "") + "</span>";
+        }).join("") + "</div>")
+      .addTo(carte);
   }
 
   /* --- 6. Le panneau de gauche --------------------------------------------- */
@@ -959,6 +1083,7 @@
         couleurCSS("--accent") + '"></span>' + echapper(t("metro_leg_ville")) + "</div>" +
       '<div class="legende__ligne"><span class="legende__pastille" style="background:' +
         COULEUR_CHANTIER + '"></span>' + echapper(t("metro_leg_chantier")) + "</div>" +
+
       '<div class="legende__ligne"><span class="legende__trait legende__trait--pointille"' +
         ' style="border-color:' + COULEUR_CHANTIER + '"></span>' +
         echapper(t("metro_leg_pointilles")) + "</div>" +
