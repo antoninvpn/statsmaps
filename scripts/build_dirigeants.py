@@ -81,11 +81,21 @@ CORRECTIONS = {
             "titre": "Secretary for Foreign and Political Affairs"},
 }
 
-# Vladimir Poutine : voir plus bas.
-PHOTO_DE_WIKIPEDIA = {"Q7747"}
+# Les dates choisies à la main. La clef est la PERSONNE, pas le pays : le jour
+# où quelqu'un d'autre dirige, sa correction ne sert plus.
+DATES_CHOISIES = {
+    # Madagascar : Randrianirina prend le pouvoir le 14 octobre 2025, et prête
+    # serment le 17 (la date de Wikipédia). Antonin a choisi le 14.
+    "Q136500275": "2025-10-14",
+}
+
+# Les photos d'origine russe acceptées par Antonin, une par une :
+# Vladimir Poutine et Michael Randrianirina (Madagascar).
+PHOTO_DE_WIKIPEDIA = {"Q7747", "Q136500275"}
 
 # Une photo choisie à la main : identifiant Wikidata -> fichier de Commons.
 CHOIX_DE_PHOTO = {
+    "Q136500275": "Michael Randrianirina in February 2026.jpg",
     "Q2866": "Alexander Lukashenko 2020.jpg",   # département d'État américain
 }
 
@@ -532,8 +542,8 @@ def main():
         bonne = lambda n: (images.get(propre(n)) and images[propre(n)]["vignette"]
                            and not images[propre(n)]["russe"])
         bonnes = [n for n in candidates if n and bonne(n)]
-        # Pour le dirigeant de la Russie, la photo de Wikipédia convient
-        # (accord d'Antonin, 25 novembre 2026).
+        # Sauf pour ceux-ci, dont la photo de Wikipédia convient (accord
+        # d'Antonin, 25 novembre 2026).
         if not bonnes and q in PHOTO_DE_WIKIPEDIA:
             bonnes = [n for n in candidates if n and images.get(propre(n))]
         if not bonnes:
@@ -561,7 +571,7 @@ def main():
             "q": q, "fr": i.get("fr") or article, "en": i.get("en") or article,
             "g": i.get("g"), "ne": i.get("ne"),
             "titre": {"en": titre, "fr": titre_francais(titre, i.get("g")) or titre},
-            "depuis": dates.get((q, iso)), "couleur": couleur,
+            "depuis": DATES_CHOISIES.get(q) or dates.get((q, iso)), "couleur": couleur,
         }
         if titre not in TITRES:
             sans_titre.add(titre)

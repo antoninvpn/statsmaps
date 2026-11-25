@@ -2608,11 +2608,22 @@
 },
 "MDG": {
 "couleur": "bleu",
-"depuis": "2025-10-17",
+"depuis": "2025-10-14",
 "en": "Michael Randrianirina",
 "fr": "Michael Randrianirina",
 "g": "h",
 "ne": "1974-00-00",
+"photo": {
+"auteur": "Presidential Executive Office of Russia",
+"licence": "CC BY 4.0",
+"page": "https://commons.wikimedia.org/wiki/File:Michael_Randrianirina_in_February_2026.jpg",
+"visage": [
+0.549,
+0.355,
+0.502,
+0.381
+]
+},
 "q": "Q136500275",
 "titre": {
 "en": "President of the Council of the Presidency for the Re-Foundation of the Republic",
