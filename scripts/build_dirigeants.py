@@ -121,10 +121,23 @@ CHOIX_DE_PHOTO = {
     "Q2866": "Alexander Lukashenko 2020.jpg",   # département d'État américain
 }
 
-# Pas de photo libre et authentifiée : la calligraphie de son nom à la place, et
-# un lien vers sa page Wikipédia (choix d'Antonin, 25 novembre 2026). La photo
-# de Wikipédia n'est pas libre (« fair use ») : ne pas la copier.
-CALLIGRAPHIES = {"Q24237654": "Hibatullah Akhundzada OCS wordmark.png"}
+# Pas de photo : la calligraphie de son nom à la place, et un lien vers sa page
+# Wikipédia. Vide aujourd'hui. Pour revenir à la calligraphie en Afghanistan,
+# retirer Akhundzada de PHOTOS_NON_LIBRES et remettre ici :
+#   "Q24237654": "Hibatullah Akhundzada OCS wordmark.png"
+CALLIGRAPHIES = {}
+
+# Les photos non libres qu'Antonin a choisi de publier quand même (25 novembre
+# 2026). Elles ne sont pas sur Commons : les fichiers sont rangés à la main dans
+# data/dirigeants/, et le robot n'y touche pas. La bulle prévient le visiteur.
+PHOTOS_NON_LIBRES = {
+    # Afghanistan : Hibatullah Akhundzada, photo jamais authentifiée, diffusée
+    # par les talibans en mai 2016.
+    "Q24237654": {
+        "page": "https://en.wikipedia.org/wiki/File:Hibatullah_Akhundzada.jpg",
+        "visage": [0.535, 0.515, 0.42, 0.42],
+    },
+}
 
 # Le titre en français. Une femme : la seconde forme.
 TITRES = {
@@ -605,7 +618,10 @@ def main():
         if not fiche["depuis"]:
             sans_date.append(pays[iso]["fr"])
         image = images.get(propre(i.get("photo")))
-        if image and image["vignette"]:
+        if q in PHOTOS_NON_LIBRES:
+            if all(os.path.exists(os.path.join(PHOTOS, p + q + ".jpg")) for p in ("", "g-")):
+                fiche["photo"] = dict(PHOTOS_NON_LIBRES[q], nonlibre=True)
+        elif image and image["vignette"]:
             nom = "%s.jpg" % q
             chemin = os.path.join(PHOTOS, nom)
             meme = (ancien.get(iso, {}).get("photo") or {}).get("page") == image["page"]

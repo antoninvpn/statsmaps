@@ -445,15 +445,17 @@
   function ouvrirBulle(iso, place) {
     var d = dirigeants[iso];
     var sansPhoto = d.photo && d.photo.calligraphie;
+    var nonLibre = d.photo && d.photo.nonlibre;   /* droits inconnus : on le dit */
     var wiki = d.wiki && (d.wiki[langue] || d.wiki.en);
     var credit = d.photo
       ? '<div class="dirigeant__credit">' +
           (sansPhoto ? echapper(t("dir_sans_photo")) +
             (wiki ? ' <a href="' + echapper(wiki) + '" target="_blank" rel="noopener">' +
               echapper(t("dir_voir_wiki")) + "</a>" : "") + "<br>" : "") +
+          (nonLibre ? echapper(t("dir_photo_incertaine")) + "<br>" : "") +
           echapper(t(sansPhoto ? "dir_calligraphie" : "dir_photo")) + " " +
-          echapper(d.photo.auteur || "Wikimedia Commons") + ' · <a href="' + echapper(d.photo.page) +
-          '" target="_blank" rel="noopener">' + echapper(d.photo.licence || "Commons") + "</a></div>"
+          echapper(nonLibre ? t("dir_auteur_inconnu") : d.photo.auteur || "Wikimedia Commons") + ' · <a href="' + echapper(d.photo.page) +
+          '" target="_blank" rel="noopener">' + echapper(nonLibre ? t("dir_wikipedia") : d.photo.licence || "Commons") + "</a></div>"
       : "";
     bulle = new maplibregl.Popup({ closeButton: true, offset: 8, maxWidth: "300px" })
       .setLngLat(place)

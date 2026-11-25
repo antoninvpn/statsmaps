@@ -9,18 +9,19 @@
 "g": "h",
 "ne": "1967-10-19",
 "photo": {
-"auteur": "Office of the Chief of Staff to the Prime Minister of Afghanistan",
-"calligraphie": true,
-"licence": "Public domain",
-"page": "https://commons.wikimedia.org/wiki/File:Hibatullah_Akhundzada_OCS_wordmark.png"
+"nonlibre": true,
+"page": "https://en.wikipedia.org/wiki/File:Hibatullah_Akhundzada.jpg",
+"visage": [
+0.535,
+0.515,
+0.42,
+0.42
+]
 },
 "q": "Q24237654",
 "titre": {
 "en": "Supreme Leader",
 "fr": "Guide suprême"
-},
-"wiki": {
-"en": "https://en.wikipedia.org/wiki/Hibatullah_Akhundzada"
 }
 },
 "AGO": {

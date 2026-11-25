@@ -220,12 +220,15 @@ window.StatsMapsTextes = {
     dir_sans_photo: "Aucune photo libre authentifiée.",
     dir_voir_wiki: "Voir sa page Wikipédia",
     dir_calligraphie: "Son nom en calligraphie :",
+    dir_photo_incertaine: "Photo non authentifiée, droits non établis.",
+    dir_auteur_inconnu: "auteur inconnu, diffusée par les talibans (2016)",
+    dir_wikipedia: "Wikipédia",
     dir_leg_titre: "Qui dirige ?",
     dir_leg_h: "Homme",
     dir_leg_f: "Femme",
     dir_leg_nd: "Pas d’État souverain",
     dir_leg_note: "Celui ou celle qui exerce vraiment le pouvoir, d’après Wikipédia : pas toujours le chef de l’État. Zoome pour voir les petits pays.",
-    dir_source: 'Dirigeants et dates : Wikipédia (<a href="https://en.wikipedia.org/wiki/List_of_current_heads_of_state_and_government" target="_blank" rel="noopener">qui</a>, <a href="https://en.wikipedia.org/wiki/List_of_current_state_leaders_by_date_of_assumption_of_office" target="_blank" rel="noopener">depuis quand</a>), <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA</a> · Femme ou homme : Wikidata · Photos : Wikimedia Commons, auteur dans chaque fiche',
+    dir_source: 'Dirigeants et dates : Wikipédia (<a href="https://en.wikipedia.org/wiki/List_of_current_heads_of_state_and_government" target="_blank" rel="noopener">qui</a>, <a href="https://en.wikipedia.org/wiki/List_of_current_state_leaders_by_date_of_assumption_of_office" target="_blank" rel="noopener">depuis quand</a>), <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA</a> · Femme ou homme : Wikidata · Photos : Wikimedia Commons sauf mention contraire, auteur dans chaque fiche',
   },
 
   en: {
@@ -388,12 +391,15 @@ window.StatsMapsTextes = {
     dir_sans_photo: "No free, authenticated photo.",
     dir_voir_wiki: "See the Wikipedia page",
     dir_calligraphie: "Name in calligraphy:",
+    dir_photo_incertaine: "Unauthenticated photo, rights not established.",
+    dir_auteur_inconnu: "author unknown, released by the Taliban (2016)",
+    dir_wikipedia: "Wikipedia",
     dir_leg_titre: "Who leads?",
     dir_leg_h: "Man",
     dir_leg_f: "Woman",
     dir_leg_nd: "Not a sovereign state",
     dir_leg_note: "The person who actually holds power, according to Wikipedia: not always the head of state. Zoom in to see small countries.",
-    dir_source: 'Leaders and dates: Wikipedia (<a href="https://en.wikipedia.org/wiki/List_of_current_heads_of_state_and_government" target="_blank" rel="noopener">who</a>, <a href="https://en.wikipedia.org/wiki/List_of_current_state_leaders_by_date_of_assumption_of_office" target="_blank" rel="noopener">since when</a>), <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA</a> · Gender: Wikidata · Photos: Wikimedia Commons, author in each card',
+    dir_source: 'Leaders and dates: Wikipedia (<a href="https://en.wikipedia.org/wiki/List_of_current_heads_of_state_and_government" target="_blank" rel="noopener">who</a>, <a href="https://en.wikipedia.org/wiki/List_of_current_state_leaders_by_date_of_assumption_of_office" target="_blank" rel="noopener">since when</a>), <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA</a> · Gender: Wikidata · Photos: Wikimedia Commons unless otherwise stated, author in each card',
   },
 };
 
