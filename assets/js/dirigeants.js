@@ -364,7 +364,12 @@
     if (voler && window.innerWidth <= 860) basculerTiroir(false);
     else if (boite) {
       var li = document.querySelector('[data-iso="' + iso + '"]');
-      if (li && !voler) li.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      /* On fait défiler la LISTE seule : scrollIntoView() peut faire glisser
+         toute la page avec elle. */
+      if (li && !voler) {
+        var haut = li.getBoundingClientRect().top - liste.getBoundingClientRect().top;
+        liste.scrollTo({ top: liste.scrollTop + haut - liste.clientHeight / 2 + 30, behavior: "smooth" });
+      }
     }
   }
 

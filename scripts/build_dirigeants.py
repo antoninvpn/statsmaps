@@ -87,6 +87,9 @@ DATES_CHOISIES = {
     # Madagascar : Randrianirina prend le pouvoir le 14 octobre 2025, et prête
     # serment le 17 (la date de Wikipédia). Antonin a choisi le 14.
     "Q136500275": "2025-10-14",
+    # Syrie : Ahmed al-Charaa dirige le pays depuis la chute d'Assad. Wikipédia
+    # compte aussi ses années à la tête du « Gouvernement de salut », à Idleb.
+    "Q7934206": "2024-12-08",
 }
 
 # Les photos d'origine russe acceptées par Antonin, une par une :
