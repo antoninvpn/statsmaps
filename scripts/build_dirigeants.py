@@ -102,12 +102,15 @@ PHOTO_DE_WIKIPEDIA = {"Q7747", "Q136500275"}
 
 # Une photo choisie à la main : identifiant Wikidata -> fichier de Commons.
 CHOIX_DE_PHOTO = {
+    "Q98497406": "Assimi Goita, August 2021 (cropped II).png",  # Voice of America
     "Q136500275": "Michael Randrianirina in February 2026.jpg",
     "Q2866": "Alexander Lukashenko 2020.jpg",   # département d'État américain
 }
 
-# Pas une vraie photo (une calligraphie de son nom, pour Akhundzada).
-SANS_PHOTO = {"Q24237654"}
+# Pas de photo libre et authentifiée : la calligraphie de son nom à la place, et
+# un lien vers sa page Wikipédia (choix d'Antonin, 25 novembre 2026). La photo
+# de Wikipédia n'est pas libre (« fair use ») : ne pas la copier.
+CALLIGRAPHIES = {"Q24237654": "Hibatullah Akhundzada OCS wordmark.png"}
 
 # Le titre en français. Une femme : la seconde forme.
 TITRES = {
@@ -558,7 +561,10 @@ def main():
             images.update(photos([n for n in autres if propre(n) not in images]))
             bonnes = [n for n in autres if bonne(n)]
             dit("    %s : photo russe ou absente -> %s" % (i["fr"], bonnes[0] if bonnes else "RIEN"))
-        i["photo"] = bonnes[0] if bonnes and q not in SANS_PHOTO else None
+        if q in CALLIGRAPHIES:
+            images.update(photos([CALLIGRAPHIES[q]]))
+            bonnes = [CALLIGRAPHIES[q]]
+        i["photo"] = bonnes[0] if bonnes else None
 
     ancien = {}
     if os.path.exists(SORTIE):
@@ -595,7 +601,14 @@ def main():
                         telecharger_photo(image["vignette"].replace("/250px-", "/500px-"), grande)):
                 fiche["photo"] = {"page": image["page"], "auteur": image["auteur"],
                                   "licence": image["licence"]}
-                if image["page"] in cadrages:
+                if q in CALLIGRAPHIES:
+                    fiche["photo"]["calligraphie"] = True
+                    fiche["wiki"] = {
+                        l: "https://%s.wikipedia.org/wiki/%s" % (
+                            l, urllib.parse.quote(i["wikis"][l + "wiki"].replace(" ", "_")))
+                        # En anglais seulement : la page française n'a pas la photo.
+                        for l in ("en",) if l + "wiki" in i.get("wikis", {})}
+                elif image["page"] in cadrages:
                     fiche["photo"]["visage"] = cadrages[image["page"]]
         if "photo" not in fiche:
             sans_photo.append(pays[iso]["fr"])

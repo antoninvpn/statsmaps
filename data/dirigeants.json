@@ -8,10 +8,19 @@
 "fr": "Haibatullah Akhundzada",
 "g": "h",
 "ne": "1967-10-19",
+"photo": {
+"auteur": "Office of the Chief of Staff to the Prime Minister of Afghanistan",
+"calligraphie": true,
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Hibatullah_Akhundzada_OCS_wordmark.png"
+},
 "q": "Q24237654",
 "titre": {
 "en": "Supreme Leader",
 "fr": "Guide suprême"
+},
+"wiki": {
+"en": "https://en.wikipedia.org/wiki/Hibatullah_Akhundzada"
 }
 },
 "AGO": {
@@ -2733,6 +2742,17 @@
 "fr": "Assimi Goïta",
 "g": "h",
 "ne": "1983-11-09",
+"photo": {
+"auteur": "VOA (Moctar Barry)",
+"licence": "Public domain",
+"page": "https://commons.wikimedia.org/wiki/File:Assimi_Goita,_August_2021_(cropped_II).png",
+"visage": [
+0.498,
+0.273,
+0.202,
+0.183
+]
+},
 "q": "Q98497406",
 "titre": {
 "en": "President",

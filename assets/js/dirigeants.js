@@ -162,6 +162,15 @@
     x.fillRect(0, 0, toile.width, toile.height);
 
     var cx = (c.c[0] - c.b[0]) * ech, cy = (c.c[1] - c.b[1]) * ech, r = c.r * ech;
+    /* Pas de photo libre : la calligraphie de son nom, sur fond blanc. Le nom
+       occupe les six dixièmes de l'image, et doit tenir dans le cercle. */
+    if (d.photo.calligraphie) {
+      x.fillStyle = "#ffffff";
+      x.fillRect(0, 0, toile.width, toile.height);
+      var cote = r * 1.9 / 0.62;
+      x.drawImage(image, cx - cote / 2, cy - cote / 2, cote, cote);
+      return toile;
+    }
     var f = (d.photo && d.photo.visage) || [0.5, 0.36, 0.42, 0.34];
     /* Le visage (du menton au front) occupe presque tout le cercle. */
     var zoom = (r * 1.5) / (f[3] * image.height);
@@ -435,8 +444,14 @@
 
   function ouvrirBulle(iso, place) {
     var d = dirigeants[iso];
+    var sansPhoto = d.photo && d.photo.calligraphie;
+    var wiki = d.wiki && (d.wiki[langue] || d.wiki.en);
     var credit = d.photo
-      ? '<div class="dirigeant__credit">' + echapper(t("dir_photo")) + " " +
+      ? '<div class="dirigeant__credit">' +
+          (sansPhoto ? echapper(t("dir_sans_photo")) +
+            (wiki ? ' <a href="' + echapper(wiki) + '" target="_blank" rel="noopener">' +
+              echapper(t("dir_voir_wiki")) + "</a>" : "") + "<br>" : "") +
+          echapper(t(sansPhoto ? "dir_calligraphie" : "dir_photo")) + " " +
           echapper(d.photo.auteur || "Wikimedia Commons") + ' · <a href="' + echapper(d.photo.page) +
           '" target="_blank" rel="noopener">' + echapper(d.photo.licence || "Commons") + "</a></div>"
       : "";
@@ -444,6 +459,7 @@
       .setLngLat(place)
       .setHTML('<div class="dirigeant__bulle">' +
         (d.photo ? '<img src="' + echapper(fichierPhoto(d, true)) + '" alt="" width="84" height="104"' +
+          (sansPhoto ? ' class="est-calligraphie"' : "") +
           (d.photo.visage ? ' style="object-position:' + Math.round(d.photo.visage[0] * 100) + "% " +
             Math.round(d.photo.visage[1] * 80) + '%"' : "") + ">" : "") +
         '<div><div class="popup__nom">' + echapper(nom(d)) + "</div>" +
