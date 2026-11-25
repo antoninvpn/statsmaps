@@ -97,6 +97,14 @@ DATES_CHOISIES = {
     # Géorgie : Bidzina Ivanichvili devient Premier ministre le 25 octobre 2012,
     # et dirige de fait depuis (absent de la page des dates).
     "Q57794": "2012-10-25",
+    # Cambodge : Hun Sen, Premier ministre par intérim le 26 décembre 1984, puis
+    # en titre le 14 janvier 1985 (absent de la page des dates). Antonin a
+    # choisi le 26 décembre.
+    "Q57788": "1984-12-26",
+    # Turkménistan : Gurbanguly Berdimuhamedow, président par intérim à la mort
+    # de Niazov, et toujours aux commandes derrière son fils (absent de la page
+    # des dates).
+    "Q57530": "2006-12-21",
 }
 
 # Les photos d'origine russe acceptées par Antonin, une par une :
