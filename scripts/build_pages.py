@@ -1111,7 +1111,12 @@ def page_categorie(langue, id_categorie):
         # phrase d'introduction (demande d'Antonin du 20 novembre 2026). Le
         # « h1 » long (« L'économie mondiale, en cartes. ») et l'« intro »
         # restent écrits dans chaque langue, mais ne sont plus affichés.
-        tete='    <h1 class="accueil__titre">%s</h1>\n' % echapper(categorie["nom"]),
+        # Suivi de deux-points depuis le 25 novembre 2026 (« Économie : »), ici
+        # seulement, pas dans le menu d'accueil. En français, une espace
+        # insécable avant ; en anglais, pas d'espace.
+        tete='    <h1 class="accueil__titre">%s</h1>\n' % (
+            echapper(categorie["nom"])
+            + ("\u00a0:" if langue["hreflang"].startswith("fr") else ":")),
         vignettes="\n".join(vignettes),
         pied="",
     )
