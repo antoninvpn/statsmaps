@@ -597,6 +597,62 @@ body.page-carte .haut__langues > summary {
 }
 body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
 
+/* --- Le cristal des panneaux ----------------------------------------------
+
+   Le classement, la légende et la frise des années laissent deviner la carte
+   à travers, en clair comme en sombre : « cristal dense », choisi par Antonin
+   le 25 novembre 2026, dans la lignée des bulles de l'accueil. Il est plus
+   opaque que sur l'accueil, et flouté : il y a beaucoup de texte à lire, sur
+   des pays de toutes les couleurs.
+   On redéfinit ici les couleurs du site pour ces trois panneaux seulement :
+   tout ce qu'ils contiennent (onglets, recherche, boutons) suit. */
+.panneau, .legende, .annees {
+  --panneau-flou: rgba(255, 255, 255, 0.62);
+  --panneau: rgba(255, 255, 255, 0.75);
+  --fond-doux: rgba(255, 255, 255, 0.40);
+  --fond: rgba(255, 255, 255, 0.40);
+  --texte: #0b1220;
+  --texte-doux: #1f2a37;
+  --texte-tres-doux: #33404e;
+  --bordure: rgba(15, 30, 50, 0.16);
+  --bordure-forte: rgba(15, 30, 50, 0.34);
+  --cristal-contour: rgba(255, 255, 255, 0.80);
+  --cristal-menu: #ffffff;
+  color: var(--texte);
+}
+[data-theme="dark"] :is(.panneau, .legende, .annees) {
+  --panneau-flou: rgba(8, 18, 34, 0.60);
+  --panneau: rgba(255, 255, 255, 0.22);
+  --fond-doux: rgba(255, 255, 255, 0.10);
+  --fond: rgba(255, 255, 255, 0.10);
+  --texte: #ffffff;
+  --texte-doux: rgba(255, 255, 255, 0.88);
+  --texte-tres-doux: rgba(255, 255, 255, 0.76);
+  --bordure: rgba(255, 255, 255, 0.16);
+  --bordure-forte: rgba(255, 255, 255, 0.45);
+  --cristal-contour: rgba(255, 255, 255, 0.34);
+  --cristal-menu: #101c30;
+}
+/* Les cartes sur fond OpenStreetMap restent claires même la nuit : le cristal
+   y est plus foncé, sinon le texte blanc ne s'y lirait pas. */
+[data-theme="dark"] .page-carte--osm :is(.panneau, .legende, .annees) { --panneau-flou: rgba(8, 18, 34, 0.80); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) :is(.panneau, .legende, .annees) {
+    --panneau-flou: rgba(8, 18, 34, 0.60);
+    --panneau: rgba(255, 255, 255, 0.22);
+    --fond-doux: rgba(255, 255, 255, 0.10);
+    --fond: rgba(255, 255, 255, 0.10);
+    --texte: #ffffff;
+    --texte-doux: rgba(255, 255, 255, 0.88);
+    --texte-tres-doux: rgba(255, 255, 255, 0.76);
+    --bordure: rgba(255, 255, 255, 0.16);
+    --bordure-forte: rgba(255, 255, 255, 0.45);
+    --cristal-contour: rgba(255, 255, 255, 0.34);
+    --cristal-menu: #101c30;
+  }
+  :root:not([data-theme="light"]) .page-carte--osm :is(.panneau, .legende, .annees) { --panneau-flou: rgba(8, 18, 34, 0.80); }
+}
+
 /* Panneau de classement, du côté où commence la lecture : à gauche partout,
    à droite en arabe. C'est le rôle de « inset-inline-start », qui veut dire
    « du côté où le texte commence » plutôt que « à gauche ». */
@@ -612,9 +668,9 @@ body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
   display: flex;
   flex-direction: column;
   background: var(--panneau-flou);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--bordure);
+  backdrop-filter: blur(10px) saturate(1.2);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+  border: 1px solid var(--cristal-contour);
   border-radius: var(--rayon);
   box-shadow: var(--ombre);
   overflow: hidden;
@@ -1049,16 +1105,21 @@ body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
   font-size: 13px;
 }
 
-/* Légende, en bas à droite */
+/* La liste qui se déroule est dessinée par le système, sans transparence :
+   il lui faut une vraie couleur de fond. */
+.cmp__select option { background: var(--cristal-menu); color: var(--texte); }
+
+/* Légende, en bas à droite. Elle s'arrête au-dessus de la petite étiquette
+   des sources (« Natural Earth · FMI »), qu'elle cachait auparavant. */
 .legende {
   position: absolute;
   inset-inline-end: 14px;
-  bottom: 14px;
+  bottom: 42px;
   padding: 12px 14px;
   background: var(--panneau-flou);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--bordure);
+  backdrop-filter: blur(10px) saturate(1.2);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+  border: 1px solid var(--cristal-contour);
   border-radius: var(--rayon);
   box-shadow: var(--ombre);
   z-index: 10;
@@ -1114,9 +1175,9 @@ body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
   width: min(460px, calc(100% - 360px));
   padding: 11px 18px 13px;
   background: var(--panneau-flou);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--bordure);
+  backdrop-filter: blur(10px) saturate(1.2);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+  border: 1px solid var(--cristal-contour);
   border-radius: var(--rayon);
   box-shadow: var(--ombre);
   z-index: 10;
@@ -1152,7 +1213,6 @@ body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
   flex-shrink: 0;
   padding: 9px 15px;
   border-top: 1px solid var(--bordure);
-  background: var(--panneau-flou);
   font-size: 11px;
   line-height: 1.45;
   color: var(--texte-tres-doux);
@@ -1200,6 +1260,17 @@ body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
 }
 .maplibregl-ctrl-group button + button { border-top: 1px solid var(--bordure) !important; }
 [data-theme="dark"] .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(0.85); }
+
+/* L'étiquette des sources, en bas à droite : blanche par défaut, elle éblouit
+   la nuit. */
+[data-theme="dark"] .maplibregl-ctrl-attrib.maplibregl-compact { background: rgba(8, 18, 34, 0.80); color: rgba(255, 255, 255, 0.85); }
+[data-theme="dark"] .maplibregl-ctrl-attrib a { color: rgba(255, 255, 255, 0.85); }
+[data-theme="dark"] .maplibregl-ctrl-attrib-button { filter: invert(1); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .maplibregl-ctrl-attrib.maplibregl-compact { background: rgba(8, 18, 34, 0.80); color: rgba(255, 255, 255, 0.85); }
+  :root:not([data-theme="light"]) .maplibregl-ctrl-attrib a { color: rgba(255, 255, 255, 0.85); }
+  :root:not([data-theme="light"]) .maplibregl-ctrl-attrib-button { filter: invert(1); }
+}
 
 /* Écran de chargement */
 .chargement {
@@ -1254,13 +1325,16 @@ body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
   }
   .panneau.est-ouvert { transform: translateY(0); }
 
+  /* Au-dessus de l'étiquette des sources, qu'on verrait sinon à travers. */
   .annees {
     width: calc(100% - 24px);
-    bottom: 12px;
+    bottom: 42px;
     left: 12px;
     right: 12px;
     transform: none;
   }
+
+  .panneau.est-ouvert ~ .annees { bottom: 12px; } /* le tiroir couvre l'étiquette */
 
   /* Sur téléphone, la légende monte en haut à droite : c'est le seul endroit
      vraiment libre, et elle ne peut donc plus chevaucher le curseur. */
