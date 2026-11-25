@@ -105,6 +105,9 @@ DATES_CHOISIES = {
     # de Niazov, et toujours aux commandes derrière son fils (absent de la page
     # des dates).
     "Q57530": "2006-12-21",
+    # Birmanie : Min Aung Hlaing prend le pouvoir par le coup d'État du 1er
+    # février 2021 ; la page des dates compte à partir du 2.
+    "Q3462649": "2021-02-01",
 }
 
 # Les photos d'origine russe acceptées par Antonin, une par une :
