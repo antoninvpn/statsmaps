@@ -67,18 +67,33 @@
     return new Intl.DateTimeFormat(langue, { day: "numeric", month: "long", year: "numeric",
       timeZone: "UTC" }).format(new Date(Date.UTC(+p[0], +p[1] - 1, +p[2])));
   }
-  function annees(iso) {
-    if (!iso) return null;
-    var p = iso.split("-"), a = new Date();
-    var n = a.getFullYear() - p[0];
-    if (a.getMonth() + 1 < +p[1] || (a.getMonth() + 1 === +p[1] && a.getDate() < +p[2])) n--;
-    return n;
+  /* Le temps passé depuis une date, en années, mois et jours pleins. */
+  function ecart(iso, jour) {
+    var p = iso.split("-").map(Number);
+    var an = jour.getFullYear() - p[0], mois = jour.getMonth() + 1 - p[1], j = jour.getDate() - p[2];
+    if (j < 0) {
+      mois--;
+      /* Le dernier « jour anniversaire » : le même quantième le mois d'avant,
+         ou le dernier jour de ce mois s'il est plus court (31 -> 28 février). */
+      var dernier = new Date(jour.getFullYear(), jour.getMonth(), 0).getDate();
+      j = jour.getDate() + dernier - Math.min(p[2], dernier);
+    }
+    if (mois < 0) { mois += 12; an--; }
+    return [an, mois, j];
   }
+
+  /* « 1 an, 3 mois et 17 jours ». Ce qui vaut zéro n'est pas écrit. */
   function duree(iso) {
-    var n = annees(iso);
-    if (n === null) return "";
-    if (n < 1) return t("dir_moins_dun_an");
-    return (n === 1 ? t("dir_un_an") : t("dir_n_ans")).replace("{n}", n);
+    if (!iso) return "";
+    var e = ecart(iso, new Date());
+    if (e[0] < 0) return "";
+    var mots = ["an", "mois", "jour"].map(function (u, n) {
+      if (!e[n]) return "";
+      return e[n] + "\u00a0" + t("dir_" + u + (e[n] > 1 ? "s" : ""));
+    }).filter(Boolean);
+    if (!mots.length) return t("dir_aujourdhui");
+    var fin = mots.pop();
+    return mots.length ? mots.join(", ") + " " + t("dir_et") + " " + fin : fin;
   }
 
   var carte = null, dirigeants = {}, paysParIso = {}, formes = {}, centres = {};
@@ -372,8 +387,8 @@
         '<span class="rang">' + (d.depuis ? n + 1 : "–") + "</span>" +
         '<span class="drapeau" aria-hidden="true">' +
           window.StatsMapsDrapeau((paysParIso[iso] || {}).d) + "</span>" +
-        '<span class="nom"><b>' + echapper(nom(d)) + "</b><i>" + echapper(nomDuPays(iso)) + "</i></span>" +
-        '<span class="valeur">' + echapper(dateEcrite(d.depuis)) + "<i>" + echapper(duree(d.depuis)) + "</i></span></li>";
+        '<span class="nom"><b>' + echapper(nom(d)) + "</b><i>" + echapper(nomDuPays(iso)) + "</i><i>" + echapper(duree(d.depuis)) + "</i></span>" +
+        '<span class="valeur">' + echapper(dateEcrite(d.depuis)) + "</span></li>";
     });
     liste.innerHTML = html || '<li class="vide">' + echapper(t("aucun_resultat")) + "</li>";
     marquer();
