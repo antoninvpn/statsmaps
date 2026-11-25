@@ -560,6 +560,8 @@ body.page-carte {
    fraction de seconde, on voyait l'ancienne carte avant la nouvelle
    (remarqué par Antonin le 23 novembre 2026). */
 body.page-carte--osm .zone-carte { background: rgb(158, 189, 255); }
+/* Même chose pour le fond satellite : le bleu profond de ses océans. */
+body.page-carte--satellite .zone-carte { background: #0f2f4a; }
 body.page-carte--osm .zone-carte::before,
 body.page-carte--osm .zone-carte::after { display: none; }
 /* La carte OpenStreetMap se dessine en plusieurs temps : d'abord un fond
@@ -1260,6 +1262,40 @@ body.page-carte .maplibregl-ctrl-top-right { top: 48px; }
 }
 .maplibregl-ctrl-group button + button { border-top: 1px solid var(--bordure) !important; }
 [data-theme="dark"] .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(0.85); }
+
+/* --- Les cartes sur photos satellite -------------------------------------- */
+
+/* « Powered by Esri », à droite du panneau : mention obligatoire. */
+.mention-esri {
+  position: absolute;
+  bottom: 12px;
+  inset-inline-start: 372px;
+  z-index: 5;
+  font-size: 12px;
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 0 6px rgba(0, 0, 0, 0.7);
+}
+.mention-esri a { color: inherit; text-decoration: underline; }
+/* La liste des sources est longue (deux lignes) : elle s'arrête avant la
+   mention, et la légende monte d'un cran pour lui laisser la place. */
+.page-carte--satellite .maplibregl-ctrl-attrib {
+  max-width: calc(100vw - 520px);
+  font-size: 10.5px;
+  line-height: 1.35;
+}
+.page-carte--satellite .legende { bottom: 62px; }
+/* Une photo passe derrière les panneaux, tantôt très sombre (la mer), tantôt
+   très claire (la neige) : le cristal y est un peu plus dense. */
+:root .page-carte--satellite :is(.panneau, .legende) { --panneau-flou: rgba(255, 255, 255, 0.82); }
+[data-theme="dark"] .page-carte--satellite.page-carte--osm :is(.panneau, .legende) { --panneau-flou: rgba(8, 18, 34, 0.70); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .page-carte--satellite.page-carte--osm :is(.panneau, .legende) { --panneau-flou: rgba(8, 18, 34, 0.70); }
+}
+@media (max-width: 860px) {
+  .mention-esri { inset-inline-start: 12px; }
+  .page-carte--satellite .legende { bottom: auto; }
+  .page-carte--satellite .maplibregl-ctrl-attrib { max-width: calc(100vw - 24px); }
+}
 
 /* L'étiquette des sources, en bas à droite : blanche par défaut, elle éblouit
    la nuit. */

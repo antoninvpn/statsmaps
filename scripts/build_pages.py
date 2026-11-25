@@ -112,6 +112,9 @@ CARTES = [
 LANGUES_DE = {
 }
 
+# Les cartes dont le fond est une photo satellite (assets/js/fond-satellite.js).
+CARTES_SATELLITE = {"entreprises"}
+
 # Les cartes qui ne colorient pas des pays et ont donc leur propre moteur.
 # La carte des métros dessine des lignes sur des villes : ni curseur des
 # années, ni classement de pays coloriés, ni comparateur.
@@ -658,7 +661,7 @@ MODELE_METRO = """<!DOCTYPE html>
   <link rel="stylesheet" href="{base}assets/css/style.css">
   <script src="{base}assets/js/theme.js"></script>
 </head>
-<body class="page-carte page-carte--osm" data-indicateur="{indicateur}" data-langue="{code}" data-base="{base}">
+<body class="page-carte page-carte--osm{satellite}" data-indicateur="{indicateur}" data-langue="{code}" data-base="{base}">
 
 {entete}
   <div class="zone-carte">
@@ -687,7 +690,7 @@ MODELE_METRO = """<!DOCTYPE html>
   <script src="{base}assets/js/i18n.js"></script>
   <script src="{base}assets/js/barre.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/{maplibre}/maplibre-gl.js"></script>
-  <script src="{base}assets/js/{moteur}"></script>
+{scripts_fond}  <script src="{base}assets/js/{moteur}"></script>
 </body>
 </html>
 """
@@ -1005,6 +1008,11 @@ def page_carte(langue, id_carte):
             entete=entete(langue, ("carte", id_carte)),
             h1=echapper(carte["nom"]),
             moteur=MOTEURS[id_carte],
+            satellite=" page-carte--satellite" if id_carte in CARTES_SATELLITE else "",
+            scripts_fond="".join(
+                '  <script src="%sassets/js/%s"></script>\n' % (base, f)
+                for f in ("cle-esri.js", "fond-satellite.js"))
+            if id_carte in CARTES_SATELLITE else "",
             precharge=PRECHARGES[id_carte],
         )
 

@@ -67,14 +67,12 @@
 
   /* LE FOND DE CARTE. Contrairement aux cartes du PIB, qui coloriaient des
      pays, celle-ci doit montrer OÙ est un siège : les rues, les bâtiments, les
-     parcs, les noms des lieux. Elle utilise donc une carte détaillée tirée
-     d'OpenStreetMap, servie gratuitement, sans compte ni publicité, par
-     OpenFreeMap : « Liberty » en thème clair, « Dark » en thème sombre.
-     (Une vraie vue SATELLITE n'existe pas gratuitement : les photos aériennes
-     précises appartiennent à des entreprises privées.)
-     C'est la seule carte du site qui va chercher son fond ailleurs pendant
-     qu'on la regarde. Si OpenFreeMap ne répond pas, la carte s'affiche quand
-     même, avec les pays du site en gris. */
+     parcs, les noms des lieux. Elle utilise donc des photos SATELLITE (Esri,
+     voir fond-satellite.js), choisies par Antonin le 24 novembre 2026.
+     Si Esri ne répond pas, on se rabat sur une carte détaillée tirée
+     d'OpenStreetMap, servie gratuitement et sans compte par OpenFreeMap. Et si
+     OpenFreeMap ne répond pas non plus, la carte s'affiche quand même, avec
+     les pays du site en gris. */
   var STYLES = {
     clair: "https://tiles.openfreemap.org/styles/liberty",
     /* En mode sombre aussi, la carte CLAIRE : le fond « Dark » ne plaisait
@@ -226,14 +224,21 @@
     return parseInt(m[1], 16) + parseInt(m[2], 16) + parseInt(m[3], 16) < 300;
   }
 
-  /* Le style d'OpenFreeMap, téléchargé une fois par thème puis gardé. */
+  /* Le fond de carte, téléchargé une fois par thème puis gardé : le satellite,
+     ou à défaut OpenFreeMap. */
   var stylesTelecharges = {};
   function telechargerStyle(theme) {
     if (!stylesTelecharges[theme]) {
-      stylesTelecharges[theme] = fetch(STYLES[theme])
-        .then(function (r) {
-          if (!r.ok) throw new Error(STYLES[theme] + " : " + r.status);
-          return r.json();
+      var satellite = window.StatsMapsSatellite
+        ? window.StatsMapsSatellite.telecharger(langue)
+        : Promise.reject(new Error("pas de fond satellite"));
+      stylesTelecharges[theme] = satellite
+        .catch(function (e) {
+          console.warn("[StatsMaps] satellite :", e.message);
+          return fetch(STYLES[theme]).then(function (r) {
+            if (!r.ok) throw new Error(STYLES[theme] + " : " + r.status);
+            return r.json();
+          });
         })
         .catch(function (e) {
           console.error("[StatsMaps] fond de carte :", e);
@@ -260,11 +265,14 @@
      dessus les couches du site (frontières et entreprises). On le refabrique
      entièrement au changement de thème. */
   function fabriquerStyle(fond, geoPays, geoFrontieres) {
+    var satellite = !!(fond && fond.satellite);
     var style = fond ? JSON.parse(JSON.stringify(fond)) : {
       version: 8, sources: {},
       layers: [{ id: "mer", type: "background",
                  paint: { "background-color": couleurCSS("--fond-carte") } }],
     };
+
+    delete style.satellite;  /* notre marque, que MapLibre ne connaît pas */
 
     style.layers = style.layers.filter(function (couche) {
       return couche["source-layer"] !== "boundary";  /* leurs frontières */
@@ -299,7 +307,8 @@
     style.layers.push({
       id: "pays-contour", type: "line", source: "frontieres",
       paint: {
-        "line-color": "#7d8699",  /* la carte est toujours claire */
+        /* Blanches sur les photos, grises sur OpenStreetMap. */
+        "line-color": satellite ? "rgba(255, 255, 255, 0.75)" : "#7d8699",
         "line-width": ["interpolate", ["linear"], ["zoom"], 1, 0.6, 6, 1.3, 12, 2],
         "line-opacity": ["interpolate", ["linear"], ["zoom"], 1, 0.9, 12, 0.75],
       },
@@ -349,7 +358,7 @@
         "circle-radius": ["interpolate", ["linear"], ["zoom"], 2, 8, ZOOM_LOGOS, 12, 14, 22],
         "circle-color": "rgba(0,0,0,0)",
         "circle-stroke-width": 2.5,
-        "circle-stroke-color": "#16191d",
+        "circle-stroke-color": satellite ? "#ffffff" : "#16191d",
       },
     });
 
@@ -402,6 +411,7 @@
     carte.on("styleimagemissing", dessinerUnLogo);
 
     carte.on("load", function () {
+      if (fond && fond.satellite) window.StatsMapsSatellite.ajouterMention();
       brancherInteractions();
       dessinerLegende();
     });
@@ -888,7 +898,7 @@
   }
 
   /* Le thème clair/sombre repeint la carte sans la reconstruire. */
-  /* Le thème clair/sombre change de fond de carte : « Liberty » ou « Dark ».
+  /* Le fond est le même en clair et en sombre, mais le secours peut différer.
      On refabrique le style entier ; les entreprises et la fiche
      ouverte sont gardés, et les logos se redessinent d'eux-mêmes. */
   window.addEventListener("statsmaps:theme", function () {

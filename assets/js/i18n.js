@@ -173,7 +173,7 @@ window.StatsMapsTextes = {
     bourse_leg_exact: "Siège à l’adresse exacte",
     bourse_leg_ville: "Siège connu à la ville près (placé au centre-ville)",
     bourse_leg_zoom: "Zoome pour voir les logos. Clique sur un point pour ouvrir la fiche de l’entreprise.",
-    bourse_source: "Entreprises, sièges, secteurs, chiffres : Wikidata · Logos : Wikimedia Commons · Fond de carte : OpenStreetMap, via OpenFreeMap",
+    bourse_source: "Entreprises, sièges, secteurs, chiffres : Wikidata · Logos : Wikimedia Commons · Photos satellite et noms des lieux : Esri",
     bourse_milliards: "{n} Md",
     bourse_millions: "{n} M",
 
@@ -320,7 +320,7 @@ window.StatsMapsTextes = {
     bourse_leg_exact: "Headquarters at the exact address",
     bourse_leg_ville: "Headquarters known to the city (placed in the centre)",
     bourse_leg_zoom: "Zoom in to see the logos. Click a dot to open the company’s card.",
-    bourse_source: "Companies, headquarters, sectors, figures: Wikidata · Logos: Wikimedia Commons · Map: OpenStreetMap, via OpenFreeMap",
+    bourse_source: "Companies, headquarters, sectors, figures: Wikidata · Logos: Wikimedia Commons · Satellite imagery and place names: Esri",
     bourse_milliards: "{n} bn",
     bourse_millions: "{n} m",
     bourse_sec_banque: "Banking & finance",
