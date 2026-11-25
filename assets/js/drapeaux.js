@@ -19,8 +19,9 @@
 /* À augmenter de 1 chaque fois qu'on retouche les fichiers de drapeaux : les
    navigateurs vont alors chercher les nouveaux au lieu de garder les anciens.
    2 = dessins agrandis de 5 % pour supprimer le liseré clair de Safari.
-   3 = nouveaux drapeaux de la Syrie et du Kirghizistan, et sept retouches. */
-var VERSION_DRAPEAUX = 3;
+   3 = nouveaux drapeaux de la Syrie et du Kirghizistan, et sept retouches.
+   4 = le drapeau français aux bandes exactes de flag-icons 7.6.0. */
+var VERSION_DRAPEAUX = 4;
 
 window.StatsMapsDrapeau = function (emoji) {
   if (!emoji) return "";

@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-fr" viewBox="0 0 640 480"><!-- Réécrit pour StatsMaps (23/11/2026) : trois bandes côte à côte, sans fond blanc dessous, qui débordent du cadre ; évite un liseré clair à gauche dans Safari. -->
-  <path fill="#000091" d="M-20-20h234v520h-234z"/>
-  <path fill="#fff" d="M213 -20h214v520h-214z"/>
-  <path fill="#e1000f" d="M426.7-20H660v520H426.7z"/>
+<svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-fr" viewBox="0 0 640 480"><!-- flag-icons 7.6.0 (mêmes couleurs, mêmes bandes à 213,3 et 426,7), dessiné pour StatsMaps avec des bandes qui débordent du cadre et se recouvrent : ni bord blanc à gauche dans Safari, ni jour entre les bandes. -->
+  <path fill="#e1000f" d="M-20-20h680v520H-20z"/>
+  <path fill="#fff" d="M-20-20h446.7v520H-20z"/>
+  <path fill="#000091" d="M-20-20h233.3v520H-20z"/>
 </svg>
