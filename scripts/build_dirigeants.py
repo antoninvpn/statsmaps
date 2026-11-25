@@ -90,6 +90,10 @@ DATES_CHOISIES = {
     # Syrie : Ahmed al-Charaa dirige le pays depuis la chute d'Assad. Wikipédia
     # compte aussi ses années à la tête du « Gouvernement de salut », à Idleb.
     "Q7934206": "2024-12-08",
+    # Arabie saoudite : Mohammed ben Salmane est prince héritier, la fonction
+    # affichée, depuis le 21 juin 2017. La page des dates ne donne que son poste
+    # de Premier ministre (27 septembre 2022).
+    "Q6892571": "2017-06-21",
 }
 
 # Les photos d'origine russe acceptées par Antonin, une par une :
