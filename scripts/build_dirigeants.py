@@ -108,6 +108,16 @@ DATES_CHOISIES = {
     # Birmanie : Min Aung Hlaing prend le pouvoir par le coup d'État du 1er
     # février 2021 ; la page des dates compte à partir du 2.
     "Q3462649": "2021-02-01",
+    # Ouzbékistan : Chavkat Mirzioïev, président par intérim le 8 septembre 2016,
+    # après la mort d'Islam Karimov. Son temps comme Premier ministre de Karimov
+    # ne compte pas.
+    "Q57808": "2016-09-08",
+    # Russie : Vladimir Poutine, président par intérim à la démission d'Eltsine,
+    # dont il était le Premier ministre depuis le 9 août 1999.
+    "Q7747": "1999-12-31",
+    # Azerbaïdjan : Ilham Aliyev, président après son père, dont il était le
+    # Premier ministre depuis le 4 août 2003.
+    "Q57371": "2003-10-31",
 }
 
 # Les photos d'origine russe acceptées par Antonin, une par une :
