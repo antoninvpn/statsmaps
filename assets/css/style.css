@@ -397,7 +397,7 @@ h1, h2, h3 { line-height: 1.25; margin: 0 0 0.5em; letter-spacing: -0.015em; }
    d'Antonin du 21 novembre 2026). Deux photos de la NASA, du domaine public :
    « Blue Marble » (la Terre de jour) en thème clair, « Black Marble 2016 »
    (les lumières des villes, la nuit) en thème sombre. La photo est assombrie
-   et les cases deviennent du verre dépoli, avec du texte blanc, pour rester
+   et les cases sont transparentes, avec du texte blanc ombré, pour rester
    lisibles quelle que soit la région qui passe derrière.
    La photo est posée sur un calque fixe (::before) plutôt qu'avec
    « background-attachment: fixed », que les iPhone ignorent. */
@@ -452,7 +452,6 @@ body.page-terre::before {
   background-size: 100% 100%, var(--largeur-terre) auto;
   background-position: 0 0, calc(50vw - 0.5222 * var(--largeur-terre)) 50%;
 }
-body.page-terre .vignette,
 body.page-terre .haut__langues > summary,
 body.page-terre .langues__liste,
 body.page-terre .bouton-icone {
@@ -460,8 +459,16 @@ body.page-terre .bouton-icone {
   -webkit-backdrop-filter: blur(14px) saturate(1.2);
 }
 body.page-terre .langues__liste { background: rgba(12, 22, 36, 0.82); }
-body.page-terre .vignette:hover { border-color: var(--bordure-forte); background: rgba(12, 22, 36, 0.55); }
-body.page-terre .vignette.est-bientot { background: rgba(12, 22, 36, 0.22); }
+/* Les bulles, version « Cristal » (choix d'Antonin du 25 novembre 2026, jour
+   et nuit) : pas de flou, un voile très léger, pour voir la Terre à travers.
+   L'ombre du texte le garde lisible sur les régions claires (le Sahara). */
+body.page-terre .vignette,
+body.page-terre .vignette.est-bientot {
+  background: rgba(12, 22, 36, 0.18);
+  border-color: rgba(255, 255, 255, 0.34);
+}
+body.page-terre a.vignette:hover { border-color: rgba(255, 255, 255, 0.70); background: rgba(12, 22, 36, 0.32); }
+body.page-terre .vignette__titre { text-shadow: 0 1px 3px rgba(0, 0, 0, 0.75), 0 0 12px rgba(0, 0, 0, 0.55); }
 body.page-terre .accueil__titre { text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45); }
 body.page-terre .pied { border-top: 0; }
 
