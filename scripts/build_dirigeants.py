@@ -94,6 +94,9 @@ DATES_CHOISIES = {
     # affichée, depuis le 21 juin 2017. La page des dates ne donne que son poste
     # de Premier ministre (27 septembre 2022).
     "Q6892571": "2017-06-21",
+    # Géorgie : Bidzina Ivanichvili devient Premier ministre le 25 octobre 2012,
+    # et dirige de fait depuis (absent de la page des dates).
+    "Q57794": "2012-10-25",
 }
 
 # Les photos d'origine russe acceptées par Antonin, une par une :
