@@ -8,7 +8,7 @@
 
    Comment : un émoji de drapeau est fait de deux « lettres régionales »
    (🇫 + 🇷), qui donnent le code du pays à deux lettres (« fr »). On en déduit
-   le nom du fichier : assets/drapeaux/fr.svg. Les territoires en ont deux à
+   le nom du fichier : assets/drapeaux/fr.png. Les territoires en ont deux à
    la suite (🇨🇳🇭🇰 pour Hong Kong) : on dessine alors les deux drapeaux.
 
    Les dessins viennent de « flag-icons » (licence MIT, gratuite et libre :
@@ -20,8 +20,11 @@
    navigateurs vont alors chercher les nouveaux au lieu de garder les anciens.
    2 = dessins agrandis de 5 % pour supprimer le liseré clair de Safari.
    3 = nouveaux drapeaux de la Syrie et du Kirghizistan, et sept retouches.
-   4 = le drapeau français aux bandes exactes de flag-icons 7.6.0. */
-var VERSION_DRAPEAUX = 4;
+   4 = le drapeau français aux bandes exactes de flag-icons 7.6.0.
+   5 = le même, sans le liseré clair que la 4 avait ramené dans Safari.
+   6 = des images PNG à la place des SVG (voir scripts/build_drapeaux.py) :
+       plus de liseré au bord, dans aucun navigateur, à aucun zoom. */
+var VERSION_DRAPEAUX = 6;
 
 window.StatsMapsDrapeau = function (emoji) {
   if (!emoji) return "";
@@ -34,7 +37,7 @@ window.StatsMapsDrapeau = function (emoji) {
     if (a < 0 || a > 25 || b < 0 || b > 25) continue;
     var code = String.fromCharCode(97 + a, 97 + b);
     html += '<img class="drapeau-img" src="' + base + "assets/drapeaux/" + code +
-      ".svg?v=" + VERSION_DRAPEAUX + '" alt="" width="20" height="15" loading="lazy" decoding="async">';
+      ".png?v=" + VERSION_DRAPEAUX + '" alt="" width="20" height="15" loading="lazy" decoding="async">';
   }
   return html;
 };
