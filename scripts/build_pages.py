@@ -219,8 +219,9 @@ MAPLIBRE = "5.6.1"
 #  - hreflang ......... le code que lit Google (celui de l'ukrainien est "uk",
 #                       alors que son dossier s'appelle "ua" — c'est voulu)
 #  - sens ............. "rtl" pour les langues qui s'écrivent de droite à gauche
-#  - modele_titre ..... le titre que voit Google, fabriqué à partir du champ
-#                       « par » de la carte. Écrit une fois par langue plutôt que 7 fois.
+#  - modele_titre ..... le titre de l'onglet et des résultats de Google,
+#                       fabriqué à partir du champ « par » de la carte
+#  - modele_h1 ........ le titre écrit en haut de la carte, idem Écrit une fois par langue plutôt que 7 fois.
 #  - modele_titre_categorie  idem pour les pages de rubrique, qui ne sont pas
 #                       des cartes mais des sommaires
 #  - modele_description  idem pour la phrase de résumé
@@ -257,6 +258,7 @@ LANGUES.append({
     "theme_clair": "Passer en thème clair", "theme_sombre": "Passer en thème sombre",
     "variantes_label": "Unité",
     "modele_titre": "Carte des pays par {par} — classement mondial interactif | StatsMaps",
+    "modele_h1": "Carte des pays par {par}",
     "modele_titre_categorie": "{nom} — toutes les cartes | StatsMaps",
     "modele_description": (
         "{texte} Carte interactive de 197 pays, de 1980 à 2031, à partir des données officielles du FMI (World Economic Outlook) : classement mondial et évolution année par année."),
@@ -349,7 +351,7 @@ LANGUES.append({
         "dette-publique": {
             "slug": "dette-publique",
             "nom": "Dette publique",
-            "par": "dette publique brute en pourcentage du PIB",
+            "par": "dette publique brute en pourcentage du PIB nominal",
             "nav": "Dette publique", "nav_court": "Dette",
             "texte": "La dette de l’État, en pourcentage du PIB.",
         },
@@ -377,6 +379,7 @@ LANGUES.append({
             "nom": "Métros",
             "nav": "Métros", "nav_court": "Métros",
             "texte": "Toutes les villes du monde qui ont un métro, ligne par ligne et dans leurs vraies couleurs.",
+            "h1": "Carte des métros du monde",
             "titre": "Carte des métros du monde — toutes les lignes, ville par ville | StatsMaps",
             "description": "La carte de tous les métros du monde : 200 villes, chaque ligne dans sa couleur officielle, et les tronçons en construction. Classement des pays par nombre de réseaux, kilomètres, stations et lignes.",
         },
@@ -387,6 +390,7 @@ LANGUES.append({
             "nom": "Dirigeants du monde",
             "nav": "Dirigeants", "nav_court": "Dirigeants",
             "texte": "Le visage de celui ou celle qui dirige chaque pays, et depuis quand.",
+            "h1": "Carte des dirigeants du monde",
             "titre": "Carte des dirigeants du monde — qui dirige chaque pays, et depuis quand | StatsMaps",
             "description": "La carte des dirigeants du monde : le visage, la fonction et la date d’arrivée au pouvoir de celui ou celle qui dirige vraiment chaque pays, du plus ancien au plus récent.",
         },
@@ -395,6 +399,7 @@ LANGUES.append({
             "nom": "Entreprises cotées en bourse",
             "nav": "Entreprises", "nav_court": "Entreprises",
             "texte": "Chaque entreprise cotée en bourse, à l’adresse de son siège, avec son logo.",
+            "h1": "Carte des entreprises cotées en bourse",
             "titre": "Carte des entreprises cotées en bourse — leurs sièges dans le monde | StatsMaps",
             "description": "La carte de plus de 10 000 entreprises cotées en bourse dans le monde, chacune à l’adresse de son siège social, avec son logo. Filtre par secteur (banque, médias, intelligence artificielle…) et par place boursière (New York, Paris, Tokyo…).",
         },
@@ -410,6 +415,7 @@ LANGUES.append({
     "theme_clair": "Switch to light theme", "theme_sombre": "Switch to dark theme",
     "variantes_label": "Unit",
     "modele_titre": "Map of countries by {par} — interactive world ranking | StatsMaps",
+    "modele_h1": "Map of countries by {par}",
     "modele_titre_categorie": "{nom} — all the maps | StatsMaps",
     "modele_description": (
         "{texte} An interactive map of 197 countries, from 1980 to 2031, built on official IMF data (World Economic Outlook): world ranking and year-by-year change."),
@@ -502,7 +508,7 @@ LANGUES.append({
         "dette-publique": {
             "slug": "public-debt",
             "nom": "Public debt",
-            "par": "gross public debt as a percentage of GDP",
+            "par": "gross public debt as a percentage of nominal GDP",
             "nav": "Public debt", "nav_court": "Debt",
             "texte": "Government debt, as a percentage of GDP.",
         },
@@ -526,6 +532,7 @@ LANGUES.append({
             "nom": "Metros",
             "nav": "Metros", "nav_court": "Metros",
             "texte": "Every city in the world with a metro, line by line and in its real colours.",
+            "h1": "Map of the world’s metro systems",
             "titre": "Map of the world’s metro systems — every line, city by city | StatsMaps",
             "description": "A map of every metro system in the world: 200 cities, each line in its official colour, and the sections under construction. Countries ranked by number of systems, kilometres, stations and lines.",
         },
@@ -534,6 +541,7 @@ LANGUES.append({
             "nom": "World leaders",
             "nav": "Leaders", "nav_court": "Leaders",
             "texte": "The face of the person who leads each country, and since when.",
+            "h1": "Map of world leaders",
             "titre": "Map of world leaders — who leads each country, and since when | StatsMaps",
             "description": "The map of world leaders: the face, the office and the date of accession of the person who actually leads each country, from the longest-serving to the most recent.",
         },
@@ -542,6 +550,7 @@ LANGUES.append({
             "nom": "Listed companies",
             "nav": "Companies", "nav_court": "Companies",
             "texte": "Every company listed on a stock exchange, at the address of its headquarters, with its logo.",
+            "h1": "Map of listed companies",
             "titre": "Map of listed companies — their headquarters worldwide | StatsMaps",
             "description": "A map of more than 10,000 companies listed on stock exchanges around the world, each one at the address of its headquarters, with its logo. Filter by sector (banking, media, artificial intelligence…) and by stock exchange (New York, Paris, Tokyo…).",
         },
@@ -1042,6 +1051,9 @@ def page_carte(langue, id_carte):
     # celle des métros parle de villes et porte donc le sien, écrit en toutes
     # lettres dans son bloc de langue.
     titre = carte.get("titre") or langue["modele_titre"].format(par=carte["par"])
+    # Le titre écrit en haut de la carte, bien visible : il commence lui aussi
+    # par « Carte des… », pour Google (demande d'Antonin, 26 novembre 2026).
+    h1 = carte.get("h1") or langue["modele_h1"].format(par=carte["par"])
     # Le titre partagé sur les réseaux sociaux n'a pas besoin du « | StatsMaps »
     # final : le nom du site y est déjà affiché à part.
     og_titre = titre.split(" | StatsMaps")[0]
@@ -1062,7 +1074,7 @@ def page_carte(langue, id_carte):
             indicateur=id_carte,
             code=langue["code"],
             entete=entete(langue, ("carte", id_carte)),
-            h1=echapper(carte["nom"]),
+            h1=echapper(h1),
             moteur=MOTEURS[id_carte],
             osm=" page-carte--osm" if id_carte in CARTES_SATELLITE else "",
             satellite=" page-carte--satellite" if id_carte in CARTES_SATELLITE else "",
@@ -1086,7 +1098,7 @@ def page_carte(langue, id_carte):
         indicateur=id_carte,
         code=langue["code"],
         entete=entete(langue, ("carte", id_carte)),
-        h1=echapper(carte["nom"]),
+        h1=echapper(h1),
         variantes=bascule_variantes(langue, id_carte),
     )
 

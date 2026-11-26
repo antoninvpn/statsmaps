@@ -577,6 +577,9 @@
 
   var panneau = {
     titre: document.getElementById("titre-panneau"),
+    /* Le titre écrit dans la page (« Carte des entreprises cotées en
+       bourse ») : on y revient en quittant un pays ou une entreprise. */
+    titreDeLaPage: document.getElementById("titre-panneau").textContent,
     soustitre: document.getElementById("compteur-pays"),
     recherche: document.getElementById("recherche"),
     liste: document.getElementById("classement"),
@@ -592,7 +595,7 @@
 
   function dessinerPanneau() {
     if (vue !== "classement") return;
-    panneau.titre.textContent = t("bourse_titre");
+    panneau.titre.textContent = panneau.titreDeLaPage;
     panneau.soustitre.textContent = compteur();
     panneau.retour.hidden = true;
     panneau.recherche.hidden = false;

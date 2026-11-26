@@ -771,6 +771,9 @@
 
   var panneau = {
     titre: document.getElementById("titre-panneau"),
+    /* Le titre écrit dans la page (« Carte des métros du monde ») : on y
+       revient en quittant une ville. */
+    titreDeLaPage: document.getElementById("titre-panneau").textContent,
     soustitre: document.getElementById("compteur-pays"),
     recherche: document.getElementById("recherche"),
     liste: document.getElementById("classement"),
@@ -935,7 +938,7 @@
     ligneSurvolee = null;
     surbrillance(null);
     panneau.retour.hidden = true;
-    panneau.titre.textContent = t("metro_titre");
+    panneau.titre.textContent = panneau.titreDeLaPage;
     panneau.recherche.hidden = false;
     panneau.onglets.hidden = false;
     dessinerClassement();
@@ -1113,7 +1116,7 @@
         r[0].villes.forEach(function (v) { villeParSlug[v.s] = v; });
         r[1].features.forEach(function (f) { paysParIso[f.properties.iso] = f.properties; });
 
-        panneau.titre.textContent = t("metro_titre");
+        panneau.titre.textContent = panneau.titreDeLaPage;
         panneau.recherche.placeholder = t("metro_recherche");
         panneau.retour.textContent = t("metro_retour");
         panneau.retour.hidden = true;

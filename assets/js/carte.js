@@ -1347,11 +1347,15 @@
     dessinerFichePic();
   }
 
-  /* Le titre du panneau suit l'onglet : « PIB par habitant » devient
-     « Pic — PIB par habitant » dans l'onglet Pic. */
+  /* Le titre du panneau suit l'onglet. Hors de l'onglet Pic, c'est celui de
+     la page, écrit en entier pour Google (« Carte des pays par dette publique
+     brute… », demande d'Antonin du 26 novembre 2026) ; dans l'onglet Pic,
+     « Pic — Dette publique brute ». */
+  var titreDeLaPage = (document.getElementById("titre-panneau") || {}).textContent;
   function majTitrePanneau() {
     var titre = document.getElementById("titre-panneau");
-    if (titre) titre.textContent = donnees.titre[langue] || donnees.titre.fr;
+    if (titre) titre.textContent = donnees === donneesBase && titreDeLaPage
+      ? titreDeLaPage : donnees.titre[langue] || donnees.titre.fr;
   }
 
   /* Le cadrage utilisé quand on clique sur un pays.
