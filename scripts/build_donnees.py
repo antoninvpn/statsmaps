@@ -574,6 +574,52 @@ def edition_weo(aujourd_hui):
     return aujourd_hui.year - 1, 10
 
 
+# LES CHIFFRES HORS FMI (26 novembre 2026)
+# Quand le FMI ne publie rien pour un pays, on peut ajouter un chiffre venu
+# d'ailleurs, à une condition : la bulle du pays dit d'où il vient. Il ne
+# remplace JAMAIS un chiffre du FMI : le jour où le FMI en publie un pour la
+# même année, c'est le sien qui s'affiche, et la mention disparaît.
+#
+# Venezuela : le FMI ne publie plus rien depuis des années. Le ministère de
+# l'Économie et des Finances a publié le 24 novembre 2026, dans son plan
+# « Venezuela Renace », une dette de 237,5 milliards de dollars à la fin de
+# 2025, soit « environ 242 % du PIB » (page 18 en anglais, 19 en espagnol).
+# Lien vers le document officiel, pas vers un journal (choix d'Antonin).
+# Pour la bulle en français : la version espagnole, l'originale. Attention :
+# c'est la dette de tout le secteur public, compagnie pétrolière PDVSA
+# comprise, un périmètre plus large que celui du FMI (les administrations).
+HORS_FMI = {
+    "dette-publique": {
+        "VEN": {
+            "valeurs": {"2025": 242.0},
+            "note": {
+                "fr": "Fin 2025, chiffre du ministère vénézuélien de l’Économie et des Finances (plan « Venezuela Renace », novembre 2026) : dette de tout le secteur public, PDVSA comprise. Le FMI ne publie rien.",
+                "en": "End of 2025, figure from Venezuela’s Ministry of Economy and Finance (“Venezuela Renace” plan, November 2026): debt of the whole public sector, including PDVSA. The IMF publishes no figure.",
+            },
+            "url": {
+                "fr": "https://www.mppef.gob.ve/wp-content/uploads/2026/11/Plan-Venezuela-Renace-vES.pdf#page=19",
+                "en": "https://www.mppef.gob.ve/wp-content/uploads/2026/11/Plan-Venezuela-Renace-vEN.pdf#page=18",
+            },
+        },
+    },
+}
+
+
+def ajouter_hors_fmi(fichier, valeurs):
+    """Ajoute les chiffres hors FMI aux cases que le FMI laisse vides, et
+    renvoie les mentions à afficher, pays par pays. « url » : une adresse
+    par langue."""
+    notes = {}
+    for iso, ajout in HORS_FMI.get(fichier, {}).items():
+        manquantes = {a: v for a, v in ajout["valeurs"].items()
+                      if a not in valeurs.get(iso, {})}
+        if manquantes:
+            valeurs[iso] = dict(sorted(dict(valeurs.get(iso, {}), **manquantes).items()))
+            notes[iso] = dict(ajout["note"], url=ajout["url"],
+                              annees=sorted(manquantes))
+    return notes
+
+
 def ecrire_json(nom_fichier, contenu):
     chemin = os.path.join(DOSSIER_DATA, nom_fichier)
     with open(chemin, "w", encoding="utf-8") as fichier:
@@ -685,6 +731,9 @@ def main():
                             valeurs[code_pays][annee] = valeur
                     valeurs[code_pays] = dict(sorted(valeurs[code_pays].items()))
 
+        notes = ajouter_hors_fmi(indicateur["fichier"], valeurs)
+        for par_annee in valeurs.values():
+            annees_vues.update(int(a) for a in par_annee)
         annees = sorted(annees_vues)
 
         contenu = {
@@ -699,6 +748,8 @@ def main():
             "derniere_annee_reelle": derniere_annee_reelle,
             "valeurs": valeurs,
         }
+        if notes:
+            contenu["notes"] = notes
 
         poids = ecrire_json("%s.json" % indicateur["fichier"], contenu)
         total_ko += poids

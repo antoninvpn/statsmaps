@@ -861,6 +861,14 @@
         echapper(valeurLisible(ligne.valeur, donnees)) +
         "</div>" +
         '<div class="popup__detail">' + echapper(detail) + "</div>";
+      /* Un chiffre qui ne vient pas du FMI (le Venezuela, par exemple) : on
+         dit d'où il vient. Voir HORS_FMI dans build_donnees.py. */
+      var note = donneesBase && donneesBase.notes && donneesBase.notes[iso];
+      if (note && note.annees.indexOf(String(anneeAffichee)) >= 0) {
+        contenu += '<div class="popup__detail popup__note">' + echapper(note[langue] || note.fr) +
+          ' <a href="' + echapper(note.url[langue] || note.url.fr) + '" target="_blank" rel="noopener">' +
+          t("source") + "</a></div>";
+      }
     } else {
       contenu += '<div class="popup__detail">' + t("pas_de_donnee") + "</div>";
     }

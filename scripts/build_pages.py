@@ -219,8 +219,8 @@ MAPLIBRE = "5.6.1"
 #  - hreflang ......... le code que lit Google (celui de l'ukrainien est "uk",
 #                       alors que son dossier s'appelle "ua" — c'est voulu)
 #  - sens ............. "rtl" pour les langues qui s'écrivent de droite à gauche
-#  - modele_titre ..... le titre que voit Google, fabriqué à partir du nom de
-#                       la carte. Écrit une fois par langue plutôt que 7 fois.
+#  - modele_titre ..... le titre que voit Google, fabriqué à partir du champ
+#                       « par » de la carte. Écrit une fois par langue plutôt que 7 fois.
 #  - modele_titre_categorie  idem pour les pages de rubrique, qui ne sont pas
 #                       des cartes mais des sommaires
 #  - modele_description  idem pour la phrase de résumé
@@ -232,7 +232,11 @@ MAPLIBRE = "5.6.1"
 #                       native deviendrait illisible une fois encodée par le
 #                       navigateur (%E4%B8%80%E4%BA%BA...), et où « GDP » est
 #                       de toute façon la forme employée couramment.
-#  - nom .............. le nom de la carte, pour le titre et la vignette
+#  - nom .............. le nom de la carte, pour le panneau et la vignette
+#  - par .............. la fin du titre que voit Google : « Carte des pays
+#                       par … ». Le titre commence par « Carte » pour qu'on
+#                       trouve la page en cherchant « carte de … » (demande
+#                       d'Antonin, 26 novembre 2026)
 #  - nav / nav_court .. les deux libellés du menu du haut (large / téléphone)
 #  - texte ............ la phrase de la vignette, reprise en tête de la
 #                       description que lit Google
@@ -252,7 +256,7 @@ LANGUES.append({
     "langue_label": "Langue", "retour_label": "Retour", "theme_label": "Changer de thème",
     "theme_clair": "Passer en thème clair", "theme_sombre": "Passer en thème sombre",
     "variantes_label": "Unité",
-    "modele_titre": "{nom}, par pays — carte mondiale interactive | StatsMaps",
+    "modele_titre": "Carte des pays par {par} — classement mondial interactif | StatsMaps",
     "modele_titre_categorie": "{nom} — toutes les cartes | StatsMaps",
     "modele_description": (
         "{texte} Carte interactive de 197 pays, de 1980 à 2031, à partir des données officielles du FMI (World Economic Outlook) : classement mondial et évolution année par année."),
@@ -303,48 +307,56 @@ LANGUES.append({
         "pib-nominal": {
             "slug": "pib-nominal",
             "nom": "PIB",
+            "par": "PIB",
             "nav": "PIB", "nav_court": "PIB",
             "texte": "La taille de chaque économie, en milliards de dollars courants.",
         },
         "pib-ppa": {
             "slug": "pib-ppa",
             "nom": "PIB en parité de pouvoir d’achat",
+            "par": "PIB en parité de pouvoir d’achat (PPA)",
             "nav": "PIB (PPA)", "nav_court": "PIB PPA",
             "texte": "La taille de chaque économie une fois le coût de la vie corrigé, en dollars internationaux.",
         },
         "pib-par-habitant": {
             "slug": "pib-par-habitant",
             "nom": "PIB par habitant",
+            "par": "PIB par habitant",
             "nav": "PIB par habitant", "nav_court": "PIB/hab.",
             "texte": "La richesse produite par personne, en dollars courants.",
         },
         "pib-par-habitant-ppa": {
             "slug": "pib-par-habitant-ppa",
             "nom": "PIB par habitant en parité de pouvoir d’achat",
+            "par": "PIB par habitant en parité de pouvoir d’achat (PPA)",
             "nav": "PIB par habitant (PPA)", "nav_court": "PIB/hab. PPA",
             "texte": "La richesse produite par personne une fois le coût de la vie corrigé, en dollars internationaux.",
         },
         "croissance": {
             "slug": "croissance",
             "nom": "Croissance du PIB",
+            "par": "croissance du PIB",
             "nav": "Croissance", "nav_court": "Croissance",
             "texte": "L’évolution du PIB réel d’une année sur l’autre, en pourcentage.",
         },
         "inflation": {
             "slug": "inflation",
             "nom": "Inflation",
+            "par": "taux d’inflation",
             "nav": "Inflation", "nav_court": "Inflation",
             "texte": "La hausse des prix à la consommation d’une année sur l’autre, en pourcentage.",
         },
         "dette-publique": {
             "slug": "dette-publique",
             "nom": "Dette publique",
+            "par": "dette publique brute en pourcentage du PIB",
             "nav": "Dette publique", "nav_court": "Dette",
             "texte": "La dette de l’État, en pourcentage du PIB.",
         },
         "millionnaires": {
             "slug": "millionnaires",
             "nom": "Millionnaires",
+            "par": "nombre de millionnaires",
             "nav": "Millionnaires", "nav_court": "Millionnaires",
             "texte": "Le nombre d’adultes dont la fortune dépasse un million de dollars.",
             # Pas des données du FMI : sa propre description.
@@ -353,6 +365,7 @@ LANGUES.append({
         "population": {
             "slug": "population",
             "nom": "Population",
+            "par": "population",
             "nav": "Population", "nav_court": "Population",
             "texte": "Le nombre d’habitants de chaque pays, en millions.",
         },
@@ -364,7 +377,7 @@ LANGUES.append({
             "nom": "Métros",
             "nav": "Métros", "nav_court": "Métros",
             "texte": "Toutes les villes du monde qui ont un métro, ligne par ligne et dans leurs vraies couleurs.",
-            "titre": "Les métros du monde — carte interactive de toutes les lignes | StatsMaps",
+            "titre": "Carte des métros du monde — toutes les lignes, ville par ville | StatsMaps",
             "description": "La carte de tous les métros du monde : 200 villes, chaque ligne dans sa couleur officielle, et les tronçons en construction. Classement des pays par nombre de réseaux, kilomètres, stations et lignes.",
         },
         # Comme les métros, les entreprises sont des POINTS et non des pays
@@ -374,7 +387,7 @@ LANGUES.append({
             "nom": "Dirigeants du monde",
             "nav": "Dirigeants", "nav_court": "Dirigeants",
             "texte": "Le visage de celui ou celle qui dirige chaque pays, et depuis quand.",
-            "titre": "Les dirigeants du monde — qui dirige chaque pays, et depuis quand | StatsMaps",
+            "titre": "Carte des dirigeants du monde — qui dirige chaque pays, et depuis quand | StatsMaps",
             "description": "La carte des dirigeants du monde : le visage, la fonction et la date d’arrivée au pouvoir de celui ou celle qui dirige vraiment chaque pays, du plus ancien au plus récent.",
         },
         "entreprises": {
@@ -382,7 +395,7 @@ LANGUES.append({
             "nom": "Entreprises cotées en bourse",
             "nav": "Entreprises", "nav_court": "Entreprises",
             "texte": "Chaque entreprise cotée en bourse, à l’adresse de son siège, avec son logo.",
-            "titre": "Les entreprises cotées en bourse — carte mondiale de leurs sièges | StatsMaps",
+            "titre": "Carte des entreprises cotées en bourse — leurs sièges dans le monde | StatsMaps",
             "description": "La carte de plus de 10 000 entreprises cotées en bourse dans le monde, chacune à l’adresse de son siège social, avec son logo. Filtre par secteur (banque, médias, intelligence artificielle…) et par place boursière (New York, Paris, Tokyo…).",
         },
     },
@@ -396,7 +409,7 @@ LANGUES.append({
     "langue_label": "Language", "retour_label": "Back", "theme_label": "Switch theme",
     "theme_clair": "Switch to light theme", "theme_sombre": "Switch to dark theme",
     "variantes_label": "Unit",
-    "modele_titre": "{nom} by country — interactive world map | StatsMaps",
+    "modele_titre": "Map of countries by {par} — interactive world ranking | StatsMaps",
     "modele_titre_categorie": "{nom} — all the maps | StatsMaps",
     "modele_description": (
         "{texte} An interactive map of 197 countries, from 1980 to 2031, built on official IMF data (World Economic Outlook): world ranking and year-by-year change."),
@@ -447,48 +460,56 @@ LANGUES.append({
         "pib-nominal": {
             "slug": "gdp",
             "nom": "GDP",
+            "par": "GDP",
             "nav": "GDP", "nav_court": "GDP",
             "texte": "The size of each economy, in billions of current US dollars.",
         },
         "pib-ppa": {
             "slug": "gdp-ppp",
             "nom": "GDP at purchasing power parity",
+            "par": "GDP at purchasing power parity (PPP)",
             "nav": "GDP (PPP)", "nav_court": "GDP PPP",
             "texte": "The size of each economy once the cost of living is taken into account, in international dollars.",
         },
         "pib-par-habitant": {
             "slug": "gdp-per-capita",
             "nom": "GDP per capita",
+            "par": "GDP per capita",
             "nav": "GDP per capita", "nav_court": "GDP/cap.",
             "texte": "Wealth produced per person, in current US dollars.",
         },
         "pib-par-habitant-ppa": {
             "slug": "gdp-per-capita-ppp",
             "nom": "GDP per capita at purchasing power parity",
+            "par": "GDP per capita at purchasing power parity (PPP)",
             "nav": "GDP per capita (PPP)", "nav_court": "GDP/cap. PPP",
             "texte": "Wealth produced per person once the cost of living is taken into account, in international dollars.",
         },
         "croissance": {
             "slug": "growth",
             "nom": "GDP growth",
+            "par": "GDP growth",
             "nav": "Growth", "nav_court": "Growth",
             "texte": "Year-on-year change in real GDP, as a percentage.",
         },
         "inflation": {
             "slug": "inflation",
             "nom": "Inflation",
+            "par": "inflation rate",
             "nav": "Inflation", "nav_court": "Inflation",
             "texte": "Year-on-year rise in consumer prices, as a percentage.",
         },
         "dette-publique": {
             "slug": "public-debt",
             "nom": "Public debt",
+            "par": "gross public debt as a percentage of GDP",
             "nav": "Public debt", "nav_court": "Debt",
             "texte": "Government debt, as a percentage of GDP.",
         },
         "millionnaires": {
             "slug": "millionaires",
             "nom": "Millionaires",
+            "par": "number of millionaires",
             "nav": "Millionaires", "nav_court": "Millionaires",
             "texte": "How many adults are worth more than one million dollars.",
             "description": "The number of millionaires in each country, year by year since 2011: adults whose net worth exceeds one million dollars, from Credit Suisse and then UBS (Global Wealth Report). World ranking and change over time.",
@@ -496,6 +517,7 @@ LANGUES.append({
         "population": {
             "slug": "population",
             "nom": "Population",
+            "par": "population",
             "nav": "Population", "nav_court": "Population",
             "texte": "How many people live in each country, in millions.",
         },
@@ -504,7 +526,7 @@ LANGUES.append({
             "nom": "Metros",
             "nav": "Metros", "nav_court": "Metros",
             "texte": "Every city in the world with a metro, line by line and in its real colours.",
-            "titre": "Metro systems of the world — interactive map of every line | StatsMaps",
+            "titre": "Map of the world’s metro systems — every line, city by city | StatsMaps",
             "description": "A map of every metro system in the world: 200 cities, each line in its official colour, and the sections under construction. Countries ranked by number of systems, kilometres, stations and lines.",
         },
         "dirigeants": {
@@ -512,7 +534,7 @@ LANGUES.append({
             "nom": "World leaders",
             "nav": "Leaders", "nav_court": "Leaders",
             "texte": "The face of the person who leads each country, and since when.",
-            "titre": "World leaders — who leads each country, and since when | StatsMaps",
+            "titre": "Map of world leaders — who leads each country, and since when | StatsMaps",
             "description": "The map of world leaders: the face, the office and the date of accession of the person who actually leads each country, from the longest-serving to the most recent.",
         },
         "entreprises": {
@@ -520,7 +542,7 @@ LANGUES.append({
             "nom": "Listed companies",
             "nav": "Companies", "nav_court": "Companies",
             "texte": "Every company listed on a stock exchange, at the address of its headquarters, with its logo.",
-            "titre": "Listed companies — world map of their headquarters | StatsMaps",
+            "titre": "Map of listed companies — their headquarters worldwide | StatsMaps",
             "description": "A map of more than 10,000 companies listed on stock exchanges around the world, each one at the address of its headquarters, with its logo. Filter by sector (banking, media, artificial intelligence…) and by stock exchange (New York, Paris, Tokyo…).",
         },
     },
@@ -1019,7 +1041,7 @@ def page_carte(langue, id_carte):
     # Les cartes des pays ont toutes le même titre type (« …, par pays ») ;
     # celle des métros parle de villes et porte donc le sien, écrit en toutes
     # lettres dans son bloc de langue.
-    titre = carte.get("titre") or langue["modele_titre"].format(nom=carte["nom"])
+    titre = carte.get("titre") or langue["modele_titre"].format(par=carte["par"])
     # Le titre partagé sur les réseaux sociaux n'a pas besoin du « | StatsMaps »
     # final : le nom du site y est déjà affiché à part.
     og_titre = titre.split(" | StatsMaps")[0]
