@@ -259,6 +259,7 @@ LANGUES.append({
     "variantes_label": "Unité",
     "modele_titre": "Carte des pays par {par} — classement mondial interactif | StatsMaps",
     "modele_h1": "Carte des pays par {par}",
+    "deux_points_fin": " :",
     "modele_titre_categorie": "{nom} — toutes les cartes | StatsMaps",
     "modele_description": (
         "{texte} Carte interactive de 197 pays, de 1980 à 2031, à partir des données officielles du FMI (World Economic Outlook) : classement mondial et évolution année par année."),
@@ -416,6 +417,7 @@ LANGUES.append({
     "variantes_label": "Unit",
     "modele_titre": "Map of countries by {par} — interactive world ranking | StatsMaps",
     "modele_h1": "Map of countries by {par}",
+    "deux_points_fin": ":",
     "modele_titre_categorie": "{nom} — all the maps | StatsMaps",
     "modele_description": (
         "{texte} An interactive map of 197 countries, from 1980 to 2031, built on official IMF data (World Economic Outlook): world ranking and year-by-year change."),
@@ -1054,6 +1056,10 @@ def page_carte(langue, id_carte):
     # Le titre écrit en haut de la carte, bien visible : il commence lui aussi
     # par « Carte des… », pour Google (demande d'Antonin, 26 novembre 2026).
     h1 = carte.get("h1") or langue["modele_h1"].format(par=carte["par"])
+    # Suivi de deux-points, à la française ou à l'anglaise (« Carte des pays
+    # par PIB : » ; « Map of countries by GDP: »), comme le veut Antonin.
+    # Le titre de l'onglet, lui, n'en a pas.
+    h1 += langue["deux_points_fin"]
     # Le titre partagé sur les réseaux sociaux n'a pas besoin du « | StatsMaps »
     # final : le nom du site y est déjà affiché à part.
     og_titre = titre.split(" | StatsMaps")[0]
